@@ -1,0 +1,573 @@
+%-------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%-------------------------------------------------------------------------------
+
+\documentclass{article}
+
+\usepackage{fancyhdr} % Required for custom headers
+\usepackage{lastpage} % Required to determine the last page for the footer
+\usepackage{extramarks} % Required for headers and footers
+\usepackage[usenames,dvipsnames]{color} % Required for custom colors
+\usepackage{graphicx} % Required to insert images
+\usepackage{listings} % Required for insertion of code
+\usepackage{courier} % Required for the courier font
+\usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text
+\usepackage{amsmath}
+
+
+% Margins
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1} % Line spacing
+
+% Set up the header and footer
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName} % Top left header
+\chead{\hmwkClass\ (\hmwkClassInstructor\ \hmwkClassTime): \hmwkTitle} % Top center head
+\rhead{\firstxmark} % Top right header
+\lfoot{\lastxmark} % Bottom left footer
+\cfoot{} % Bottom center footer
+\rfoot{Page\ \thepage\ of\ \protect\pageref{LastPage}} % Bottom right footer
+\renewcommand\headrulewidth{0.4pt} % Size of the header rule
+\renewcommand\footrulewidth{0.4pt} % Size of the footer rule
+
+\setlength\parindent{0pt} % Removes all indentation from paragraphs
+
+%----------------------------------------------------------------------------------------
+%	DOCUMENT STRUCTURE COMMANDS
+%	Skip this unless you know what you're doing
+%----------------------------------------------------------------------------------------
+
+% Header and footer for when a page split occurs within a problem environment
+\newcommand{\enterProblemHeader}[1]{\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak}
+
+% Header and footer for when a page split occurs between problem environments
+\newcommand{\exitProblemHeader}[1]{\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak\nobreak\extramarks{#1}{}\nobreak}
+
+\setcounter{secnumdepth}{0} % Removes default section numbers
+\newcounter{homeworkProblemCounter} % Creates a counter to keep track of the number of problems
+
+\newcommand{\homeworkProblemName}{}
+\newenvironment{homeworkProblem}[1][Problem \arabic{homeworkProblemCounter}]{ % Makes a new environment called homeworkProblem which takes 1 argument (custom name) but the default is "Problem #"
+\stepcounter{homeworkProblemCounter} % Increase counter for number of problems
+\renewcommand{\homeworkProblemName}{#1} % Assign \homeworkProblemName the name of the problem
+\section{\homeworkProblemName} % Make a section in the document with the custom problem count
+\enterProblemHeader{\homeworkProblemName} % Header and footer within the environment
+}{\exitProblemHeader{\homeworkProblemName} % Header and footer after the environment
+}
+
+% Defines the problem answer command with the content as the only argument
+\newcommand{\problemAnswer}[1]{\noindent\framebox[\columnwidth][c]{\begin{minipage}{0.98\columnwidth}#1\end{minipage}}}
+% Makes the box around the problem answer and puts the content inside }
+
+\newcommand{\homeworkSectionName}{}
+\newenvironment{homeworkSection}[1]{ % New environment for sections within homework problems, takes 1 argument - the name of the section
+\renewcommand{\homeworkSectionName}{#1} % Assign \homeworkSectionName to the name of the section from the environment argument
+\subsection{\homeworkSectionName} % Make a subsection with the custom name of the subsection
+\enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]} % Header and footer within the environment
+}{
+\enterProblemHeader{\homeworkProblemName} % Header and footer after the environment
+}
+
+%----------------------------------------------------------------------------------------
+%	NAME AND CLASS SECTION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\hmwkTitle}{Midterm} % Assignment title
+\newcommand{\hmwkDueDate}{Thursday, March 27} % Due date
+\newcommand{\hmwkClass}{Astron 702} % Course/class
+\newcommand{\hmwkClassTime}{1:20 pm} % Class/lecture time
+\newcommand{\hmwkClassInstructor}{Townsend} % Teacher/lecturer
+\newcommand{\hmwkAuthorName}{Elijah Bernstein-Cooper} % Your name
+
+%-------------------------------------------------------------------------------
+%	TITLE PAGE
+%-------------------------------------------------------------------------------
+
+\title{\vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}
+    \vspace{3in}}
+
+\author{\textbf{Elijah Bernstein-Cooper}}
+\date{\today} % Insert date here if you want it to appear below your name
+
+%-------------------------------------------------------------------------------
+
+\begin{document}
+
+\maketitle
+\newpage
+
+%===============================================================================
+%-------------------------------------------------------------------------------
+%	PROBLEM 1
+%-------------------------------------------------------------------------------
+\begin{homeworkProblem}
+
+    Using the Forward-Time Center-Space (FTCS) scheme to calculate the
+    progression of $y(x,t)$ we use the following
+
+    \begin{equation}
+        y^{n+1}_k = y^n_k - a(t^{n+1} - t^{n})  \
+        \frac{y^n_{k+1} - y^n_{k-1}}{x_{k+1} - x_{k-1}}
+    \end{equation}
+   
+    We use this scheme to calculate $y(x,t)$ on the intervals $0 < x < 1$ and
+    $0 < t < 3$ with $\delta x = 0.01$ and $\delta t = 0.005$ with periodic
+    boundary conditions. After running this simulation we find that the FTCS
+    scheme reproduces the analytic result of 
+    
+    \begin{equation} \label{eq:y}
+        y(x,t) = \sin[2 \pi (x-at)] 
+    \end{equation}
+    
+    \noindent terribly. See Figure~\ref{fig:ftcs} for snapshots of $y$ at
+    different times as a function of $x$. The numerical progression of $y(x,t)$
+    diverged.
+
+    %---------------------------------------------------------------------------
+    % FIGURE
+    \begin{figure}[!ht]
+    \begin{center}
+        \includegraphics[width=0.75\columnwidth]{q1_ftcs.png} % Example image
+
+        \caption{\label{fig:ftcs} Snapshots of $y$ at different times as a
+        function of $x$ using the FTCS scheme. The FTCS scheme reproduces the
+        analytic results Equation~\ref{eq:y} terribly. The numerical
+        progression of $y(x,t)$ diverged.}
+
+    \end{center}
+    \end{figure}
+    %---------------------------------------------------------------------------
+
+\end{homeworkProblem}
+\clearpage
+%===============================================================================
+
+
+%===============================================================================
+%-------------------------------------------------------------------------------
+%	PROBLEM 2 
+%-------------------------------------------------------------------------------
+\begin{homeworkProblem}
+
+    The Forward-Time Forward-Space (FTFS) scheme can be calculated numerically
+    by 
+
+    \begin{equation}
+        y^{n+1}_k = y^n_k - a(t^{n+1} - t^n)  \
+        \frac{y^n_{k+1} - y^n_k}{x_{k+1} - x_k}
+    \end{equation}
+
+    \noindent and the Forward-Time Backward-Space (FTFS) scheme can be
+    calculated numerically by 
+
+    \begin{equation}
+        y^{n+1}_k = y^n_k - a(t^{n+1} - t^n)  \
+        \frac{y^n_{k} - y^n_{k-1}}{x_{k} - x_{k-1}}
+    \end{equation}
+
+    We ran the numerical simulation of the progression of $y(x,t)$ using the
+    same parameters and boundaries as in Problem 1.  Figures~\ref{fig:ftfs}
+    and~\ref{fig:ftbs} show the results of the simulations.
+
+    %---------------------------------------------------------------------------
+    % FIGURE
+    \begin{figure}[!ht]
+    \begin{center}
+        \includegraphics[width=0.75\columnwidth]{q2_ftfs.png} % Example image
+
+        \caption{\label{fig:ftfs} Snapshots of $y$ at different times as a
+        function of $x$ using the FTFS scheme. The FTFS scheme reproduces the
+        analytic results Equation~\ref{eq:y} terribly given the parameters in
+        Problem 1. The numerical progression of $y(x,t)$
+        diverged.}
+
+    \end{center}
+    \end{figure}
+    %---------------------------------------------------------------------------
+    
+    %---------------------------------------------------------------------------
+    % FIGURE
+    \begin{figure}[!ht]
+    \begin{center}
+        \includegraphics[width=0.75\columnwidth]{q2_ftbs.png} % Example image
+
+        \caption{\label{fig:ftbs}Snapshots of $y$ at different times as a
+        function of $x$ using the FTBS scheme. The FTBS scheme reproduces the
+        analytic results Equation~\ref{eq:y} mildly well given the parameters in
+        Problem 1. The numerical progression of $y(x,t)$ is decreasing in
+        amplitude from the analytic result with time.}
+
+    \end{center}
+    \end{figure}
+    %---------------------------------------------------------------------------
+
+
+\end{homeworkProblem}
+\clearpage
+%===============================================================================
+
+%===============================================================================
+%-------------------------------------------------------------------------------
+%	PROBLEM 3
+%-------------------------------------------------------------------------------
+\begin{homeworkProblem}
+
+    We ran the numerical simulation of the progression of $y(x,t)$ using the
+    same parameters and boundaries as in Problem 1 except we set the flow
+    speed, $a = -1$.  Figures~\ref{fig:ftfs} and~\ref{fig:ftbs} show the
+    results of the simulations.
+
+    %---------------------------------------------------------------------------
+    % FIGURE
+    \begin{figure}[!ht]
+    \begin{center}
+        \includegraphics[width=0.75\columnwidth]{q3_ftfs.png} % Example image
+
+        \caption{\label{fig:ftfs} Snapshots of $y$ at different times as a
+        function of $x$ using the FTFS scheme. The FTFS scheme reproduces the
+        analytic results Equation~\ref{eq:y} mildly well given the parameters in
+        Problem 1. The numerical progression of $y(x,t)$ is decreasing in
+        amplitude from the analytic result with time. Because the flow speed
+        switched directions the FTFS scheme is now calculating the progression
+        of $y$ from upstream instead of downstream.}
+
+    \end{center}
+    \end{figure}
+    %---------------------------------------------------------------------------
+    
+    %---------------------------------------------------------------------------
+    % FIGURE
+    \begin{figure}[!ht]
+    \begin{center}
+        \includegraphics[width=0.75\columnwidth]{q3_ftbs.png} % Example image
+
+        \caption{\label{fig:ftbs}Snapshots of $y$ at different times as a
+        function of $x$ using the FTBS scheme. The FTBS scheme reproduces the
+        analytic results Equation~\ref{eq:y} terribly given the parameters in
+        Problem 1. The numerical progression of $y(x,t)$ diverged. Because the
+        flow speed switched directions the FTBS scheme is now calculating the
+        progression of $y$ from downstream instead of upstream.}
+
+    \end{center}
+    \end{figure}
+    %---------------------------------------------------------------------------
+
+
+
+\end{homeworkProblem}
+\clearpage
+%===============================================================================
+
+%===============================================================================
+%-------------------------------------------------------------------------------
+%	PROBLEM 4
+%-------------------------------------------------------------------------------
+\begin{homeworkProblem}
+
+    To apply a von Neumann stability analysis on the Forward-Time Forward-Space
+    (FTFS) scheme: since $x_k = k \Delta x$, the initial state at $t = 0$ can
+    be written as
+
+    \begin{equation}
+        y_k^0 = \sin[2 \pi k \Delta x]
+    \end{equation}
+
+    \noindent which we then substitute into the FTFS scheme
+
+    \begin{equation}
+        y^{n+1}_k = y^n_k + a(t^{n+1} - t^n)  \
+        \frac{y^n_{k+1} - y^n_k}{x_{k+1} - x_k}
+    \end{equation}
+
+    \noindent to get the solution after a single time-step
+
+    \begin{equation}
+        y_k^1 = \sin[2 \pi k \Delta x] - a \Delta t 
+        \frac{\sin[2 \pi (k+1) \Delta x] - \sin[2 \pi k \Delta x]}{\Delta x}
+    \end{equation}
+
+    Setting $a \Delta t / \Delta x = \alpha$ we get
+
+    \begin{equation}
+        y_k^1 = \sin[2 \pi k \Delta x] -
+        \alpha \sin[2 \pi k \Delta x + 2 \pi \Delta x ] - \sin[2 \pi k \Delta x]
+    \end{equation}
+
+    \noindent using the identity
+
+    \begin{equation}
+        \sin[\theta] \pm \sin[\phi] = 
+        2 \sin[\frac{\theta \pm \phi}{2}] \cos[\frac{\theta \mp \phi}{2}]
+    \end{equation}
+
+    \begin{equation}
+        y_k^1 = \sin[2 \pi k \Delta x] - 2 \alpha
+        \sin[\frac{2 \pi k \Delta x + 2 \pi \Delta x - 2 \pi k \Delta x}{2}] 
+        \cos[\frac{2 \pi k \Delta x+ 2 \pi \Delta x + 2 \pi k \Delta x}{2}]
+    \end{equation}
+
+    \begin{equation}
+        y_k^1 = \sin[2 \pi k \Delta x] - 2 \alpha
+        \sin[\pi \Delta x] 
+        \cos[2 \pi k \Delta x + \pi \Delta x ]
+    \end{equation}
+
+    \noindent using the identity
+
+    \begin{equation}
+        \cos[\theta \pm \phi] = 
+        \cos[\theta] \cos[\phi] \mp \sin[\theta] \sin[\phi]
+    \end{equation}
+
+    \begin{equation}
+        y_k^1 = \sin[2 \pi k \Delta x] - 2 \alpha
+        \sin[\pi \Delta x] 
+        [\cos[2 \pi k \Delta x] \cos[ \pi \Delta x ] - 
+            \sin[2 \pi k \Delta x] \sin[ \pi \Delta x ]]
+    \end{equation}
+
+    \begin{equation}
+        y_k^1 = \sin[2 \pi k \Delta x] - 2 \alpha
+        \sin[\pi \Delta x] 
+        [\cos[ \pi \Delta x ] \sin[ \pi \Delta x ] \cos[2 \pi k \Delta x]  - 
+            \sin^2[\pi \Delta x] \sin[ 2 \pi k \Delta x ]]
+    \end{equation}
+
+    \begin{equation}
+        y_k^1 = (1 + 2 \alpha \sin^2[\pi \Delta x] )\sin[2 \pi k \Delta x] 
+        + 2 \alpha \cos[ \pi \Delta x ] \sin[ \pi \Delta x ] 
+        \cos[2 \pi k \Delta x]      
+    \end{equation}
+
+    \noindent using the identities
+
+    \begin{equation}
+        \sin^2[\theta] = \frac{1 - \cos[2\theta]}{2}
+        \,\,\,\,\,\,\,\,\,\,\,\,
+        \cos[\theta] \sin[\theta] = 
+        \frac{\sin[2 \theta]}{2}
+    \end{equation}
+
+    \begin{equation}
+        y_k^1 = (1 - \frac{2 \alpha}{2} (1 - \cos[2 \pi \Delta x])) 
+            \sin[2 \pi k \Delta x] 
+            + \frac{2 \alpha}{2} \sin[2 \pi \Delta x ]
+            \cos[2 \pi k \Delta x]      
+    \end{equation}
+
+    We define the grid parameter $G \equiv 1 - \cos[2 \pi \Delta x]$ thus
+    
+    \begin{equation} \label{eq:G}
+        y_k^1 = (1 - G \alpha )\sin[2 \pi k \Delta x] 
+            + \alpha \sin[2 \pi \Delta x ]
+            \cos[2 \pi k \Delta x]      
+    \end{equation}
+
+    \noindent using the identity
+
+    \begin{equation}
+        a \sin[\theta] + b\cos[\theta] = c \sin[\theta - \phi]
+    \end{equation}
+
+    \noindent where $c = \sqrt{a^2 + b^2}$ and $\phi = {\rm atan2}[b,a]$, we
+    can arrange Eq.~\ref{eq:G} to be
+
+    \begin{equation}
+        y_k^1 = A \sin[2 \pi \Delta x + \phi]
+    \end{equation}
+
+    \noindent where
+
+    \begin{equation}
+        A = \sqrt{{(1 + G\alpha)}^2 + \alpha^2 \sin^2[2 \pi \Delta x]}
+        \,\,\,\,\,\,\,\,\,\,\,\,
+        \phi = {\rm atan2}[- \alpha \sin[2 \pi \Delta x ], 1+G \alpha] 
+    \end{equation}
+
+    We can manipulate $G^2$ by setting $\theta = 2 \pi \Delta x$ and then
+
+    \begin{align*}
+        G \equiv &\ 1 - \cos[\theta] \\
+        G^2 = &\ 1 - 2 \cos[\theta] + \cos^2[\theta]  \\
+        G^2 = &\ 1 - 2 \cos[\theta] + 1 - \sin^2[\theta]  \\
+        G^2 = &\ 2 - 2 (1 - G) - \sin^2[\theta]
+    \end{align*}
+
+    \noindent thus
+
+    \begin{equation}
+        \sin^2[\theta] = 2G - G^2 
+    \end{equation}
+
+    \noindent which we can substitute into A, to get 
+    
+    \begin{equation}
+        A = \sqrt{{(1+G\alpha)}^2 + \alpha^2(2G-G^2)}
+    \end{equation}
+    
+    \begin{equation}
+        A = \sqrt{{(1+2G\alpha+G^2\alpha^2)} + 2\alpha^2G-\alpha^2G^2}
+    \end{equation}
+    
+    \begin{equation}
+        A = \sqrt{1+2G\alpha(\alpha+1)}
+    \end{equation}
+
+    %---------------------------------------------------------------------------
+    % Answer
+
+    \problemAnswer{Finally, for any given number of time steps, $n$, using the
+    Forward-Time Forward-Space scheme we will have
+
+    \begin{equation}
+        y_k^n = A^n \sin[2 \pi \Delta x + n \phi]
+    \end{equation}
+    
+    \noindent where
+
+    \begin{equation}\label{eq:amp_ftfs}
+        A = \sqrt{1+2G\alpha(\alpha+1)}
+        \,\,\,\,\,\,\,\,\,\,\,\,
+        \phi = {\rm atan2}[-\alpha \sin[2 \pi \Delta x ], (1 + G \alpha)] 
+    \end{equation}}
+    %---------------------------------------------------------------------------
+    
+    \vspace{1cm}
+
+    To apply a von Neumann stability analysis on the Forward-Time Backward-Space
+    (FTBS) scheme: since $x_k = k \Delta x$, the initial state at $t = 0$ can
+    be written as
+
+    \begin{equation}
+        y^{n+1}_k = y^n_k - a(t^{n+1} - t^n)  \
+        \frac{y^n_{k} - y^n_{k-1}}{x_{k} - x_{k-1}}
+    \end{equation}
+
+    \noindent to get the solution after a single time-step
+
+    \begin{equation}
+        y_k^1 = \sin[2 \pi k \Delta x] + a \Delta t 
+        \frac{\sin[2 \pi k \Delta x] - \sin[2 \pi (k-1) \Delta x]}{\Delta x}
+    \end{equation}
+
+    Following the same methods as for the FTFS stability analysis, we reveal
+    the progression of amplitudes as a function of time and space:
+
+    %---------------------------------------------------------------------------
+    % Answer
+
+    \problemAnswer{For any given number of time steps, $n$, using the
+    Forward-Time Backward-Space scheme we will have
+
+    \begin{equation}
+        y_k^n = A^n \sin[2 \pi \Delta x + n \phi]
+    \end{equation}
+    
+    \noindent where
+
+    \begin{equation}\label{eq:amp_ftbs}
+        A = \sqrt{1+2G\alpha(\alpha-1)}
+        \,\,\,\,\,\,\,\,\,\,\,\,
+        \phi = {\rm atan2}[\alpha \sin[2 \pi \Delta x ], (1 - G \alpha)] 
+    \end{equation}}
+    %---------------------------------------------------------------------------
+    \vspace{1cm} 
+
+    Figure~\ref{fig:stability} analyze the stability across a range of $G$ and
+    $\alpha$. 
+
+\end{homeworkProblem}
+%===============================================================================
+
+
+%===============================================================================
+%-------------------------------------------------------------------------------
+%	PROBLEM 5 
+%-------------------------------------------------------------------------------
+\begin{homeworkProblem}
+
+    %---------------------------------------------------------------------------
+    % FIGURE
+    \begin{figure}[!ht]
+    \begin{center}
+        \includegraphics[width=0.75\columnwidth]{q5.png} % Example image
+
+        \caption{\label{fig:stability} Amplitudes of (a): FTFS scheme and (b):
+        FTBS scheme as a function of $\alpha$ for different $G$ values (see
+        Equations~\ref{eq:amp_ftfs} and~\ref{eq:amp_ftbs} respectively). The
+        amplitude of the flow will remain finite as a function of time in the
+        FTFS scheme for $0 < \alpha < 1$, and for the FTBS scheme for $-1 <
+        \alpha < 0$. This means that only upstream schemes will provide stable
+        progressions of flow amplitudes.}
+
+    \end{center}
+    \end{figure}
+    %---------------------------------------------------------------------------
+
+\end{homeworkProblem}
+\clearpage
+%===============================================================================
+
+%===============================================================================
+%-------------------------------------------------------------------------------
+%	PROBLEM 6
+%-------------------------------------------------------------------------------
+\begin{homeworkProblem}
+
+    %---------------------------------------------------------------------------
+    % FIGURE
+    \begin{figure}[!ht]
+    \begin{center}
+        \includegraphics[width=0.75\columnwidth]{q6_ftbs.png} % Example image
+
+        \caption{\label{fig:ftbs} Snapshots of $y$ at different times as a
+        function of $x$ using the FTBS scheme. The FTBS scheme reproduces the
+        analytic results Equation~\ref{eq:y} terribly given a flow speed of 1
+        and $\alpha = 2$. The numerical progression of $y(x,t)$ diverged.
+        Because $\alpha$ is now $> 2$ the amplitude will diverge from solution
+        even though the FTBS scheme is calculating the progression of $y$ from
+        downstream instead of upstream.}
+
+    \end{center}
+    \end{figure}
+    %---------------------------------------------------------------------------
+
+\end{homeworkProblem}
+\clearpage
+%===============================================================================
+
+%===============================================================================
+%-------------------------------------------------------------------------------
+%	PROBLEM 7
+%-------------------------------------------------------------------------------
+\begin{homeworkProblem}
+
+    %---------------------------------------------------------------------------
+    % FIGURE
+    \begin{figure}[!ht]
+    \begin{center}
+        \includegraphics[width=0.75\columnwidth]{q7.png} % Example image
+
+        \caption{\label{fig:ftbs} Snapshots of $y$ at different times as a
+        function of $x$ using the FTBS scheme given a flow speed of 1 and
+        and with $\alpha$ values of 0.25 and 0.5. The }
+
+    \end{center}
+    \end{figure}
+    %---------------------------------------------------------------------------
+
+
+\end{homeworkProblem}
+\clearpage
+%===============================================================================
+\end{document}
+
