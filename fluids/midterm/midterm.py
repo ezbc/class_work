@@ -591,7 +591,7 @@ def problem_7():
     additional_labels = []
 
     savedir = '/home/elijah/class_2014_spring/fluids/midterm/'
-    #savedir = '/usr/users/ezbc/Desktop/fluids/midterm/'
+    savedir = '/usr/users/ezbc/Desktop/fluids/midterm/'
     times = [0, 1, 2, 3,]
 
     for i, alpha in enumerate(alphas):
@@ -633,7 +633,7 @@ def problem_8():
     additional_labels = []
 
     savedir = '/home/elijah/class_2014_spring/fluids/midterm/'
-    #savedir = '/usr/users/ezbc/Desktop/fluids/midterm/'
+    savedir = '/usr/users/ezbc/Desktop/fluids/midterm/'
     times = [0, 1, 2, 3,]
 
     for i, alpha in enumerate(alphas):
@@ -662,12 +662,12 @@ def problem_8():
                 additional_labels = additional_labels)
 
 def main():
-    #problem_1()
-    #problem_2()
-    #problem_3()
-    #problem_5()
-    #problem_6()
-    #problem_7()
+    problem_1()
+    problem_2()
+    problem_3()
+    problem_5()
+    problem_6()
+    problem_7()
     problem_8()
 
 if __name__ == '__main__':

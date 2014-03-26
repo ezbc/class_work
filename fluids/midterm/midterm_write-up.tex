@@ -14,6 +14,52 @@
 \usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text
 \usepackage{amsmath}
 
+% ==============================================================================
+% PYTHON
+% ==============================================================================
+\usepackage[utf8]{inputenc}
+
+% Default fixed font does not support bold face
+\DeclareFixedFont{\ttb}{T1}{txtt}{bx}{n}{12} % for bold
+\DeclareFixedFont{\ttm}{T1}{txtt}{m}{n}{12}  % for normal
+
+% Custom colors
+\usepackage{color}
+\definecolor{deepblue}{rgb}{0,0,0.5}
+\definecolor{deepred}{rgb}{0.6,0,0}
+\definecolor{deepgreen}{rgb}{0,0.5,0}
+
+\usepackage{listings}
+
+% Python style for highlighting
+\newcommand\pythonstyle{\lstset{
+language=Python,
+basicstyle=\ttm,
+otherkeywords={self},             % Add keywords here
+keywordstyle=\ttb\color{deepblue},
+emph={MyClass,__init__},          % Custom highlighting
+emphstyle=\ttb\color{deepred},    % Custom highlighting style
+stringstyle=\color{deepgreen},
+frame=tb,                         % Any extra options here
+showstringspaces=false,            % 
+breaklines=true
+}}
+
+
+% Python environment
+\lstnewenvironment{python}[1][]
+{\pythonstyle\lstset{#1}
+}
+{}
+
+% Python for external files
+\newcommand\pythonexternal[2][]{{
+\pythonstyle\lstinputlisting[#1]{#2}}}
+
+% Python for inline
+\newcommand\pythoninline[1]{{\pythonstyle\lstinline!#1!}}
+% ==============================================================================
+% ==============================================================================
 
 % Margins
 \topmargin=-0.45in
@@ -482,8 +528,6 @@
     %---------------------------------------------------------------------------
     \vspace{1cm} 
 
-    Figure~\ref{fig:stability} analyze the stability across a range of $G$ and
-    $\alpha$. 
 
 \end{homeworkProblem}
 %===============================================================================
@@ -494,6 +538,9 @@
 %	PROBLEM 5 
 %-------------------------------------------------------------------------------
 \begin{homeworkProblem}
+    
+    Figure~\ref{fig:stability} analyzes the stability of FTFS and FTBS schemes
+    across a range of $G$ and $\alpha$. 
 
     %---------------------------------------------------------------------------
     % FIGURE
@@ -523,6 +570,11 @@
 %-------------------------------------------------------------------------------
 \begin{homeworkProblem}
 
+    Figure~\ref{fig:ftbs} demonstrates the result of running a downstream
+    scheme. The numerical progression of $y(x,t)$ diverged. $\alpha$ is now $>
+    2$ hence the amplitude will diverge from solution because the FTBS scheme is
+    calculating the progression of $y$ from downstream instead of upstream.
+
     %---------------------------------------------------------------------------
     % FIGURE
     \begin{figure}[!ht]
@@ -533,9 +585,9 @@
         function of $x$ using the FTBS scheme. The FTBS scheme reproduces the
         analytic results Equation~\ref{eq:y} terribly given a flow speed of 1
         and $\alpha = 2$. The numerical progression of $y(x,t)$ diverged.
-        Because $\alpha$ is now $> 2$ the amplitude will diverge from solution
-        even though the FTBS scheme is calculating the progression of $y$ from
-        downstream instead of upstream.}
+        Because $\alpha$ is now $> 2$ the amplitude will diverge from solution.
+        The FTBS scheme is calculating the progression of $y$ from downstream
+        instead of upstream.}
 
     \end{center}
     \end{figure}
@@ -551,23 +603,169 @@
 %-------------------------------------------------------------------------------
 \begin{homeworkProblem}
 
+    Figure~\ref{fig:p7} demonstrates the affect of choosing different $\alpha$
+    values in a stable scheme. The numerical diffusion is greater for $\alpha =
+    0.25$ than for $\alpha = 0.5$ because the simulation with $\alpha = 0.25$
+    needs more time steps to reach the same time as for the $\alpha = 0.5$
+    simulation, despite the diffusion amplitude being closer to 1 for $\alpha =
+    0.25$.
+
     %---------------------------------------------------------------------------
     % FIGURE
     \begin{figure}[!ht]
     \begin{center}
         \includegraphics[width=0.75\columnwidth]{q7.png} % Example image
 
-        \caption{\label{fig:ftbs} Snapshots of $y$ at different times as a
+        \caption{\label{fig:p7} Snapshots of $y$ at different times as a
         function of $x$ using the FTBS scheme given a flow speed of 1 and
-        and with $\alpha$ values of 0.25 and 0.5. The }
+        and with varying $\alpha$ values.}
 
     \end{center}
     \end{figure}
     %---------------------------------------------------------------------------
 
+\end{homeworkProblem}
+\clearpage
+%===============================================================================
+
+%===============================================================================
+%-------------------------------------------------------------------------------
+%	PROBLEM 8
+%-------------------------------------------------------------------------------
+\begin{homeworkProblem}
+
+    Our BTCS scheme was derived beginning with
+
+    \begin{equation}
+        y^{n+1}_k = y^n_k + a(t^{n+1} - t^n)  \
+        \frac{y^n_{k+1} - y^n_k}{x_{k+1} - x_k}
+    \end{equation}
+
+    \noindent and next solving for $y^n_k$
+
+    \begin{equation}
+        y^{n}_k = y^{n+1}_k - \alpha y^{n+1}_{k+1} + \alpha y^{n+1}_{k-1} 
+    \end{equation}
+
+    \noindent whereby we can construct a $K \times K$ matrix $M$ to solve the
+    scheme for forward times
+
+    \begin{equation}
+        M =
+         \begin{pmatrix}
+          1 & -\alpha & \cdots & \alpha \\
+          \alpha & 1 & \cdots & 0 \\
+          \vdots  & \vdots  & \ddots & \vdots  \\
+          -\alpha & \alpha & \cdots & 1
+         \end{pmatrix}
+    \end{equation}
+
+    \begin{equation}
+        M 
+        \begin{pmatrix}
+            y^{n+1}_{0} \\
+            y^{n+1}_{1} \\
+            \vdots \\
+            y^{n+1}_{K-1} \\
+        \end{pmatrix}
+        =
+        \begin{pmatrix}
+            y^{n}_{0} \\
+            y^{n}_{1} \\
+            \vdots \\
+            y^{n}_{K-1} \\
+        \end{pmatrix}
+    \end{equation}
+
+    \noindent which allows us to solve for future time steps from an initial
+    condition.\\
+
+    Figure~\ref{fig:p8} shows simulation results from the backward-time
+    centered-space (BTCS) scheme. 
+    
+    %---------------------------------------------------------------------------
+    % FIGURE
+    \begin{figure}[!ht]
+    \begin{center}
+        \includegraphics[width=0.75\columnwidth]{q8.png} % Example image
+
+        \caption{\label{fig:p8} Snapshots of $y$ at different times as a
+        function of $x$ using the BTCS scheme given a flow speed of 1 and
+        and with varying $\alpha$ values. The BTCS scheme is much more stable
+        than the FTBS or FTFS schemes for any choice of $\alpha$, though
+        numerical diffusion may be prominent.}
+
+    \end{center}
+    \end{figure}
+    %---------------------------------------------------------------------------
+
+    To apply a von Neumann stability analysis on the BTCS scheme we substitute
+    the initial the initial state at $t = 0$ 
+
+    \begin{equation}
+        y_k^0 = \sin[2 \pi k \Delta x]
+    \end{equation}
+
+    \noindent which we then substitute into the FTFS scheme
+
+    \begin{equation}
+        y^{n-1}_k = y^{n}_k + a(t^{n} - t^n)  \
+        \frac{y^{n}_{k+1} - y^{n}_{k-1}}{x_{k+1} - x_{k-1}} =
+        y^{n}_k + \frac{a\Delta t}{2 \Delta x}  \
+        (y^{n}_{k+1} - y^{n}_{k-1})
+    \end{equation}
+
+    \noindent to get the solution before a single time-step we set $a \Delta
+    t / \Delta x = \alpha$ and substitute the initial condition
+
+    \begin{equation}
+        y_k^{-1} = \sin[2 \pi k \Delta x] + \frac{\alpha}{2} 
+        [\sin[2 \pi (k+1) \Delta x] - \sin[2 \pi k \Delta x]]
+    \end{equation}
+
+    \noindent which can be related as
+
+    \begin{equation}
+        y_k^{-1} = \sin[2 \pi k \Delta x] + \alpha
+        [\sin[2 \pi \Delta x] \cos[2 \pi k \Delta x]]
+    \end{equation}
+
+
+
+    %---------------------------------------------------------------------------
+    % Answer
+
+    \problemAnswer{Finally, for any given number of time steps, $n$, using the
+    Backward-Time Center-Space scheme we will have
+
+    \begin{equation}
+        y_k^{n-1} = A^{n-1} \sin[2 \pi \Delta x + (n-1) \phi]
+    \end{equation}
+    
+    \noindent where
+
+    \begin{equation}\label{eq:amp_ftfs}
+        A = \sqrt{1+\alpha^2 \sin^2[2 \pi \Delta x]}
+        \,\,\,\,\,\,\,\,\,\,\,\,
+        \phi = {\rm atan2}[\alpha \sin[2 \pi \Delta x ], 1] 
+    \end{equation}
+
+    For any choice of $\alpha$, $A > 1$, thus previous time steps will have
+    greater amplitudes than future time steps. Our solution will always be
+    stable.}
+
+    %---------------------------------------------------------------------------
+    
+
 
 \end{homeworkProblem}
 \clearpage
 %===============================================================================
+
+
+\section{Simulation Code}
+
+\pythonexternal{midterm.py}
+
 \end{document}
 
