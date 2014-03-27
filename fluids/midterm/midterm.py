@@ -623,7 +623,7 @@ def problem_8():
     def initial_condition(x):
         return np.sin(2 * np.pi * x)
 
-    alphas = (0.1, 0.5, 1, 2)
+    alphas = (0.75, 0.1, 0.5, 2)
     delta_x = 0.01
     flow_speed = 1
     x_range = (0,1)
@@ -632,12 +632,15 @@ def problem_8():
     sim_list = []
     additional_labels = []
 
-    savedir = '/home/elijah/class_2014_spring/fluids/midterm/'
-    savedir = '/usr/users/ezbc/Desktop/fluids/midterm/'
+    savedir = '/home/elijah/classes/fluids/midterm/'
+    #savedir = '/usr/users/ezbc/Desktop/fluids/midterm/'
     times = [0, 1, 2, 3,]
 
     for i, alpha in enumerate(alphas):
         delta_t = np.abs(alpha * delta_x)
+
+        if alpha < 0:
+            flow_speed = -1
 
         btcs_sim = IVP_simulation(scheme = 'BTCS',
                 boundary_type = 'periodic',
@@ -662,12 +665,12 @@ def problem_8():
                 additional_labels = additional_labels)
 
 def main():
-    problem_1()
-    problem_2()
-    problem_3()
-    problem_5()
-    problem_6()
-    problem_7()
+    #problem_1()
+    #problem_2()
+    #problem_3()
+    #problem_5()
+    #problem_6()
+    #problem_7()
     problem_8()
 
 if __name__ == '__main__':

@@ -715,8 +715,43 @@ breaklines=true
         (y^{n}_{k+1} - y^{n}_{k-1})
     \end{equation}
 
-    \noindent to get the solution before a single time-step we set $a \Delta
-    t / \Delta x = \alpha$ and substitute the initial condition
+    \noindent to get the solution before a single time-step we assumed an
+    ansatz of 
+
+    \begin{equation}
+        y^n_k = A^n e^{ki2\pi\Delta x}
+    \end{equation}
+
+    \noindent and substituted this into the BTCS scheme to get
+
+    \begin{equation}
+        A^{n-1} e^{ki2\pi \Delta x} = 
+        A^{n} e^{ki2\pi \Delta x} +
+        \frac{\alpha}{2}[A^{n} e^{(k+1)i2\pi \Delta x} +
+        A^{n} e^{(k-1)i2\pi \Delta x}]
+    \end{equation}
+
+    \begin{equation}
+        A^{n} A^{-1} e^{ki2\pi \Delta x} = 
+        A^{n} e^{ki2\pi \Delta x} 
+        [1 + \frac{\alpha}{2}[e^{2\pi \Delta x} + e^{-\2\pi \Delta x}]]
+    \end{equation}
+
+    \noindent leading to a solution for the amplification factor $A$
+
+    \begin{equation}
+        A = \frac{1}{1+\frac{\alpha}{2}[e^{2\pi \Delta x} - e^{-2\pi \Delta x}]}
+    \end{equation}
+
+    \begin{equation}
+        A = \frac{1}{1+\alpha}{2}[2i \sin[2\pi \Delta x]}
+    \end{equation}
+
+    \noindent whose modulus is
+
+    \begin{equation}
+        A = \frac{1}{1+\alpha[\sin[2\pi \Delta x]}
+    \end{equation}
 
     \begin{equation}
         y_k^{-1} = \sin[2 \pi k \Delta x] + \frac{\alpha}{2} 
