@@ -13,6 +13,7 @@
 \usepackage{courier} % Required for the courier font
 \usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text
 \usepackage{amsmath}
+\pdfcompresslevel0
 
 % ==============================================================================
 % PYTHON
@@ -108,7 +109,7 @@ breaklines=true
 }
 
 % Defines the problem answer command with the content as the only argument
-\newcommand{\problemAnswer}[1]{\noindent\framebox[\columnwidth][c]{\begin{minipage}{0.98\columnwidth}#1\end{minipage}}}
+\newcommand{\problemAnswer}[1]{\noindent\framebox[\columnwidth, resolution=600][c]{\begin{minipage}{0.98\columnwidth, resolution=600}#1\end{minipage}}}
 % Makes the box around the problem answer and puts the content inside }
 
 \newcommand{\homeworkSectionName}{}
@@ -182,7 +183,7 @@ breaklines=true
     % FIGURE
     \begin{figure}[!ht]
     \begin{center}
-        \includegraphics[width=0.75\columnwidth]{q1_ftcs.png} % Example image
+        \includegraphics[width=1\columnwidth, resolution=600, resolution=600]{q1_ftcs.pdf} 
 
         \caption{\label{fig:ftcs} Snapshots of $y$ at different times as a
         function of $x$ using the FTCS scheme. The FTCS scheme reproduces the
@@ -228,7 +229,7 @@ breaklines=true
     % FIGURE
     \begin{figure}[!ht]
     \begin{center}
-        \includegraphics[width=0.75\columnwidth]{q2_ftfs.png} % Example image
+        \includegraphics[width=1\columnwidth, resolution=600]{q2_ftfs.pdf} % Example image
 
         \caption{\label{fig:q2_ftfs} Snapshots of $y$ at different times as a
         function of $x$ using the FTFS scheme. The FTFS scheme reproduces the
@@ -244,7 +245,7 @@ breaklines=true
     % FIGURE
     \begin{figure}[!ht]
     \begin{center}
-        \includegraphics[width=0.75\columnwidth]{q2_ftbs.png} % Example image
+        \includegraphics[width=1\columnwidth, resolution=600]{q2_ftbs.pdf} % Example image
 
         \caption{\label{fig:q2_ftbs}Snapshots of $y$ at different times as a
         function of $x$ using the FTBS scheme. The FTBS scheme reproduces the
@@ -277,7 +278,7 @@ breaklines=true
     % FIGURE
     \begin{figure}[!ht]
     \begin{center}
-        \includegraphics[width=0.75\columnwidth]{q3_ftfs.png} % Example image
+        \includegraphics[width=1\columnwidth, resolution=600]{q3_ftfs.pdf} % Example image
 
         \caption{\label{fig:q3_ftfs} Snapshots of $y$ at different times as a
         function of $x$ using the FTFS scheme. The FTFS scheme reproduces the
@@ -295,7 +296,7 @@ breaklines=true
     % FIGURE
     \begin{figure}[!ht]
     \begin{center}
-        \includegraphics[width=0.75\columnwidth]{q3_ftbs.png} % Example image
+        \includegraphics[width=1\columnwidth, resolution=600]{q3_ftbs.pdf} % Example image
 
         \caption{\label{fig:q3_ftbs}Snapshots of $y$ at different times as a
         function of $x$ using the FTBS scheme. The FTBS scheme reproduces the
@@ -472,7 +473,7 @@ breaklines=true
     %---------------------------------------------------------------------------
     % Answer
 
-    \problemAnswer{Finally, for any given number of time steps, $n$, using the
+    \problemAnswer{Finally, for any given number of time s.pdf, $n$, using the
     Forward-Time Forward-Space scheme we will have
 
     \begin{equation}
@@ -512,7 +513,7 @@ breaklines=true
     %---------------------------------------------------------------------------
     % Answer
 
-    \problemAnswer{For any given number of time steps, $n$, using the
+    \problemAnswer{For any given number of time s.pdf, $n$, using the
     Forward-Time Backward-Space scheme we will have
 
     \begin{equation}
@@ -547,7 +548,7 @@ breaklines=true
     % FIGURE
     \begin{figure}[!ht]
     \begin{center}
-        \includegraphics[width=0.75\columnwidth]{q5.png} % Example image
+        \includegraphics[width=1\columnwidth, resolution=600]{q5.pdf} % Example image
 
         \caption{\label{fig:stability} Amplitudes of (a): FTFS scheme and (b):
         FTBS scheme as a function of $\alpha$ for different $G$ values (see
@@ -581,7 +582,7 @@ breaklines=true
     % FIGURE
     \begin{figure}[!ht]
     \begin{center}
-        \includegraphics[width=0.75\columnwidth]{q6_ftbs.png} % Example image
+        \includegraphics[width=1\columnwidth, resolution=600]{q6_ftbs.pdf} % Example image
 
         \caption{\label{fig:q6_ftbs} Snapshots of $y$ at different times as a
         function of $x$ using the FTBS scheme. The FTBS scheme reproduces the
@@ -608,7 +609,7 @@ breaklines=true
     Figure~\ref{fig:p7} demonstrates the affect of choosing different $\alpha$
     values in a stable scheme. The numerical diffusion is greater for $\alpha =
     0.25$ than for $\alpha = 0.5$ because the simulation with $\alpha = 0.25$
-    needs more time steps to reach the same time as for the $\alpha = 0.5$
+    needs more time s.pdf to reach the same time as for the $\alpha = 0.5$
     simulation, despite the diffusion amplitude being closer to 1 for $\alpha =
     0.25$.
 
@@ -616,7 +617,7 @@ breaklines=true
     % FIGURE
     \begin{figure}[!ht]
     \begin{center}
-        \includegraphics[width=0.75\columnwidth]{q7.png} % Example image
+        \includegraphics[width=1\columnwidth, resolution=600]{q7.pdf} % Example image
 
         \caption{\label{fig:p7} Snapshots of $y$ at different times as a
         function of $x$ using the FTBS scheme given a flow speed of 1 and
@@ -679,7 +680,7 @@ breaklines=true
         \end{pmatrix}
     \end{equation}
 
-    \noindent which allows us to solve for future time steps from an initial
+    \noindent which allows us to solve for future time s.pdf from an initial
     condition.\\
 
     Figure~\ref{fig:p8} shows simulation results from the backward-time
@@ -689,7 +690,7 @@ breaklines=true
     % FIGURE
     \begin{figure}[!ht]
     \begin{center}
-        \includegraphics[width=0.75\columnwidth]{q8.png} % Example image
+        \includegraphics[width=1\columnwidth, resolution=600, resolution=600]{q8.pdf} 
 
         \caption{\label{fig:p8} Snapshots of $y$ at different times as a
         function of $x$ using the BTCS scheme given a flow speed of 1 and
@@ -766,7 +767,7 @@ breaklines=true
     %---------------------------------------------------------------------------
     % Answer
 
-    \problemAnswer{Finally, for any given number of time steps, $n$, using the
+    \problemAnswer{Finally, for any given number of time s.pdf, $n$, using the
     Backward-Time Center-Space scheme we will have
 
     \begin{equation}
@@ -787,7 +788,7 @@ breaklines=true
     % FIGURE
     \begin{figure}[!ht] 
     \begin{center} 
-        \includegraphics[width=0.75\columnwidth]{q8_amp.png} % Example image
+        \includegraphics[width=1\columnwidth, resolution=600]{q8_amp.pdf} % Example image
 
         \caption{\label{fig:p8_amp} Amplitudes of BTCS scheme as a function of
         $\alpha$ for different $G$ values (see Equation~\ref{eq:amp_btcs}).

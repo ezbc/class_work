@@ -59,7 +59,7 @@ class IVP_simulation():
         Parameters
         ----------
         scheme : str
-            Scheme for time steps. Options are:
+            Scheme for time s.pdf. Options are:
                 'FTCS' : Forward Time Center Space
                 'FTBS' : Forward Time Backward Space
                 'FTFS' : Forward Time Forward Space
@@ -273,7 +273,7 @@ class IVP_simulation():
         plt.clf()
         plt.rcdefaults()
         fontScale = 10
-        params = {#'backend': 'png',
+        params = {#'backend': .pdf',
                   'axes.labelsize': fontScale,
                   'axes.titlesize': fontScale,
                   'text.fontsize': fontScale,
@@ -283,7 +283,7 @@ class IVP_simulation():
                   'font.weight': 500,
                   'axes.labelweight': 500,
                   'text.usetex': False,
-                  'figure.figsize': (8, 8),
+                  'figure.figsize': (10, 10),
                  }
         plt.rcParams.update(params)
 
@@ -354,7 +354,7 @@ class IVP_simulation():
         self.grid = grid_save
 
         if filename is not None:
-            plt.savefig(savedir + filename,bbox_inches='tight')
+            plt.savefig(savedir + filename,bbox_inches='tight', dpi=600)
         if show:
             fig.show()
 
@@ -377,7 +377,7 @@ def plot_amplitude(alpha_array = (-1,1), G_values = (1), amp_functions = None,
         plt.clf()
         plt.rcdefaults()
         fontScale = 10
-        params = {#'backend': 'png',
+        params = {#'backend': .pdf',
                   'axes.labelsize': fontScale,
                   'axes.titlesize': fontScale,
                   'text.fontsize': fontScale,
@@ -387,7 +387,7 @@ def plot_amplitude(alpha_array = (-1,1), G_values = (1), amp_functions = None,
                   'font.weight': 500,
                   'axes.labelweight': 500,
                   'text.usetex': False,
-                  'figure.figsize': (8, 8),
+                  'figure.figsize': (10, 10),
                  }
         plt.rcParams.update(params)
 
@@ -433,7 +433,7 @@ def plot_amplitude(alpha_array = (-1,1), G_values = (1), amp_functions = None,
             ax.legend(loc='lower left')
 
         if filename is not None:
-            plt.savefig(savedir + filename,bbox_inches='tight')
+            plt.savefig(savedir + filename,bbox_inches='tight', dpi=600)
         if show:
             fig.show()
 
@@ -453,10 +453,10 @@ def problem_1():
     ftcs_sim_ftbs.run_simulation()
 
     savedir = '/home/elijah/class_2014_spring/fluids/midterm/'
-    savedir = '/usr/users/ezbc/Desktop/fluids/midterm/'
+    savedir = '/usr/users/ezbc/classes/fluids/midterm/'
     times = [0, 1, 2, 3,]
     ftcs_sim_ftbs.plot_slice(times, savedir=savedir,
-                filename='q1_ftcs.png',
+                filename='q1_ftcs.pdf',
                 title = 'FTCS simulation slices',
                 show=False)
 
@@ -486,15 +486,15 @@ def problem_2():
     ftfs_sim.run_simulation()
 
     savedir = '/home/elijah/class_2014_spring/fluids/midterm/'
-    savedir = '/usr/users/ezbc/Desktop/fluids/midterm/'
+    savedir = '/usr/users/ezbc/classes/fluids/midterm/'
 
     times = [0, 1, 2, 3,]
     ftbs_sim.plot_slice(times, savedir=savedir,
-                filename='q2_ftbs.png',
+                filename='q2_ftbs.pdf',
                 title = 'FTBS simulation slices',
                 show=False)
     ftfs_sim.plot_slice(times, savedir=savedir,
-                filename='q2_ftfs.png',
+                filename='q2_ftfs.pdf',
                 title = 'FTFS simulation slices',
                 show=False)
 
@@ -524,14 +524,14 @@ def problem_3():
     ftfs_sim.run_simulation()
 
     savedir = '/home/elijah/class_2014_spring/fluids/midterm/'
-    savedir = '/usr/users/ezbc/Desktop/fluids/midterm/'
+    savedir = '/usr/users/ezbc/classes/fluids/midterm/'
     times = [0, 1, 2, 3,]
     ftbs_sim.plot_slice(times, savedir=savedir,
-                filename='q3_ftbs.png',
+                filename='q3_ftbs.pdf',
                 title = 'FTBS simulation slices',
                 show=False)
     ftfs_sim.plot_slice(times, savedir=savedir,
-                filename='q3_ftfs.png',
+                filename='q3_ftfs.pdf',
                 title = 'FTFS simulation slices',
                 show=False)
 
@@ -547,13 +547,13 @@ def problem_5():
     alpha_array = np.linspace(-3, 3, 1e4)
     G_values = (0.1, 0.3, 0.5, 0.7, 0.9)
 
-    savedir = '/usr/users/ezbc/Desktop/fluids/midterm/'
+    savedir = '/usr/users/ezbc/classes/fluids/midterm/'
 
     plot_amplitude(alpha_array = alpha_array, G_values = G_values,
             amp_functions = amp_tuple,
             limits = [-2, 2, 0.7, 1.2],
             savedir = savedir,
-            filename = 'q5.png',
+            filename = 'q5.pdf',
             title = 'FTFS and FTBS Amplitudes',
             show=False)
 
@@ -573,10 +573,10 @@ def problem_6():
     ftbs_sim.run_simulation()
 
     savedir = '/home/elijah/class_2014_spring/fluids/midterm/'
-    savedir = '/usr/users/ezbc/Desktop/fluids/midterm/'
+    savedir = '/usr/users/ezbc/classes/fluids/midterm/'
     times = [0, 1, 2, 3,]
     ftbs_sim.plot_slice(times, savedir=savedir,
-                filename='q6_ftbs.png',
+                filename='q6_ftbs.pdf',
                 title = 'FTBS simulation slices',
                 show=False)
 
@@ -594,7 +594,7 @@ def problem_7():
     additional_labels = []
 
     savedir = '/home/elijah/class_2014_spring/fluids/midterm/'
-    savedir = '/usr/users/ezbc/Desktop/fluids/midterm/'
+    savedir = '/usr/users/ezbc/classes/fluids/midterm/'
     times = [0, 1, 2, 3,]
 
     for i, alpha in enumerate(alphas):
@@ -616,7 +616,7 @@ def problem_7():
         additional_labels.append(r'$\alpha$ = %s' % alpha)
 
     sim_list[0].plot_slice(times, savedir=savedir,
-                filename='q7.png',
+                filename='q7.pdf',
                 title = 'FTBS simulation slices',
                 show=False,
                 additional_sims = sim_list[1:],
@@ -662,7 +662,7 @@ def problem_8():
         additional_labels.append(r'$\alpha$ = %s' % alpha)
 
     sim_list[0].plot_slice(times, savedir=savedir,
-                filename='q8.png',
+                filename='q8.pdf',
                 title = 'BTCS simulation slices',
                 show=False,
                 additional_sims = sim_list[1:],
@@ -680,7 +680,7 @@ def problem_8():
             amp_functions = amp_tuple,
             limits = [-3, 3, 0.3, 1.1],
             savedir = savedir,
-            filename = 'q8_amp.png',
+            filename = 'q8_amp.pdf',
             title = 'BTCS Amplitudes',
             show=False)
 
