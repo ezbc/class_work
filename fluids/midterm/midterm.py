@@ -391,11 +391,13 @@ def plot_amplitude(alpha_array = (-1,1), G_values = (1), amp_functions = None,
                  }
         plt.rcParams.update(params)
 
+        size = len(amp_functions)
+
         # Create figure
         fig = plt.figure()
         grid = ImageGrid(fig, (1,1,1),
-                      nrows_ncols=(2,1),
-                      ngrids = 2,
+                      nrows_ncols=(size,1),
+                      ngrids = size,
                       direction='row',
                       axes_pad=1,
                       aspect=False,
@@ -422,10 +424,11 @@ def plot_amplitude(alpha_array = (-1,1), G_values = (1), amp_functions = None,
             # Adjust asthetics
             ax.set_xlabel(r'$\alpha$',)
             ax.set_ylabel(r'Amplitude')
-            ax.annotate('(%s)' % letters[i],
-                    xy = (0.9, 0.1),
-                    xycoords='axes fraction',
-                    textcoords='axes fraction')
+            if size > 1:
+                ax.annotate('(%s)' % letters[i],
+                        xy = (0.9, 0.1),
+                        xycoords='axes fraction',
+                        textcoords='axes fraction')
             ax.grid(True)
             ax.legend(loc='lower left')
 
@@ -623,7 +626,7 @@ def problem_8():
     def initial_condition(x):
         return np.sin(2 * np.pi * x)
 
-    alphas = (0.75, 0.1, 0.5, 2)
+    alphas = (0.1, 0.5, 0.75, 2)
     delta_x = 0.01
     flow_speed = 1
     x_range = (0,1)
@@ -633,7 +636,8 @@ def problem_8():
     additional_labels = []
 
     savedir = '/home/elijah/classes/fluids/midterm/'
-    #savedir = '/usr/users/ezbc/Desktop/fluids/midterm/'
+    savedir = '/usr/users/ezbc/classes/fluids/midterm/'
+
     times = [0, 1, 2, 3,]
 
     for i, alpha in enumerate(alphas):
@@ -664,13 +668,29 @@ def problem_8():
                 additional_sims = sim_list[1:],
                 additional_labels = additional_labels)
 
+    def amp(alpha, G):
+        return 1 / (1 + alpha**2*(2*G - G**2))**0.5
+
+    amp_tuple = (amp,)
+    alpha_array = np.linspace(-3, 3, 1e4)
+    G_values = (0.1, 0.3, 0.5, 0.7, 0.9)
+
+
+    plot_amplitude(alpha_array = alpha_array, G_values = G_values,
+            amp_functions = amp_tuple,
+            limits = [-3, 3, 0.3, 1.1],
+            savedir = savedir,
+            filename = 'q8_amp.png',
+            title = 'BTCS Amplitudes',
+            show=False)
+
 def main():
-    #problem_1()
-    #problem_2()
-    #problem_3()
-    #problem_5()
-    #problem_6()
-    #problem_7()
+    problem_1()
+    problem_2()
+    problem_3()
+    problem_5()
+    problem_6()
+    problem_7()
     problem_8()
 
 if __name__ == '__main__':

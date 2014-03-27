@@ -5,31 +5,34 @@
 \newlabel{fig:ftcs}{{1}{2}}
 \@writefile{toc}{\contentsline {section}{Problem 2}{3}}
 \@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces  Snapshots of $y$ at different times as a function of $x$ using the FTFS scheme. The FTFS scheme reproduces the analytic results Equation\nobreakspace  {}2\hbox {} terribly given the parameters in Problem 1. The numerical progression of $y(x,t)$ diverged.}}{3}}
-\newlabel{fig:ftfs}{{2}{3}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Snapshots of $y$ at different times as a function of $x$ using the FTBS scheme. The FTBS scheme reproduces the analytic results Equation\nobreakspace  {}2\hbox {} mildly well given the parameters in Problem 1. The numerical progression of $y(x,t)$ is decreasing in amplitude from the analytic result with time.}}{4}}
-\newlabel{fig:ftbs}{{3}{4}}
+\newlabel{fig:q2_ftfs}{{2}{3}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Snapshots of $y$ at different times as a function of $x$ using the FTBS scheme. The FTBS scheme reproduces the analytic results Equation\nobreakspace  {}2\hbox {} mildly well given the parameters in Problem 1. The numerical progression of $y(x,t)$ is decreasing in amplitude from the analytic result with time. This is an example of numerical diffusion.}}{4}}
+\newlabel{fig:q2_ftbs}{{3}{4}}
 \@writefile{toc}{\contentsline {section}{Problem 3}{5}}
 \@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces  Snapshots of $y$ at different times as a function of $x$ using the FTFS scheme. The FTFS scheme reproduces the analytic results Equation\nobreakspace  {}2\hbox {} mildly well given the parameters in Problem 1. The numerical progression of $y(x,t)$ is decreasing in amplitude from the analytic result with time. Because the flow speed switched directions the FTFS scheme is now calculating the progression of $y$ from upstream instead of downstream.}}{5}}
-\newlabel{fig:ftfs}{{4}{5}}
+\newlabel{fig:q3_ftfs}{{4}{5}}
 \@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Snapshots of $y$ at different times as a function of $x$ using the FTBS scheme. The FTBS scheme reproduces the analytic results Equation\nobreakspace  {}2\hbox {} terribly given the parameters in Problem 1. The numerical progression of $y(x,t)$ diverged. Because the flow speed switched directions the FTBS scheme is now calculating the progression of $y$ from downstream instead of upstream.}}{6}}
-\newlabel{fig:ftbs}{{5}{6}}
+\newlabel{fig:q3_ftbs}{{5}{6}}
 \@writefile{toc}{\contentsline {section}{Problem 4}{7}}
 \newlabel{eq:G}{{18}{7}}
+\newlabel{eq:sin2g}{{22}{8}}
 \newlabel{eq:amp_ftfs}{{27}{8}}
 \newlabel{eq:amp_ftbs}{{31}{9}}
 \@writefile{toc}{\contentsline {section}{Problem 5}{9}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces  Amplitudes of (a): FTFS scheme and (b): FTBS scheme as a function of $\alpha $ for different $G$ values (see Equations\nobreakspace  {}44\hbox {} and\nobreakspace  {}31\hbox {} respectively). The amplitude of the flow will remain finite as a function of time in the FTFS scheme for $0 < \alpha < 1$, and for the FTBS scheme for $-1 < \alpha < 0$. This means that only upstream schemes will provide stable progressions of flow amplitudes.}}{9}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces  Amplitudes of (a): FTFS scheme and (b): FTBS scheme as a function of $\alpha $ for different $G$ values (see Equations\nobreakspace  {}27\hbox {} and\nobreakspace  {}31\hbox {} respectively). The amplitude of the flow will remain finite as a function of time in the FTFS scheme for $0 < \alpha < 1$, and for the FTBS scheme for $-1 < \alpha < 0$. This means that only upstream schemes will provide stable progressions of flow amplitudes for $|\alpha | < 1$.}}{9}}
 \newlabel{fig:stability}{{6}{9}}
 \@writefile{toc}{\contentsline {section}{Problem 6}{10}}
 \@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces  Snapshots of $y$ at different times as a function of $x$ using the FTBS scheme. The FTBS scheme reproduces the analytic results Equation\nobreakspace  {}2\hbox {} terribly given a flow speed of 1 and $\alpha = 2$. The numerical progression of $y(x,t)$ diverged. Because $\alpha $ is now $> 2$ the amplitude will diverge from solution. The FTBS scheme is calculating the progression of $y$ from downstream instead of upstream.}}{10}}
-\newlabel{fig:ftbs}{{7}{10}}
+\newlabel{fig:q6_ftbs}{{7}{10}}
 \@writefile{toc}{\contentsline {section}{Problem 7}{11}}
 \@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces  Snapshots of $y$ at different times as a function of $x$ using the FTBS scheme given a flow speed of 1 and and with varying $\alpha $ values.}}{11}}
 \newlabel{fig:p7}{{8}{11}}
 \@writefile{toc}{\contentsline {section}{Problem 8}{12}}
 \@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces  Snapshots of $y$ at different times as a function of $x$ using the BTCS scheme given a flow speed of 1 and and with varying $\alpha $ values. The BTCS scheme is much more stable than the FTBS or FTFS schemes for any choice of $\alpha $, though numerical diffusion may be prominent.}}{13}}
 \newlabel{fig:p8}{{9}{13}}
-\newlabel{eq:amp_ftfs}{{45}{13}}
-\@writefile{toc}{\contentsline {section}{Simulation Code}{14}}
-\@writefile{lol}{\contentsline {lstlisting}{midterm.py}{14}}
-\newlabel{LastPage}{{}{28}}
+\newlabel{eq:amp_btcs}{{46}{14}}
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces  Amplitudes of BTCS scheme as a function of $\alpha $ for different $G$ values (see Equation\nobreakspace  {}46\hbox {}). The amplitude of the flow will remain finite as a function of time in the BTCS scheme for all values of $\alpha $.}}{15}}
+\newlabel{fig:p8_amp}{{10}{15}}
+\@writefile{toc}{\contentsline {section}{Simulation Code}{16}}
+\@writefile{lol}{\contentsline {lstlisting}{midterm.py}{16}}
+\newlabel{LastPage}{{}{30}}

@@ -1,20 +1,23 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.10.22)  27 MAR 2014 08:44
+This is pdfTeX, Version 3.1415926-1.40.11 (TeX Live 2010) (format=pdflatex 2011.5.17)  27 MAR 2014 11:51
 entering extended mode
+ restricted \write18 enabled.
  %&-line parsing enabled.
 **midterm_write-up.tex
 (./midterm_write-up.tex
 LaTeX2e <2009/09/24>
-Babel <v3.8l> and hyphenation patterns for english, usenglishmax, dumylang, noh
-yphenation, farsi, arabic, croatian, bulgarian, ukrainian, russian, czech, slov
-ak, danish, dutch, finnish, french, basque, ngerman, german, german-x-2009-06-1
-9, ngerman-x-2009-06-19, ibycus, monogreek, greek, ancientgreek, hungarian, san
-skrit, italian, latin, latvian, lithuanian, mongolian2a, mongolian, bokmal, nyn
-orsk, romanian, irish, coptic, serbian, turkish, welsh, esperanto, uppersorbian
-, estonian, indonesian, interlingua, icelandic, kurmanji, slovenian, polish, po
-rtuguese, spanish, galician, catalan, swedish, ukenglish, pinyin, loaded.
-(/usr/share/texmf-texlive/tex/latex/base/article.cls
+Babel <v3.8l> and hyphenation patterns for english, dumylang, nohyphenation, ge
+rman-x-2009-06-19, ngerman-x-2009-06-19, ancientgreek, ibycus, arabic, armenian
+, basque, bulgarian, catalan, pinyin, coptic, croatian, czech, danish, dutch, u
+kenglish, usenglishmax, esperanto, estonian, farsi, finnish, french, galician, 
+german, ngerman, swissgerman, monogreek, greek, hungarian, icelandic, assamese,
+ bengali, gujarati, hindi, kannada, malayalam, marathi, oriya, panjabi, tamil, 
+telugu, indonesian, interlingua, irish, italian, kurmanji, lao, latin, latvian,
+ lithuanian, mongolian, mongolianlmc, bokmal, nynorsk, polish, portuguese, roma
+nian, russian, sanskrit, serbian, slovak, slovenian, spanish, swedish, turkish,
+ turkmen, ukrainian, uppersorbian, welsh, loaded.
+(/usr/share/texmf/tex/latex/base/article.cls
 Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
-(/usr/share/texmf-texlive/tex/latex/base/size10.clo
+(/usr/share/texmf/tex/latex/base/size10.clo
 File: size10.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 )
 \c@part=\count79
@@ -29,7 +32,7 @@ File: size10.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 \belowcaptionskip=\skip42
 \bibindent=\dimen102
 )
-(/usr/share/texmf-texlive/tex/latex/fancyhdr/fancyhdr.sty
+(/usr/share/texmf/tex/latex/fancyhdr/fancyhdr.sty
 \fancy@headwidth=\skip43
 \f@ncyO@elh=\skip44
 \f@ncyO@erh=\skip45
@@ -40,50 +43,50 @@ File: size10.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 \f@ncyO@olf=\skip50
 \f@ncyO@orf=\skip51
 )
-(/usr/share/texmf-texlive/tex/latex/lastpage/lastpage.sty
+(/usr/share/texmf/tex/latex/lastpage/lastpage.sty
 Package: lastpage 1994/06/25 v0.1b LaTeX2e package for refs to last page number
  (JPG)
 )
-(/usr/share/texmf-texlive/tex/latex/fancyhdr/extramarks.sty
+(/usr/share/texmf/tex/latex/fancyhdr/extramarks.sty
 \@temptokenb=\toks14
 )
-(/usr/share/texmf-texlive/tex/latex/graphics/color.sty
+(/usr/share/texmf/tex/latex/graphics/color.sty
 Package: color 2005/11/14 v1.0j Standard LaTeX Color (DPC)
 
-(/etc/texmf/tex/latex/config/color.cfg
+(/usr/share/texmf/tex/latex/latexconfig/color.cfg
 File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
 )
 Package color Info: Driver file: pdftex.def on input line 130.
 
-(/usr/share/texmf-texlive/tex/latex/pdftex-def/pdftex.def
-File: pdftex.def 2010/03/12 v0.04p Graphics/color for pdfTeX
+(/usr/share/texmf/tex/latex/pdftex-def/pdftex.def
+File: pdftex.def 2010/02/14 v0.04n Graphics/color for pdfTeX
 \Gread@gobject=\count87
 )
-(/usr/share/texmf-texlive/tex/latex/graphics/dvipsnam.def
+(/usr/share/texmf/tex/latex/graphics/dvipsnam.def
 File: dvipsnam.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
 ))
-(/usr/share/texmf-texlive/tex/latex/graphics/graphicx.sty
+(/usr/share/texmf/tex/latex/graphics/graphicx.sty
 Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
 
-(/usr/share/texmf-texlive/tex/latex/graphics/keyval.sty
+(/usr/share/texmf/tex/latex/graphics/keyval.sty
 Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
 \KV@toks@=\toks15
 )
-(/usr/share/texmf-texlive/tex/latex/graphics/graphics.sty
+(/usr/share/texmf/tex/latex/graphics/graphics.sty
 Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
 
-(/usr/share/texmf-texlive/tex/latex/graphics/trig.sty
+(/usr/share/texmf/tex/latex/graphics/trig.sty
 Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
 )
-(/etc/texmf/tex/latex/config/graphics.cfg
-File: graphics.cfg 2009/08/28 v1.8 graphics configuration of TeX Live
+(/usr/share/texmf/tex/latex/latexconfig/graphics.cfg
+File: graphics.cfg 2010/04/23 v1.9 graphics configuration of TeX Live
 )
 Package graphics Info: Driver file: pdftex.def on input line 91.
 )
 \Gin@req@height=\dimen103
 \Gin@req@width=\dimen104
 )
-(/usr/share/texmf-texlive/tex/latex/listings/listings.sty
+(/usr/share/texmf/tex/latex/listings/listings.sty
 \lst@mode=\count88
 \lst@gtempboxa=\box26
 \lst@token=\toks16
@@ -97,43 +100,43 @@ Package graphics Info: Driver file: pdftex.def on input line 91.
 \lst@lineno=\count93
 \lst@maxwidth=\dimen108
 
-(/usr/share/texmf-texlive/tex/latex/listings/lstmisc.sty
+(/usr/share/texmf/tex/latex/listings/lstmisc.sty
 File: lstmisc.sty 2007/02/22 1.4 (Carsten Heinz)
 \c@lstnumber=\count94
 \lst@skipnumbers=\count95
 \lst@framebox=\box27
 )
-(/usr/share/texmf-texlive/tex/latex/listings/listings.cfg
+(/usr/share/texmf/tex/latex/listings/listings.cfg
 File: listings.cfg 2007/02/22 1.4 listings configuration
 ))
 Package: listings 2007/02/22 1.4 (Carsten Heinz)
 
-(/usr/share/texmf-texlive/tex/latex/psnfss/courier.sty
+(/usr/share/texmf/tex/latex/psnfss/courier.sty
 Package: courier 2005/04/12 PSNFSS-v9.2a (WaS) 
 )
-(/usr/share/texmf-texlive/tex/latex/lipsum/lipsum.sty
+(/usr/share/texmf/tex/latex/lipsum/lipsum.sty
 Package: lipsum 2005/01/26 v1.0 150 paragraphs of Lorem Ipsum dummy text
 File: lipsum.dtx 2005/01/26 v1.0 150 paragraphs of Lorem Ipsum dummy text
 \c@lips@count=\count96
 )
-(/usr/share/texmf-texlive/tex/latex/amsmath/amsmath.sty
+(/usr/share/texmf/tex/latex/amsmath/amsmath.sty
 Package: amsmath 2000/07/18 v2.13 AMS math features
 \@mathmargin=\skip52
 
 For additional information on amsmath, use the `?' option.
-(/usr/share/texmf-texlive/tex/latex/amsmath/amstext.sty
+(/usr/share/texmf/tex/latex/amsmath/amstext.sty
 Package: amstext 2000/06/29 v2.01
 
-(/usr/share/texmf-texlive/tex/latex/amsmath/amsgen.sty
+(/usr/share/texmf/tex/latex/amsmath/amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0
 \@emptytoks=\toks17
 \ex@=\dimen109
 ))
-(/usr/share/texmf-texlive/tex/latex/amsmath/amsbsy.sty
+(/usr/share/texmf/tex/latex/amsmath/amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d
 \pmbraise@=\dimen110
 )
-(/usr/share/texmf-texlive/tex/latex/amsmath/amsopn.sty
+(/usr/share/texmf/tex/latex/amsmath/amsopn.sty
 Package: amsopn 1999/12/14 v2.01 operator names
 )
 \inf@bad=\count97
@@ -174,19 +177,19 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 568.
 LaTeX Info: Redefining \[ on input line 2666.
 LaTeX Info: Redefining \] on input line 2667.
 )
-(/usr/share/texmf-texlive/tex/latex/base/inputenc.sty
+(/usr/share/texmf/tex/latex/base/inputenc.sty
 Package: inputenc 2008/03/30 v1.1d Input encoding file
 \inpenc@prehook=\toks22
 \inpenc@posthook=\toks23
 
-(/usr/share/texmf-texlive/tex/latex/base/utf8.def
+(/usr/share/texmf/tex/latex/base/utf8.def
 File: utf8.def 2008/04/05 v1.1m UTF-8 support for inputenc
 Now handling font encoding OML ...
 ... no UTF-8 mapping file for font encoding OML
 Now handling font encoding T1 ...
 ... processing UTF-8 mapping file for font encoding T1
 
-(/usr/share/texmf-texlive/tex/latex/base/t1enc.dfu
+(/usr/share/texmf/tex/latex/base/t1enc.dfu
 File: t1enc.dfu 2008/04/05 v1.1m UTF-8 support for inputenc
    defining Unicode char U+00A1 (decimal 161)
    defining Unicode char U+00A3 (decimal 163)
@@ -336,7 +339,7 @@ File: t1enc.dfu 2008/04/05 v1.1m UTF-8 support for inputenc
 Now handling font encoding OT1 ...
 ... processing UTF-8 mapping file for font encoding OT1
 
-(/usr/share/texmf-texlive/tex/latex/base/ot1enc.dfu
+(/usr/share/texmf/tex/latex/base/ot1enc.dfu
 File: ot1enc.dfu 2008/04/05 v1.1m UTF-8 support for inputenc
    defining Unicode char U+00A1 (decimal 161)
    defining Unicode char U+00A3 (decimal 163)
@@ -367,7 +370,7 @@ File: ot1enc.dfu 2008/04/05 v1.1m UTF-8 support for inputenc
 Now handling font encoding OMS ...
 ... processing UTF-8 mapping file for font encoding OMS
 
-(/usr/share/texmf-texlive/tex/latex/base/omsenc.dfu
+(/usr/share/texmf/tex/latex/base/omsenc.dfu
 File: omsenc.dfu 2008/04/05 v1.1m UTF-8 support for inputenc
    defining Unicode char U+00A7 (decimal 167)
    defining Unicode char U+00B6 (decimal 182)
@@ -393,24 +396,11 @@ Now handling font encoding U ...
 ))
 LaTeX Font Info:    Try loading font information for T1+txtt on input line 23.
 
-(/usr/share/texmf-texlive/tex/latex/txfonts/t1txtt.fd
+(/usr/share/texmf/tex/latex/txfonts/t1txtt.fd
 File: t1txtt.fd 2000/12/15 v3.1
 )
 \c@homeworkProblemCounter=\count109
- (./midterm_write-up.aux
-
-LaTeX Warning: Label `fig:ftfs' multiply defined.
-
-
-LaTeX Warning: Label `fig:ftbs' multiply defined.
-
-
-LaTeX Warning: Label `fig:ftbs' multiply defined.
-
-
-LaTeX Warning: Label `eq:amp_ftfs' multiply defined.
-
-)
+ (./midterm_write-up.aux)
 \openout1 = `midterm_write-up.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 149.
@@ -425,7 +415,8 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 149.
 LaTeX Font Info:    ... okay on input line 149.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 149.
 LaTeX Font Info:    ... okay on input line 149.
- (/usr/share/texmf-texlive/tex/context/base/supp-pdf.mkii
+
+(/usr/share/texmf/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count110
 \scratchdimen=\dimen118
@@ -437,26 +428,71 @@ LaTeX Font Info:    ... okay on input line 149.
 \MPscratchDim=\dimen119
 \MPnumerator=\count114
 \everyMPtoPDFconversion=\toks25
+) (/usr/share/texmf/tex/generic/oberdiek/pdftexcmds.sty
+Package: pdftexcmds 2010/04/01 v0.9 Utility functions of pdfTeX for LuaTeX (HO)
+
+
+(/usr/share/texmf/tex/generic/oberdiek/infwarerr.sty
+Package: infwarerr 2010/04/08 v1.3 Providing info/warning/message (HO)
 )
+(/usr/share/texmf/tex/generic/oberdiek/ifluatex.sty
+Package: ifluatex 2010/03/01 v1.3 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+)
+(/usr/share/texmf/tex/generic/oberdiek/ltxcmds.sty
+Package: ltxcmds 2010/04/26 v1.7 LaTeX kernel commands for general use (HO)
+)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+)
+(/usr/share/texmf/tex/latex/oberdiek/epstopdf-base.sty
+Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
+
+(/usr/share/texmf/tex/latex/oberdiek/grfext.sty
+Package: grfext 2007/09/30 v1.0 Managing graphics extensions (HO)
+)
+(/usr/share/texmf/tex/latex/oberdiek/kvoptions.sty
+Package: kvoptions 2010/02/22 v3.7 Keyval support for LaTeX options (HO)
+
+(/usr/share/texmf/tex/generic/oberdiek/kvsetkeys.sty
+Package: kvsetkeys 2010/03/01 v1.9 Key value parser (HO)
+
+(/usr/share/texmf/tex/generic/oberdiek/etexcmds.sty
+Package: etexcmds 2010/01/28 v1.3 Prefix for e-TeX command names (HO)
+Package etexcmds Info: Could not find \expanded.
+(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
+(etexcmds)             that some package has redefined \expanded.
+(etexcmds)             In the latter case, load this package earlier.
+)))
+Package grfext Info: Graphics extension search list:
+(grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
+G,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 436.
+
+(/usr/share/texmf/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+))
 \c@lstlisting=\count115
  [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-<q1_ftcs.png, id=10, 510.9489pt x 518.8986pt>
+<q1_ftcs.png, id=11, 510.9489pt x 518.8986pt>
 File: q1_ftcs.png Graphic file (type png)
- <use q1_ftcs.png> [2 <./q1_ftcs.png>] <q2_ftfs.png, id=21, 501.5538pt x 518.89
+ <use q1_ftcs.png> [2 <./q1_ftcs.png>] <q2_ftfs.png, id=22, 501.5538pt x 518.89
 86pt>
 File: q2_ftfs.png Graphic file (type png)
  <use q2_ftfs.png>
-<q2_ftbs.png, id=22, 510.9489pt x 518.8986pt>
+<q2_ftbs.png, id=23, 510.9489pt x 518.8986pt>
 File: q2_ftbs.png Graphic file (type png)
  <use q2_ftbs.png> [3
 
- <./q2_ftfs.png>] [4 <./q2_ftbs.png>] <q3_ftfs.png, id=31, 510.9489pt x 518.898
+ <./q2_ftfs.png>] [4 <./q2_ftbs.png>] <q3_ftfs.png, id=32, 510.9489pt x 518.898
 6pt>
 File: q3_ftfs.png Graphic file (type png)
 
-<use q3_ftfs.png> <q3_ftbs.png, id=32, 501.5538pt x 518.8986pt>
+<use q3_ftfs.png> <q3_ftbs.png, id=33, 501.5538pt x 518.8986pt>
 File: q3_ftbs.png Graphic file (type png)
 
 <use q3_ftbs.png> [5
@@ -464,78 +500,86 @@ File: q3_ftbs.png Graphic file (type png)
  <./q3_ftfs.png>] [6 <./q3_ftbs.png>] [7
 
 ] [8]
-<q5.png, id=49, 502.9992pt x 510.9489pt>
+<q5.png, id=50, 502.9992pt x 510.9489pt>
 File: q5.png Graphic file (type png)
  <use q5.png> [9 <./q5.png>]
-<q6_ftbs.png, id=54, 510.9489pt x 518.8986pt>
+<q6_ftbs.png, id=55, 510.9489pt x 518.8986pt>
 File: q6_ftbs.png Graphic file (type png)
  <use q6_ftbs.png> [10
 
- <./q6_ftbs.png>] <q7.png, id=59, 510.9489pt x 510.9489pt>
+ <./q6_ftbs.png>] <q7.png, id=60, 510.9489pt x 510.9489pt>
 File: q7.png Graphic file (type png)
  <use q7.png> [11
 
  <./q7.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 680--682
+Underfull \hbox (badness 10000) in paragraph at lines 682--684
 
  []
 
-<q8.png, id=64, 501.5538pt x 510.9489pt>
+
+Underfull \hbox (badness 10000) in paragraph at lines 685--687
+
+ []
+
+<q8.png, id=65, 510.9489pt x 518.8986pt>
 File: q8.png Graphic file (type png)
  <use q8.png> [12
 
 ] [13 <./q8.png>]
-(/usr/share/texmf-texlive/tex/latex/listings/lstlang1.sty
+<q8_amp.png, id=74, 498.663pt x 510.9489pt>
+File: q8_amp.png Graphic file (type png)
+ <use q8_amp.png> [14
+
+] [15 <./q8_amp.png>] (/usr/share/texmf/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2004/09/05 1.3 listings language file
 ) (./midterm.py
 LaTeX Font Info:    Try loading font information for OMS+cmr on input line 21.
 
-(/usr/share/texmf-texlive/tex/latex/base/omscmr.fd
+(/usr/share/texmf/tex/latex/base/omscmr.fd
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 21.
- [14
+ [16
 
-] [15] [16] [17]
-[18] [19] [20] [21] [22] [23] [24] [25] [26]
-LaTeX Font Info:    Try loading font information for OML+cmr on input line 642.
+] [17] [18] [19] [20] [21]
+[22] [23] [24]
+LaTeX Font Info:    Try loading font information for OML+cmr on input line 427.
 
-
-(/usr/share/texmf-texlive/tex/latex/base/omlcmr.fd
+ (/usr/share/texmf/tex/latex/base/omlcmr.fd
 File: omlcmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <10> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 642.
- [27])
-AED: lastpage setting LastPage [28] (./midterm_write-up.aux)
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 427.
+ [25] [26] [27]
+[28] [29]) AED: lastpage setting LastPage [30] (./midterm_write-up.aux)
 
-LaTeX Warning: There were multiply-defined labels.
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
  ) 
 Here is how much of TeX's memory you used:
- 4503 strings out of 493848
- 56558 string characters out of 1152822
- 343492 words of memory out of 3000000
- 7724 multiletter control sequences out of 15000+50000
+ 4906 strings out of 493747
+ 62684 string characters out of 3151242
+ 351657 words of memory out of 3500000
+ 8110 multiletter control sequences out of 15000+200000
  10671 words of font info for 38 fonts, out of 3000000 for 9000
  714 hyphenation exceptions out of 8191
- 30i,12n,43p,570b,1821s stack positions out of 5000i,500n,10000p,200000b,50000s
-</usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/sha
-re/texmf-texlive/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-te
-xlive/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-texlive/fonts
-/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texmf-texlive/fonts/type1/publi
-c/amsfonts/cm/cmr10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/c
-m/cmr12.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr7.pfb><
-/usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/te
-xmf-texlive/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-texlive
-/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texmf-texlive/fonts/type1
-/public/amsfonts/cm/cmti10.pfb></usr/share/texmf-texlive/fonts/type1/public/ams
-fonts/cm/cmti12.pfb></usr/share/texmf-texlive/fonts/type1/public/txfonts/t1xbtt
-.pfb></usr/share/texmf-texlive/fonts/type1/public/txfonts/t1xtt.pfb>
-Output written on midterm_write-up.pdf (28 pages, 559595 bytes).
+ 38i,12n,43p,579b,1821s stack positions out of 5000i,500n,10000p,200000b,50000s
+</usr/share/texmf/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf
+/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf/fonts/type1/public
+/amsfonts/cm/cmmi10.pfb></usr/share/texmf/fonts/type1/public/amsfonts/cm/cmmi7.
+pfb></usr/share/texmf/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texm
+f/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf/fonts/type1/public
+/amsfonts/cm/cmr7.pfb></usr/share/texmf/fonts/type1/public/amsfonts/cm/cmr9.pfb
+></usr/share/texmf/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf/
+fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texmf/fonts/type1/public/a
+msfonts/cm/cmti10.pfb></usr/share/texmf/fonts/type1/public/amsfonts/cm/cmti12.p
+fb></usr/share/texmf/fonts/type1/public/txfonts/t1xbtt.pfb></usr/share/texmf/fo
+nts/type1/public/txfonts/t1xtt.pfb>
+Output written on midterm_write-up.pdf (30 pages, 639810 bytes).
 PDF statistics:
- 167 PDF objects out of 1000 (max. 8388607)
+ 178 PDF objects out of 1000 (max. 8388607)
+ 110 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 46 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 51 words of extra memory for PDF output out of 10000 (max. 10000000)
 

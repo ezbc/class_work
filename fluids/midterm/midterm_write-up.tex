@@ -221,8 +221,8 @@ breaklines=true
     \end{equation}
 
     We ran the numerical simulation of the progression of $y(x,t)$ using the
-    same parameters and boundaries as in Problem 1.  Figures~\ref{fig:ftfs}
-    and~\ref{fig:ftbs} show the results of the simulations.
+    same parameters and boundaries as in Problem 1.  Figures~\ref{fig:q2_ftfs}
+    and~\ref{fig:q2_ftbs} show the results of the simulations.
 
     %---------------------------------------------------------------------------
     % FIGURE
@@ -230,7 +230,7 @@ breaklines=true
     \begin{center}
         \includegraphics[width=0.75\columnwidth]{q2_ftfs.png} % Example image
 
-        \caption{\label{fig:ftfs} Snapshots of $y$ at different times as a
+        \caption{\label{fig:q2_ftfs} Snapshots of $y$ at different times as a
         function of $x$ using the FTFS scheme. The FTFS scheme reproduces the
         analytic results Equation~\ref{eq:y} terribly given the parameters in
         Problem 1. The numerical progression of $y(x,t)$
@@ -246,11 +246,12 @@ breaklines=true
     \begin{center}
         \includegraphics[width=0.75\columnwidth]{q2_ftbs.png} % Example image
 
-        \caption{\label{fig:ftbs}Snapshots of $y$ at different times as a
+        \caption{\label{fig:q2_ftbs}Snapshots of $y$ at different times as a
         function of $x$ using the FTBS scheme. The FTBS scheme reproduces the
-        analytic results Equation~\ref{eq:y} mildly well given the parameters in
-        Problem 1. The numerical progression of $y(x,t)$ is decreasing in
-        amplitude from the analytic result with time.}
+        analytic results Equation~\ref{eq:y} mildly well given the parameters
+        in Problem 1. The numerical progression of $y(x,t)$ is decreasing in
+        amplitude from the analytic result with time. This is an example of
+        numerical diffusion.}
 
     \end{center}
     \end{figure}
@@ -269,7 +270,7 @@ breaklines=true
 
     We ran the numerical simulation of the progression of $y(x,t)$ using the
     same parameters and boundaries as in Problem 1 except we set the flow
-    speed, $a = -1$.  Figures~\ref{fig:ftfs} and~\ref{fig:ftbs} show the
+    speed, $a = -1$.  Figures~\ref{fig:q3_ftfs} and~\ref{fig:q3_ftbs} show the
     results of the simulations.
 
     %---------------------------------------------------------------------------
@@ -278,7 +279,7 @@ breaklines=true
     \begin{center}
         \includegraphics[width=0.75\columnwidth]{q3_ftfs.png} % Example image
 
-        \caption{\label{fig:ftfs} Snapshots of $y$ at different times as a
+        \caption{\label{fig:q3_ftfs} Snapshots of $y$ at different times as a
         function of $x$ using the FTFS scheme. The FTFS scheme reproduces the
         analytic results Equation~\ref{eq:y} mildly well given the parameters in
         Problem 1. The numerical progression of $y(x,t)$ is decreasing in
@@ -296,7 +297,7 @@ breaklines=true
     \begin{center}
         \includegraphics[width=0.75\columnwidth]{q3_ftbs.png} % Example image
 
-        \caption{\label{fig:ftbs}Snapshots of $y$ at different times as a
+        \caption{\label{fig:q3_ftbs}Snapshots of $y$ at different times as a
         function of $x$ using the FTBS scheme. The FTBS scheme reproduces the
         analytic results Equation~\ref{eq:y} terribly given the parameters in
         Problem 1. The numerical progression of $y(x,t)$ diverged. Because the
@@ -450,7 +451,7 @@ breaklines=true
 
     \noindent thus
 
-    \begin{equation}
+    \begin{equation}\label{eq:sin2g}
         \sin^2[\theta] = 2G - G^2 
     \end{equation}
 
@@ -554,7 +555,7 @@ breaklines=true
         amplitude of the flow will remain finite as a function of time in the
         FTFS scheme for $0 < \alpha < 1$, and for the FTBS scheme for $-1 <
         \alpha < 0$. This means that only upstream schemes will provide stable
-        progressions of flow amplitudes.}
+        progressions of flow amplitudes for $|\alpha| < 1$.}
 
     \end{center}
     \end{figure}
@@ -570,10 +571,11 @@ breaklines=true
 %-------------------------------------------------------------------------------
 \begin{homeworkProblem}
 
-    Figure~\ref{fig:ftbs} demonstrates the result of running a downstream
-    scheme. The numerical progression of $y(x,t)$ diverged. $\alpha$ is now $>
-    2$ hence the amplitude will diverge from solution because the FTBS scheme is
-    calculating the progression of $y$ from downstream instead of upstream.
+    Figure~\ref{fig:q6_ftbs} demonstrates the result of running a upstream
+    scheme with $|\alpha| > 1$. The numerical progression of $y(x,t)$ diverged.
+    $\alpha$ is now $> 2$ hence the amplitude will diverge from solution
+    because the FTBS scheme is calculating the progression of $y$ from
+    downstream instead of upstream.
 
     %---------------------------------------------------------------------------
     % FIGURE
@@ -581,7 +583,7 @@ breaklines=true
     \begin{center}
         \includegraphics[width=0.75\columnwidth]{q6_ftbs.png} % Example image
 
-        \caption{\label{fig:ftbs} Snapshots of $y$ at different times as a
+        \caption{\label{fig:q6_ftbs} Snapshots of $y$ at different times as a
         function of $x$ using the FTBS scheme. The FTBS scheme reproduces the
         analytic results Equation~\ref{eq:y} terribly given a flow speed of 1
         and $\alpha = 2$. The numerical progression of $y(x,t)$ diverged.
@@ -681,7 +683,7 @@ breaklines=true
     condition.\\
 
     Figure~\ref{fig:p8} shows simulation results from the backward-time
-    centered-space (BTCS) scheme. 
+    centered-space (BTCS) scheme. \\
     
     %---------------------------------------------------------------------------
     % FIGURE
@@ -698,6 +700,7 @@ breaklines=true
     \end{center}
     \end{figure}
     %---------------------------------------------------------------------------
+    \clearpage
 
     To apply a von Neumann stability analysis on the BTCS scheme we substitute
     the initial the initial state at $t = 0$ 
@@ -706,7 +709,7 @@ breaklines=true
         y_k^0 = \sin[2 \pi k \Delta x]
     \end{equation}
 
-    \noindent which we then substitute into the FTFS scheme
+    \noindent which we then substitute into the BTCS scheme
 
     \begin{equation}
         y^{n-1}_k = y^{n}_k + a(t^{n} - t^n)  \
@@ -734,7 +737,7 @@ breaklines=true
     \begin{equation}
         A^{n} A^{-1} e^{ki2\pi \Delta x} = 
         A^{n} e^{ki2\pi \Delta x} 
-        [1 + \frac{\alpha}{2}[e^{2\pi \Delta x} + e^{-\2\pi \Delta x}]]
+        [1 + \frac{\alpha}{2}[e^{2\pi \Delta x} + e^{-2\pi \Delta x}]]
     \end{equation}
 
     \noindent leading to a solution for the amplification factor $A$
@@ -744,27 +747,20 @@ breaklines=true
     \end{equation}
 
     \begin{equation}
-        A = \frac{1}{1+\alpha}{2}[2i \sin[2\pi \Delta x]}
+        A = \frac{1}{1+\frac{\alpha}{2}2i \sin[2\pi \Delta x]}
     \end{equation}
 
     \noindent whose modulus is
 
     \begin{equation}
-        A = \frac{1}{1+\alpha[\sin[2\pi \Delta x]}
+        A = \frac{1}{\sqrt{1+\alpha^2 \sin^2[2\pi \Delta x]}}
     \end{equation}
+    
+    \noindent in which we substitute Equation~\ref{eq:sin2g} to get
 
     \begin{equation}
-        y_k^{-1} = \sin[2 \pi k \Delta x] + \frac{\alpha}{2} 
-        [\sin[2 \pi (k+1) \Delta x] - \sin[2 \pi k \Delta x]]
+        A = \frac{1}{\sqrt{1+\alpha^2(2G-G^2)}}
     \end{equation}
-
-    \noindent which can be related as
-
-    \begin{equation}
-        y_k^{-1} = \sin[2 \pi k \Delta x] + \alpha
-        [\sin[2 \pi \Delta x] \cos[2 \pi k \Delta x]]
-    \end{equation}
-
 
 
     %---------------------------------------------------------------------------
@@ -774,23 +770,34 @@ breaklines=true
     Backward-Time Center-Space scheme we will have
 
     \begin{equation}
-        y_k^{n-1} = A^{n-1} \sin[2 \pi \Delta x + (n-1) \phi]
+        y_k^{n} = A^{n} e^{ki2\pi \Delta x} 
     \end{equation}
     
     \noindent where
 
-    \begin{equation}\label{eq:amp_ftfs}
-        A = \sqrt{1+\alpha^2 \sin^2[2 \pi \Delta x]}
-        \,\,\,\,\,\,\,\,\,\,\,\,
-        \phi = {\rm atan2}[\alpha \sin[2 \pi \Delta x ], 1] 
+    \begin{equation}\label{eq:amp_btcs}
+        A = \frac{1}{\sqrt{1+\alpha^2(2G-G^2)}}
     \end{equation}
 
-    For any choice of $\alpha$, $A > 1$, thus previous time steps will have
-    greater amplitudes than future time steps. Our solution will always be
-    stable.}
-
+    For any choice of $\alpha$ and $G$, $A < 1$. Figure~\ref{fig:p8_amp}
+    demonstrates this result for the BTCS scheme.}
     %---------------------------------------------------------------------------
     
+    %---------------------------------------------------------------------------
+    % FIGURE
+    \begin{figure}[!ht] 
+    \begin{center} 
+        \includegraphics[width=0.75\columnwidth]{q8_amp.png} % Example image
+
+        \caption{\label{fig:p8_amp} Amplitudes of BTCS scheme as a function of
+        $\alpha$ for different $G$ values (see Equation~\ref{eq:amp_btcs}).
+        The amplitude of the flow will remain finite as a function of time in
+        the BTCS scheme for all values of $\alpha$.}
+
+    \end{center}
+    \end{figure}
+    %---------------------------------------------------------------------------
+
 
 
 \end{homeworkProblem}
