@@ -1,0 +1,25 @@
+# Original Filename:   bc03_exp_10.0_z_0.02_chab.model
+# zf:                  6.0
+# SFH:                 Exponential
+# Tau:                 10.0
+# Metallicity (z):     0.02
+# IMF:                 Chabrier
+# Cosmology:           Om=0.2720 Ol=0.7280 h=0.7040 w=-1.0000
+# Magnitude System:    AB
+#
+# Column Descriptions:
+# 1 redshift
+# 2 age (gyrs)
+# 3 mass (solar masses)
+# 4 sloan_g rest-frame absolute magnitude
+# 5 sloan_i rest-frame absolute magnitude
+ 5.00000  0.248143 2.51126e-02   6.0018   6.0408
+ 4.00000  0.624972 5.89327e-02   5.6947   5.6508
+ 3.00000  1.246688 1.10060e-01   5.5453   5.3753
+ 2.00000  2.405315 1.93890e-01   5.5015   5.1964
+ 1.50000  3.414832 2.58194e-01   5.5257   5.1460
+ 1.00000  5.013743 3.46788e-01   5.6005   5.1388
+ 0.75000  6.184780 4.02867e-01   5.6683   5.1603
+ 0.50000  7.743941 4.67933e-01   5.7669   5.2057
+ 0.25000  9.862540 5.41401e-01   5.9101   5.2852
+ 0.00000 12.802156 6.20778e-01   6.1193   5.4183

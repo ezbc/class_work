@@ -4,6 +4,169 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pyfits as pf
 
+def plot_mass_vs_age(mass_list = None, age_list = None, list_names = None,
+        limits = None, savedir = './', filename = None, show = True, title =
+        '', redshifts = None):
+
+        ''' Plots
+
+        amp_functions = tuple of functions
+        '''
+
+        # Import external modules
+        import numpy as np
+        import pyfits as pf
+        import matplotlib.pyplot as plt
+        import matplotlib
+        from mpl_toolkits.axes_grid1 import ImageGrid
+
+        # Set up plot aesthetics
+        plt.clf()
+        plt.rcdefaults()
+        fontScale = 12
+        params = {#'backend': .pdf',
+                  'axes.labelsize': fontScale,
+                  'axes.titlesize': fontScale,
+                  'text.fontsize': fontScale,
+                  'legend.fontsize': fontScale*3/4,
+                  'xtick.labelsize': fontScale,
+                  'ytick.labelsize': fontScale,
+                  'font.weight': 500,
+                  'axes.labelweight': 500,
+                  'text.usetex': False,
+                  'figure.figsize': (8, 8),
+                 }
+        plt.rcParams.update(params)
+
+        # Create figure
+        fig = plt.figure()
+        grid = ImageGrid(fig, (1,1,1),
+                      nrows_ncols=(1,1),
+                      ngrids = 1,
+                      direction='row',
+                      axes_pad=1,
+                      aspect=False,
+                      share_all=True,
+                      label_mode='All')
+
+        colors = ['k','b','g','r','c']
+        linestyles = ['-','--','-.','-','-']
+        letters = ['a','b']
+
+        for i in range(1):
+            ax = grid[i]
+
+            for i, mass in enumerate(mass_list):
+                ax.plot(age_list[i], mass,
+                        label = '%s Gyr' % list_names[i],
+                        marker = 's'
+                        )
+                if i < 2:
+                    for j, z in enumerate(redshifts):
+                        ax.annotate('z=%s' % z,
+                                xy = (age_list[i][j], mass_list[i][j]),
+                                textcoords = 'offset points',
+                                xytext = (2,3)
+                                )
+
+
+            if limits is not None:
+                ax.set_xlim(limits[0],limits[1])
+                ax.set_ylim(limits[2],limits[3])
+
+            # Adjust asthetics
+            ax.set_xlabel(r'Age (Gyr)',)
+            ax.set_ylabel(r'Mass ($M_\odot$)')
+            ax.grid(True)
+            ax.legend(loc='lower right')
+            ax.set_title(title)
+
+        if filename is not None:
+            plt.savefig(savedir + filename,bbox_inches='tight', dpi=600)
+        if show:
+            fig.show()
+
+def plot_color_index(g_i_list = None, i_list = None, list_names = None,
+        limits = None, savedir = './', filename = None, show = True, title =
+        '', redshifts = None):
+
+        ''' Plots
+
+        amp_functions = tuple of functions
+        '''
+
+        # Import external modules
+        import numpy as np
+        import pyfits as pf
+        import matplotlib.pyplot as plt
+        import matplotlib
+        from mpl_toolkits.axes_grid1 import ImageGrid
+
+        # Set up plot aesthetics
+        plt.clf()
+        plt.rcdefaults()
+        fontScale = 12
+        params = {#'backend': .pdf',
+                  'axes.labelsize': fontScale,
+                  'axes.titlesize': fontScale,
+                  'text.fontsize': fontScale,
+                  'legend.fontsize': fontScale*3/4,
+                  'xtick.labelsize': fontScale,
+                  'ytick.labelsize': fontScale,
+                  'font.weight': 500,
+                  'axes.labelweight': 500,
+                  'text.usetex': False,
+                  'figure.figsize': (8, 8),
+                 }
+        plt.rcParams.update(params)
+
+        # Create figure
+        fig = plt.figure()
+        grid = ImageGrid(fig, (1,1,1),
+                      nrows_ncols=(1,1),
+                      ngrids = 1,
+                      direction='row',
+                      axes_pad=1,
+                      aspect=False,
+                      share_all=True,
+                      label_mode='All')
+
+        colors = ['k','b','g','r','c']
+        linestyles = ['-','--','-.','-','-']
+        letters = ['a','b']
+
+        for i in range(1):
+            ax = grid[i]
+
+            for i in range(len(i_list)):
+                ax.plot(i_list[i], g_i_list[i],
+                        label = '%s Gyr' % list_names[i],
+                        marker = 's'
+                        )
+                if i < 2:
+                    for j, z in enumerate(redshifts):
+                        ax.annotate('z=%s' % z,
+                                xy = (i_list[i][j], g_i_list[i][j]),
+                                textcoords = 'offset points',
+                                xytext = (2,3)
+                                )
+
+            if limits is not None:
+                ax.set_xlim(limits[0],limits[1])
+                ax.set_ylim(limits[2],limits[3])
+
+            # Adjust asthetics
+            ax.set_xlabel(r'$M_i$ (mag)',)
+            ax.set_ylabel(r'$M_g - M_i$ (mag)')
+            ax.grid(True)
+            ax.legend(loc='upper left')
+            ax.set_title(title)
+
+        if filename is not None:
+            plt.savefig(savedir + filename,bbox_inches='tight', dpi=600)
+        if show:
+            fig.show()
+
 def plot_mags(wavelengths = None, mag_list = None, ages = None, limits = None,
         savedir = './', filename = None, show = True, title = '',):
 
@@ -60,14 +223,29 @@ def plot_mags(wavelengths = None, mag_list = None, ages = None, limits = None,
                         label = 'Age = %s Gyr' % ages[i],
                         )
 
+            # filters
+            filters = ['U', 'B', 'V', 'R', 'I', 'J', 'H', 'K', 'NUV', 'FUV']
+            filter_centers = [3630, 4450, 5510, 6580, 8060, 12200, 16300,
+                    21900, 2274, 1542,]
+            for j in range(len(filters)):
+                ax.axvline(x = filter_centers[j],
+                           ymin = 0, ymax = 1e10,
+                           color = 'k')
+                ax.annotate(filters[j],
+                        xy = (filter_centers[j], -15),
+                        textcoords = 'offset points',
+                        xytext = (2,3)
+                        )
+
             if limits is not None:
                 ax.set_xlim(limits[0],limits[1])
                 ax.set_ylim(limits[2],limits[3])
 
             # Adjust asthetics
-            ax.set_xlabel(r'$\lambda$ (Angstrom)',)
-            ax.set_ylabel(r'$M_{AB}$ d$\lambda$')
-            ax.grid(True)
+            ax.set_xscale('log')
+            ax.set_xlabel(r'$\lambda$ (\AA)',)
+            ax.set_ylabel(r'$M_{AB} d\lambda$ (mag / \AA')
+            #ax.grid(True)
             ax.legend(loc='upper right')
             ax.set_title(title)
 
@@ -128,7 +306,18 @@ def plot_mass2light(ages = None, m2l = None, limits =
             ax = grid[i]
 
             ax.plot(ages, m2l,
+                    marker = 's',
+                    color = 'k',
+                    markersize = 3
                     #label = 'Age = %s Gyr' % ages[i],
+                    )
+            ax.axhline(y = 4.83 / 4.64,
+                       xmin = -1, xmax = 100,
+                       color = 'k')
+            ax.annotate(r'$M_\odot / L_\odot$',
+                    xy = (10, 4.83 / 4.64),
+                    textcoords = 'offset points',
+                    xytext = (2,3)
                     )
 
             if limits is not None:
@@ -266,6 +455,12 @@ def calc_m2M(mag, distance):
     distance *= 3.24077929e-19 # cm to parsecs
 
     return mag - 5 * np.log10(distance / 10.)
+
+def calc_mag2lum(Mag):
+
+    lum = 10**(Mag / 2.5)
+
+    return lum
 
 def calc_z2dist(z):
 
@@ -600,18 +795,103 @@ def problem_3(section = 'a'):
                 savedir = './', filename = 'p_3b.png',
                 show = False, title = 'Problem 3b: SSP Spectra')
 
+def problem_4(section = 'a'):
+    #########
+    # 4a
+    #########
+
+    bc_10 = np.loadtxt('bc03_tau10.txt')
+    bc_1 = np.loadtxt('bc03_tau1.txt')
+    m_10 = np.loadtxt('m05_tau10.txt')
+    m_1 = np.loadtxt('m05_tau1.txt')
+
+    data_list = [bc_10, bc_1, m_10, m_1]
+    data_names = [r'BC03 $\tau = 10$',
+                  r'BC03 $\tau = 1$',
+                  r'M05 $\tau = 10$',
+                  r'M05 $\tau = 1$',]
+    columns = ['z', 'age', 'mass', 'sloan_g', 'sloan_i']
+
+    mass_list = []
+    age_list = []
+    for data in data_list:
+        age_list.append(data[:, 1])
+        mass_list.append(data[:, 2])
+
+    if section == 'a':
+        plot_mass_vs_age(mass_list = mass_list,
+                age_list = age_list,
+                list_names = data_names,
+                redshifts = data_list[0][:, 0],
+                #limits = (900, 30000, 10**-6, 1),
+                savedir = './',
+                filename = 'p_4a.png',
+                show = False,
+                title = 'Problem 4a: SSP Mass with Age')
+    #########
+    # 4b
+    #########
+
+    g_i_list = []
+    i_list = []
+    for data in data_list:
+        i_mag = data[:, 4]
+        g_mag = data[:, 3]
+        g_i_list.append(g_mag - i_mag)
+        i_list.append(i_mag)
+
+    if section == 'b':
+        plot_color_index(g_i_list = g_i_list,
+                i_list = i_list,
+                list_names = data_names,
+                redshifts = data_list[0][:, 0],
+                #limits = (900, 30000, 10**-6, 1),
+                savedir = './',
+                filename = 'p_4b.png',
+                show = False,
+                title = 'Problem 4b: Sloan g-i Mags with Time')
+    #########
+    # 4c
+    #########
+
+    # assume the ages of the two mergins galaxies are 9.86 Gyr old
+    data_late = np.loadtxt('bc03_tau10.txt')
+    data_early = np.loadtxt('bc03_tau1.txt')
+
+    i_lum_early_10 = calc_mag2lum(data_early[-2, 4])
+    g_lum_early_10 = calc_mag2lum(data_early[-2, 3])
+
+    i_lum_early_5 = calc_mag2lum(data_early[5, 4])
+    g_lum_early_5 = calc_mag2lum(data_early[5, 3])
+
+    i_lum_late_10 = calc_mag2lum(data_late[-2, 4])
+    g_lum_late_10 = calc_mag2lum(data_late[-2, 3])
+
+    g_i_lum_early_10 = g_lum_early_10 - i_lum_early_10
+    g_i_lum_late_10 = g_lum_late_10 - i_lum_late_10
+    g_i_lum_early_5 = g_lum_early_5 - i_lum_early_5
+
+    alpha = (1 / g_i_lum_early_5 - 1 / g_i_lum_late_10) \
+            / (1 / g_i_lum_early_10 - 1 / g_i_lum_early_5)
+
+    print('Mass_early / mass_late = %.2f' % alpha)
+
 def main():
-    problem_1(section = 'a')
-    problem_1(section = 'b')
-    problem_1(section = 'c')
-    problem_1(section = 'd')
+    #problem_1(section = 'a')
+    #problem_1(section = 'b')
+    #problem_1(section = 'c')
+    #problem_1(section = 'd')
 
-    problem_2(section = 'a')
-    problem_2(section = 'b')
-    problem_2(section = 'c')
+    #problem_2(section = 'a')
+    #problem_2(section = 'b')
+    #problem_2(section = 'c')
 
-    problem_3(section = 'a')
-    problem_3(section = 'b')
+    #problem_3(section = 'a')
+    #problem_3(section = 'b')
+
+    #problem_4(section = 'a')
+    #problem_4(section = 'b')
+    #problem_4(section = 'c')
 
 if __name__ == '__main__':
     main()
