@@ -23,6 +23,8 @@ def plot_mass_vs_age(mass_list = None, age_list = None, list_names = None,
         # Set up plot aesthetics
         plt.clf()
         plt.rcdefaults()
+        colormap = plt.cm.gist_ncar
+        color_cycle = [colormap(i) for i in np.linspace(0, 0.9, len(mass_list))]
         fontScale = 12
         params = {#'backend': .pdf',
                   'axes.labelsize': fontScale,
@@ -34,7 +36,8 @@ def plot_mass_vs_age(mass_list = None, age_list = None, list_names = None,
                   'font.weight': 500,
                   'axes.labelweight': 500,
                   'text.usetex': False,
-                  'figure.figsize': (8, 8),
+                  'figure.figsize': (6, 6),
+                  'axes.color_cycle': color_cycle # colors of different plots
                  }
         plt.rcParams.update(params)
 
@@ -66,9 +69,9 @@ def plot_mass_vs_age(mass_list = None, age_list = None, list_names = None,
                         ax.annotate('z=%s' % z,
                                 xy = (age_list[i][j], mass_list[i][j]),
                                 textcoords = 'offset points',
-                                xytext = (2,3)
+                                xytext = (2,3),
+                                size = fontScale * 0.75
                                 )
-
 
             if limits is not None:
                 ax.set_xlim(limits[0],limits[1])
@@ -105,6 +108,8 @@ def plot_color_index(g_i_list = None, i_list = None, list_names = None,
         # Set up plot aesthetics
         plt.clf()
         plt.rcdefaults()
+        colormap = plt.cm.gist_ncar
+        color_cycle = [colormap(i) for i in np.linspace(0, 0.9, len(i_list))]
         fontScale = 12
         params = {#'backend': .pdf',
                   'axes.labelsize': fontScale,
@@ -116,7 +121,8 @@ def plot_color_index(g_i_list = None, i_list = None, list_names = None,
                   'font.weight': 500,
                   'axes.labelweight': 500,
                   'text.usetex': False,
-                  'figure.figsize': (8, 8),
+                  'figure.figsize': (6, 6),
+                  'axes.color_cycle': color_cycle # colors of different plots
                  }
         plt.rcParams.update(params)
 
@@ -148,7 +154,8 @@ def plot_color_index(g_i_list = None, i_list = None, list_names = None,
                         ax.annotate('z=%s' % z,
                                 xy = (i_list[i][j], g_i_list[i][j]),
                                 textcoords = 'offset points',
-                                xytext = (2,3)
+                                xytext = (2,3),
+                                size = fontScale * 0.75
                                 )
 
             if limits is not None:
@@ -159,7 +166,7 @@ def plot_color_index(g_i_list = None, i_list = None, list_names = None,
             ax.set_xlabel(r'$M_i$ (mag)',)
             ax.set_ylabel(r'$M_g - M_i$ (mag)')
             ax.grid(True)
-            ax.legend(loc='upper left')
+            ax.legend(loc='bottom right')
             ax.set_title(title)
 
         if filename is not None:
@@ -185,6 +192,8 @@ def plot_mags(wavelengths = None, mag_list = None, ages = None, limits = None,
         # Set up plot aesthetics
         plt.clf()
         plt.rcdefaults()
+        colormap = plt.cm.gist_ncar
+        color_cycle = [colormap(i) for i in np.linspace(0, 0.9, len(mag_list))]
         fontScale = 12
         params = {#'backend': .pdf',
                   'axes.labelsize': fontScale,
@@ -196,7 +205,8 @@ def plot_mags(wavelengths = None, mag_list = None, ages = None, limits = None,
                   'font.weight': 500,
                   'axes.labelweight': 500,
                   'text.usetex': False,
-                  'figure.figsize': (8, 8),
+                  'figure.figsize': (6, 6),
+                  'axes.color_cycle': color_cycle # colors of different plots
                  }
         plt.rcParams.update(params)
 
@@ -243,8 +253,8 @@ def plot_mags(wavelengths = None, mag_list = None, ages = None, limits = None,
 
             # Adjust asthetics
             ax.set_xscale('log')
-            ax.set_xlabel(r'$\lambda$ (\AA)',)
-            ax.set_ylabel(r'$M_{AB} d\lambda$ (mag / \AA')
+            ax.set_xlabel(r'$\lambda$ ($\AA$)',)
+            ax.set_ylabel(r'$M_{AB}\ d\lambda$ (mag / $\AA$)')
             #ax.grid(True)
             ax.legend(loc='upper right')
             ax.set_title(title)
@@ -272,6 +282,8 @@ def plot_mass2light(ages = None, m2l = None, limits =
         # Set up plot aesthetics
         plt.clf()
         plt.rcdefaults()
+        colormap = plt.cm.gist_ncar
+        color_cycle = [colormap(i) for i in np.linspace(0, 0.9, len(ages))]
         fontScale = 12
         params = {#'backend': .pdf',
                   'axes.labelsize': fontScale,
@@ -283,9 +295,11 @@ def plot_mass2light(ages = None, m2l = None, limits =
                   'font.weight': 500,
                   'axes.labelweight': 500,
                   'text.usetex': False,
-                  'figure.figsize': (8, 8),
+                  'figure.figsize': (6, 6),
+                  'axes.color_cycle': color_cycle # colors of different plots
                  }
         plt.rcParams.update(params)
+
 
         # Create figure
         fig = plt.figure()
@@ -340,7 +354,7 @@ def plot_mass2light(ages = None, m2l = None, limits =
 def plot_fluxes(wavelengths = None, flux_list = None, ages = None, metals =
         None, limits = None, savedir = './', filename = None, show = True,
         title = '', log_scale = (1,1), normalized = True, attenuations = None,
-        age_unit = 'Gyr'):
+        age_unit = 'Gyr', balmer_line = False):
 
         ''' Plots
 
@@ -357,6 +371,8 @@ def plot_fluxes(wavelengths = None, flux_list = None, ages = None, metals =
         # Set up plot aesthetics
         plt.clf()
         plt.rcdefaults()
+        colormap = plt.cm.gist_ncar
+        color_cycle = [colormap(i) for i in np.linspace(0, 0.9, len(flux_list))]
         fontScale = 12
         params = {#'backend': .pdf',
                   'axes.labelsize': fontScale,
@@ -368,7 +384,8 @@ def plot_fluxes(wavelengths = None, flux_list = None, ages = None, metals =
                   'font.weight': 500,
                   'axes.labelweight': 500,
                   'text.usetex': False,
-                  'figure.figsize': (8, 8),
+                  'figure.figsize': (6, 6),
+                  'axes.color_cycle': color_cycle # colors of different plots
                  }
         plt.rcParams.update(params)
 
@@ -389,6 +406,14 @@ def plot_fluxes(wavelengths = None, flux_list = None, ages = None, metals =
 
         for i in range(1):
             ax = grid[i]
+            if balmer_line:
+                lines = [6560,4861,4341,4102,3970,
+                        3889, 3835,3646]
+                for line in lines:
+                    ax.axvline(x = line,
+                           ymin = 0, ymax = 1e10,
+                           color = 'k',
+                           alpha = 0.5)
 
             for i, fluxes in enumerate(flux_list):
                 if ages is not None and metals is None:
@@ -397,11 +422,11 @@ def plot_fluxes(wavelengths = None, flux_list = None, ages = None, metals =
                             )
                 elif metals is not None and ages is None:
                     ax.plot(wavelengths, fluxes,
-                            label = r'Z = %s $Z_\odot$' % metals[i],
+                            label = r'Z = %s ' % metals[i],
                             )
                 elif ages is not None and metals is not None:
                     ax.plot(wavelengths, fluxes,
-                            label = 'Age = %.1f %s, Z = %s $Z_\odot$' % \
+                            label = 'Age = %.1f %s, Z = %s ' % \
                                     (ages[i], age_unit, metals[i]),
                             )
                 elif attenuations is not None:
@@ -458,7 +483,7 @@ def calc_m2M(mag, distance):
 
 def calc_mag2lum(Mag):
 
-    lum = 10**(Mag / 2.5)
+    lum = 10**(Mag / -2.5)
 
     return lum
 
@@ -508,8 +533,8 @@ def problem_1(section = 'a'):
     if section == 'a':
         plot_mags(wavelengths = wavelengths, mag_list = Mag_list,
                 ages = age_list,
-                limits = (900, 25000, -15, -40),
-                savedir = './', filename = 'p_1a.png',
+                limits = (900, 25000, -15, -37),
+                savedir = './', filename = 'p_1a.pdf',
                 show = False, title = 'Problem 1a: SSPs')
 
     #########
@@ -524,7 +549,7 @@ def problem_1(section = 'a'):
         plot_mass2light(m2l = m2l,
                 ages = ages / 1e9,
                 #limits = (10**-2, 10**0, 0, 10**23),
-                savedir = './', filename = 'p_1b.png',
+                savedir = './', filename = 'p_1b.pdf',
                 show = False, title = 'Problem 1b: SSP Mass to Light Ratios')
 
     #########
@@ -542,8 +567,10 @@ def problem_1(section = 'a'):
         plot_fluxes(flux_list = flux_norm_list,
                 wavelengths = wavelengths,
                 ages = age_list,
-                limits = (900, 25000, 10**-4, 500),
-                savedir = './', filename = 'p_1c.png',
+                balmer_line = True,
+                log_scale = (0,0),
+                limits = (3500, 7000, 10**-4, 5),
+                savedir = './', filename = 'p_1c.pdf',
                 show = False, title = 'Problem 1c: SSP Normalized Spectra')
 
 def problem_2(section = 'a'):
@@ -553,7 +580,7 @@ def problem_2(section = 'a'):
     #########
 
     data_names = ['z004', 'z05', 'z02']
-    metallicities = [0.4, 5, 2]
+    metallicities = [0.004, 0.05, 0.02]
 
     columns = ['AGE', 'WAVE', 'FLUX']
 
@@ -589,8 +616,9 @@ def problem_2(section = 'a'):
         plot_fluxes(flux_list = flux_norm_list,
                 wavelengths = wavelengths,
                 metals = metallicities,
-                limits = (3500, 7000, 10**-1, 8),
-                savedir = './', filename = 'p_2a.png',
+                limits = (3500, 7000, 10**-1, 4),
+                log_scale = (0,0),
+                savedir = './', filename = 'p_2a.pdf',
                 show = False, title = 'Problem 2a: SSP Normalized Spectra')
 
     #########
@@ -639,6 +667,13 @@ def problem_2(section = 'a'):
     residuals_array_z004 = np.ma.array(residuals_array_z004,
             mask=(residuals_array_z004 != residuals_array_z004))
 
+    if section == 'b':
+        # print size of residuals
+        resid_size_z05 = np.mean(residuals_array_z05) / np.sum(flux_norm_z02)
+        resid_size_z004 = np.mean(residuals_array_z004) / np.sum(flux_norm_z02)
+        print('Average residual size for z=0.05: %s %%' %  resid_size_z05)
+        print('Average residual size for z=0.004: %s %%' %  resid_size_z004)
+
     age_index_z05 = np.where(residuals_array_z05 == residuals_array_z05.min())
     age_index_z004 = np.where(residuals_array_z004 == \
             residuals_array_z004.min())
@@ -648,7 +683,7 @@ def problem_2(section = 'a'):
     age_list = [5, ages[age_index_z05][0]/1e9, ages[age_index_z004][0]/1e9]
 
     metals = ['z02', 'z05', 'z004']
-    metals_list = [2, 5, 0.4]
+    metals_list = [0.02, 0.05, 0.004]
     flux_norm_list = []
 
     for i, metal in enumerate(metals):
@@ -663,7 +698,7 @@ def problem_2(section = 'a'):
                 metals = metals_list,
                 log_scale = (0, 0),
                 limits = (3500, 7000, 0, 2),
-                savedir = './', filename = 'p_2b.png',
+                savedir = './', filename = 'p_2b.pdf',
                 show = False, title = 'Problem 2b: SSP Normalized Spectra')
 
     #########
@@ -675,9 +710,9 @@ def problem_2(section = 'a'):
                 wavelengths = wavelengths,
                 ages = age_list,
                 metals = metals_list,
-                log_scale = (1, 1),
-                limits = (900, 30000, 10**-3, 2),
-                savedir = './', filename = 'p_2c.png',
+                log_scale = (0, 0),
+                limits = (900, 30000, 10**-3, 1.5),
+                savedir = './', filename = 'p_2c.pdf',
                 show = False, title = 'Problem 2c: SSP Normalized Spectra')
 
 def problem_3(section = 'a'):
@@ -686,7 +721,7 @@ def problem_3(section = 'a'):
     #########
 
     data_names = ['z004', 'z05', 'z02']
-    metallicities = [0.4, 5, 2]
+    metallicities = [0.004, 0.05, 0.02]
 
     columns = ['AGE', 'WAVE', 'FLUX']
 
@@ -713,7 +748,7 @@ def problem_3(section = 'a'):
 
     flux_list = []
     Av_list = [0.2, 0.5, 1]
-    age_index = np.argmin(np.abs(ages - 1*1e6))
+    age_index = np.argmin(np.abs(ages - 100*1e6))
 
     for Av in Av_list:
         fluxes_attenuated = attenuate_flux(fluxes[age_index], wavelengths, Av)
@@ -725,9 +760,9 @@ def problem_3(section = 'a'):
                 attenuations = Av_list,
                 normalized = False,
                 log_scale = (0, 1),
-                limits = (900, 30000, 10**-6, 1),
-                savedir = './', filename = 'p_3a.png',
-                show = False, title = 'Problem 3a: SSP Normalized Spectra')
+                limits = (900, 30000, 10**-6, 10**-2),
+                savedir = './', filename = 'p_3a.pdf',
+                show = False, title = 'Problem 3a: Attenuated SSP Spectra')
 
 
     #########
@@ -740,60 +775,58 @@ def problem_3(section = 'a'):
 
     wavelength_indices = np.where((wavelengths > 3500) & (wavelengths < 7000))
     flux_z02 = (data['z02']['fluxes'][age_index_solar, wavelength_indices])[0]
+    wavelength_index = np.argmin(np.abs(wavelengths - 5500))
+
+    flux_z02 = attenuate_flux(flux_z02[age_index_solar],
+            wavelengths[wavelength_indices], Av)
+
+    #flux_z02 /= flux_z02[wavelength_index]
 
     flux_z02 = np.ma.array(flux_z02,
             mask=(flux_z02 != flux_z02))
 
-    residuals_array_z05 = np.zeros(len(ages))
-    residuals_array_z004 = np.zeros(len(ages))
+    residuals_array_z02 = np.zeros(len(ages))
 
     for i in range(len(ages)):
-    	flux_z05 = (data['z05']['fluxes'][i, wavelength_indices])[0]
-    	flux_z004 = (data['z004']['fluxes'][i, wavelength_indices])[0]
+    	flux_z02_age = (data['z02']['fluxes'][i, wavelength_indices])[0]
+
+        #flux_z02_age /= flux_z02_age[wavelength_index]
 
         # mask NaNs
-        flux_z05 = np.ma.array(flux_z05,
-                mask=(flux_z05 != flux_z05))
-        flux_z004 = np.ma.array(flux_z004,
-                mask=(flux_z004 != flux_z004))
+        flux_z02_age = np.ma.array(flux_z02_age,
+                mask=(flux_z02_age != flux_z02_age))
 
-        residual = np.sum(((flux_z05)**2 - (flux_z02)**2)**0.5)
-        residuals_array_z05[i] = residual
+        residual = np.sum(((flux_z02_age)**2 - (flux_z02)**2)**0.5)
+        residuals_array_z02[i] = residual
 
-        residual = np.sum(((flux_z004)**2 - (flux_z02)**2)**0.5)
-        residuals_array_z004[i] = residual
+    residuals_array_z02 = np.ma.array(residuals_array_z02,
+            mask=(residuals_array_z02 != residuals_array_z02))
 
-    residuals_array_z05 = np.ma.array(residuals_array_z05,
-            mask=(residuals_array_z05 != residuals_array_z05))
-    residuals_array_z004 = np.ma.array(residuals_array_z004,
-            mask=(residuals_array_z004 != residuals_array_z004))
+    age_index_z02 = np.where(residuals_array_z02 == residuals_array_z02.min())
 
-    age_index_z05 = np.where(residuals_array_z05 == residuals_array_z05.min())
-    age_index_z004 = np.where(residuals_array_z004 == \
-            residuals_array_z004.min())
+    age_indices = [age_index_solar, age_index_z02[0][0]]
 
-    age_indices = [age_index_solar, age_index_z05[0], age_index_z004[0]]
+    age_list = [100, ages[age_index_z02][0]/1e6]
 
-    age_list = [1, ages[age_index_z05][0]/1e6, ages[age_index_z004][0]/1e6]
+    # redefine fluxes across entire wavelength range
+    flux_z02 = (data['z02']['fluxes'][age_index_solar, :])
+    flux_z02_age = (data['z02']['fluxes'][age_index_z02[0], :])[0]
 
-    metals = ['z02', 'z05', 'z004']
-    metals_list = [2, 5, 0.4]
-    flux_list = []
+    flux_z02 /= flux_z02[wavelength_index]
+    flux_z02_age /= flux_z02_age[wavelength_index]
 
-    for i, metal in enumerate(metals):
-        flux = np.squeeze(data[metal]['fluxes'][age_indices[i], :])
-    	flux_list.append(flux)
+    flux_list = [flux_z02, flux_z02_age]
 
     if section == 'b':
         plot_fluxes(flux_list = flux_list,
                 wavelengths = wavelengths,
                 ages = age_list,
                 age_unit = 'Myr',
-                metals = metals_list,
-                log_scale = (1, 1),
-                limits = (900, 30000, 10**-4, 2),
-                savedir = './', filename = 'p_3b.png',
-                show = False, title = 'Problem 3b: SSP Spectra')
+                log_scale = (0, 1),
+                limits = (900, 30000, 10**-2, 10**1),
+                savedir = './', filename = 'p_3b.pdf',
+                show = False,
+                title = 'Problem 3b: Age vs. Attenuation SSP Spectra')
 
 def problem_4(section = 'a'):
     #########
@@ -825,7 +858,7 @@ def problem_4(section = 'a'):
                 redshifts = data_list[0][:, 0],
                 #limits = (900, 30000, 10**-6, 1),
                 savedir = './',
-                filename = 'p_4a.png',
+                filename = 'p_4a.pdf',
                 show = False,
                 title = 'Problem 4a: SSP Mass with Age')
     #########
@@ -845,9 +878,9 @@ def problem_4(section = 'a'):
                 i_list = i_list,
                 list_names = data_names,
                 redshifts = data_list[0][:, 0],
-                #limits = (900, 30000, 10**-6, 1),
+                limits = (6.5, 3.5, 1.4, -0.2),
                 savedir = './',
-                filename = 'p_4b.png',
+                filename = 'p_4b.pdf',
                 show = False,
                 title = 'Problem 4b: Sloan g-i Mags with Time')
     #########
@@ -858,18 +891,19 @@ def problem_4(section = 'a'):
     data_late = np.loadtxt('bc03_tau10.txt')
     data_early = np.loadtxt('bc03_tau1.txt')
 
-    i_lum_early_10 = calc_mag2lum(data_early[-2, 4])
     g_lum_early_10 = calc_mag2lum(data_early[-2, 3])
+    i_lum_early_10 = calc_mag2lum(data_early[-2, 4])
 
-    i_lum_early_5 = calc_mag2lum(data_early[5, 4])
+
     g_lum_early_5 = calc_mag2lum(data_early[5, 3])
+    i_lum_early_5 = calc_mag2lum(data_early[5, 4])
 
     i_lum_late_10 = calc_mag2lum(data_late[-2, 4])
     g_lum_late_10 = calc_mag2lum(data_late[-2, 3])
 
-    g_i_lum_early_10 = g_lum_early_10 - i_lum_early_10
-    g_i_lum_late_10 = g_lum_late_10 - i_lum_late_10
-    g_i_lum_early_5 = g_lum_early_5 - i_lum_early_5
+    g_i_lum_early_10 = 1/g_lum_early_10 - 1/i_lum_early_10
+    g_i_lum_late_10 = 1/g_lum_late_10 - 1/i_lum_late_10
+    g_i_lum_early_5 = 1/g_lum_early_5 - 1/i_lum_early_5
 
     alpha = (1 / g_i_lum_early_5 - 1 / g_i_lum_late_10) \
             / (1 / g_i_lum_early_10 - 1 / g_i_lum_early_5)
@@ -889,9 +923,9 @@ def main():
     #problem_3(section = 'a')
     #problem_3(section = 'b')
 
-    #problem_4(section = 'a')
-    #problem_4(section = 'b')
-    #problem_4(section = 'c')
+    problem_4(section = 'a')
+    problem_4(section = 'b')
+    problem_4(section = 'c')
 
 if __name__ == '__main__':
     main()
