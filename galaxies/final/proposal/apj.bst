@@ -1,4 +1,5 @@
 %%
+%%
 %% $Log: apj.bst,v $
 %% Revision 1.10 2013/03/11 13:01:55 alberto
 %% Reworked code to use format.pid for articles without proper
