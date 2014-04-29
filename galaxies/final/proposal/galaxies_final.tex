@@ -48,7 +48,9 @@
 %%%%% Default format: 12pt single column %%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\documentclass[12pt, article]{aastex}
+\documentclass[12pt,a4paper]{article}
+
+\usepackage{graphics,graphicx}
 
 % Load commands
 \input{my_defs.tex}
@@ -80,19 +82,22 @@
 %%
 }}
 \end{center}
-%\bigskip
+\bigskip
 
 %% Principal Investigator (PI) initial(s) and family name %%
 \centerline{\bf PI: 
 %% ENTER NAME OF PI BELOW THIS LINE
-{Include here the name of the PI}}
+{Elijah Bernstein-Cooper}$^1$}
 
-%\bigskip
+\smallskip
+$^1$University of Wisconsin Madison, USA
+\smallskip
 
 % Type a concise abstract of your proposal here (optional).
 
-\nopagebreak
-\section{Abstract}
+\section{Abstract}\label{sec:abstract}
+
+
 
 
 
@@ -117,6 +122,7 @@ of the total line emission map overlaid (ALMA Science Verification Data).
 \end{figure}
 %-----------------------------Figure End------------------------------
 \end{comment}
+
 
 %-----------------------------Table Start-----------------------------
 \begin{table}[tbh]
@@ -157,9 +163,6 @@ You can structure the scientific justification using the two subsections below (
 % Here, include a brief statement on the potential of your proposal
 % to generate publicity based on the scientific results to be obtained.
 
-Here we cite Sanchez ~\citep{sanchez12}.
-
-Again \citet{sanchez12}
 
 %%%%%%%%%%%%%%%%%%%%%%%%
 %% References section: %
@@ -169,7 +172,9 @@ Again \citet{sanchez12}
 
 % List references here
 
-\bibliography{my_bib}
+\citet{sanchez12}
+
+\bibliography{my_bib}{}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%% End of document %%%%%
