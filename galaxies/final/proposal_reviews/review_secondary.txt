@@ -1,0 +1,37 @@
+Review for primary proposal, ID #3
+
+Title: Tracing the Circumgalactic Medium with MaNGA
+
+Proposal overview: The author proposes to use HST archival absorption
+observations to correlate properties of the intergalactic medium with
+properties of galaxies observed by MaNGA. The author plans to include galaxies
+with HST absorption lines possessing impact parameters < 2 Mpc of MaNGA
+sources. This criterion yields ~1,100 galaxies in the sample. The author plans
+to compare galaxy properties with how concentrated the IGM is around the galaxy
+for sources with multiple absorption lines nearby. The author will derive the
+rotation of the IGM and compare to the embedded galaxy rotation in Halpha.
+The large sample will allow the author to conclude whether inclination
+angle of the embedded galaxy affects the sightline measurements. Finally
+the author will compare IGM gas in groups and field galaxies. 
+
+Strengths: Science goals are clear and concise. Four testable hypothesis are
+presented. The author is wary of the caveats of associating absorption line
+measurements with individual galaxies, e.g. they will use redshift independent
+distances to the sample galaxies to avoid group interactions and local Hubble
+flows. MaNGA's sample size and simultaneous gathering power of star formation
+rates, gas outflow rates, kinematics and other properties are well suited to
+the proposed research.
+
+Weaknesses: The author should provide references on previous studies of the IGM
+in the introduction. The current state of research of the IGM is not well
+described until science questions are asked. The author does not provide many
+specifics on how they plan to use MaNGA for answering the science questions.
+For example, the author did not mention what properties of the IGM will be
+compared between group and field galaxies. The proposal could be improved by
+including exactly which absorption lines will probe which properties of the
+IGM. Mention of the Lyman alpha line is present, but does the width of the line
+correspond directly to the amount of gas? 
+
+Grade: 7
+
+
