@@ -279,7 +279,7 @@ class IVP_simulation():
         # Set up plot aesthetics
         plt.clf()
         plt.rcdefaults()
-        fontScale = 10
+        fontScale = 14
         params = {#'backend': .pdf',
                   'axes.labelsize': fontScale,
                   'axes.titlesize': fontScale,
@@ -437,8 +437,8 @@ def plot_amplitude(alpha_array = (-1,1), G_values = (1), amp_functions = None,
         if show:
             fig.show()
 
-def problem_1():
-    def initial_condition(x):
+def problem_2():
+    def initial_condition_rising(x):
         if type(x) is np.ndarray:
             y = np.zeros(x.shape)
             for i in range(len(y)):
@@ -450,89 +450,50 @@ def problem_1():
                     y[i] = (x[i] + 1) / 2.
             return y
 
-    ftcs_sim = IVP_simulation(scheme = 'FTCS',
-            boundary_type = 'straight',
-            flow_speed = 1,
-            x_range = (-2,6),
-            t_range = (0,5),
-            delta_x = 0.01,
-            delta_t = 0.005,
-            initial_condition = initial_condition)
-    ftbs_sim = IVP_simulation(scheme = 'FTBS',
-            boundary_type = 'straight',
-            flow_speed = 1,
-            x_range = (-2,6),
-            t_range = (0,5),
-            delta_x = 0.01,
-            delta_t = 0.005,
-            initial_condition = initial_condition)
-    ftfs_sim = IVP_simulation(scheme = 'FTFS',
-            boundary_type = 'straight',
-            flow_speed = 1,
-            x_range = (-2,6),
-            t_range = (0,5),
-            delta_x = 0.01,
-            delta_t = 0.005,
-            initial_condition = initial_condition)
+    def initial_condition_falling(x):
+        if type(x) is np.ndarray:
+            y = np.zeros(x.shape)
+            for i in range(len(y)):
+                if x[i] < -1:
+                    y[i] = 1
+                elif x[i] > 1:
+                    y[i] = 0
+                else:
+                    y[i] = (1 - x[i]) / 2.
+            return y
 
-    ftcs_sim.run_simulation()
-    ftfs_sim.run_simulation()
-    ftbs_sim.run_simulation()
+    ftbs_sim_rising = IVP_simulation(scheme = 'FTBS',
+            boundary_type = 'straight',
+            flow_speed = 1,
+            x_range = (-2,6),
+            t_range = (0,5),
+            delta_x = 0.01,
+            delta_t = 0.005,
+            initial_condition = initial_condition_rising)
+
+    ftbs_sim_falling = IVP_simulation(scheme = 'FTBS',
+            boundary_type = 'straight',
+            flow_speed = 1,
+            x_range = (-2,6),
+            t_range = (0,5),
+            delta_x = 0.01,
+            delta_t = 0.005,
+            initial_condition = initial_condition_falling)
+
+    ftbs_sim_rising.run_simulation()
+    ftbs_sim_falling.run_simulation()
 
     savedir = '/home/ezbc/classes/fluids/final/'
     times = [0, 1, 2, 4]
-    ftcs_sim.plot_slice(times, savedir=savedir,
-                filename='q1_ftcs.pdf',
+    ftbs_sim_rising.plot_slice(times, savedir=savedir,
+                filename='q2_rising.pdf',
                 title = 'FTCS simulation slices',
                 limits = (-2, 6, -0.5, 1.5),
                 show=False)
-    ftfs_sim.plot_slice(times, savedir=savedir,
-                filename='q1_ftfs.pdf',
+    ftbs_sim_falling.plot_slice(times, savedir=savedir,
+                filename='q2_falling.pdf',
                 title = 'FTCS simulation slices',
                 limits = (-2, 6, -0.5, 1.5),
-                show=False)
-    ftbs_sim.plot_slice(times, savedir=savedir,
-                filename='q1_ftbs.pdf',
-                title = 'FTCS simulation slices',
-                limits = (-2, 6, -0.5, 1.5),
-                show=False)
-
-def problem_2():
-    def initial_condition(x):
-        return np.sin(2 * np.pi * x)
-
-    ftbs_sim = IVP_simulation(scheme = 'FTBS',
-            boundary_type = 'periodic',
-            flow_speed = 1,
-            x_range = (0,1),
-            t_range = (0,3),
-            delta_x = 0.01,
-            delta_t = 0.005,
-            initial_condition = initial_condition)
-
-    ftfs_sim = IVP_simulation(scheme = 'FTFS',
-            boundary_type = 'periodic',
-            flow_speed = 1,
-            x_range = (0,1),
-            t_range = (0,3),
-            delta_x = 0.01,
-            delta_t = 0.005,
-            initial_condition = initial_condition)
-
-    ftbs_sim.run_simulation()
-    ftfs_sim.run_simulation()
-
-    savedir = '/home/ezbc/classes/fluids/final/'
-
-    times = [0, 1, 2, 3,]
-    ftbs_sim.plot_slice(times, savedir=savedir,
-                filename='q2_ftbs.pdf',
-                title = 'FTBS simulation slices',
-                show=False)
-
-    ftfs_sim.plot_slice(times, savedir=savedir,
-                filename='q2_ftfs.pdf',
-                title = 'FTFS simulation slices',
                 show=False)
 
 def problem_3():
@@ -721,8 +682,8 @@ def problem_8():
             show=False)
 
 def main():
-    problem_1()
-    #problem_2()
+    #problem_1()
+    problem_2()
     #problem_3()
     #problem_5()
     #problem_6()
