@@ -62,9 +62,11 @@ class IVP_simulation():
                 'FTCS' : Forward Time Center Space
                 'FTBS' : Forward Time Backward Space
                 'FTFS' : Forward Time Forward Space
+                'godunov' : Finite-volume differencing -- Godunov method
         boundary_type : str
             Type of boundary condition solution. Options are:
                 'periodic' : periodic
+                'straight' : straight
         flow_speed : float
             The flow speed.
         x_range : tuple
@@ -124,6 +126,9 @@ class IVP_simulation():
         elif self.scheme.lower() == 'btcs':
             for i in range(len(self.t_grid)):
                 self.step_BTCS()
+        elif self.scheme.lower() == 'godunov':
+            for i in range(len(self.t_grid)):
+                self.step_godunov()
 
     def step_FTCS(self):
 
@@ -255,6 +260,79 @@ class IVP_simulation():
 
         #
         y_tp1 = np.linalg.solve(M, y)
+
+        # Set next time step y values, and increase time
+        self.__set_y(y_tp1, self.t + self.delta_t)
+        self.t += self.delta_t
+
+        return None
+
+    def step_godunov(self):
+
+        ''' Godunov finite-volume scheme.
+        '''
+
+        # get y values at all x at one time
+        y = self.__get_y(self.t)
+
+        # initialize next time step
+        y_tp1 = np.empty((y.shape))
+
+        if self.boundary_type == 'straight':
+            for k in range(len(self.x_grid)):
+                if k == 0:
+                    f_kp1 = y[k + 1]**2 / 2.
+                    f_k = y[k]**2 / 2.
+                    f_km1 = y[k]**2 / 2.
+                    y_kp1 = y[k + 1]
+                    y_k = y[k]
+                    y_km1 = y[k]
+                elif k == len(self.x_grid) - 1:
+                    f_kp1 = y[k]**2 / 2.
+                    f_k = y[k]**2 / 2.
+                    f_km1 = y[k - 1]**2 / 2.
+                    y_kp1 = y[k]
+                    y_k = y[k]
+                    y_km1 = y[k - 1]
+                else:
+                    f_kp1 = y[k + 1]**2 / 2.
+                    f_k = y[k]**2 / 2.
+                    f_km1 = y[k - 1]**2 / 2.
+                    y_kp1 = y[k + 1]
+                    y_k = y[k]
+                    y_km1 = y[k - 1]
+
+                # Determine propagation speeds
+
+                # If there's no fluid, there's no propagation
+                # Avoid propagations of Inf
+                #print(y_kp1, y_k, y_km1)
+                if y_k == y_km1:
+                    S_km1 = 0.5 * y_k
+                else:
+                    S_km1 = 0.5 * (y_k**2 - y_km1**2) / (y_k - y_km1)
+                if y_kp1 == y_k:
+                    S_kp1 = 0.5 * y_k
+                else:
+                    S_kp1 = 0.5 * (y_kp1**2 - y_k**2) / (y_kp1 - y_k)
+
+                # Determine average flow through boundary
+                if S_km1 > 0:
+                    f_bar_km1 = f_km1
+                elif S_km1 < 0:
+                    f_bar_km1 = f_k
+                else:
+                    f_bar_km1 = 0.
+                if S_kp1 < 0:
+                    f_bar_kp1 = f_kp1
+                elif S_kp1 > 0:
+                    f_bar_kp1 = f_k
+                else:
+                    f_bar_kp1 = 0.
+
+                # Find y[k] for the next time step
+                y_tp1[k] = y[k] - (self.delta_t / self.delta_x) * \
+                        (f_bar_kp1 - f_bar_km1)
 
         # Set next time step y values, and increase time
         self.__set_y(y_tp1, self.t + self.delta_t)
@@ -437,6 +515,74 @@ def plot_amplitude(alpha_array = (-1,1), G_values = (1), amp_functions = None,
         if show:
             fig.show()
 
+def plot_Y(simulations = None, savedir = './', filename = None, title = '',
+        limits = None, show=False, labels = None):
+
+        # Import external modules
+        import numpy as np
+        import pyfits as pf
+        import matplotlib.pyplot as plt
+        import matplotlib
+        from mpl_toolkits.axes_grid1 import ImageGrid
+
+        # Set up plot aesthetics
+        plt.clf()
+        plt.rcdefaults()
+        fontScale = 14
+        params = {#'backend': .pdf',
+                  'axes.labelsize': fontScale,
+                  'axes.titlesize': fontScale,
+                  'text.fontsize': fontScale,
+                  'legend.fontsize': fontScale*3/4,
+                  'xtick.labelsize': fontScale,
+                  'ytick.labelsize': fontScale,
+                  'font.weight': 500,
+                  'axes.labelweight': 500,
+                  'text.usetex': False,
+                  'figure.figsize': (6,6),
+                 }
+        plt.rcParams.update(params)
+
+        # Create figure
+        fig = plt.figure()
+        grid = ImageGrid(fig, (1,1,1),
+                      nrows_ncols=(1,1),
+                      ngrids = 1,
+                      direction='row',
+                      axes_pad=1,
+                      aspect=False,
+                      share_all=True,
+                      label_mode='All')
+        ax = grid[0]
+
+        colors = ['k','b','g','r','c']
+        linestyles = ['-','--','-.','-','-']
+
+        for i, sim in enumerate(simulations):
+
+            Y = np.sum(sim.grid, axis = 0) * sim.delta_x
+            t_grid = sim.t_grid
+
+            ax.plot(t_grid, Y,
+                    color = colors[i],
+                    label = '%s' % labels[i],
+                    linestyle = '-')
+
+            if limits is not None:
+                ax.set_xlim(limits[0],limits[1])
+                ax.set_ylim(limits[2],limits[3])
+
+            # Adjust asthetics
+            ax.set_xlabel(r'$t$',)
+            ax.set_ylabel(r'$Y(t)$')
+            ax.grid(True)
+            ax.legend(loc='lower left')
+
+        if filename is not None:
+            plt.savefig(savedir + filename,bbox_inches='tight', dpi=600)
+        if show:
+            fig.show()
+
 def problem_2():
     def initial_condition_rising(x):
         if type(x) is np.ndarray:
@@ -497,198 +643,187 @@ def problem_2():
                 show=False)
 
 def problem_3():
-    def initial_condition(x):
-        return np.sin(2 * np.pi * x)
 
-    ftbs_sim = IVP_simulation(scheme = 'FTBS',
-            boundary_type = 'periodic',
-            flow_speed = -1,
-            x_range = (0,1),
-            t_range = (0,3),
+    def initial_condition_rising(x):
+        if type(x) is np.ndarray:
+            y = np.zeros(x.shape)
+            for i in range(len(y)):
+                if x[i] < -1:
+                    y[i] = 0
+                elif x[i] > 1:
+                    y[i] = 1
+                else:
+                    y[i] = (x[i] + 1) / 2.
+            return y
+
+    def initial_condition_falling(x):
+        if type(x) is np.ndarray:
+            y = np.zeros(x.shape)
+            for i in range(len(y)):
+                if x[i] < -1:
+                    y[i] = 1
+                elif x[i] > 1:
+                    y[i] = 0
+                else:
+                    y[i] = (1 - x[i]) / 2.
+            return y
+
+    ftbs_sim_rising = IVP_simulation(scheme = 'godunov',
+            boundary_type = 'straight',
+            flow_speed = 1,
+            x_range = (-2,6),
+            t_range = (0,5),
             delta_x = 0.01,
             delta_t = 0.005,
-            initial_condition = initial_condition)
+            initial_condition = initial_condition_rising)
 
-    ftfs_sim = IVP_simulation(scheme = 'FTFS',
-            boundary_type = 'periodic',
-            flow_speed = -1,
-            x_range = (0,1),
-            t_range = (0,3),
+    ftbs_sim_falling = IVP_simulation(scheme = 'godunov',
+            boundary_type = 'straight',
+            flow_speed = 1,
+            x_range = (-2,6),
+            t_range = (0,5),
             delta_x = 0.01,
             delta_t = 0.005,
-            initial_condition = initial_condition)
+            initial_condition = initial_condition_falling)
 
-    ftbs_sim.run_simulation()
-    ftfs_sim.run_simulation()
+    ftbs_sim_rising.run_simulation()
+    ftbs_sim_falling.run_simulation()
 
     savedir = '/home/ezbc/classes/fluids/final/'
-    times = [0, 1, 2, 3,]
-    ftbs_sim.plot_slice(times, savedir=savedir,
-                filename='q3_ftbs.pdf',
-                title = 'FTBS simulation slices',
+    times = [0, 1, 2, 4]
+    ftbs_sim_rising.plot_slice(times, savedir=savedir,
+                filename='q3_rising.pdf',
+                title = 'Godunov simulation slices',
+                limits = (-2, 6, -0.5, 1.5),
                 show=False)
-    ftfs_sim.plot_slice(times, savedir=savedir,
-                filename='q3_ftfs.pdf',
-                title = 'FTFS simulation slices',
+    ftbs_sim_falling.plot_slice(times, savedir=savedir,
+                filename='q3_falling.pdf',
+                title = 'Godunov simulation slices',
+                limits = (-2, 6, -0.5, 1.5),
                 show=False)
+
+def problem_4():
+    def initial_condition_rising(x):
+        if type(x) is np.ndarray:
+            y = np.zeros(x.shape)
+            for i in range(len(y)):
+                if x[i] < -1:
+                    y[i] = 0
+                elif x[i] > 1:
+                    y[i] = 1
+                else:
+                    y[i] = (x[i] + 1) / 2.
+            return y
+
+    def initial_condition_falling(x):
+        if type(x) is np.ndarray:
+            y = np.zeros(x.shape)
+            for i in range(len(y)):
+                if x[i] < -1:
+                    y[i] = 1
+                elif x[i] > 1:
+                    y[i] = 0
+                else:
+                    y[i] = (1 - x[i]) / 2.
+            return y
+
+    ftbs_sim_rising = IVP_simulation(scheme = 'godunov',
+            boundary_type = 'straight',
+            flow_speed = 1,
+            x_range = (-2,6),
+            t_range = (0,5),
+            delta_x = 0.01,
+            delta_t = 0.005,
+            initial_condition = initial_condition_rising)
+
+    ftbs_sim_falling = IVP_simulation(scheme = 'godunov',
+            boundary_type = 'straight',
+            flow_speed = 1,
+            x_range = (-2,6),
+            t_range = (0,5),
+            delta_x = 0.01,
+            delta_t = 0.005,
+            initial_condition = initial_condition_falling)
+
+    ftbs_sim_rising.run_simulation()
+    ftbs_sim_falling.run_simulation()
+
+    savedir = '/home/ezbc/classes/fluids/final/'
+    times = [0, 1, 2, 4]
+
+    plot_Y(simulations = (ftbs_sim_rising, ftbs_sim_falling),
+            savedir = savedir,
+            filename='q4.pdf',
+            title = 'Godunov simulation slices',
+            limits = (0, 5, 1, 7),
+            show=False,
+            labels = ('Rising', 'Falling'))
 
 def problem_5():
 
-    def amp1(alpha, G):
-        return (1 + 2*G*alpha*(alpha + 1))**0.5
+    def initial_condition_rising(x):
+        if type(x) is np.ndarray:
+            y = np.zeros(x.shape)
+            for i in range(len(y)):
+                if x[i] < -1:
+                    y[i] = 0
+                elif x[i] > 1:
+                    y[i] = 1
+                else:
+                    y[i] = (x[i] + 1) / 2.
+            return y
 
-    def amp2(alpha, G):
-        return (1 + 2*G*alpha*(alpha - 1))**0.5
+    def initial_condition_falling(x):
+        if type(x) is np.ndarray:
+            y = np.zeros(x.shape)
+            for i in range(len(y)):
+                if x[i] < -1:
+                    y[i] = 1
+                elif x[i] > 1:
+                    y[i] = 0
+                else:
+                    y[i] = (1 - x[i]) / 2.
+            return y
 
-    amp_tuple = (amp1, amp2)
-    alpha_array = np.linspace(-3, 3, 1e4)
-    G_values = (0.1, 0.3, 0.5, 0.7, 0.9)
-
-    savedir = '/usr/users/ezbc/classes/fluids/midterm/'
-
-    plot_amplitude(alpha_array = alpha_array, G_values = G_values,
-            amp_functions = amp_tuple,
-            limits = [-2, 2, 0.7, 1.2],
-            savedir = savedir,
-            filename = 'q5.pdf',
-            title = 'FTFS and FTBS Amplitudes',
-            show=False)
-
-def problem_6():
-    def initial_condition(x):
-        return np.sin(2 * np.pi * x)
-
-    ftbs_sim = IVP_simulation(scheme = 'FTBS',
-            boundary_type = 'periodic',
+    ftbs_sim_rising = IVP_simulation(scheme = 'godunov',
+            boundary_type = 'straight',
             flow_speed = 1,
-            x_range = (0,1),
-            t_range = (0,3),
-            delta_x = 0.01,
-            delta_t = 0.02,
-            initial_condition = initial_condition)
+            x_range = (-2,6),
+            t_range = (0,5),
+            delta_x = 0.001,
+            delta_t = 0.005,
+            initial_condition = initial_condition_rising)
 
-    ftbs_sim.run_simulation()
+    ftbs_sim_falling = IVP_simulation(scheme = 'godunov',
+            boundary_type = 'straight',
+            flow_speed = 1,
+            x_range = (-2,6),
+            t_range = (0,5),
+            delta_x = 0.001,
+            delta_t = 0.005,
+            initial_condition = initial_condition_falling)
 
-    savedir = '/home/elijah/class_2014_spring/fluids/midterm/'
-    savedir = '/usr/users/ezbc/classes/fluids/midterm/'
-    times = [0, 1, 2, 3,]
-    ftbs_sim.plot_slice(times, savedir=savedir,
-                filename='q6_ftbs.pdf',
-                title = 'FTBS simulation slices',
+    ftbs_sim_rising.run_simulation()
+    ftbs_sim_falling.run_simulation()
+
+    savedir = '/home/ezbc/classes/fluids/final/'
+    times = [0, 1, 2, 4]
+    ftbs_sim_rising.plot_slice(times, savedir=savedir,
+                filename='q5_rising.pdf',
+                title = 'Godunov simulation slices',
+                limits = (-2, 6, -0.5, 1.5),
+                show=False)
+    ftbs_sim_falling.plot_slice(times, savedir=savedir,
+                filename='q5_falling.pdf',
+                title = 'Godunov simulation slices',
+                limits = (-2, 6, -0.5, 1.5),
                 show=False)
 
-def problem_7():
-    def initial_condition(x):
-        return np.sin(2 * np.pi * x)
-
-    alphas = (0.25, 0.5, 0.75)
-    delta_x = 0.01
-    flow_speed = 1
-    x_range = (0,1)
-    t_range = (0,3)
-
-    sim_list = []
-    additional_labels = []
-
-    savedir = '/home/elijah/class_2014_spring/fluids/midterm/'
-    savedir = '/usr/users/ezbc/classes/fluids/midterm/'
-    times = [0, 1, 2, 3,]
-
-    for i, alpha in enumerate(alphas):
-        delta_t = np.abs(alpha * delta_x)
-
-        ftbs_sim = IVP_simulation(scheme = 'FTBS',
-                boundary_type = 'periodic',
-                flow_speed = flow_speed,
-                x_range = x_range,
-                t_range = t_range,
-                delta_x = delta_x,
-                delta_t = delta_t,
-                initial_condition = initial_condition)
-
-        ftbs_sim.run_simulation()
-
-        sim_list.append(ftbs_sim)
-
-        additional_labels.append(r'$\alpha$ = %s' % alpha)
-
-    sim_list[0].plot_slice(times, savedir=savedir,
-                filename='q7.pdf',
-                title = 'FTBS simulation slices',
-                show=False,
-                additional_sims = sim_list[1:],
-                additional_labels = additional_labels)
-
-def problem_8():
-    def initial_condition(x):
-        return np.sin(2 * np.pi * x)
-
-    alphas = (0.1, 0.5, 0.75, 2)
-    delta_x = 0.01
-    flow_speed = 1
-    x_range = (0,1)
-    t_range = (0,3)
-
-    sim_list = []
-    additional_labels = []
-
-    savedir = '/home/elijah/classes/fluids/midterm/'
-    savedir = '/usr/users/ezbc/classes/fluids/midterm/'
-
-    times = [0, 1, 2, 3,]
-
-    for i, alpha in enumerate(alphas):
-        delta_t = np.abs(alpha * delta_x)
-
-        if alpha < 0:
-            flow_speed = -1
-
-        btcs_sim = IVP_simulation(scheme = 'BTCS',
-                boundary_type = 'periodic',
-                flow_speed = flow_speed,
-                x_range = x_range,
-                t_range = t_range,
-                delta_x = delta_x,
-                delta_t = delta_t,
-                initial_condition = initial_condition)
-
-        btcs_sim.run_simulation()
-
-        sim_list.append(btcs_sim)
-
-        additional_labels.append(r'$\alpha$ = %s' % alpha)
-
-    sim_list[0].plot_slice(times, savedir=savedir,
-                filename='q8.pdf',
-                title = 'BTCS simulation slices',
-                show=False,
-                additional_sims = sim_list[1:],
-                additional_labels = additional_labels)
-
-    def amp(alpha, G):
-        return 1 / (1 + alpha**2*(2*G - G**2))**0.5
-
-    amp_tuple = (amp,)
-    alpha_array = np.linspace(-3, 3, 1e4)
-    G_values = (0.1, 0.3, 0.5, 0.7, 0.9)
-
-
-    plot_amplitude(alpha_array = alpha_array, G_values = G_values,
-            amp_functions = amp_tuple,
-            limits = [-3, 3, 0.3, 1.1],
-            savedir = savedir,
-            filename = 'q8_amp.pdf',
-            title = 'BTCS Amplitudes',
-            show=False)
-
 def main():
-    #problem_1()
     problem_2()
-    #problem_3()
-    #problem_5()
-    #problem_6()
-    #problem_7()
-    #problem_8()
+    problem_3()
+    problem_4()
+    problem_5()
 
 if __name__ == '__main__':
     main()
