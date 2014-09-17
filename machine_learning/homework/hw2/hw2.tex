@@ -1,0 +1,78 @@
+%-------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%-------------------------------------------------------------------------------
+
+\documentclass{article}
+
+% Packages
+\input{my_packages.tex}
+
+% formatting
+\input{my_format.tex}
+
+%----------------------------------------------------------------------------------------
+%	NAME AND CLASS SECTION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\hmwkTitle}{Homework 2} % Assignment title
+\newcommand{\hmwkDueDate}{Tuesday, Sept. 18} % Due date
+\newcommand{\hmwkClass}{Stat 860} % Course/class
+\newcommand{\hmwkClassTime}{4:00 PM} % Class/lecture time
+\newcommand{\hmwkClassInstructor}{Grace Wahba} % Teacher/lecturer
+\newcommand{\hmwkAuthorName}{Elijah Bernstein-Cooper} % Your name
+
+%-------------------------------------------------------------------------------
+%	TITLE PAGE
+%-------------------------------------------------------------------------------
+
+\title{\vspace{0in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}
+    \vspace{0.5in}}
+
+\author{\textbf{Elijah Bernstein-Cooper}}
+\date{\today} % Insert date here if you want it to appear below your name
+
+%-------------------------------------------------------------------------------
+
+\begin{document}
+
+\maketitle
+%\newpage
+
+%===============================================================================
+%-------------------------------------------------------------------------------
+%	PROBLEM 1
+%-------------------------------------------------------------------------------
+\begin{homeworkProblem}
+
+    \begin{homeworkSection}{1a}
+
+        A positive definite matrix requires that the matrix is Hermitian and
+        its eigenvalues are positive. Our problem is then reduced to, given
+        positive definite matrices $\bm{A}$ and $\bm{B}$, show that the
+        Kronecker product of the matrices is Hermitian and has positive
+        eigenvalues.\\
+
+        Given $\bm{A} \in \mathbb{R}^{m,n}$ and $\bm{B} \in \mathbb{R}^{p,q}$,
+        then $(\bm{A} \otimes \bm{B})^* = \bm{A}^* \otimes \bm{B}^*$, which
+        shows that a Kronecker product will be Hermitian if the two matrices in
+        the product are Hermitian.\\
+
+
+
+    \end{homeworkSection}
+
+    \begin{homeworkSection}{1b}
+       
+
+    \end{homeworkSection}
+
+\end{homeworkProblem}
+%\clearpage
+%===============================================================================
+
+
+\end{document}
+

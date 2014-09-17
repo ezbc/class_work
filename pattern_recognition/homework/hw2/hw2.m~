@@ -1,0 +1,31 @@
+clear
+close all
+n = 64;
+
+% noise free image
+x = double(phantom(n)) * 256;
+
+% add noise
+y = x + randn(size(x)) * 15;
+
+% denoise by distance-based averaging
+w = [1/16 1/8 1/16;1/8 1/4 1/8; 1/16 1/8 1/16];
+
+for i=1:n
+    for j=1:n
+        if (i==1)||(i==n)||(j==1)||(j==n)
+            xavg(i,j) = y(i,j);
+        else
+            b = [y(i-1, j-1) y(i, j-1) y(i+1, j-1);
+                 y(i-1, j) y(i, j) y(i+1, j);
+                 y(i-1, j+1) y(i, j+1) y(i+1, j+1)];
+            xavg(i, j) = sum(sum(b.*w));
+        end
+    end
+end
+
+figure(1);clf;
+subplot(131);imagesc(x, [0,256]);axis image; colormap gray
+subplot(132);imagesc(y, [0,256]);axis image; colormap gray
+subplot(133);imagesc(xavg, [0,256]);axis image; colormap gray
+linkaxes
