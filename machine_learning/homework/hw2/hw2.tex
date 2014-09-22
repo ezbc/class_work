@@ -2,7 +2,7 @@
 %	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
 %-------------------------------------------------------------------------------
 
-\documentclass{article}
+\documentclass[11pt]{article}
 
 % Packages
 \input{my_packages.tex}
@@ -10,11 +10,11 @@
 % formatting
 \input{my_format.tex}
 
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 %	NAME AND CLASS SECTION
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 
-\newcommand{\hmwkTitle}{Homework 2} % Assignment title
+\newcommand{\hmwkTitle}{HW 2} % Assignment title
 \newcommand{\hmwkDueDate}{Tuesday, Sept. 18} % Due date
 \newcommand{\hmwkClass}{Stat 860} % Course/class
 \newcommand{\hmwkClassTime}{4:00 PM} % Class/lecture time
@@ -29,7 +29,7 @@
     \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
     \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\
     \vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}
-    \vspace{0.5in}}
+    \vspace{0.2in}}
 
 \author{\textbf{Elijah Bernstein-Cooper}}
 \date{\today} % Insert date here if you want it to appear below your name
@@ -55,22 +55,67 @@
         Kronecker product of the matrices is Hermitian and has positive
         eigenvalues.\\
 
-        Given $\bm{A} \in \mathbb{R}^{m,n}$ and $\bm{B} \in \mathbb{R}^{p,q}$,
-        then $(\bm{A} \otimes \bm{B})^* = \bm{A}^* \otimes \bm{B}^*$, which
-        shows that a Kronecker product will be Hermitian if the two matrices in
-        the product are Hermitian.\\
+        A property of the Kronecker product goes as follows: given $\bm{A} \in
+        \mathbb{R}^{m,n}$ and $\bm{B} \in \mathbb{R}^{p,q}$, then $(\bm{A}
+        \otimes \bm{B})^* = \bm{A}^* \otimes \bm{B}^*$, which shows that a
+        Kronecker product will be Hermitian if the two matrices in the product
+        are Hermitian.\\
 
+        Next given, $\bm{u} \in \mathbb{R}^m$ and $\bm{v} \in \mathbb{R}^p$
+        and     
 
+        \begin{equation*}
+            \bm{Au}_i = \lambda_i \bm{u}_i \qquad i = 1, \dots, m \qquad 
+            \bm{Bv}_j = \mu_j \bm{v}_j \qquad j = 1, \dots, p 
+        \end{equation*}
+
+        \noindent where $\lambda$ and $\mu$ are the eigenvalues for $\bm{A}$
+        and $\bm{B}$ respectively. For $i = 1, \dots, m, j = 1, \dots, p$
+
+        \begin{equation*}
+            (\bm{A} \otimes \bm{B})(\bm{u}_i \otimes \bm{v}_j) = 
+            \lambda_i \mu_j (\bm{u}_i \otimes \bm{v}_j)
+        \end{equation*}
+
+        \noindent thus if the eigenvalues for $\bm{A}$ and $\bm{B}$ are
+        positive, the eigenvalue of $\bm{A} \otimes \bm{B}$ will be positive.\\
+
+        We are now able to assert that the Kronecker product of two positive
+        definite matrices will be positive definite.
 
     \end{homeworkSection}
 
+    \clearpage
+
     \begin{homeworkSection}{1b}
-       
+    
+        We again want to show that $\bm{A} \circ \bm{B}$ (where $\bm{A}$ and
+        $\bm{B}$ have the same size) is positive definite by showing that the
+        product is Hermitian and has positive eigenvalues. The Shur product of
+        $\bm{A}$ and $\bm{B}$ can be represented as a principle submatrix of
+        the Kronecker product of $\bm{A}$ and $\bm{B}$ where
+        
+        \begin{equation*}
+            \bm{A} \circ \bm{B} = \bm{A} (\otimes \bm{B})(\alpha, \beta)
+        \end{equation*}
+        \begin{equation*}
+            \alpha : {1, m+2, \dots, m^2} \qquad
+            \beta : {1, n+2, \dots, n^2} \qquad \alpha = \beta, m = n
+        \end{equation*}
+        
+        A principle submatrix
+        of a Hermitian matrix will be Hermitian itself. Finally we know that
+        the eigenvalues of the principle submatrix of the Kronecker product
+        will be greater than the eigenvalues of the Kronecker product due to
+        the Eigenvalue Interlacing for Principal Submatrices theorem. The Shur
+        product of positive definite matrices is therefore positive definite.
+
+        % eigenvalue interlacing
+        % http://www.math.uh.edu/~bgb/biostats/Math6304/MatrixTheory-20121025a.pdf
 
     \end{homeworkSection}
 
 \end{homeworkProblem}
-%\clearpage
 %===============================================================================
 
 
