@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.11 (TeX Live 2010) (format=pdflatex 2011.5.17)  27 MAR 2014 11:51
+This is pdfTeX, Version 3.1415926-1.40.11 (TeX Live 2010) (format=pdflatex 2011.5.17)  27 MAR 2014 13:11
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -394,7 +394,7 @@ Now handling font encoding U ...
    defining Unicode char U+2122 (decimal 8482)
    defining Unicode char U+2423 (decimal 9251)
 ))
-LaTeX Font Info:    Try loading font information for T1+txtt on input line 23.
+LaTeX Font Info:    Try loading font information for T1+txtt on input line 24.
 
 (/usr/share/texmf/tex/latex/txfonts/t1txtt.fd
 File: t1txtt.fd 2000/12/15 v3.1
@@ -403,18 +403,18 @@ File: t1txtt.fd 2000/12/15 v3.1
  (./midterm_write-up.aux)
 \openout1 = `midterm_write-up.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 149.
-LaTeX Font Info:    ... okay on input line 149.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 149.
-LaTeX Font Info:    ... okay on input line 149.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 149.
-LaTeX Font Info:    ... okay on input line 149.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 149.
-LaTeX Font Info:    ... okay on input line 149.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 149.
-LaTeX Font Info:    ... okay on input line 149.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 149.
-LaTeX Font Info:    ... okay on input line 149.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 150.
+LaTeX Font Info:    ... okay on input line 150.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 150.
+LaTeX Font Info:    ... okay on input line 150.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 150.
+LaTeX Font Info:    ... okay on input line 150.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 150.
+LaTeX Font Info:    ... okay on input line 150.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 150.
+LaTeX Font Info:    ... okay on input line 150.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 150.
+LaTeX Font Info:    ... okay on input line 150.
 
 (/usr/share/texmf/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -478,59 +478,71 @@ e
  [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-<q1_ftcs.png, id=11, 510.9489pt x 518.8986pt>
-File: q1_ftcs.png Graphic file (type png)
- <use q1_ftcs.png> [2 <./q1_ftcs.png>] <q2_ftfs.png, id=22, 501.5538pt x 518.89
-86pt>
-File: q2_ftfs.png Graphic file (type png)
- <use q2_ftfs.png>
-<q2_ftbs.png, id=23, 510.9489pt x 518.8986pt>
-File: q2_ftbs.png Graphic file (type png)
- <use q2_ftbs.png> [3
+<q1_ftcs.pdf, id=11, 623.04019pt x 633.70505pt>
+File: q1_ftcs.pdf Graphic file (type pdf)
+ <use q1_ftcs.pdf> [2] [3 <./q1_ftcs.pdf>] <q2_ftfs.pdf, id=58, 613.31638pt x 6
+33.70505pt>
+File: q2_ftfs.pdf Graphic file (type pdf)
+ <use q2_ftfs.pdf>
+<q2_ftbs.pdf, id=59, 623.04019pt x 633.70505pt>
+File: q2_ftbs.pdf Graphic file (type pdf)
+ <use q2_ftbs.pdf> [4
 
- <./q2_ftfs.png>] [4 <./q2_ftbs.png>] <q3_ftfs.png, id=32, 510.9489pt x 518.898
-6pt>
-File: q3_ftfs.png Graphic file (type png)
+] [5 <./q2_ftfs.pdf>] [6 <./q2_ftbs.pdf>]
+<q3_ftfs.pdf, id=139, 623.04019pt x 633.70505pt>
+File: q3_ftfs.pdf Graphic file (type pdf)
+ <use q3_ftfs.pdf>
+<q3_ftbs.pdf, id=140, 613.55162pt x 633.70505pt>
+File: q3_ftbs.pdf Graphic file (type pdf)
+ <use q3_ftbs.pdf> [7
 
-<use q3_ftfs.png> <q3_ftbs.png, id=33, 501.5538pt x 518.8986pt>
-File: q3_ftbs.png Graphic file (type png)
+ <./q3_ftfs.pdf>] [8 <./q3_ftbs.pdf>] [9
 
-<use q3_ftbs.png> [5
+]
+Overfull \hbox (70.86128pt too wide) in paragraph at lines 489--491
+\OT1/cmr/m/n/10 , resolution=600[] 
+ []
 
- <./q3_ftfs.png>] [6 <./q3_ftbs.png>] [7
 
-] [8]
-<q5.png, id=50, 502.9992pt x 510.9489pt>
-File: q5.png Graphic file (type png)
- <use q5.png> [9 <./q5.png>]
-<q6_ftbs.png, id=55, 510.9489pt x 518.8986pt>
-File: q6_ftbs.png Graphic file (type png)
- <use q6_ftbs.png> [10
+Overfull \hbox (70.86128pt too wide) in paragraph at lines 529--532
+\OT1/cmr/m/n/10 , resolution=600[]
+ []
 
- <./q6_ftbs.png>] <q7.png, id=60, 510.9489pt x 510.9489pt>
-File: q7.png Graphic file (type png)
- <use q7.png> [11
+[10] <q5.pdf, id=225, 615.20624pt x 625.91814pt>
+File: q5.pdf Graphic file (type pdf)
+ <use q5.pdf> [11] [12 <./q5.pdf>] <q6_ftbs.pdf, id=268, 623.04019pt x 633.7050
+5pt>
+File: q6_ftbs.pdf Graphic file (type pdf)
+ <use q6_ftbs.pdf> [13
 
- <./q7.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 682--684
+ <./q6_ftbs.pdf>] <q7.pdf, id=309, 623.04019pt x 633.70505pt>
+File: q7.pdf Graphic file (type pdf)
+ <use q7.pdf> [14
+
+ <./q7.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 683--685
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 685--687
+Underfull \hbox (badness 10000) in paragraph at lines 686--688
 
  []
 
-<q8.png, id=65, 510.9489pt x 518.8986pt>
-File: q8.png Graphic file (type png)
- <use q8.png> [12
+<q8.pdf, id=357, 623.04019pt x 633.70505pt>
+File: q8.pdf Graphic file (type pdf)
+ <use q8.pdf> [15
 
-] [13 <./q8.png>]
-<q8_amp.png, id=74, 498.663pt x 510.9489pt>
-File: q8_amp.png Graphic file (type png)
- <use q8_amp.png> [14
+] [16 <./q8.pdf>]
+Overfull \hbox (70.86128pt too wide) in paragraph at lines 784--786
+\OT1/cmr/m/n/10 , resolution=600[] 
+ []
 
-] [15 <./q8_amp.png>] (/usr/share/texmf/tex/latex/listings/lstlang1.sty
+<q8_amp.pdf, id=409, 610.43843pt x 625.91814pt>
+File: q8_amp.pdf Graphic file (type pdf)
+ <use q8_amp.pdf> [17
+
+] [18 <./q8_amp.pdf>] (/usr/share/texmf/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2004/09/05 1.3 listings language file
 ) (./midterm.py
 LaTeX Font Info:    Try loading font information for OMS+cmr on input line 21.
@@ -540,10 +552,10 @@ File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 21.
- [16
+ [19
 
-] [17] [18] [19] [20] [21]
-[22] [23] [24]
+] [20] [21] [22] [23] [24]
+[25] [26] [27]
 LaTeX Font Info:    Try loading font information for OML+cmr on input line 427.
 
  (/usr/share/texmf/tex/latex/base/omlcmr.fd
@@ -551,35 +563,32 @@ File: omlcmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <10> not available
 (Font)              Font shape `OML/cmm/m/it' tried instead on input line 427.
- [25] [26] [27]
-[28] [29]) AED: lastpage setting LastPage [30] (./midterm_write-up.aux)
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
- ) 
+ [28] [29] [30]
+[31] [32]) AED: lastpage setting LastPage [33] (./midterm_write-up.aux) ) 
 Here is how much of TeX's memory you used:
- 4906 strings out of 493747
- 62684 string characters out of 3151242
- 351657 words of memory out of 3500000
- 8110 multiletter control sequences out of 15000+200000
+ 4907 strings out of 493747
+ 62696 string characters out of 3151242
+ 351721 words of memory out of 3500000
+ 8112 multiletter control sequences out of 15000+200000
  10671 words of font info for 38 fonts, out of 3000000 for 9000
  714 hyphenation exceptions out of 8191
- 38i,12n,43p,579b,1821s stack positions out of 5000i,500n,10000p,200000b,50000s
-</usr/share/texmf/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf
-/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf/fonts/type1/public
-/amsfonts/cm/cmmi10.pfb></usr/share/texmf/fonts/type1/public/amsfonts/cm/cmmi7.
-pfb></usr/share/texmf/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texm
-f/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf/fonts/type1/public
-/amsfonts/cm/cmr7.pfb></usr/share/texmf/fonts/type1/public/amsfonts/cm/cmr9.pfb
-></usr/share/texmf/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf/
-fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texmf/fonts/type1/public/a
-msfonts/cm/cmti10.pfb></usr/share/texmf/fonts/type1/public/amsfonts/cm/cmti12.p
-fb></usr/share/texmf/fonts/type1/public/txfonts/t1xbtt.pfb></usr/share/texmf/fo
-nts/type1/public/txfonts/t1xtt.pfb>
-Output written on midterm_write-up.pdf (30 pages, 639810 bytes).
+ 38i,12n,43p,580b,1821s stack positions out of 5000i,500n,10000p,200000b,50000s
+</usr/
+share/texmf/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf/fonts/t
+ype1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf/fonts/type1/public/amsfont
+s/cm/cmmi10.pfb></usr/share/texmf/fonts/type1/public/amsfonts/cm/cmmi7.pfb></us
+r/share/texmf/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf/fonts/
+type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf/fonts/type1/public/amsfont
+s/cm/cmr7.pfb></usr/share/texmf/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/s
+hare/texmf/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf/fonts/ty
+pe1/public/amsfonts/cm/cmsy7.pfb></usr/share/texmf/fonts/type1/public/amsfonts/
+cm/cmti10.pfb></usr/share/texmf/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr
+/share/texmf/fonts/type1/public/txfonts/t1xbtt.pfb></usr/share/texmf/fonts/type
+1/public/txfonts/t1xtt.pfb>
+Output written on midterm_write-up.pdf (33 pages, 673702 bytes).
 PDF statistics:
- 178 PDF objects out of 1000 (max. 8388607)
- 110 compressed objects within 2 object streams
+ 547 PDF objects out of 1000 (max. 8388607)
+ 182 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  51 words of extra memory for PDF output out of 10000 (max. 10000000)
 

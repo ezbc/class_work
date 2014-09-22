@@ -1,0 +1,240 @@
+%-------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%-------------------------------------------------------------------------------
+
+\documentclass{article}
+
+% Packages
+\input{my_packages.tex}
+
+% formatting
+\input{my_format.tex}
+
+%----------------------------------------------------------------------------------------
+%	NAME AND CLASS SECTION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\hmwkTitle}{Homework 2} % Assignment title
+\newcommand{\hmwkDueDate}{Friday, Sept. 25} % Due date
+\newcommand{\hmwkClass}{ECE 532} % Course/class
+\newcommand{\hmwkClassTime}{11:00 am} % Class/lecture time
+\newcommand{\hmwkClassInstructor}{Robert Nowak} % Teacher/lecturer
+\newcommand{\hmwkAuthorName}{Elijah Bernstein-Cooper} % Your name
+
+%-------------------------------------------------------------------------------
+%	TITLE PAGE
+%-------------------------------------------------------------------------------
+
+\title{\vspace{0in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}
+    \vspace{0.5in}}
+
+\author{\textbf{Elijah Bernstein-Cooper}}
+\date{\today} % Insert date here if you want it to appear below your name
+
+%-------------------------------------------------------------------------------
+
+\begin{document}
+
+\maketitle
+%\newpage
+
+%===============================================================================
+%-------------------------------------------------------------------------------
+%	PROBLEM 1
+%-------------------------------------------------------------------------------
+\begin{homeworkProblem}
+
+    \begin{homeworkSection}{1a}
+        
+        We know that for an overdetermined system, the least squares solution
+        to the matrix $\bm{\hat{x}}$ will be 
+
+        \begin{equation*}
+            {(\bm{A}^T \bm{A})}^{-1}\bm{A}^T\bm{b}
+        \end{equation*}
+
+        \noindent which gives us
+
+        \begin{equation*}
+            \bm{\hat{x}} = 
+                0.75 \left(\begin{matrix} 1 \\ 1 \\ 1 \end{matrix}\right) + 
+                0.25 \left(\begin{matrix} 1 \\ -1 \\ 1 \end{matrix}\right)
+        \end{equation*}
+
+    \end{homeworkSection}
+
+    \begin{homeworkSection}{1b}
+        
+        See Figure~\ref{fig:1b} for a sketch of the problem.
+
+        \begin{centering}
+        \begin{figure}[!ht]
+            \includegraphics[scale=0.08]{problem1b_fig.jpg}
+
+            \caption{\label{fig:1b} Sketch of $\bm{A}$ and $\bm{b}$.}
+
+        \end{figure}
+        \end{centering}
+
+    \end{homeworkSection}
+
+\end{homeworkProblem}
+%\clearpage
+%===============================================================================
+
+%===============================================================================
+%-------------------------------------------------------------------------------
+%	PROBLEM 2 
+%-------------------------------------------------------------------------------
+\begin{homeworkProblem}
+
+    \begin{homeworkSection}{2a}
+        
+        The matrix A will be a $m \times 2$ matrix consisting of the measured
+        responses for each condition in $m$ experiments.
+
+    \end{homeworkSection}
+
+    \begin{homeworkSection}{2b}
+
+        
+
+    \end{homeworkSection}
+
+\end{homeworkProblem}
+%===============================================================================
+
+%===============================================================================
+%-------------------------------------------------------------------------------
+%	PROBLEM 3
+%-------------------------------------------------------------------------------
+\begin{homeworkProblem}
+
+    Given 
+    
+    \begin{equation}
+        \cos(\bm{x},\bm{y}) = \frac{\bm{x}^T\bm{y}}{\|\bm{x}\|_2 \|\bm{y}\|_2}
+    \end{equation}
+
+    \noindent and that $|\cos(\bm{x},\bm{y})| \leq 1$, the absolute value of
+    the numerator cannot be larger than the denominator, thus $|\bm{x}^T\bm{y}|
+    \leq \|\bm{x}\|_2 \|\bm{y}\|_2$.
+
+\end{homeworkProblem}
+%===============================================================================
+
+%===============================================================================
+%-------------------------------------------------------------------------------
+%	PROBLEM 4
+%-------------------------------------------------------------------------------
+\begin{homeworkProblem}
+
+    \begin{homeworkSection}{4a}
+
+        Given $\bm{y} = \bm{Ax}$ we can write $\bm{x}$ as
+        
+        \begin{equation}
+            \bm{x = A}^{-1}\bm{y}
+        \end{equation}
+
+    \end{homeworkSection}
+
+    \begin{homeworkSection}{4b}
+
+        To bound the 2-norm of $\bm{x}$ with a function of $\bm{A}$ and $\bm{y}$
+        we first take $\|\bm{x}\| = \|\bm{A}^{-1}\bm{y}\|$ which can be
+        expressed as
+
+        \begin{equation}
+            \frac{\|\bm{A}^{-1}\bm{y}\|}{\|\bm{y}\|}\|\bm{y}\|
+        \end{equation}
+        
+        \noindent where
+
+        \begin{equation}\label{eq:matrix_norm}
+            \frac{\|\bm{A}^{-1}\bm{y}\|}{\|\bm{y}\|}
+        \end{equation}
+
+        \noindent is the matrix norm. Eq.~\ref{eq:matrix_norm} will always be
+        less than $\|\bm{A}^{-1}\|$, thus
+        
+        \begin{equation}
+            \|\bm{x}\| \leq \|\bm{A}^{-1}\|\|\bm{y}\|
+        \end{equation}
+
+
+    \end{homeworkSection}
+
+\end{homeworkProblem}
+%===============================================================================
+
+%===============================================================================
+%-------------------------------------------------------------------------------
+%	PROBLEM 5
+%-------------------------------------------------------------------------------
+\begin{homeworkProblem}
+
+    \begin{homeworkSection}{5a}
+
+        The rank of $\bm{A}$ is 3.
+
+    \end{homeworkSection}
+
+    \begin{homeworkSection}{5b}
+
+        $\bm{x}$ can be expressed as 
+
+        \begin{equation}
+            \bm{x} = \left(\begin{matrix}
+                         0 &   0 &  1 \\
+                         0 &   1 & -1 \\
+                         1 &  -1 &  0
+            \end{matrix} \right) \bm{y}
+        \end{equation}
+
+    \end{homeworkSection}
+
+\end{homeworkProblem}
+%===============================================================================
+
+%===============================================================================
+%-------------------------------------------------------------------------------
+%	PROBLEM 6
+%-------------------------------------------------------------------------------
+\begin{homeworkProblem}
+
+    \begin{homeworkSection}{6a}
+
+        The rank of $\bm{X}$ is 3. 
+
+    \end{homeworkSection}
+        
+
+    \begin{homeworkSection}{6b}
+        
+        The rank of $\frac{\bm{XX^T}}{n}$ is 3. 
+
+    \end{homeworkSection}
+    
+    \begin{homeworkSection}{6c}
+
+        A set of linearly independent columns of $\bm{X}$ are
+
+        \begin{math}
+             \left(\begin{matrix} 1\\0\\0\\0\\ \end{matrix}\right) 
+             \left(\begin{matrix} 0\\1\\0\\0\\ \end{matrix}\right) 
+             \left(\begin{matrix} 1\\0\\0\\1\\ \end{matrix}\right) 
+        \end{math}
+
+    \end{homeworkSection}
+
+\end{homeworkProblem}
+%===============================================================================
+
+
+
+\end{document}
+
