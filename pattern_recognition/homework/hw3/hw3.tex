@@ -118,14 +118,14 @@
 
                 See Figure~\ref{fig:2d}.
 
-        \begin{centering}
         \begin{figure}[!ht]
+        \begin{centering}
             \includegraphics[scale=1]{problem2d_fig.png}
 
             \caption{\label{fig:2d} $\bm{A}$ and $\bm{b}$.}
 
-        \end{figure}
         \end{centering}
+        \end{figure}
 
     \end{homeworkSection}
 
@@ -146,11 +146,37 @@
         equation
 
         \begin{equation*}
-            \tilde{\bm{A}}\bm{x} - \tilde{\bm{b}}
+            \tilde{\bm{A}}\bm{x} = \tilde{\bm{b}}
         \end{equation*}
 
-        \noindent for $\bm{x}$. 
+        \noindent for $\bm{x}$ for which there is the well-known solution
 
+        \begin{equation*} 
+            (\tilde{\bm{A}}^T \tilde{\bm{A}})^{-1}
+            \tilde{\bm{A}}^T \tilde{\bm{b}} = \bm{x}
+        \end{equation*}
+
+    \end{homeworkSection}
+
+    \begin{homeworkSection}{3b}
+       
+        See Figure~\ref{fig:3b} and the following code
+        \pythonexternal{hw3.m}
+
+        \begin{figure}[!ht]
+        \begin{centering}
+            \includegraphics[scale=1]{problem3c_fig.png}
+
+            \caption{\label{fig:3b} Plot of data with fitted 9th degree
+            polynomial with varying values of $\epsilon$.}
+
+        \end{centering}
+        \end{figure}
+
+    \end{homeworkSection}
+
+    \begin{homeworkSection}{3c}
+        See Figure~\ref{fig:3b}.
     \end{homeworkSection}
 
 \end{homeworkProblem}
@@ -222,15 +248,32 @@
     \end{homeworkSection}
     
     \begin{homeworkSection}{4e}
+        
+        Please see the code under the function 4e at the end of the homework.
 
     \end{homeworkSection}
     
     \begin{homeworkSection}{4f}
 
+        Errors with 9 features: \\
+            False positives = 0.507 \\
+            False negatives = 0.492 \\ \\
+
+        Errors with 3 features: \\
+            False positives = 0.507 \\
+            False negatives = 0.492 \\ \\
+
+        We can see that using three features works just as well as using the
+        nine features.
+
     \end{homeworkSection}
 
 \end{homeworkProblem}
 %===============================================================================
+
+\begin{homeworkProblem}
+    \pythonexternal{hw3.py}
+\end{homeworkProblem}
 
 \end{document}
 

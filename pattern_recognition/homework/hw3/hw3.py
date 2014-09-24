@@ -25,6 +25,62 @@ def split_seq(iterable, size):
     while item:
         yield item
         item = list(itertools.islice(it, size))
+
+def cross_validate(A, b, chunksize=8, features=None):
+
+    if features is None:
+        A_chunked = np.asarray(chunk(np.asarray(A), chunksize))
+    else:
+        A_chunked = np.asarray(chunk(np.asarray(A[:, features]), chunksize))
+    b_chunked = np.asarray(chunk(np.asarray(b), chunksize))
+
+    false_positives = 0.0
+    false_negatives = 0.0
+
+    for i in xrange(0, chunksize):
+        indices_1 = np.arange(0, chunksize, 1).tolist()
+        del indices_1[i]
+
+        indices_1 = np.asarray(indices_1)
+
+        # Exclude 8 elements
+        A_sub = A_chunked[:, indices_1, :]
+        b_sub = b_chunked[:, indices_1]
+
+        # Reshape to original format
+        A_sub = np.reshape(A_sub,
+                           (A_sub.shape[0]*A_sub.shape[1], A_sub.shape[2]))
+        b_sub = np.reshape(b_sub,
+                           (b_sub.shape[0]*b_sub.shape[1], b_sub.shape[2]))
+
+        # Convert arrays to matrices
+        A_sub = np.matrix(A_sub)
+        b_sub = np.matrix(b_sub)
+
+        # Solve for weights
+        x = np.linalg.lstsq(A_sub, b_sub)[0]
+
+        # Check error of weights on holdout set
+        A_holdout = np.matrix(A_chunked[:, i, :])
+        b_holdout = np.matrix(b_chunked[:, i])
+
+        # Derive x_hat
+        estimates = A_holdout * x
+
+        # Convert to arrays for indexing with booleans
+        b_holdout = np.squeeze(np.array(b_holdout))
+        estimates = np.squeeze(np.array(estimates))
+
+        # Check for positive errors
+        cell_size = A_chunked.shape[0]
+        false_positives += len(b_holdout[estimates > 0] < 0) / (1.0*cell_size)
+        false_negatives += len(b_holdout[estimates < 0] > 0) / (1.0*cell_size)
+
+    false_positives /= (1.0 * chunksize)
+    false_negatives /= (1.0 * chunksize)
+
+    return false_positives, false_negatives
+
 '''
 Problems
 '''
@@ -203,109 +259,23 @@ def problem_4():
     print x
     print ''
 
-    # 4e
-    A_chunked = np.asarray(chunk(np.asarray(A), 8))
-    b_chunked = np.asarray(chunk(np.asarray(b), 8))
-
-    false_positives = 0.0
-    false_negatives = 0.0
-
-    for i in xrange(0, 8):
-        indices_1 = np.arange(0, 8, 1).tolist()
-        del indices_1[i]
-
-        indices_1 = np.asarray(indices_1)
-
-        # Exclude 8 elements
-        A_sub = A_chunked[:, indices_1, :]
-        b_sub = b_chunked[:, indices_1]
-
-        # Reshape to original format
-        A_sub = np.reshape(A_sub,
-                           (A_sub.shape[0]*A_sub.shape[1], A_sub.shape[2]))
-        b_sub = np.reshape(b_sub,
-                           (b_sub.shape[0]*b_sub.shape[1], b_sub.shape[2]))
-
-        # Convert arrays to matrices
-        A_sub = np.matrix(A_sub)
-        b_sub = np.matrix(b_sub)
-
-        # Solve for weights
-        x = np.linalg.lstsq(A_sub, b_sub)[0]
-
-        # Check error of weights on holdout set
-        A_holdout = A_chunked[:, i, :]
-        b_holdout = b_chunked[:, i]
-        A_holdout = np.matrix(A_holdout)
-        b_holdout = np.matrix(b_holdout)
-
-        estimates = A_holdout * x
-
-        # Check for positive errors
-        false_positives += len(b_holdout[estimates > 0] < 0) / 16.0
-        false_negatives += len(b_holdout[estimates < 0] > 0) / 16.0
-
-    false_positives /= 8.0
-    false_negatives /= 8.0
+    false_positives, false_negatives = cross_validate(A, b)
 
     print '4f'
     print 'Errors with 9 features:'
-    print 'Error on positives, error on negatives', \
-          false_positives, false_negatives
+    print 'Error on positives', false_positives
+    print 'Error on negatives', false_negatives
 
-    # Perform with only 3 features
-    A_chunked = np.asarray(chunk(np.asarray(A[:, (0, 3, 8)]), 8))
-    b_chunked = np.asarray(chunk(np.asarray(b), 8))
-
-    false_positives = 0.0
-    false_negatives = 0.0
-
-    for i in xrange(0, 8):
-        indices_1 = np.arange(0, 8, 1).tolist()
-        del indices_1[i]
-
-        indices_1 = np.asarray(indices_1)
-
-        # Exclude 8 elements
-        A_sub = A_chunked[:, indices_1, :]
-        b_sub = b_chunked[:, indices_1]
-
-        # Reshape to original format
-        A_sub = np.reshape(A_sub,
-                           (A_sub.shape[0]*A_sub.shape[1], A_sub.shape[2]))
-        b_sub = np.reshape(b_sub,
-                           (b_sub.shape[0]*b_sub.shape[1], b_sub.shape[2]))
-
-        # Convert arrays to matrices
-        A_sub = np.matrix(A_sub)
-        b_sub = np.matrix(b_sub)
-
-        # Solve for weights
-        x = np.linalg.lstsq(A_sub, b_sub)[0]
-
-        # Check error of weights on holdout set
-        A_holdout = A_chunked[:, i, :]
-        b_holdout = b_chunked[:, i]
-        A_holdout = np.matrix(A_holdout)
-        b_holdout = np.matrix(b_holdout)
-
-        estimates = A_holdout * x
-
-        # Check for positive errors
-        false_positives += len(b_holdout[estimates > 0] < 0) / 16.0
-        false_negatives += len(b_holdout[estimates < 0] > 0) / 16.0
-
-    false_positives /= 8.0
-    false_negatives /= 8.0
+    false_positives, false_negatives = cross_validate(A, b, features=(0, 3, 8))
 
     print 'Errors with 3 features:'
-    print 'Error on positives, error on negatives', \
-          false_positives, false_negatives
+    print 'Error on positives', false_positives
+    print 'Error on negatives', false_negatives
 
 def main():
-    #problem_1()
-    #problem_2c()
-    #problem_2d()
+    problem_1()
+    problem_2c()
+    problem_2d()
     problem_4()
 
 if __name__ == '__main__':

@@ -1,0 +1,1314 @@
+<!DOCTYPE html>
+<!-- saved from url=(0065)http://www.illustris-project.org/w/index.php/Data_Access_Examples -->
+<html lang="en" dir="ltr" class="client-js"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Data Access Examples - IllustrisWiki</title>
+<meta charset="UTF-8">
+<meta name="generator" content="Custom MW (dnelson)">
+<link rel="alternate" type="application/x-wiki" title="Edit" href="http://www.illustris-project.org/w/index.php?title=Data_Access_Examples&action=edit">
+<link rel="edit" title="Edit" href="http://www.illustris-project.org/w/index.php?title=Data_Access_Examples&action=edit">
+<link rel="shortcut icon" href="http://www.illustris-project.org/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="http://www.illustris-project.org/w/opensearch_desc.php" title="IllustrisWiki (en)">
+<link rel="EditURI" type="application/rsd+xml" href="http://www.illustris-project.org/w/api.php?action=rsd">
+<link rel="alternate" type="application/atom+xml" title="IllustrisWiki Atom feed" href="http://www.illustris-project.org/w/index.php?title=Special:RecentChanges&feed=atom">
+<link rel="stylesheet" href="http://www.illustris-project.org/w/load.php?debug=false&lang=en&modules=mediawiki.legacy.commonPrint%2Cshared%7Cskins.vector&only=styles&skin=vector&*">
+<style>
+.mw-collapsible-toggle{float:right} li .mw-collapsible-toggle{float:none} .mw-collapsible-toggle-li{list-style:none}
+/* cache key: illustris_wiki:resourceloader:filter:minify-css:7:4250852ed2349a0d4d0fc6509a3e7d4c */
+.suggestions{overflow:hidden;position:absolute;top:0;left:0;width:0;border:none;z-index:1099;padding:0;margin:-1px -1px 0 0} html > body .suggestions{margin:-1px 0 0 0}.suggestions-special{position:relative;background-color:white;cursor:pointer;border:solid 1px #aaaaaa;padding:0;margin:0;margin-top:-2px;display:none;padding:0.25em 0.25em;line-height:1.25em}.suggestions-results{background-color:white;cursor:pointer;border:solid 1px #aaaaaa;padding:0;margin:0}.suggestions-result{color:black;margin:0;line-height:1.5em;padding:0.01em 0.25em;text-align:left}.suggestions-result-current{background-color:#4C59A6;color:white}.suggestions-special .special-label{color:gray;text-align:left}.suggestions-special .special-query{color:black;font-style:italic;text-align:left}.suggestions-special .special-hover{background-color:silver}.suggestions-result-current .special-label,.suggestions-result-current .special-query{color:white}.autoellipsis-matched,.highlight{font-weight:bold}
+/* cache key: illustris_wiki:resourceloader:filter:minify-css:7:9780324491b653a3780e2d029bdc140c */
+#mw-panel.collapsible-nav .portal{background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIwAAAABCAMAAAA7MLYKAAAAS1BMVEXb29vy8vLv7+/c3NzZ2dni4uLr6+vt7e3s7Ozw8PDn5+fj4+Ph4eHd3d3f39/o6Ojl5eXp6enx8fHa2trg4ODq6urk5OTz8/PY2NjolWftAAAAO0lEQVR4XrXAhwGAMAgEQB5I71X3n9QpPHqAGZidt2e02G8yedciQkv1/YPqIpFSdzbp9tjGsd4xhwl8yuMKHhkJhm8AAAAASUVORK5CYII=) left top no-repeat;background:url(http://www.illustris-project.org/w/extensions/Vector/modules/images/portal-break.png?2013-09-03T18:56:40Z) left top no-repeat!ie;padding:0.25em 0 !important;margin:-11px 9px 10px 11px}#mw-panel.collapsible-nav .portal h3,#mw-panel.collapsible-nav .portal h5{color:#4D4D4D;font-weight:normal;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAD1BMVEX////d3d2ampqxsbF5eXmCtCYvAAAAAXRSTlMAQObYZgAAADBJREFUeF6dzNEJACAMA1HdINQJCp1Ebv+ZlLYLaD4f4cbnDNi6MAO8KCHJ+7X02j3mzgMQe93HcQAAAABJRU5ErkJggg==) left center no-repeat;background:url(http://www.illustris-project.org/w/extensions/Vector/modules/images/open.png?2013-09-03T18:56:40Z) left center no-repeat!ie;padding:4px 0 3px 1.5em;margin-bottom:0}#mw-panel.collapsible-nav .portal h3:hover,#mw-panel.collapsible-nav .portal h5:hover{cursor:pointer;text-decoration:none}#mw-panel.collapsible-nav .portal h3 a,#mw-panel.collapsible-nav .portal h5 a{color:#4D4D4D;text-decoration:none}#mw-panel.collapsible-nav .portal .body{background:none !important;padding-top:0;display:none}#mw-panel.collapsible-nav .portal .body ul li{padding:0.25em 0} #mw-panel.collapsible-nav .portal.first h3,#mw-panel.collapsible-nav .portal.first h5{display:none}#mw-panel.collapsible-nav .portal.first{background-image:none;margin-top:0} #mw-panel.collapsible-nav .portal.persistent .body{display:block}#mw-panel.collapsible-nav .portal.persistent h3,#mw-panel.collapsible-nav .portal.persistent h5{background:none !important;padding-left:0.7em;cursor:default}#mw-panel.collapsible-nav .portal.persistent .body{margin-left:0.5em} #mw-panel.collapsible-nav .portal.collapsed h3,#mw-panel.collapsible-nav .portal.collapsed h5{color:#0645AD;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAgMAAABinRfyAAAADFBMVEX///95eXnd3d2dnZ3aAo3QAAAAAXRSTlMAQObYZgAAADFJREFUeF5dyzEKACAMA0CXolNe2Id09Kl5igZahWY4AiGjZwmIuS9GEcJfY63Ix88Bol4EYP1O7JMAAAAASUVORK5CYII=) left center no-repeat;background:url(http://www.illustris-project.org/w/extensions/Vector/modules/images/closed-ltr.png?2013-09-03T18:56:40Z) left center no-repeat!ie;margin-bottom:0}#mw-panel.collapsible-nav .portal.collapsed h3 a,#mw-panel.collapsible-nav .portal.collapsed h5 a{color:#0645AD}#mw-panel.collapsible-nav .portal.collapsed h3:hover,#mw-panel.collapsible-nav .portal.collapsed h5:hover{text-decoration:underline}
+/* cache key: illustris_wiki:resourceloader:filter:minify-css:7:0a04277ba4002aebd61422f6bed8bede */</style><style>
+.suggestions a.mw-searchSuggest-link,.suggestions a.mw-searchSuggest-link:hover,.suggestions a.mw-searchSuggest-link:active,.suggestions a.mw-searchSuggest-link:focus{text-decoration:none;color:black}.suggestions-result-current a.mw-searchSuggest-link,.suggestions-result-current a.mw-searchSuggest-link:hover,.suggestions-result-current a.mw-searchSuggest-link:active,.suggestions-result-current a.mw-searchSuggest-link:focus{color:white}
+/* cache key: illustris_wiki:resourceloader:filter:minify-css:7:52b1797f70c7e4094dfa4191101944e8 */</style><meta name="ResourceLoaderDynamicStyles" content="">
+<link rel="stylesheet" href="http://www.illustris-project.org/w/load.php?debug=false&lang=en&modules=site&only=styles&skin=vector&*">
+<style>a:lang(ar),a:lang(ckb),a:lang(fa),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: illustris_wiki:resourceloader:filter:minify-css:7:31210a0ef2219cbe5c9b24e2fa743d58 */</style>
+
+<script src="./Data Access Examples - IllustrisWiki_files/load.php"></script><script src="./Data Access Examples - IllustrisWiki_files/load(1).php"></script>
+<script>if(window.mw){
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Data_Access_Examples","wgTitle":"Data Access Examples","wgCurRevisionId":662,"wgArticleId":40,"wgIsArticle":true,"wgAction":"view","wgUserName":"Ciro","wgUserGroups":["*","user","autoconfirmed"],"wgCategories":[],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Data_Access_Examples","wgUserId":58,"wgUserEditCount":"2","wgUserRegistration":1395949658000,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgVectorEnabledModules":{"collapsiblenav":true,"collapsibletabs":true,"expandablesearch":false,"footercleanup":false,"sectioneditlinks":false,"experiments":true},"wgWikiEditorEnabledModules":{"toolbar":false,"dialogs":false,"hidesig":true,"templateEditor":false,"templates":false,"preview":false,"previewDialog":false,"publish":false,"toc":false}});
+}</script><script>if(window.mw){
+mw.loader.implement("user.options",function(){mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"imagesize":2,"justify":0,"math":6,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":5,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,"watchlistdays":3,
+"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"vector-simplesearch":1,"variant":"en","language":"en","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;},{},{});mw.loader.implement("user.tokens",function(){mw.user.tokens.set({"editToken":"b27a4b4ef7ebfb4903443ad2e269d6a3+\\","patrolToken":false,"watchToken":"a7f892da9f26b3363203cde511182e55+\\"});;},{},{});
+/* cache key: illustris_wiki:resourceloader:filter:minify-js:7:e8ef8f76487d1899af4303e277fdcaf0 */
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax"]);
+}</script><script src="./Data Access Examples - IllustrisWiki_files/load(2).php"></script>
+<style type="text/css">/*<![CDATA[*/
+.source-python {line-height: normal;}
+.source-python li, .source-python pre {
+	line-height: normal; border: 0px none white;
+}
+/**
+ * GeSHi Dynamically Generated Stylesheet
+ * --------------------------------------
+ * Dynamically generated stylesheet for python
+ * CSS class: source-python, CSS id: 
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ * --------------------------------------
+ */
+.python.source-python .de1, .python.source-python .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;font-family: monospace, monospace;}
+.python.source-python  {font-family:monospace;}
+.python.source-python .imp {font-weight: bold; color: red;}
+.python.source-python li, .python.source-python .li1 {font-weight: normal; vertical-align:top;}
+.python.source-python .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.python.source-python .li2 {font-weight: bold; vertical-align:top;}
+.python.source-python .kw1 {color: #ff7700;font-weight:bold;}
+.python.source-python .kw2 {color: #008000;}
+.python.source-python .kw3 {color: #dc143c;}
+.python.source-python .kw4 {color: #0000cd;}
+.python.source-python .co1 {color: #808080; font-style: italic;}
+.python.source-python .coMULTI {color: #808080; font-style: italic;}
+.python.source-python .es0 {color: #000099; font-weight: bold;}
+.python.source-python .br0 {color: black;}
+.python.source-python .sy0 {color: #66cc66;}
+.python.source-python .st0 {color: #483d8b;}
+.python.source-python .nu0 {color: #ff4500;}
+.python.source-python .me1 {color: black;}
+.python.source-python .ln-xtra, .python.source-python li.ln-xtra, .python.source-python div.ln-xtra {background-color: #ffc;}
+.python.source-python span.xtra { display:block; }
+
+/*]]>*/
+</style><style type="text/css">/*<![CDATA[*/
+.source-bash {line-height: normal;}
+.source-bash li, .source-bash pre {
+	line-height: normal; border: 0px none white;
+}
+/**
+ * GeSHi Dynamically Generated Stylesheet
+ * --------------------------------------
+ * Dynamically generated stylesheet for bash
+ * CSS class: source-bash, CSS id: 
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ * --------------------------------------
+ */
+.bash.source-bash .de1, .bash.source-bash .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;font-family: monospace, monospace;}
+.bash.source-bash  {font-family:monospace;}
+.bash.source-bash .imp {font-weight: bold; color: red;}
+.bash.source-bash li, .bash.source-bash .li1 {font-weight: normal; vertical-align:top;}
+.bash.source-bash .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.bash.source-bash .li2 {font-weight: bold; vertical-align:top;}
+.bash.source-bash .kw1 {color: #000000; font-weight: bold;}
+.bash.source-bash .kw2 {color: #c20cb9; font-weight: bold;}
+.bash.source-bash .kw3 {color: #7a0874; font-weight: bold;}
+.bash.source-bash .co0 {color: #666666; font-style: italic;}
+.bash.source-bash .co1 {color: #800000;}
+.bash.source-bash .co2 {color: #cc0000; font-style: italic;}
+.bash.source-bash .co3 {color: #000000; font-weight: bold;}
+.bash.source-bash .co4 {color: #666666;}
+.bash.source-bash .es1 {color: #000099; font-weight: bold;}
+.bash.source-bash .es2 {color: #007800;}
+.bash.source-bash .es3 {color: #007800;}
+.bash.source-bash .es4 {color: #007800;}
+.bash.source-bash .es5 {color: #780078;}
+.bash.source-bash .es_h {color: #000099; font-weight: bold;}
+.bash.source-bash .br0 {color: #7a0874; font-weight: bold;}
+.bash.source-bash .sy0 {color: #000000; font-weight: bold;}
+.bash.source-bash .st0 {color: #ff0000;}
+.bash.source-bash .st_h {color: #ff0000;}
+.bash.source-bash .nu0 {color: #000000;}
+.bash.source-bash .re0 {color: #007800;}
+.bash.source-bash .re1 {color: #007800;}
+.bash.source-bash .re2 {color: #007800;}
+.bash.source-bash .re4 {color: #007800;}
+.bash.source-bash .re5 {color: #660033;}
+.bash.source-bash .ln-xtra, .bash.source-bash li.ln-xtra, .bash.source-bash div.ln-xtra {background-color: #ffc;}
+.bash.source-bash span.xtra { display:block; }
+
+/*]]>*/
+</style><style type="text/css">/*<![CDATA[*/
+.source-idl {line-height: normal;}
+.source-idl li, .source-idl pre {
+	line-height: normal; border: 0px none white;
+}
+/**
+ * GeSHi Dynamically Generated Stylesheet
+ * --------------------------------------
+ * Dynamically generated stylesheet for idl
+ * CSS class: source-idl, CSS id: 
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ * --------------------------------------
+ */
+.idl.source-idl .de1, .idl.source-idl .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;font-family: monospace, monospace;}
+.idl.source-idl  {font-family:monospace;}
+.idl.source-idl .imp {font-weight: bold; color: red;}
+.idl.source-idl li, .idl.source-idl .li1 {font-weight: normal; vertical-align:top;}
+.idl.source-idl .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.idl.source-idl .li2 {font-weight: bold; vertical-align:top;}
+.idl.source-idl .kw1 {color: #990078; font-weight: bold}
+.idl.source-idl .kw2 {color: #36dd1c;}
+.idl.source-idl .kw3 {color: #990078; font-weight: bold}
+.idl.source-idl .kw4 {color: #0000ec;}
+.idl.source-idl .co1 {color: #3f7f5f;}
+.idl.source-idl .co2 {color: #808080;}
+.idl.source-idl .coMULTI {color: #4080ff; font-style: italic;}
+.idl.source-idl .es0 {color: #666666; font-weight: bold;}
+.idl.source-idl .br0 {color: #808080;}
+.idl.source-idl .sy0 {color: #66cc66;}
+.idl.source-idl .st0 {color: #ff0000;}
+.idl.source-idl .nu0 {color: #0000dd;}
+.idl.source-idl .ln-xtra, .idl.source-idl li.ln-xtra, .idl.source-idl div.ln-xtra {background-color: #ffc;}
+.idl.source-idl span.xtra { display:block; }
+
+/*]]>*/
+</style><!--[if lt IE 7]><style type="text/css">body{behavior:url("/w/skins/vector/csshover.min.htc")}</style><![endif]--><script async="" src="./Data Access Examples - IllustrisWiki_files/load(3).php"></script><script async="" src="./Data Access Examples - IllustrisWiki_files/load(4).php"></script><script type="text/x-mathjax-config;executed=true">mathJax.Config();</script><script async="" src="./Data Access Examples - IllustrisWiki_files/load(5).php"></script><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Hover_Arrow {position: absolute; width: 15px; height: 11px; cursor: pointer}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 5px 0px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; -khtml-border-radius: 5px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 1px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; color: #666666}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuRadioCheck {position: absolute; left: .7em}
+.MathJax_MenuLabel {padding: 1px 2em 3px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #DDDDDD; margin: 4px 3px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: #606872; color: white}
+.MathJax_Menu_Close {position: absolute; width: 31px; height: 31px; top: -15px; left: -15px}
+</style><style type="text/css">.MathJax_Display {text-align: center; margin: 1em 0em; position: relative; display: block; width: 100%}
+.MathJax .merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+#MathJax_Tooltip {background-color: InfoBackground; color: InfoText; border: 1px solid black; box-shadow: 2px 2px 5px #AAAAAA; -webkit-box-shadow: 2px 2px 5px #AAAAAA; -moz-box-shadow: 2px 2px 5px #AAAAAA; -khtml-box-shadow: 2px 2px 5px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true'); padding: 3px 4px; z-index: 401; position: absolute; left: 0; top: 0; width: auto; height: auto; display: none}
+.MathJax {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; border: 0; padding: 0; margin: 0}
+.MathJax img, .MathJax nobr, .MathJax a {border: 0; padding: 0; margin: 0; max-width: none; max-height: none; vertical-align: 0; line-height: normal; text-decoration: none}
+img.MathJax_strut {border: 0 !important; padding: 0 !important; margin: 0 !important; vertical-align: 0 !important}
+.MathJax span {display: inline; position: static; border: 0; padding: 0; margin: 0; vertical-align: 0; line-height: normal; text-decoration: none}
+.MathJax nobr {white-space: nowrap ! important}
+.MathJax img {display: inline ! important; float: none ! important}
+.MathJax * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.MathJax_Processing {visibility: hidden; position: fixed; width: 0; height: 0; overflow: hidden}
+.MathJax_Processed {display: none!important}
+.MathJax_ExBox {display: block; overflow: hidden; width: 1px; height: 60ex}
+.MathJax .MathJax_EmBox {display: block; overflow: hidden; width: 1px; height: 60em}
+.MathJax .MathJax_HitBox {cursor: text; background: white; opacity: 0; filter: alpha(opacity=0)}
+.MathJax .MathJax_HitBox * {filter: none; opacity: 1; background: transparent}
+#MathJax_Tooltip * {filter: none; opacity: 1; background: transparent}
+@font-face {font-family: MathJax_Main; src: url('/w/extensions/Math/modules/MathJax/fonts/HTML-CSS/TeX/woff/MathJax_Main-Regular.woff') format('woff'), url('/w/extensions/Math/modules/MathJax/fonts/HTML-CSS/TeX/otf/MathJax_Main-Regular.otf') format('opentype')}
+@font-face {font-family: MathJax_Main; src: url('/w/extensions/Math/modules/MathJax/fonts/HTML-CSS/TeX/woff/MathJax_Main-Bold.woff') format('woff'), url('/w/extensions/Math/modules/MathJax/fonts/HTML-CSS/TeX/otf/MathJax_Main-Bold.otf') format('opentype'); font-weight: bold}
+@font-face {font-family: MathJax_Main; src: url('/w/extensions/Math/modules/MathJax/fonts/HTML-CSS/TeX/woff/MathJax_Main-Italic.woff') format('woff'), url('/w/extensions/Math/modules/MathJax/fonts/HTML-CSS/TeX/otf/MathJax_Main-Italic.otf') format('opentype'); font-style: italic}
+@font-face {font-family: MathJax_Math; src: url('/w/extensions/Math/modules/MathJax/fonts/HTML-CSS/TeX/woff/MathJax_Math-Italic.woff') format('woff'), url('/w/extensions/Math/modules/MathJax/fonts/HTML-CSS/TeX/otf/MathJax_Math-Italic.otf') format('opentype'); font-style: italic}
+@font-face {font-family: MathJax_Caligraphic; src: url('/w/extensions/Math/modules/MathJax/fonts/HTML-CSS/TeX/woff/MathJax_Caligraphic-Regular.woff') format('woff'), url('/w/extensions/Math/modules/MathJax/fonts/HTML-CSS/TeX/otf/MathJax_Caligraphic-Regular.otf') format('opentype')}
+@font-face {font-family: MathJax_Size1; src: url('/w/extensions/Math/modules/MathJax/fonts/HTML-CSS/TeX/woff/MathJax_Size1-Regular.woff') format('woff'), url('/w/extensions/Math/modules/MathJax/fonts/HTML-CSS/TeX/otf/MathJax_Size1-Regular.otf') format('opentype')}
+@font-face {font-family: MathJax_Size2; src: url('/w/extensions/Math/modules/MathJax/fonts/HTML-CSS/TeX/woff/MathJax_Size2-Regular.woff') format('woff'), url('/w/extensions/Math/modules/MathJax/fonts/HTML-CSS/TeX/otf/MathJax_Size2-Regular.otf') format('opentype')}
+@font-face {font-family: MathJax_Size3; src: url('/w/extensions/Math/modules/MathJax/fonts/HTML-CSS/TeX/woff/MathJax_Size3-Regular.woff') format('woff'), url('/w/extensions/Math/modules/MathJax/fonts/HTML-CSS/TeX/otf/MathJax_Size3-Regular.otf') format('opentype')}
+@font-face {font-family: MathJax_Size4; src: url('/w/extensions/Math/modules/MathJax/fonts/HTML-CSS/TeX/woff/MathJax_Size4-Regular.woff') format('woff'), url('/w/extensions/Math/modules/MathJax/fonts/HTML-CSS/TeX/otf/MathJax_Size4-Regular.otf') format('opentype')}
+</style></head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Data_Access_Examples skin-vector action-view vector-animateLayout"><div style="visibility: hidden; overflow: hidden; position: absolute; top: 0px; height: 1px; width: auto; padding: 0px; border: 0px; margin: 0px; text-align: left; text-indent: 0px; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal;"><div id="MathJax_Hidden"></div></div><div id="MathJax_Message" style="display: none;"></div>
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content" class="mw-body" role="main">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading" lang="en"><span dir="auto">Data Access Examples</span></h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+								<!-- tagline -->
+				<div id="siteSub">From IllustrisWiki</div>
+				<!-- /tagline -->
+								<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav" class="mw-jump">
+					Jump to:					<a href="http://www.illustris-project.org/w/index.php/Data_Access_Examples#mw-navigation">navigation</a>, 					<a href="http://www.illustris-project.org/w/index.php/Data_Access_Examples#p-search">search</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodycontent -->
+				<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div style="float:right;"><table id="toc" class="toc"><tbody><tr><td><div id="toctitle"><h2>Contents</h2><span class="toctoggle">&nbsp;[<a href="http://www.illustris-project.org/w/index.php/Data_Access_Examples#" class="internal" id="togglelink">hide</a>]&nbsp;</span></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="http://www.illustris-project.org/w/index.php/Data_Access_Examples#Odyssey_Dedicated_Node_for_Interactive.2FDevelopment:"><span class="tocnumber">1</span> <span class="toctext">Odyssey Dedicated Node for Interactive/Development:</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="http://www.illustris-project.org/w/index.php/Data_Access_Examples#Python"><span class="tocnumber">2</span> <span class="toctext">Python</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="http://www.illustris-project.org/w/index.php/Data_Access_Examples#Mark.27s_Arepo_Repository_Scripts"><span class="tocnumber">2.1</span> <span class="toctext">Mark's Arepo Repository Scripts</span></a>
+<ul>
+<li class="toclevel-3 tocsection-4"><a href="http://www.illustris-project.org/w/index.php/Data_Access_Examples#Snapshot_Data"><span class="tocnumber">2.1.1</span> <span class="toctext">Snapshot Data</span></a></li>
+<li class="toclevel-3 tocsection-5"><a href="http://www.illustris-project.org/w/index.php/Data_Access_Examples#Group_Catalogs"><span class="tocnumber">2.1.2</span> <span class="toctext">Group Catalogs</span></a></li>
+<li class="toclevel-3 tocsection-6"><a href="http://www.illustris-project.org/w/index.php/Data_Access_Examples#LHaloTree_Merger_Trees"><span class="tocnumber">2.1.3</span> <span class="toctext">LHaloTree Merger Trees</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-7"><a href="http://www.illustris-project.org/w/index.php/Data_Access_Examples#Inspector_Gadget_Examples"><span class="tocnumber">2.2</span> <span class="toctext">Inspector Gadget Examples</span></a>
+<ul>
+<li class="toclevel-3 tocsection-8"><a href="http://www.illustris-project.org/w/index.php/Data_Access_Examples#Loading_a_Snapshot"><span class="tocnumber">2.2.1</span> <span class="toctext">Loading a Snapshot</span></a></li>
+<li class="toclevel-3 tocsection-9"><a href="http://www.illustris-project.org/w/index.php/Data_Access_Examples#Loading_a_Subfind_Catalog"><span class="tocnumber">2.2.2</span> <span class="toctext">Loading a Subfind Catalog</span></a></li>
+<li class="toclevel-3 tocsection-10"><a href="http://www.illustris-project.org/w/index.php/Data_Access_Examples#Load_only_one_.28sub.29_halo"><span class="tocnumber">2.2.3</span> <span class="toctext">Load only one (sub) halo</span></a></li>
+<li class="toclevel-3 tocsection-11"><a href="http://www.illustris-project.org/w/index.php/Data_Access_Examples#Some_simple_plots"><span class="tocnumber">2.2.4</span> <span class="toctext">Some simple plots</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-12"><a href="http://www.illustris-project.org/w/index.php/Data_Access_Examples#Offset_Tables_Examples"><span class="tocnumber">2.3</span> <span class="toctext">Offset Tables Examples</span></a>
+<ul>
+<li class="toclevel-3 tocsection-13"><a href="http://www.illustris-project.org/w/index.php/Data_Access_Examples#Snapshot_Data_2"><span class="tocnumber">2.3.1</span> <span class="toctext">Snapshot Data</span></a></li>
+<li class="toclevel-3 tocsection-14"><a href="http://www.illustris-project.org/w/index.php/Data_Access_Examples#Group_Catalogs_2"><span class="tocnumber">2.3.2</span> <span class="toctext">Group Catalogs</span></a></li>
+<li class="toclevel-3 tocsection-15"><a href="http://www.illustris-project.org/w/index.php/Data_Access_Examples#LHaloTree_Merger_Trees_2"><span class="tocnumber">2.3.3</span> <span class="toctext">LHaloTree Merger Trees</span></a></li>
+<li class="toclevel-3 tocsection-16"><a href="http://www.illustris-project.org/w/index.php/Data_Access_Examples#SubLink_Merger_Trees"><span class="tocnumber">2.3.4</span> <span class="toctext">SubLink Merger Trees</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-17"><a href="http://www.illustris-project.org/w/index.php/Data_Access_Examples#SubLink_Merger_Trees_2"><span class="tocnumber">2.4</span> <span class="toctext">SubLink Merger Trees</span></a>
+<ul>
+<li class="toclevel-3 tocsection-18"><a href="http://www.illustris-project.org/w/index.php/Data_Access_Examples#Examples"><span class="tocnumber">2.4.1</span> <span class="toctext">Examples</span></a>
+<ul>
+<li class="toclevel-4 tocsection-19"><a href="http://www.illustris-project.org/w/index.php/Data_Access_Examples#Example_0"><span class="tocnumber">2.4.1.1</span> <span class="toctext">Example 0</span></a></li>
+<li class="toclevel-4 tocsection-20"><a href="http://www.illustris-project.org/w/index.php/Data_Access_Examples#Example_1"><span class="tocnumber">2.4.1.2</span> <span class="toctext">Example 1</span></a></li>
+<li class="toclevel-4 tocsection-21"><a href="http://www.illustris-project.org/w/index.php/Data_Access_Examples#Example_2"><span class="tocnumber">2.4.1.3</span> <span class="toctext">Example 2</span></a></li>
+<li class="toclevel-4 tocsection-22"><a href="http://www.illustris-project.org/w/index.php/Data_Access_Examples#Example_3"><span class="tocnumber">2.4.1.4</span> <span class="toctext">Example 3</span></a></li>
+<li class="toclevel-4 tocsection-23"><a href="http://www.illustris-project.org/w/index.php/Data_Access_Examples#Example_4"><span class="tocnumber">2.4.1.5</span> <span class="toctext">Example 4</span></a></li>
+<li class="toclevel-4 tocsection-24"><a href="http://www.illustris-project.org/w/index.php/Data_Access_Examples#Example_5"><span class="tocnumber">2.4.1.6</span> <span class="toctext">Example 5</span></a></li>
+<li class="toclevel-4 tocsection-25"><a href="http://www.illustris-project.org/w/index.php/Data_Access_Examples#Example_6"><span class="tocnumber">2.4.1.7</span> <span class="toctext">Example 6</span></a></li>
+<li class="toclevel-4 tocsection-26"><a href="http://www.illustris-project.org/w/index.php/Data_Access_Examples#Example_7"><span class="tocnumber">2.4.1.8</span> <span class="toctext">Example 7</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-27"><a href="http://www.illustris-project.org/w/index.php/Data_Access_Examples#Rockstar_Merger_Trees"><span class="tocnumber">2.5</span> <span class="toctext">Rockstar Merger Trees</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-28"><a href="http://www.illustris-project.org/w/index.php/Data_Access_Examples#Matlab"><span class="tocnumber">3</span> <span class="toctext">Matlab</span></a></li>
+<li class="toclevel-1 tocsection-29"><a href="http://www.illustris-project.org/w/index.php/Data_Access_Examples#IDL"><span class="tocnumber">4</span> <span class="toctext">IDL</span></a>
+<ul>
+<li class="toclevel-2 tocsection-30"><a href="http://www.illustris-project.org/w/index.php/Data_Access_Examples#Dylan.27s_cosmoLoad"><span class="tocnumber">4.1</span> <span class="toctext">Dylan's cosmoLoad</span></a>
+<ul>
+<li class="toclevel-3 tocsection-31"><a href="http://www.illustris-project.org/w/index.php/Data_Access_Examples#Snapshot_Data_3"><span class="tocnumber">4.1.1</span> <span class="toctext">Snapshot Data</span></a></li>
+<li class="toclevel-3 tocsection-32"><a href="http://www.illustris-project.org/w/index.php/Data_Access_Examples#Group_Catalogs_3"><span class="tocnumber">4.1.2</span> <span class="toctext">Group Catalogs</span></a></li>
+<li class="toclevel-3 tocsection-33"><a href="http://www.illustris-project.org/w/index.php/Data_Access_Examples#Merger_Trees"><span class="tocnumber">4.1.3</span> <span class="toctext">Merger Trees</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-34"><a href="http://www.illustris-project.org/w/index.php/Data_Access_Examples#Paul.27s_idl-cosmo"><span class="tocnumber">4.2</span> <span class="toctext">Paul's idl-cosmo</span></a>
+<ul>
+<li class="toclevel-3 tocsection-35"><a href="http://www.illustris-project.org/w/index.php/Data_Access_Examples#Snapshot_Data_4"><span class="tocnumber">4.2.1</span> <span class="toctext">Snapshot Data</span></a></li>
+<li class="toclevel-3 tocsection-36"><a href="http://www.illustris-project.org/w/index.php/Data_Access_Examples#Group_Catalogs_4"><span class="tocnumber">4.2.2</span> <span class="toctext">Group Catalogs</span></a></li>
+<li class="toclevel-3 tocsection-37"><a href="http://www.illustris-project.org/w/index.php/Data_Access_Examples#Merger_Trees_2"><span class="tocnumber">4.2.3</span> <span class="toctext">Merger Trees</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</td></tr></tbody></table>
+</div>
+<p>Some examples about how to access various parts of the Illustris data, efficiently.
+</p>
+<div style="margin:10px; border: 2px dotted green; padding: 8px; width: 50%;">
+<h3><span class="editsection">[<a href="http://www.illustris-project.org/w/index.php?title=Data_Access_Examples&action=edit&section=1" title="Edit section: Odyssey Dedicated Node for Interactive/Development:">edit</a>]</span> <span class="mw-headline" id="Odyssey_Dedicated_Node_for_Interactive.2FDevelopment:">Odyssey Dedicated Node for Interactive/Development:</span></h3>
+<p>The node <b>holy2a24208</b> has been set up exclusively for interactive/development jobs for our group.
+It is accessible via SLURM submission to the <b>"hernquist-dev"   queue, and/or direct SSH</b>. 
+</p><p>Please use this node responsibly.
+Since this node can be accessed by direct SSH everyone needs to be a little careful about node usage in order to let this be an effective tool or all of us.
+If you have questions about what how to properly use this node, please ask.  Guidelines:
+</p>
+<ul><li> Avoid taking up very large amounts of memory
+</li><li> Avoid running long and/or intensive jobs (use the proper hernquist or itc_cluster queue for these)
+</li><li> Maximum: 16 cores/128GB ram per person, ever (a job this large should not be running for more than a few hours at most).
+</li></ul>
+<p>When on this node, <b>there are local copies of the group catalogs for snapshot 135 (z=0) and the LHaloTree.</b> These will be faster to access than the copy stored on /n/ghernquist, so please use these instead when possible. They are located at:
+</p>
+<ul><li> /scratch/sims.illustris/run_name/groups_135/
+</li><li> /scratch/sims.illustris/L75n1820FP/trees/treedata/
+</li></ul>
+</div>
+<h1><span class="editsection">[<a href="http://www.illustris-project.org/w/index.php?title=Data_Access_Examples&action=edit&section=2" title="Edit section: Python">edit</a>]</span> <span class="mw-headline" id="Python"> Python </span></h1>
+<h2><span class="editsection">[<a href="http://www.illustris-project.org/w/index.php?title=Data_Access_Examples&action=edit&section=3" title="Edit section: Mark&#39;s Arepo Repository Scripts">edit</a>]</span> <span class="mw-headline" id="Mark.27s_Arepo_Repository_Scripts"> Mark's Arepo Repository Scripts </span></h2>
+<p>All scripts below work with PyTables and h5py through the use of a wrapper called library
+</p>
+<pre>/n/home12/mvogelsberger/Python/OwnModules/hdf5lib.py
+</pre>
+<p><br>
+</p>
+<h3><span class="editsection">[<a href="http://www.illustris-project.org/w/index.php?title=Data_Access_Examples&action=edit&section=4" title="Edit section: Snapshot Data">edit</a>]</span> <span class="mw-headline" id="Snapshot_Data"> Snapshot Data </span></h3>
+<p>A Python reading script can be found on Odyssey at: (or in the Official Arepo repository)
+</p>
+<pre>/n/home12/mvogelsberger/Python/OwnModules/readsnapHDF5.py
+</pre>
+<p>Examples:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="python source-python"><pre class="de1"><span class="kw1">import</span> readsnapHDF5 <span class="kw1">as</span> rs
+&nbsp;
+<span class="co1">#read header</span>
+header <span class="sy0">=</span> rs.<span class="me1">snapshot_header</span><span class="br0">(</span><span class="st0">"snap_063"</span><span class="br0">)</span> 
+&nbsp;
+<span class="co1">#read mass of parttype 1</span>
+mass   <span class="sy0">=</span> snap.<span class="me1">read_block</span><span class="br0">(</span><span class="st0">"snap_063"</span><span class="sy0">,</span> <span class="st0">"MASS"</span><span class="sy0">,</span> parttype<span class="sy0">=</span><span class="nu0">1</span><span class="br0">)</span>
+&nbsp;
+<span class="co1">#read position of all available particles</span>
+pos <span class="sy0">=</span> snap.<span class="me1">read_block</span><span class="br0">(</span><span class="st0">"snap_063"</span><span class="sy0">,</span> <span class="st0">"POS "</span><span class="br0">)</span></pre></div></div>
+<h3><span class="editsection">[<a href="http://www.illustris-project.org/w/index.php?title=Data_Access_Examples&action=edit&section=5" title="Edit section: Group Catalogs">edit</a>]</span> <span class="mw-headline" id="Group_Catalogs"> Group Catalogs </span></h3>
+<p>A Python reading script can be found on Odyssey at: (or in the Official Arepo repository)
+</p>
+<pre>/n/home12/mvogelsberger/Python/OwnModules/readhaloHDF5.py
+/n/home12/mvogelsberger/Python/OwnModules/readsubfHDF5.py
+</pre>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="python source-python"><pre class="de1"><span class="kw1">import</span> readsubfHDF5
+&nbsp;
+<span class="co1">#read full catalog</span>
+cat <span class="sy0">=</span> readsubfHDF5.<span class="me1">subfind_catalog</span><span class="br0">(</span><span class="st0">"./output/"</span><span class="sy0">,</span> <span class="nu0">60</span><span class="br0">)</span>
+&nbsp;
+<span class="co1">#print subhalo positions</span>
+<span class="kw1">print</span> cat.<span class="me1">SubhaloPos</span>
+&nbsp;
+<span class="co1">#read partial catalog (much faster)</span>
+<span class="co1">#keysel specifies the fields to load</span>
+cat <span class="sy0">=</span> readsubfHDF5.<span class="me1">subfind_catalog</span><span class="br0">(</span><span class="st0">"./output/"</span><span class="sy0">,</span> <span class="nu0">60</span><span class="sy0">,</span> keysel<span class="sy0">=</span><span class="br0">[</span><span class="st0">"SubhaloPos"</span><span class="sy0">,</span> <span class="st0">"SubhaloMass"</span><span class="br0">]</span><span class="br0">)</span>
+&nbsp;
+<span class="co1">#print subhalo mass</span>
+<span class="kw1">print</span> cat.<span class="me1">SubhaloMass</span></pre></div></div>
+<h3><span class="editsection">[<a href="http://www.illustris-project.org/w/index.php?title=Data_Access_Examples&action=edit&section=6" title="Edit section: LHaloTree Merger Trees">edit</a>]</span> <span class="mw-headline" id="LHaloTree_Merger_Trees"> LHaloTree Merger Trees </span></h3>
+<p>A Python reading script can be found on Odyssey at: (or in the Official Arepo repository)
+</p>
+<pre>/n/home12/mvogelsberger/Python/OwnModules/mergertreeHDF5.py
+</pre>
+<p>This script includes some documentation and usage examples.
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="python source-python"><pre class="de1"><span class="kw1">import</span> mergertreeHDF5
+&nbsp;
+<span class="co1">#specify tree location</span>
+skipfac  <span class="sy0">=</span> <span class="nu0">1</span>
+snapnum  <span class="sy0">=</span> <span class="nu0">135</span>
+treebase <span class="sy0">=</span> <span class="st0">"/n/hernquistfs1/Illustris/Runs/Illustris-2/trees/treedata/"</span>
+&nbsp;
+<span class="co1">#just read merger tree header</span>
+mt <span class="sy0">=</span> mergertreeHDF5.<span class="me1">merger_tree</span><span class="br0">(</span>treebase<span class="sy0">,</span> skipfac<span class="sy0">,</span> snapnum<span class="sy0">,</span> filenum <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">,</span> tree_start <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">,</span> tree_num <span class="sy0">=</span> <span class="nu0">0</span><span class="br0">)</span>
+&nbsp;
+<span class="co1">#read global look table</span>
+mt.<span class="me1">loadSubhaloLookup</span><span class="br0">(</span>treebase<span class="sy0">,</span> snapnum<span class="br0">)</span>
+&nbsp;
+<span class="co1">#lookup subhalo number 23123 at z=0</span>
+<span class="br0">[</span>filenum<span class="sy0">,</span> ntree<span class="sy0">,</span> nhalo<span class="br0">]</span> <span class="sy0">=</span> mt.<span class="me1">lookupSubhalo</span><span class="br0">(</span><span class="nu0">23123</span><span class="br0">)</span>
+&nbsp;
+<span class="co1">#read its tree</span>
+mt <span class="sy0">=</span> mergertreeHDF5.<span class="me1">merger_tree</span><span class="br0">(</span>treebase<span class="sy0">,</span> skipfac<span class="sy0">,</span> snapnum<span class="sy0">,</span> filenum <span class="sy0">=</span> filenum<span class="br0">)</span>
+&nbsp;
+&nbsp;
+<span class="co1">#do some operations on the tree</span>
+&nbsp;
+<span class="co1">#select property of the halo you are interested in </span>
+<span class="kw2">property</span> <span class="sy0">=</span> <span class="st0">"SubhaloSFR"</span>
+&nbsp;
+<span class="co1">#get all progenitors</span>
+AllProgenitors <span class="sy0">=</span> mt.<span class="me1">getAllProgenitors</span><span class="br0">(</span>ntree<span class="sy0">,</span> nhalo<span class="br0">)</span>
+<span class="kw1">print</span> mt.<span class="me1">trees</span><span class="br0">[</span>ntree<span class="br0">]</span><span class="br0">[</span><span class="kw2">property</span><span class="br0">]</span><span class="br0">[</span>AllProgenitors<span class="br0">]</span>
+&nbsp;
+<span class="co1">#get main branch</span>
+FirstProgenitors <span class="sy0">=</span> mt.<span class="me1">getFirstProgenitors</span><span class="br0">(</span>ntree<span class="sy0">,</span> nhalo<span class="br0">)</span>
+<span class="kw1">print</span> mt.<span class="me1">trees</span><span class="br0">[</span>ntree<span class="br0">]</span><span class="br0">[</span><span class="kw2">property</span><span class="br0">]</span><span class="br0">[</span>FirstProgenitors<span class="br0">]</span></pre></div></div>
+<h2><span class="editsection">[<a href="http://www.illustris-project.org/w/index.php?title=Data_Access_Examples&action=edit&section=7" title="Edit section: Inspector Gadget Examples">edit</a>]</span> <span class="mw-headline" id="Inspector_Gadget_Examples"> Inspector Gadget Examples </span></h2>
+<p>See <a href="http://www.illustris-project.org/w/index.php/Analysis_Tools#inspector_gadget" title="Analysis Tools">Analysis Tools#inspector gadget</a> for download. First load the module (both are the same):
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="python source-python"><pre class="de1"><span class="kw1">import</span> arepo
+<span class="co1"># or</span>
+<span class="kw1">import</span> gadget</pre></div></div>
+<h3><span class="editsection">[<a href="http://www.illustris-project.org/w/index.php?title=Data_Access_Examples&action=edit&section=8" title="Edit section: Loading a Snapshot">edit</a>]</span> <span class="mw-headline" id="Loading_a_Snapshot"> Loading a Snapshot </span></h3>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="python source-python"><pre class="de1"><span class="co1"># load a snapshot (only part type 0 and 4, and only the given fields)</span>
+<span class="co1"># skip these attributes if you want to load everything; combineFiles=True, would load all snapshot files</span>
+sn <span class="sy0">=</span> arepo.<span class="me1">Snapshot</span><span class="br0">(</span><span class="st0">'./snapdir_050/snap_050.0.hdf5'</span><span class="sy0">,</span> parttype<span class="sy0">=</span><span class="br0">[</span><span class="nu0">0</span><span class="sy0">,</span><span class="nu0">4</span><span class="br0">]</span><span class="sy0">,</span>  fields <span class="sy0">=</span><span class="br0">[</span><span class="st0">'mass'</span><span class="sy0">,</span><span class="st0">'GFM_StellarFormationTime'</span><span class="br0">]</span><span class="br0">)</span>
+&nbsp;
+<span class="co1"># get an overview of whats in the snapshot</span>
+<span class="kw1">print</span> sn
+&nbsp;
+<span class="co1"># get a header attribute</span>
+sn.<span class="me1">header</span>.<span class="kw3">time</span>
+sn.<span class="kw3">time</span>
+&nbsp;
+<span class="co1"># both point to the same array</span>
+sn.<span class="me1">part0</span>.<span class="me1">mass</span>
+sn.<span class="me1">part0</span><span class="br0">[</span><span class="st0">'mass'</span><span class="br0">]</span>
+&nbsp;
+<span class="co1"># this array contains the masses of all particles (with sn.header.masses[i] == 0)</span>
+sn.<span class="me1">mass</span>
+sn<span class="br0">[</span><span class="st0">'mass'</span><span class="br0">]</span>
+&nbsp;
+<span class="co1">#move on to the next file </span>
+sn.<span class="me1">next</span><span class="br0">(</span><span class="br0">)</span></pre></div></div>
+<h3><span class="editsection">[<a href="http://www.illustris-project.org/w/index.php?title=Data_Access_Examples&action=edit&section=9" title="Edit section: Loading a Subfind Catalog">edit</a>]</span> <span class="mw-headline" id="Loading_a_Subfind_Catalog"> Loading a Subfind Catalog </span></h3>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="python source-python"><pre class="de1"><span class="co1"># this will load the whole catalog (the interface is very similar to the snapshot interface above)</span>
+ sub <span class="sy0">=</span> arepo.<span class="me1">Subfind</span><span class="br0">(</span><span class="st0">'./groups_135/fof_subhalo_tab_135.0.hdf5'</span><span class="sy0">,</span> combineFiles<span class="sy0">=</span><span class="kw2">True</span><span class="br0">)</span>
+&nbsp;
+<span class="co1">#access the halos (similar ways as in the snapshot example above are possible):</span>
+sub.<span class="me1">group</span>.<span class="me1">GroupCM</span>
+&nbsp;
+<span class="co1">#and the subhalos:</span>
+sub.<span class="me1">subhalo</span>.<span class="me1">SubhaloCM</span></pre></div></div>
+<h3><span class="editsection">[<a href="http://www.illustris-project.org/w/index.php?title=Data_Access_Examples&action=edit&section=10" title="Edit section: Load only one (sub) halo">edit</a>]</span> <span class="mw-headline" id="Load_only_one_.28sub.29_halo"> Load only one (sub) halo </span></h3>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="python source-python"><pre class="de1"><span class="co1"># select the Halo; sub is a subhalo catalog (see above)</span>
+<span class="co1">#    you need at least the following fields: fields=['GroupNsubs','SubhaloLenType','GroupLenType']</span>
+<span class="co1">#    and combineFiles = True</span>
+<span class="co1"># and load only real star particles</span>
+<span class="co1"># the Halo filter must be first, then the Stars filter</span>
+<span class="kw2">filter</span> <span class="sy0">=</span> <span class="br0">[</span>arepo.<span class="kw2">filter</span>.<span class="me1">Halo</span><span class="br0">(</span>sub<span class="sy0">,</span>halo<span class="sy0">=</span><span class="nu0">0</span><span class="br0">)</span><span class="sy0">,</span> arepo.<span class="kw2">filter</span>.<span class="me1">Stars</span><span class="br0">(</span><span class="br0">)</span> <span class="br0">]</span>
+&nbsp;
+<span class="co1"># and load the data</span>
+sn <span class="sy0">=</span> arepo.<span class="me1">Snapshot</span><span class="br0">(</span><span class="st0">'./snapdir_135/snap_135.0.hdf5'</span><span class="sy0">,</span> parttype<span class="sy0">=</span><span class="br0">[</span><span class="nu0">4</span><span class="br0">]</span><span class="sy0">,</span> <span class="kw2">filter</span><span class="sy0">=</span><span class="kw2">filter</span><span class="sy0">,</span> combineFiles<span class="sy0">=</span><span class="kw2">True</span><span class="sy0">,</span> verbose<span class="sy0">=</span><span class="kw2">True</span><span class="br0">)</span></pre></div></div>
+<h3><span class="editsection">[<a href="http://www.illustris-project.org/w/index.php?title=Data_Access_Examples&action=edit&section=11" title="Edit section: Some simple plots">edit</a>]</span> <span class="mw-headline" id="Some_simple_plots"> Some simple plots </span></h3>
+<p>The code used in the following examples is still a bit messy and should be considered experimental. Use them at your own risk and read the code if you are in doubt.
+These functions should be cleaned up and extended by other small functions to get a quick look at your data. Patches are welcome.
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="python source-python"><pre class="de1"><span class="co1"># The Simulation class extands the capabilities of the Snapshot class with some basic analysis/visualization functions</span>
+sn <span class="sy0">=</span> arepo.<span class="me1">Simulation</span><span class="br0">(</span><span class="st0">"snap_003.hdf5"</span><span class="br0">)</span>
+&nbsp;
+<span class="co1"># A slice through the Voronoi mesh</span>
+sn.<span class="me1">plot_Aslice</span><span class="br0">(</span><span class="st0">"rho"</span><span class="br0">)</span>
+&nbsp;
+<span class="co1"># A slice through an AMR mesh</span>
+sn.<span class="me1">plot_AMRslice</span><span class="br0">(</span><span class="st0">"rho"</span><span class="br0">)</span></pre></div></div>
+<h2><span class="editsection">[<a href="http://www.illustris-project.org/w/index.php?title=Data_Access_Examples&action=edit&section=12" title="Edit section: Offset Tables Examples">edit</a>]</span> <span class="mw-headline" id="Offset_Tables_Examples"> Offset Tables Examples </span></h2>
+<p>These small stand-alone scripts use the offset tables described in <a href="http://www.illustris-project.org/w/index.php/Post-Processed_Catalogs" title="Post-Processed Catalogs">Post-Processed Catalogs</a> for quickly reading small sections of the snapshots, group catalogs, and merger trees. They are simpler and less fully featured than Mark's scripts.
+</p>
+<h3><span class="editsection">[<a href="http://www.illustris-project.org/w/index.php?title=Data_Access_Examples&action=edit&section=13" title="Edit section: Snapshot Data">edit</a>]</span> <span class="mw-headline" id="Snapshot_Data_2"> Snapshot Data </span></h3>
+<p>To return one field for one particle type for one group or subgroup:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="python source-python"><pre class="de1"><span class="kw1">import</span> numpy <span class="kw1">as</span> np
+<span class="kw1">import</span> h5py
+&nbsp;
+<span class="co1"># config</span>
+fields    <span class="sy0">=</span> <span class="br0">[</span><span class="st0">"Coordinates"</span><span class="br0">]</span>
+partType  <span class="sy0">=</span> <span class="nu0">4</span>
+searchID  <span class="sy0">=</span> <span class="nu0">0</span> <span class="co1"># group or subgroup number</span>
+getGroup  <span class="sy0">=</span> <span class="nu0">0</span> <span class="co1"># 0=get subhalo, 1=get group</span>
+snapNum   <span class="sy0">=</span> <span class="nu0">135</span>
+fileBase  <span class="sy0">=</span> <span class="st0">'/n/ghernquist/Illustris/Runs/Illustris-1/'</span>
+&nbsp;
+<span class="kw1">def</span> loadSnapSubset<span class="br0">(</span>fileBase<span class="sy0">,</span>snapNum<span class="sy0">,</span>searchID<span class="sy0">,</span>getGroup<span class="sy0">,</span>partType<span class="sy0">,</span>fields<span class="br0">)</span>:
+    <span class="st0">""" Return requested fields for one particle type for all members of group/subgroup. """</span>
+&nbsp;
+    groupName <span class="sy0">=</span> <span class="st0">"PartType"</span> + <span class="kw2">str</span><span class="br0">(</span>partType<span class="br0">)</span>
+    dsetName <span class="sy0">=</span> <span class="st0">"Subhalo"</span>
+    <span class="kw1">if</span> getGroup <span class="sy0">&gt;</span> <span class="nu0">0</span>:
+        dsetName <span class="sy0">=</span> <span class="st0">"Group"</span>
+&nbsp;
+    <span class="co1"># load the length (by type) of this group/subgroup from the group catalog</span>
+    filePath <span class="sy0">=</span> fileBase + <span class="st0">'/postprocessing/offsets/offsets_'</span> + dsetName.<span class="me1">lower</span><span class="br0">(</span><span class="br0">)</span> + <span class="st0">'_'</span>+<span class="kw2">str</span><span class="br0">(</span>snapNum<span class="br0">)</span>+<span class="st0">'.npy'</span>
+    offsets <span class="sy0">=</span> np.<span class="me1">load</span><span class="br0">(</span>filePath<span class="br0">)</span>
+&nbsp;
+    offsets <span class="sy0">=</span> searchID - offsets
+    fileNum <span class="sy0">=</span> np.<span class="kw2">max</span><span class="br0">(</span> np.<span class="me1">where</span><span class="br0">(</span>offsets <span class="sy0">&gt;=</span> <span class="nu0">0</span><span class="br0">)</span> <span class="br0">)</span>
+    groupOffset <span class="sy0">=</span> offsets<span class="br0">[</span>fileNum<span class="br0">]</span>
+&nbsp;
+    filePath <span class="sy0">=</span> fileBase + <span class="st0">'groups_'</span> + <span class="kw2">str</span><span class="br0">(</span>snapNum<span class="br0">)</span>.<span class="me1">zfill</span><span class="br0">(</span><span class="nu0">3</span><span class="br0">)</span> + <span class="st0">'/'</span>
+    filePath +<span class="sy0">=</span> <span class="st0">'fof_subhalo_tab_'</span> + <span class="kw2">str</span><span class="br0">(</span>snapNum<span class="br0">)</span>.<span class="me1">zfill</span><span class="br0">(</span><span class="nu0">3</span><span class="br0">)</span> + <span class="st0">'.'</span> + <span class="kw2">str</span><span class="br0">(</span>fileNum<span class="br0">)</span> + <span class="st0">'.hdf5'</span>
+&nbsp;
+    f <span class="sy0">=</span> h5py.<span class="me1">File</span><span class="br0">(</span>filePath<span class="sy0">,</span><span class="st0">'r'</span><span class="br0">)</span>
+    lenType <span class="sy0">=</span> f<span class="br0">[</span>dsetName<span class="br0">]</span><span class="br0">[</span>dsetName+<span class="st0">"LenType"</span><span class="br0">]</span><span class="br0">[</span>groupOffset<span class="br0">]</span>
+    f.<span class="me1">close</span><span class="br0">(</span><span class="br0">)</span>
+&nbsp;
+    <span class="co1"># load the offset (by type) of this group/subgroup within the snapshot chunks</span>
+    filePath <span class="sy0">=</span> fileBase + <span class="st0">'/postprocessing/offsets/snap_offsets_'</span> + dsetName.<span class="me1">lower</span><span class="br0">(</span><span class="br0">)</span> + <span class="st0">'_'</span>+<span class="kw2">str</span><span class="br0">(</span>snapNum<span class="br0">)</span>+<span class="st0">'.hdf5'</span>
+&nbsp;
+    f <span class="sy0">=</span> h5py.<span class="me1">File</span><span class="br0">(</span>filePath<span class="sy0">,</span><span class="st0">'r'</span><span class="br0">)</span>
+    offsetType <span class="sy0">=</span> f<span class="br0">[</span><span class="st0">"Offsets"</span><span class="br0">]</span><span class="br0">[</span> searchID <span class="br0">]</span>
+    f.<span class="me1">close</span><span class="br0">(</span><span class="br0">)</span>
+&nbsp;
+    <span class="co1"># load the offsets for the snapshot chunks</span>
+    filePath <span class="sy0">=</span> fileBase + <span class="st0">'/postprocessing/offsets/offsets_snap_'</span>+<span class="kw2">str</span><span class="br0">(</span>snapNum<span class="br0">)</span>+<span class="st0">'.npy'</span>
+    offsets <span class="sy0">=</span> np.<span class="me1">load</span><span class="br0">(</span>filePath<span class="br0">)</span>
+&nbsp;
+    <span class="co1"># determine first snapshot chunk we need to load for this type</span>
+    wOffset <span class="sy0">=</span> <span class="nu0">0</span>
+    result  <span class="sy0">=</span> <span class="br0">{</span><span class="br0">}</span>
+&nbsp;
+    offsetsThisType <span class="sy0">=</span> offsetType<span class="br0">[</span>partType<span class="br0">]</span> - offsets<span class="br0">[</span>partType<span class="sy0">,</span>:<span class="br0">]</span>
+    fileNum         <span class="sy0">=</span> np.<span class="kw2">max</span><span class="br0">(</span> np.<span class="me1">where</span><span class="br0">(</span>offsetsThisType <span class="sy0">&gt;=</span> <span class="nu0">0</span><span class="br0">)</span> <span class="br0">)</span>
+    fileOffset      <span class="sy0">=</span> offsetsThisType<span class="br0">[</span>fileNum<span class="br0">]</span>
+&nbsp;
+    numLeftToRead <span class="sy0">=</span> lenType<span class="br0">[</span>partType<span class="br0">]</span>
+&nbsp;
+    <span class="kw1">while</span> numLeftToRead:
+&nbsp;
+        <span class="co1"># loop over files, for each load the overlapping chunk into the hdf5 file</span>
+        curSnapFilePath <span class="sy0">=</span> fileBase + <span class="st0">'snapdir_'</span> + <span class="kw2">str</span><span class="br0">(</span>snapNum<span class="br0">)</span>.<span class="me1">zfill</span><span class="br0">(</span><span class="nu0">3</span><span class="br0">)</span> + <span class="st0">'/'</span>
+        curSnapFilePath +<span class="sy0">=</span> <span class="st0">'snap_'</span> + <span class="kw2">str</span><span class="br0">(</span>snapNum<span class="br0">)</span>.<span class="me1">zfill</span><span class="br0">(</span><span class="nu0">3</span><span class="br0">)</span> + <span class="st0">'.'</span> + <span class="kw2">str</span><span class="br0">(</span>fileNum<span class="br0">)</span> + <span class="st0">'.hdf5'</span>
+&nbsp;
+        fSnap <span class="sy0">=</span> h5py.<span class="me1">File</span><span class="br0">(</span>curSnapFilePath<span class="sy0">,</span><span class="st0">'r'</span><span class="br0">)</span>
+&nbsp;
+        <span class="co1"># set local read length for this file</span>
+        readLen <span class="sy0">=</span> numLeftToRead
+&nbsp;
+        <span class="kw1">if</span> fileNum <span class="sy0">&lt;</span> offsets.<span class="me1">shape</span><span class="br0">[</span><span class="nu0">1</span><span class="br0">]</span>-<span class="nu0">1</span>: <span class="co1"># if in last file, assume group is entirely contained in this file</span>
+            <span class="co1"># if the local length after requested offset is less than the read length, modify read length</span>
+            <span class="kw1">if</span> fileOffset+readLen+offsets<span class="br0">[</span>partType<span class="sy0">,</span>fileNum<span class="br0">]</span>-<span class="nu0">1</span> <span class="sy0">&gt;=</span> offsets<span class="br0">[</span>partType<span class="sy0">,</span>fileNum+<span class="nu0">1</span><span class="br0">]</span>:
+                readLen <span class="sy0">=</span> <span class="br0">(</span>offsets<span class="br0">[</span>partType<span class="sy0">,</span>fileNum+<span class="nu0">1</span><span class="br0">]</span>-offsets<span class="br0">[</span>partType<span class="sy0">,</span>fileNum<span class="br0">]</span><span class="br0">)</span> - fileOffset
+&nbsp;
+        <span class="co1"># loop over each requested field for this particle type</span>
+        <span class="kw1">for</span> fieldName <span class="kw1">in</span> fields:
+            <span class="co1"># shape and type</span>
+            dtype <span class="sy0">=</span> <span class="st0">'float32'</span>
+            ndims <span class="sy0">=</span> <span class="nu0">1</span>
+            <span class="kw1">if</span> fieldName <span class="sy0">==</span> <span class="st0">'ParticleIDs'</span> <span class="kw1">or</span> fieldName <span class="sy0">==</span> <span class="st0">'ParentID'</span> <span class="kw1">or</span> fieldName <span class="sy0">==</span> <span class="st0">'TracerID'</span>:
+                dtype <span class="sy0">=</span> <span class="st0">'int64'</span>
+            <span class="kw1">if</span> fieldName <span class="sy0">==</span> <span class="st0">'NumTracers'</span>:
+                dtype <span class="sy0">=</span> <span class="st0">'int32'</span>
+            <span class="kw1">if</span> fieldName <span class="sy0">==</span> <span class="st0">'Coordinates'</span> <span class="kw1">or</span> fieldName <span class="sy0">==</span> <span class="st0">'Velocities'</span>:
+                ndims <span class="sy0">=</span> <span class="nu0">3</span>
+            <span class="kw1">if</span> fieldName <span class="sy0">==</span> <span class="st0">'GFM_Metals'</span>:
+                ndims <span class="sy0">=</span> <span class="nu0">9</span>
+            <span class="kw1">if</span> fieldName <span class="sy0">==</span> <span class="st0">'GFM_StellarPhotometrics'</span>:
+                ndims <span class="sy0">=</span> <span class="nu0">8</span>
+&nbsp;
+            <span class="co1"># read data local to the current file (allocate dataset if it does not already exist)</span>
+            <span class="kw1">if</span> ndims <span class="sy0">==</span> <span class="nu0">1</span>:
+                <span class="kw1">if</span> fieldName <span class="kw1">not</span> <span class="kw1">in</span> result:
+                    result<span class="br0">[</span>fieldName<span class="br0">]</span> <span class="sy0">=</span> np.<span class="me1">zeros</span><span class="br0">(</span> <span class="br0">(</span>lenType<span class="br0">[</span>partType<span class="br0">]</span><span class="sy0">,</span><span class="br0">)</span><span class="sy0">,</span> dtype<span class="sy0">=</span>dtype <span class="br0">)</span>
+                result<span class="br0">[</span>fieldName<span class="br0">]</span><span class="br0">[</span>wOffset:wOffset+readLen<span class="br0">]</span> <span class="sy0">=</span> fSnap<span class="br0">[</span>groupName<span class="br0">]</span><span class="br0">[</span>fieldName<span class="br0">]</span><span class="br0">[</span>fileOffset:fileOffset+readLen<span class="br0">]</span>
+            <span class="kw1">else</span>:
+                <span class="kw1">if</span> fieldName <span class="kw1">not</span> <span class="kw1">in</span> result:
+                    result<span class="br0">[</span>fieldName<span class="br0">]</span> <span class="sy0">=</span> np.<span class="me1">zeros</span><span class="br0">(</span> <span class="br0">(</span>lenType<span class="br0">[</span>partType<span class="br0">]</span><span class="sy0">,</span>ndims<span class="br0">)</span><span class="sy0">,</span> dtype<span class="sy0">=</span>dtype <span class="br0">)</span>
+                result<span class="br0">[</span>fieldName<span class="br0">]</span><span class="br0">[</span>wOffset:wOffset+readLen<span class="sy0">,</span>:<span class="br0">]</span> <span class="sy0">=</span> fSnap<span class="br0">[</span>groupName<span class="br0">]</span><span class="br0">[</span>fieldName<span class="br0">]</span><span class="br0">[</span>fileOffset:fileOffset+readLen<span class="sy0">,</span>:<span class="br0">]</span>
+&nbsp;
+        wOffset +<span class="sy0">=</span> readLen
+        numLeftToRead -<span class="sy0">=</span> readLen
+        fileNum +<span class="sy0">=</span> <span class="nu0">1</span>
+        fileOffset <span class="sy0">=</span> <span class="nu0">0</span>
+&nbsp;
+        fSnap.<span class="me1">close</span><span class="br0">(</span><span class="br0">)</span>
+&nbsp;
+    <span class="co1"># reads across all files done, for all fields of this type</span>
+    <span class="kw1">return</span> result</pre></div></div>
+<h3><span class="editsection">[<a href="http://www.illustris-project.org/w/index.php?title=Data_Access_Examples&action=edit&section=14" title="Edit section: Group Catalogs">edit</a>]</span> <span class="mw-headline" id="Group_Catalogs_2"> Group Catalogs </span></h3>
+<p>To return the complete information on one group or subgroup:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="python source-python"><pre class="de1"><span class="kw1">import</span> numpy <span class="kw1">as</span> np
+<span class="kw1">import</span> h5py
+&nbsp;
+<span class="co1"># config</span>
+subhaloID <span class="sy0">=</span> <span class="nu0">0</span>
+getGroup  <span class="sy0">=</span> <span class="nu0">0</span> <span class="co1"># if 0 search on subhalo, if 1 search on group</span>
+snapNum   <span class="sy0">=</span> <span class="nu0">135</span>
+fileBase  <span class="sy0">=</span> <span class="st0">'/n/ghernquist/Illustris/Runs/Illustris-1/'</span>
+&nbsp;
+<span class="kw1">def</span> loadGroupCatSingle<span class="br0">(</span>fileBase<span class="sy0">,</span>snapNum<span class="sy0">,</span>searchID<span class="sy0">,</span>getGroup<span class="br0">)</span>:
+    <span class="st0">""" Return complete subhalo (subfind) information on one group. 
+        Search for subhalo/subgroup if getGroup==0, else search for halo/fof group. """</span>
+&nbsp;
+    searchStr <span class="sy0">=</span> <span class="st0">"subgroup"</span>
+    dsetName <span class="sy0">=</span> <span class="st0">"Subhalo"</span>
+&nbsp;
+    <span class="kw1">if</span> getGroup <span class="sy0">&gt;</span> <span class="nu0">0</span>:
+        searchStr <span class="sy0">=</span> <span class="st0">"group"</span>
+        dsetName <span class="sy0">=</span> <span class="st0">"Group"</span>
+&nbsp;
+    <span class="co1"># load groupcat offsets, calculate target file and offset</span>
+    filePath <span class="sy0">=</span> fileBase + <span class="st0">'/postprocessing/offsets/offsets_'</span>+searchStr+<span class="st0">'_'</span>+<span class="kw2">str</span><span class="br0">(</span>snapNum<span class="br0">)</span>+<span class="st0">'.npy'</span>
+    offsets <span class="sy0">=</span> np.<span class="me1">load</span><span class="br0">(</span>filePath<span class="br0">)</span>
+&nbsp;
+    offsets <span class="sy0">=</span> searchID - offsets
+    fileNum <span class="sy0">=</span> np.<span class="kw2">max</span><span class="br0">(</span> np.<span class="me1">where</span><span class="br0">(</span>offsets <span class="sy0">&gt;=</span> <span class="nu0">0</span><span class="br0">)</span> <span class="br0">)</span>
+    groupOffset <span class="sy0">=</span> offsets<span class="br0">[</span>fileNum<span class="br0">]</span>
+&nbsp;
+    <span class="co1"># load subhalo fields into a dict</span>
+    filePath <span class="sy0">=</span> fileBase + <span class="st0">'groups_'</span> + <span class="kw2">str</span><span class="br0">(</span>snapNum<span class="br0">)</span>.<span class="me1">zfill</span><span class="br0">(</span><span class="nu0">3</span><span class="br0">)</span> + <span class="st0">'/'</span>
+    filePath +<span class="sy0">=</span> <span class="st0">'fof_subhalo_tab_'</span> + <span class="kw2">str</span><span class="br0">(</span>snapNum<span class="br0">)</span>.<span class="me1">zfill</span><span class="br0">(</span><span class="nu0">3</span><span class="br0">)</span> + <span class="st0">'.'</span> + <span class="kw2">str</span><span class="br0">(</span>fileNum<span class="br0">)</span> + <span class="st0">'.hdf5'</span>
+&nbsp;
+    result <span class="sy0">=</span> <span class="br0">{</span><span class="br0">}</span>
+&nbsp;
+    f <span class="sy0">=</span> h5py.<span class="me1">File</span><span class="br0">(</span>filePath<span class="sy0">,</span><span class="st0">'r'</span><span class="br0">)</span>
+&nbsp;
+    <span class="kw1">for</span> haloProp <span class="kw1">in</span> f<span class="br0">[</span>dsetName<span class="br0">]</span>.<span class="me1">keys</span><span class="br0">(</span><span class="br0">)</span>:
+        result<span class="br0">[</span>haloProp<span class="br0">]</span> <span class="sy0">=</span> f<span class="br0">[</span>dsetName<span class="br0">]</span><span class="br0">[</span>haloProp<span class="br0">]</span><span class="br0">[</span>groupOffset<span class="br0">]</span>
+&nbsp;
+    f.<span class="me1">close</span><span class="br0">(</span><span class="br0">)</span>
+    <span class="kw1">return</span> result</pre></div></div>
+<h3><span class="editsection">[<a href="http://www.illustris-project.org/w/index.php?title=Data_Access_Examples&action=edit&section=15" title="Edit section: LHaloTree Merger Trees">edit</a>]</span> <span class="mw-headline" id="LHaloTree_Merger_Trees_2"> LHaloTree Merger Trees </span></h3>
+<p>To return the complete merger tree for one subgroup:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="python source-python"><pre class="de1"><span class="kw1">import</span> numpy <span class="kw1">as</span> np
+<span class="kw1">import</span> h5py
+&nbsp;
+<span class="co1"># config</span>
+subhaloID <span class="sy0">=</span> <span class="nu0">0</span>
+snapNum   <span class="sy0">=</span> <span class="nu0">135</span>
+NtreeFiles <span class="sy0">=</span> <span class="nu0">4096</span>
+fileBase  <span class="sy0">=</span> <span class="st0">'/n/ghernquist/Illustris/Runs/Illustris-1/'</span>
+&nbsp;
+<span class="kw1">def</span> loadMergerTree<span class="br0">(</span>fileBase<span class="sy0">,</span>snapNum<span class="sy0">,</span>subhaloID<span class="sy0">,</span>NtreeFiles<span class="br0">)</span>:
+    <span class="st0">""" Return the full progenitor tree for a given subhalo at a given snapshot. """</span>
+    result <span class="sy0">=</span> <span class="br0">{</span><span class="br0">}</span>
+&nbsp;
+    <span class="co1"># load the tree number/subindex of this subgroup within the mergertree chunks</span>
+    filePath <span class="sy0">=</span> fileBase + <span class="st0">'/postprocessing/offsets/tree_offsets_subgroup_'</span>+<span class="kw2">str</span><span class="br0">(</span>snapNum<span class="br0">)</span>+<span class="st0">'_135.hdf5'</span>
+&nbsp;
+    f <span class="sy0">=</span> h5py.<span class="me1">File</span><span class="br0">(</span>filePath<span class="sy0">,</span><span class="st0">'r'</span><span class="br0">)</span>
+&nbsp;
+    result<span class="br0">[</span><span class="st0">'treeFileNum'</span><span class="br0">]</span> <span class="sy0">=</span> f<span class="br0">[</span><span class="st0">"TreeFile"</span><span class="br0">]</span><span class="br0">[</span> subhaloID <span class="br0">]</span>
+    result<span class="br0">[</span><span class="st0">'treeNum'</span><span class="br0">]</span>     <span class="sy0">=</span> f<span class="br0">[</span><span class="st0">"TreeNum"</span><span class="br0">]</span><span class="br0">[</span> subhaloID <span class="br0">]</span>
+    result<span class="br0">[</span><span class="st0">'treeIndex'</span><span class="br0">]</span>   <span class="sy0">=</span> f<span class="br0">[</span><span class="st0">"TreeIndex"</span><span class="br0">]</span><span class="br0">[</span> subhaloID <span class="br0">]</span>
+&nbsp;
+    f.<span class="me1">close</span><span class="br0">(</span><span class="br0">)</span>
+&nbsp;
+    <span class="kw1">if</span> result<span class="br0">[</span><span class="st0">'treeFileNum'</span><span class="br0">]</span> <span class="sy0">&lt;</span> <span class="nu0">0</span> <span class="kw1">or</span> result<span class="br0">[</span><span class="st0">'treeFileNum'</span><span class="br0">]</span> <span class="sy0">&gt;=</span> NtreeFiles:
+        <span class="kw1">return</span><span class="br0">[</span><span class="br0">]</span> <span class="co1"># subhalo not in tree, and/or general error</span>
+&nbsp;
+    <span class="co1"># walk tree starting at this subgroup</span>
+    filePath <span class="sy0">=</span> fileBase + <span class="st0">'trees/treedata/trees_sf1_'</span> + <span class="kw2">str</span><span class="br0">(</span>snapNum<span class="br0">)</span>.<span class="me1">zfill</span><span class="br0">(</span><span class="nu0">3</span><span class="br0">)</span>
+    filePath +<span class="sy0">=</span> <span class="st0">'.'</span> + <span class="kw2">str</span><span class="br0">(</span>result<span class="br0">[</span><span class="st0">'treeFileNum'</span><span class="br0">]</span><span class="br0">)</span> +<span class="st0">'.hdf5'</span>
+&nbsp;
+    f <span class="sy0">=</span> h5py.<span class="me1">File</span><span class="br0">(</span>filePath<span class="sy0">,</span><span class="st0">'r'</span><span class="br0">)</span>
+&nbsp;
+    <span class="co1"># recursive helper function to walk the tree</span>
+    <span class="kw1">def</span> recProgenitorList<span class="br0">(</span> fTree<span class="sy0">,</span> index <span class="br0">)</span>:
+        progs <span class="sy0">=</span> <span class="br0">[</span><span class="br0">]</span>
+        firstProg <span class="sy0">=</span> fTree<span class="br0">[</span><span class="st0">'FirstProgenitor'</span><span class="br0">]</span><span class="br0">[</span>index<span class="br0">]</span>
+&nbsp;
+        <span class="kw1">if</span> firstProg <span class="sy0">==</span> -<span class="nu0">1</span>:
+            <span class="kw1">return</span> progs
+&nbsp;
+        <span class="co1"># TODO: move this 'single entry construction' into a function or something (duplicated x3 now)</span>
+        progs.<span class="me1">append</span><span class="br0">(</span> <span class="br0">{</span><span class="st0">'ID'</span>      &nbsp;: firstProg<span class="sy0">,</span>
+                       <span class="st0">'Snap'</span>    &nbsp;: <span class="kw2">str</span><span class="br0">(</span> fTree<span class="br0">[</span><span class="st0">'SnapNum'</span><span class="br0">]</span><span class="br0">[</span>firstProg<span class="br0">]</span> <span class="br0">)</span><span class="sy0">,</span>
+                       <span class="st0">'Mass'</span>    &nbsp;: <span class="kw2">str</span><span class="br0">(</span> np.<span class="kw2">sum</span><span class="br0">(</span>fTree<span class="br0">[</span><span class="st0">'SubhaloMassType'</span><span class="br0">]</span><span class="br0">[</span>firstProg<span class="sy0">,</span>:<span class="br0">]</span><span class="br0">)</span> <span class="br0">)</span><span class="sy0">,</span>
+                       <span class="co1"># can add more fields here</span>
+                       <span class="st0">'children'</span>&nbsp;: recProgenitorList<span class="br0">(</span> fTree<span class="sy0">,</span>firstProg <span class="br0">)</span><span class="br0">}</span> <span class="br0">)</span>
+        nextProg <span class="sy0">=</span> fTree<span class="br0">[</span><span class="st0">'NextProgenitor'</span><span class="br0">]</span><span class="br0">[</span>firstProg<span class="br0">]</span>
+&nbsp;
+        <span class="kw1">while</span> nextProg <span class="sy0">&gt;=</span> <span class="nu0">0</span>:
+            progs.<span class="me1">append</span><span class="br0">(</span> <span class="br0">{</span><span class="st0">'ID'</span>      &nbsp;: nextProg<span class="sy0">,</span>
+                           <span class="st0">'Snap'</span>    &nbsp;: <span class="kw2">str</span><span class="br0">(</span> fTree<span class="br0">[</span><span class="st0">'SnapNum'</span><span class="br0">]</span><span class="br0">[</span>nextProg<span class="br0">]</span> <span class="br0">)</span><span class="sy0">,</span>
+                           <span class="st0">'Mass'</span>    &nbsp;: <span class="kw2">str</span><span class="br0">(</span> np.<span class="kw2">sum</span><span class="br0">(</span>fTree<span class="br0">[</span><span class="st0">'SubhaloMassType'</span><span class="br0">]</span><span class="br0">[</span>nextProg<span class="sy0">,</span>:<span class="br0">]</span><span class="br0">)</span> <span class="br0">)</span><span class="sy0">,</span>
+                           <span class="co1"># can add more fields here</span>
+                           <span class="st0">'children'</span>&nbsp;: recProgenitorList<span class="br0">(</span> fTree<span class="sy0">,</span>nextProg <span class="br0">)</span><span class="br0">}</span> <span class="br0">)</span>
+            nextProg <span class="sy0">=</span> fTree<span class="br0">[</span><span class="st0">'NextProgenitor'</span><span class="br0">]</span><span class="br0">[</span>nextProg<span class="br0">]</span>
+&nbsp;
+        <span class="kw1">return</span> progs
+&nbsp;
+    <span class="co1"># add root node with nested progenitor tree</span>
+    fTree <span class="sy0">=</span> f<span class="br0">[</span><span class="st0">'Tree'</span>+<span class="kw2">str</span><span class="br0">(</span>result<span class="br0">[</span><span class="st0">'treeNum'</span><span class="br0">]</span><span class="br0">)</span><span class="br0">]</span>
+&nbsp;
+    result<span class="br0">[</span><span class="st0">'tree'</span><span class="br0">]</span> <span class="sy0">=</span> <span class="br0">{</span><span class="st0">'ID'</span>      &nbsp;: result<span class="br0">[</span><span class="st0">'treeIndex'</span><span class="br0">]</span><span class="sy0">,</span>
+                      <span class="st0">'Snap'</span>    &nbsp;: <span class="kw2">str</span><span class="br0">(</span> fTree<span class="br0">[</span><span class="st0">'SnapNum'</span><span class="br0">]</span><span class="br0">[</span>result<span class="br0">[</span><span class="st0">'treeIndex'</span><span class="br0">]</span><span class="br0">]</span> <span class="br0">)</span><span class="sy0">,</span>
+                      <span class="st0">'Mass'</span>    &nbsp;: <span class="kw2">str</span><span class="br0">(</span> np.<span class="kw2">sum</span><span class="br0">(</span>fTree<span class="br0">[</span><span class="st0">'SubhaloMassType'</span><span class="br0">]</span><span class="br0">[</span>result<span class="br0">[</span><span class="st0">'treeIndex'</span><span class="br0">]</span><span class="sy0">,</span>:<span class="br0">]</span><span class="br0">)</span> <span class="br0">)</span><span class="sy0">,</span>
+                      <span class="co1"># can add more fields here</span>
+                      <span class="st0">'children'</span>&nbsp;: recProgenitorList<span class="br0">(</span> fTree<span class="sy0">,</span> result<span class="br0">[</span><span class="st0">'treeIndex'</span><span class="br0">]</span> <span class="br0">)</span><span class="br0">}</span>
+&nbsp;
+    f.<span class="me1">close</span><span class="br0">(</span><span class="br0">)</span>
+&nbsp;
+    <span class="kw1">return</span> result</pre></div></div>
+<h3><span class="editsection">[<a href="http://www.illustris-project.org/w/index.php?title=Data_Access_Examples&action=edit&section=16" title="Edit section: SubLink Merger Trees">edit</a>]</span> <span class="mw-headline" id="SubLink_Merger_Trees"> SubLink Merger Trees </span></h3>
+<p>See <a href="http://www.illustris-project.org/w/index.php/Data_Access_Examples#Example_6" title="Data Access Examples"> Sublink example 6</a> for a direct read.
+</p>
+<h2><span class="editsection">[<a href="http://www.illustris-project.org/w/index.php?title=Data_Access_Examples&action=edit&section=17" title="Edit section: SubLink Merger Trees">edit</a>]</span> <span class="mw-headline" id="SubLink_Merger_Trees_2"> SubLink Merger Trees </span></h2>
+<p>The SubLink merger trees can be accessed in two different "modes:"
+</p>
+<ul><li> Database mode: Quick and simple Python implementation. Not suitable for complicated tasks.
+</li><li> Linked-list mode: A more flexible approach, but it can only be implemented efficiently in C++. Feel free to contact <a href="http://www.illustris-project.org/w/index.php/List_of_People" title="List of People">Vicente</a> to obtain the C++ code for doing this.
+</li></ul>
+<p>A Python script for reading the merger trees in "database mode" can be found here:
+</p>
+<pre>/n/home10/vrodrigu/Python/PythonModules/OwnModules/readtreeHDF5.py
+</pre>
+<h3><span class="editsection">[<a href="http://www.illustris-project.org/w/index.php?title=Data_Access_Examples&action=edit&section=18" title="Edit section: Examples">edit</a>]</span> <span class="mw-headline" id="Examples"> Examples </span></h3>
+<p>The examples shown here, except for the last one, use built-in functions found in readtreeHDF5.py, such as: 
+</p>
+<ul><li> get_main_branch
+</li><li> get_all_progenitors
+</li><li> get_all_progenitors_of_root_descendant
+</li><li> get_subhalos_between_root_and_given
+</li><li> get_direct_progenitors
+</li><li> get_all_fellow_progenitors
+</li><li> get_future_branch
+</li></ul>
+<p>The names of these functions attempt to be self-explanatory, but brief descriptions can be found inside the code.  
+</p>
+<h4><span class="editsection">[<a href="http://www.illustris-project.org/w/index.php?title=Data_Access_Examples&action=edit&section=19" title="Edit section: Example 0">edit</a>]</span> <span class="mw-headline" id="Example_0"> Example 0 </span></h4>
+<p>The following example reads the stellar mass history of a subhalo: 
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="python source-python"><pre class="de1">In <span class="br0">[</span><span class="nu0">1</span><span class="br0">]</span>: <span class="kw1">import</span> readtreeHDF5
+In <span class="br0">[</span><span class="nu0">2</span><span class="br0">]</span>: treedir <span class="sy0">=</span> <span class="st0">'/n/ghernquist/vrodrigu/MergerTrees/output/Subhalos/Illustris/L75n1820FP'</span>
+&nbsp;
+In <span class="br0">[</span><span class="nu0">3</span><span class="br0">]</span>: tree <span class="sy0">=</span> readtreeHDF5.<span class="me1">TreeDB</span><span class="br0">(</span>treedir<span class="br0">)</span>
+&nbsp;
+In <span class="br0">[</span><span class="nu0">4</span><span class="br0">]</span>: snapnum <span class="sy0">=</span> <span class="nu0">135</span><span class="sy0">;</span> subfind_id <span class="sy0">=</span> <span class="nu0">0</span>
+&nbsp;
+In <span class="br0">[</span><span class="nu0">5</span><span class="br0">]</span>: branch <span class="sy0">=</span> tree.<span class="me1">get_main_branch</span><span class="br0">(</span>snapnum<span class="sy0">,</span> subfind_id<span class="sy0">,</span> keysel<span class="sy0">=</span><span class="br0">[</span><span class="st0">'SubhaloMassType'</span><span class="br0">]</span><span class="br0">)</span>
+&nbsp;
+In <span class="br0">[</span><span class="nu0">6</span><span class="br0">]</span>: branch.<span class="me1">SubhaloMassType</span><span class="br0">[</span>:<span class="sy0">,</span><span class="nu0">4</span><span class="br0">]</span>
+Out<span class="br0">[</span><span class="nu0">6</span><span class="br0">]</span>: 
+<span class="kw3">array</span><span class="br0">(</span><span class="br0">[</span>  <span class="nu0">2.33393616e+02</span><span class="sy0">,</span>   <span class="nu0">2.36594543e+02</span><span class="sy0">,</span>   <span class="nu0">2.31190689e+02</span><span class="sy0">,</span>
+         <span class="nu0">2.28168961e+02</span><span class="sy0">,</span>   <span class="nu0">2.25794037e+02</span><span class="sy0">,</span>   <span class="nu0">2.25409058e+02</span><span class="sy0">,</span>
+         ...
+         <span class="nu0">9.75056755e-05</span><span class="sy0">,</span>   <span class="nu0">1.05029045e-04</span><span class="sy0">,</span>   <span class="nu0">0.00000000e+00</span><span class="sy0">,</span>
+         <span class="nu0">0.00000000e+00</span><span class="sy0">,</span>   <span class="nu0">0.00000000e+00</span><span class="sy0">,</span>   <span class="nu0">0.00000000e+00</span><span class="br0">]</span><span class="sy0">,</span> dtype<span class="sy0">=</span>float32<span class="br0">)</span></pre></div></div>
+<h4><span class="editsection">[<a href="http://www.illustris-project.org/w/index.php?title=Data_Access_Examples&action=edit&section=20" title="Edit section: Example 1">edit</a>]</span> <span class="mw-headline" id="Example_1"> Example 1 </span></h4>
+<p>Print the snapshot number, stellar mass, and star formation rate along the main branch of a subhalo. Note that the <i>keysel</i> argument is used to specify which fields from the Subfind catalogs should be loaded.
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="python source-python"><pre class="de1"><span class="kw1">import</span> readtreeHDF5
+treedir <span class="sy0">=</span> <span class="st0">'/n/ghernquist/vrodrigu/MergerTrees/output/Subhalos/Illustris/L75n1820FP'</span>
+tree <span class="sy0">=</span> readtreeHDF5.<span class="me1">TreeDB</span><span class="br0">(</span>treedir<span class="br0">)</span>
+snapnum <span class="sy0">=</span> <span class="nu0">135</span><span class="sy0">;</span> subfind_id <span class="sy0">=</span> <span class="nu0">1</span>
+branch <span class="sy0">=</span> tree.<span class="me1">get_main_branch</span><span class="br0">(</span>snapnum<span class="sy0">,</span> subfind_id<span class="sy0">,</span> keysel<span class="sy0">=</span><span class="br0">[</span><span class="st0">'SnapNum'</span><span class="sy0">,</span> <span class="st0">'SubhaloMassType'</span><span class="sy0">,</span> <span class="st0">'SubhaloSFR'</span><span class="br0">]</span><span class="br0">)</span>
+<span class="kw1">for</span> i <span class="kw1">in</span> <span class="kw2">range</span><span class="br0">(</span>branch.<span class="me1">nrows</span><span class="br0">)</span>:
+    <span class="kw1">print</span> branch.<span class="me1">SnapNum</span><span class="br0">[</span>i<span class="br0">]</span><span class="sy0">,</span> branch.<span class="me1">SubhaloMassType</span><span class="br0">[</span>i<span class="sy0">,</span><span class="nu0">4</span><span class="br0">]</span><span class="sy0">,</span> branch.<span class="me1">SubhaloSFR</span><span class="br0">[</span>i<span class="br0">]</span></pre></div></div>
+<p>Output:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="python source-python"><pre class="de1">        <span class="nu0">135</span> <span class="nu0">45.3308</span> <span class="nu0">0.0147863</span>
+        <span class="nu0">134</span> <span class="nu0">43.7982</span> <span class="nu0">0.00618325</span>
+        ...
+        <span class="nu0">23</span> <span class="nu0">0.0</span> <span class="nu0">0.00386036</span>
+        <span class="nu0">22</span> <span class="nu0">0.0</span> <span class="nu0">0.00178407</span></pre></div></div>
+<h4><span class="editsection">[<a href="http://www.illustris-project.org/w/index.php?title=Data_Access_Examples&action=edit&section=21" title="Edit section: Example 2">edit</a>]</span> <span class="mw-headline" id="Example_2"> Example 2 </span></h4>
+<p>Print the total masses of the direct progenitors of a given subhalo:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="python source-python"><pre class="de1"><span class="kw1">import</span> readtreeHDF5
+treedir <span class="sy0">=</span> <span class="st0">'/n/ghernquist/vrodrigu/MergerTrees/output/Subhalos/Illustris/L75n1820FP'</span>
+tree <span class="sy0">=</span> readtreeHDF5.<span class="me1">TreeDB</span><span class="br0">(</span>treedir<span class="br0">)</span>
+snapnum <span class="sy0">=</span> <span class="nu0">85</span><span class="sy0">;</span> subfind_id <span class="sy0">=</span> <span class="nu0">0</span>
+progs <span class="sy0">=</span> tree.<span class="me1">get_direct_progenitors</span><span class="br0">(</span>snapnum<span class="sy0">,</span> subfind_id<span class="sy0">,</span> keysel<span class="sy0">=</span><span class="br0">[</span><span class="st0">'SubhaloMass'</span><span class="br0">]</span><span class="br0">)</span>
+<span class="kw1">print</span> progs.<span class="me1">SubhaloMass</span></pre></div></div>
+<p>Output:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="python source-python"><pre class="de1">Output: <span class="br0">[</span>  <span class="nu0">5.46660938e+03</span>   <span class="nu0">8.42722225e+00</span>   <span class="nu0">5.96577488e-02</span>   <span class="nu0">2.98375543e-02</span>
+           ...<span class="sy0">,</span>
+           <span class="nu0">1.89679563e-01</span>   <span class="nu0">5.13658077e-02</span> <span class="br0">]</span></pre></div></div>
+<h4><span class="editsection">[<a href="http://www.illustris-project.org/w/index.php?title=Data_Access_Examples&action=edit&section=22" title="Edit section: Example 3">edit</a>]</span> <span class="mw-headline" id="Example_3"> Example 3 </span></h4>
+<p>For a given subhalo, count the number of progenitors at redshift z=3 (snapshot 60), each with total mass greater than <span class="MathJax_Preview"></span><span class="MathJax" id="MathJax-Element-1-Frame" role="textbox" aria-readonly="true"><nobr><span class="math" id="MathJax-Span-1" style="width: 5.556em; display: inline-block;"><span style="display: inline-block; position: relative; width: 4.587em; height: 0px; font-size: 121%;"><span style="position: absolute; clip: rect(1.617em 1000.003em 3.102em -0.513em); top: -2.644em; left: 0.003em;"><span class="mrow" id="MathJax-Span-2"><span class="msubsup" id="MathJax-Span-3"><span style="display: inline-block; position: relative; width: 1.747em; height: 0px;"><span style="position: absolute; clip: rect(1.811em 1000.003em 2.844em -0.513em); top: -2.644em; left: 0.003em;"><span class="mn" id="MathJax-Span-4" style="font-family: MathJax_Main;">10</span><span style="display: inline-block; width: 0px; height: 2.65em;"></span></span><span style="position: absolute; top: -2.644em; left: 1.036em;"><span class="texatom" id="MathJax-Span-5"><span class="mrow" id="MathJax-Span-6"><span class="mn" id="MathJax-Span-7" style="font-size: 70.7%; font-family: MathJax_Main;">11</span></span></span><span style="display: inline-block; width: 0px; height: 2.263em;"></span></span></span></span><span class="msubsup" id="MathJax-Span-8"><span style="display: inline-block; position: relative; width: 1.682em; height: 0px;"><span style="position: absolute; clip: rect(1.488em 1000.003em 2.586em -0.513em); top: -2.386em; left: 0.003em;"><span class="mi" id="MathJax-Span-9" style="font-family: MathJax_Math; font-style: italic;">M<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.068em;"></span></span><span style="display: inline-block; width: 0px; height: 2.392em;"></span></span><span style="position: absolute; top: -2.127em; left: 1.036em;"><span class="mo" id="MathJax-Span-10" style="font-size: 70.7%; font-family: MathJax_Main;">⊙</span><span style="display: inline-block; width: 0px; height: 2.263em;"></span></span></span></span><span class="texatom" id="MathJax-Span-11"><span class="mrow" id="MathJax-Span-12"><span class="mo" id="MathJax-Span-13" style="font-family: MathJax_Main;">/</span></span></span><span class="mi" id="MathJax-Span-14" style="font-family: MathJax_Math; font-style: italic;">h</span></span><span style="display: inline-block; width: 0px; height: 2.65em;"></span></span></span><span style="border-left-width: 0.004em; border-left-style: solid; display: inline-block; overflow: hidden; width: 0px; height: 1.488em; vertical-align: -0.387em;"></span></span></nobr></span><script type="math/tex" id="MathJax-Element-1"> 10^{11} M_\odot/h </script>:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="python source-python"><pre class="de1"><span class="kw1">import</span> readtreeHDF5
+<span class="kw1">import</span> numpy <span class="kw1">as</span> np
+treedir <span class="sy0">=</span> <span class="st0">'/n/ghernquist/vrodrigu/MergerTrees/output/Subhalos/Illustris/L75n1820FP'</span>
+tree <span class="sy0">=</span> readtreeHDF5.<span class="me1">TreeDB</span><span class="br0">(</span>treedir<span class="br0">)</span>
+snapnum <span class="sy0">=</span> <span class="nu0">135</span><span class="sy0">;</span> subfind_id <span class="sy0">=</span> <span class="nu0">0</span>
+subtree <span class="sy0">=</span> tree.<span class="me1">get_all_progenitors</span><span class="br0">(</span>snapnum<span class="sy0">,</span> subfind_id<span class="sy0">,</span> keysel<span class="sy0">=</span><span class="br0">[</span><span class="st0">'SnapNum'</span><span class="sy0">,</span> <span class="st0">'SubhaloMass'</span><span class="br0">]</span><span class="br0">)</span>
+bool_indices <span class="sy0">=</span> np.<span class="me1">logical_and</span><span class="br0">(</span>subtree.<span class="me1">SnapNum</span> <span class="sy0">==</span> <span class="nu0">60</span><span class="sy0">,</span> subtree.<span class="me1">SubhaloMass</span> <span class="sy0">&gt;</span> <span class="nu0">100.0</span><span class="br0">)</span>
+<span class="kw1">print</span> np.<span class="kw2">sum</span><span class="br0">(</span>bool_indices<span class="br0">)</span></pre></div></div>
+<p>Output:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="python source-python"><pre class="de1"><span class="nu0">5</span></pre></div></div>
+<h4><span class="editsection">[<a href="http://www.illustris-project.org/w/index.php?title=Data_Access_Examples&action=edit&section=23" title="Edit section: Example 4">edit</a>]</span> <span class="mw-headline" id="Example_4"> Example 4 </span></h4>
+<p>Print the gas fraction along the "future" branch of a subhalo, i.e. following the descendant links:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="python source-python"><pre class="de1"><span class="kw1">import</span> readtreeHDF5
+<span class="kw1">import</span> numpy <span class="kw1">as</span> np
+treedir <span class="sy0">=</span> <span class="st0">'/n/ghernquist/vrodrigu/MergerTrees/output/Subhalos/Illustris/L75n1820FP'</span>
+tree <span class="sy0">=</span> readtreeHDF5.<span class="me1">TreeDB</span><span class="br0">(</span>treedir<span class="br0">)</span>
+snapnum <span class="sy0">=</span> <span class="nu0">60</span><span class="sy0">;</span> subfind_id <span class="sy0">=</span> <span class="nu0">0</span>
+branch <span class="sy0">=</span> tree.<span class="me1">get_future_branch</span><span class="br0">(</span>snapnum<span class="sy0">,</span> subfind_id<span class="sy0">,</span> keysel<span class="sy0">=</span><span class="br0">[</span><span class="st0">'SubhaloMassType'</span><span class="br0">]</span><span class="br0">)</span>
+<span class="kw1">print</span> branch.<span class="me1">SubhaloMassType</span><span class="br0">[</span>:<span class="sy0">,</span><span class="nu0">0</span><span class="br0">]</span> / <span class="br0">(</span>branch.<span class="me1">SubhaloMassType</span><span class="br0">[</span>:<span class="sy0">,</span><span class="nu0">0</span><span class="br0">]</span> + branch.<span class="me1">SubhaloMassType</span><span class="br0">[</span>:<span class="sy0">,</span><span class="nu0">4</span><span class="br0">]</span><span class="br0">)</span></pre></div></div>
+<p>Output:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="python source-python"><pre class="de1">        <span class="br0">[</span> <span class="nu0">0.81863177</span>  <span class="nu0">0.817384</span>    <span class="nu0">0.81635791</span>  <span class="nu0">0.81488973</span>  <span class="nu0">0.81344718</span>  <span class="nu0">0.8120001</span>
+          ...<span class="sy0">,</span>
+          <span class="nu0">0.85557771</span>  <span class="nu0">0.8851701</span>   <span class="nu0">0.88132364</span> <span class="br0">]</span></pre></div></div>
+<h4><span class="editsection">[<a href="http://www.illustris-project.org/w/index.php?title=Data_Access_Examples&action=edit&section=24" title="Edit section: Example 5">edit</a>]</span> <span class="mw-headline" id="Example_5"> Example 5 </span></h4>
+<p>For a given subhalo, get all the subhalos from the same redshift that will eventually merge into the same object, and print their spatial location:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="python source-python"><pre class="de1"><span class="kw1">import</span> readtreeHDF5
+<span class="kw1">import</span> numpy <span class="kw1">as</span> np
+treedir <span class="sy0">=</span> <span class="st0">'/n/ghernquist/vrodrigu/MergerTrees/output/Subhalos/Illustris/L75n1820FP'</span>
+tree <span class="sy0">=</span> readtreeHDF5.<span class="me1">TreeDB</span><span class="br0">(</span>treedir<span class="br0">)</span>
+snapnum <span class="sy0">=</span> <span class="nu0">60</span><span class="sy0">;</span> subfind_id <span class="sy0">=</span> <span class="nu0">0</span>
+progs <span class="sy0">=</span> tree.<span class="me1">get_all_fellow_progenitors</span><span class="br0">(</span>snapnum<span class="sy0">,</span> subfind_id<span class="sy0">,</span> keysel<span class="sy0">=</span><span class="br0">[</span><span class="st0">'SubhaloPos'</span><span class="br0">]</span><span class="br0">)</span>
+<span class="kw1">print</span> progs.<span class="me1">SubhaloPos</span></pre></div></div>
+<p>Output:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="python source-python"><pre class="de1">        <span class="br0">[</span><span class="br0">[</span> <span class="nu0">10846.50585938</span>  <span class="nu0">50886.3203125</span>   <span class="nu0">47641.7109375</span> <span class="br0">]</span>
+         <span class="br0">[</span> <span class="nu0">10823.27441406</span>  <span class="nu0">50902.71484375</span>  <span class="nu0">47633.87890625</span><span class="br0">]</span>
+         ...<span class="sy0">,</span> 
+         <span class="br0">[</span> <span class="nu0">11676.44042969</span>  <span class="nu0">51291.84765625</span>  <span class="nu0">48374.8984375</span> <span class="br0">]</span>
+         <span class="br0">[</span>  <span class="nu0">9742.10644531</span>  <span class="nu0">50317.2109375</span>   <span class="nu0">48392.4296875</span> <span class="br0">]</span><span class="br0">]</span></pre></div></div>
+<h4><span class="editsection">[<a href="http://www.illustris-project.org/w/index.php?title=Data_Access_Examples&action=edit&section=25" title="Edit section: Example 6">edit</a>]</span> <span class="mw-headline" id="Example_6"> Example 6 </span></h4>
+<p>This last example does *not* make use of the reading script readtreeHDF5.py. Instead, it accesses the merger trees and offsets tables directly using PyTables. For a list of subhalos, we print the maximum DM mass they have ever had, along with the corresponding snapshot numbers.
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="python source-python"><pre class="de1"><span class="kw1">import</span> numpy <span class="kw1">as</span> np
+<span class="kw1">import</span> tables
+&nbsp;
+<span class="co1"># Constants</span>
+snapnum_last <span class="sy0">=</span> <span class="nu0">135</span>
+nsnaps <span class="sy0">=</span> snapnum_last+<span class="nu0">1</span>
+parttype <span class="sy0">=</span> <span class="nu0">1</span>  <span class="co1"># DM particles</span>
+&nbsp;
+<span class="co1"># List of subhalo indices at z=0</span>
+subfind_ids <span class="sy0">=</span> np.<span class="me1">arange</span><span class="br0">(</span><span class="nu0">1000</span><span class="sy0">,</span> dtype<span class="sy0">=</span>np.<span class="me1">int32</span><span class="br0">)</span>
+num_subs <span class="sy0">=</span> <span class="kw2">len</span><span class="br0">(</span>subfind_ids<span class="br0">)</span>
+&nbsp;
+<span class="co1"># Store maximum masses and snapshot numbers here:</span>
+max_masses <span class="sy0">=</span> np.<span class="me1">zeros</span><span class="br0">(</span>num_subs<span class="br0">)</span>
+snap_numbers <span class="sy0">=</span> np.<span class="me1">zeros</span><span class="br0">(</span>num_subs<span class="sy0">,</span> dtype<span class="sy0">=</span>np.<span class="me1">int32</span><span class="br0">)</span>
+&nbsp;
+<span class="co1"># Directory with the merger tree files</span>
+treedir <span class="sy0">=</span> <span class="st0">'/n/ghernquist/vrodrigu/MergerTrees/output/Subhalos/Illustris/L75n1820FP'</span>
+&nbsp;
+<span class="co1"># Open merger tree and offsets files</span>
+f_tree <span class="sy0">=</span> tables.<span class="me1">openFile</span><span class="br0">(</span><span class="st0">'%s/tree_extended.hdf5'</span>&nbsp;% <span class="br0">(</span>treedir<span class="br0">)</span><span class="br0">)</span>
+f_offsets <span class="sy0">=</span> tables.<span class="me1">openFile</span><span class="br0">(</span><span class="st0">'%s/offsets/offsets_%s.hdf5'</span>&nbsp;% <span class="br0">(</span>treedir<span class="sy0">,</span> <span class="kw2">str</span><span class="br0">(</span>snapnum_last<span class="br0">)</span>.<span class="me1">zfill</span><span class="br0">(</span><span class="nu0">3</span><span class="br0">)</span><span class="br0">)</span><span class="br0">)</span>
+&nbsp;
+<span class="co1"># Get subhalo row numbers from offsets table,</span>
+<span class="co1"># as well as the necessary info for extracting main branches</span>
+row_num <span class="sy0">=</span> f_offsets.<span class="me1">root</span>.<span class="me1">RowNum</span><span class="br0">[</span>:<span class="br0">]</span>
+subhalo_id <span class="sy0">=</span> f_offsets.<span class="me1">root</span>.<span class="me1">SubhaloID</span><span class="br0">[</span>:<span class="br0">]</span>
+main_leaf_progenitor_id <span class="sy0">=</span> f_offsets.<span class="me1">root</span>.<span class="me1">MainLeafProgenitorID</span><span class="br0">[</span>:<span class="br0">]</span>
+&nbsp;
+<span class="co1"># Now, for each subhalo in the list, get all the progenitors along</span>
+<span class="co1"># the main branch and identify the most massive one.</span>
+<span class="kw1">for</span> i <span class="kw1">in</span> <span class="kw2">range</span><span class="br0">(</span>num_subs<span class="br0">)</span>:
+    <span class="co1"># Get the masses and snapshot numbers along the main branch</span>
+    main_branch_length <span class="sy0">=</span> main_leaf_progenitor_id<span class="br0">[</span>i<span class="br0">]</span> - subhalo_id<span class="br0">[</span>i<span class="br0">]</span> + <span class="nu0">1</span>
+    locs <span class="sy0">=</span> <span class="kw2">slice</span><span class="br0">(</span>row_num<span class="br0">[</span>i<span class="br0">]</span><span class="sy0">,</span> row_num<span class="br0">[</span>i<span class="br0">]</span> + main_branch_length<span class="br0">)</span>
+    masses <span class="sy0">=</span> f_tree.<span class="me1">root</span>.<span class="me1">SubhaloMassType</span><span class="br0">[</span>locs<span class="sy0">,</span> parttype<span class="br0">]</span>
+    snapnums <span class="sy0">=</span> f_tree.<span class="me1">root</span>.<span class="me1">SnapNum</span><span class="br0">[</span>locs<span class="br0">]</span>
+&nbsp;
+    <span class="co1"># Get max. mass and the corresponding snapshot number</span>
+    max_mass <span class="sy0">=</span> <span class="nu0">0</span>.
+    <span class="me1">max_snapnum</span> <span class="sy0">=</span> -<span class="nu0">1</span>
+    <span class="kw1">for</span> mass<span class="sy0">,</span> snapnum <span class="kw1">in</span> <span class="kw2">zip</span><span class="br0">(</span>masses<span class="sy0">,</span> snapnums<span class="br0">)</span>:
+        <span class="kw1">if</span> mass <span class="sy0">&gt;</span> max_mass:
+            max_mass <span class="sy0">=</span> mass
+            max_snapnum <span class="sy0">=</span> snapnum
+&nbsp;
+    <span class="co1"># Save to arrays</span>
+    max_masses<span class="br0">[</span>i<span class="br0">]</span> <span class="sy0">=</span> max_mass
+    snap_numbers<span class="br0">[</span>i<span class="br0">]</span> <span class="sy0">=</span> max_snapnum
+&nbsp;
+<span class="co1"># Close files</span>
+f_tree.<span class="me1">close</span><span class="br0">(</span><span class="br0">)</span>
+f_offsets.<span class="me1">close</span><span class="br0">(</span><span class="br0">)</span>
+&nbsp;
+<span class="co1"># Write results to file (masses in units of 10^10 Msun/h)</span>
+<span class="kw1">print</span> <span class="st0">'# subfind_id, max_mass [10^10 Msun/h], snapnum'</span>
+<span class="kw1">for</span> i <span class="kw1">in</span> <span class="kw2">range</span><span class="br0">(</span>num_subs<span class="br0">)</span>:
+    <span class="kw1">print</span> <span class="st0">'%d,%f,%d'</span>&nbsp;% <span class="br0">(</span>subfind_ids<span class="br0">[</span>i<span class="br0">]</span><span class="sy0">,</span> max_masses<span class="br0">[</span>i<span class="br0">]</span><span class="sy0">,</span> snap_numbers<span class="br0">[</span>i<span class="br0">]</span><span class="br0">)</span></pre></div></div>
+<p>Output:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="python source-python"><pre class="de1"><span class="co1"># subfind_id, max_mass (10^10 Msun/h), snapnum</span>
+<span class="nu0">0</span><span class="sy0">,</span><span class="nu0">20122.097656</span><span class="sy0">,</span><span class="nu0">135</span>
+<span class="nu0">1</span><span class="sy0">,</span><span class="nu0">2290.834961</span><span class="sy0">,</span><span class="nu0">131</span>
+<span class="nu0">2</span><span class="sy0">,</span><span class="nu0">2165.381348</span><span class="sy0">,</span><span class="nu0">119</span>
+<span class="nu0">3</span><span class="sy0">,</span><span class="nu0">336.076477</span><span class="sy0">,</span><span class="nu0">123</span>
+<span class="nu0">4</span><span class="sy0">,</span><span class="nu0">546.109863</span><span class="sy0">,</span><span class="nu0">100</span>
+<span class="nu0">5</span><span class="sy0">,</span><span class="nu0">296.441620</span><span class="sy0">,</span><span class="nu0">133</span>
+...
+<span class="nu0">994</span><span class="sy0">,</span><span class="nu0">0.474405</span><span class="sy0">,</span><span class="nu0">118</span>
+<span class="nu0">995</span><span class="sy0">,</span><span class="nu0">10.420149</span><span class="sy0">,</span><span class="nu0">83</span>
+<span class="nu0">996</span><span class="sy0">,</span><span class="nu0">0.653409</span><span class="sy0">,</span><span class="nu0">102</span>
+<span class="nu0">997</span><span class="sy0">,</span><span class="nu0">0.378289</span><span class="sy0">,</span><span class="nu0">129</span>
+<span class="nu0">998</span><span class="sy0">,</span><span class="nu0">0.708962</span><span class="sy0">,</span><span class="nu0">106</span>
+<span class="nu0">999</span><span class="sy0">,</span><span class="nu0">0.441778</span><span class="sy0">,</span><span class="nu0">111</span></pre></div></div>
+<h4><span class="editsection">[<a href="http://www.illustris-project.org/w/index.php?title=Data_Access_Examples&action=edit&section=26" title="Edit section: Example 7">edit</a>]</span> <span class="mw-headline" id="Example_7"> Example 7 </span></h4>
+<p>Count the number of major mergers that the first 20 central subhalos have ever had (the script readsubfHDF5.py can be found at /n/home12/mvogelsberger/Python/OwnModules/). The mass ratio is determined by the maximum past stellar mass of the two progenitors.
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="python source-python"><pre class="de1"><span class="kw1">import</span> numpy <span class="kw1">as</span> np
+<span class="kw1">import</span> readtreeHDF5
+<span class="kw1">import</span> readsubfHDF5
+&nbsp;
+<span class="kw1">def</span> get_maximum_past_mass<span class="br0">(</span>subtree<span class="sy0">,</span> rownum<span class="br0">)</span>:
+    <span class="co1"># Get maximum past *stellar* mass of a subhalo</span>
+    parttype <span class="sy0">=</span> <span class="nu0">4</span>
+    branch_length <span class="sy0">=</span> <span class="br0">(</span>subtree.<span class="me1">MainLeafProgenitorID</span><span class="br0">[</span>rownum<span class="br0">]</span> -
+                     subtree.<span class="me1">SubhaloID</span><span class="br0">[</span>rownum<span class="br0">]</span> + <span class="nu0">1</span><span class="br0">)</span>
+    locs <span class="sy0">=</span> <span class="kw2">slice</span><span class="br0">(</span>rownum<span class="sy0">,</span> rownum + branch_length<span class="br0">)</span>
+    masses <span class="sy0">=</span> subtree.<span class="me1">SubhaloMassType</span><span class="br0">[</span>locs<span class="sy0">,</span> parttype<span class="br0">]</span>
+    <span class="kw1">return</span> np.<span class="kw2">max</span><span class="br0">(</span>masses<span class="br0">)</span>
+&nbsp;
+<span class="kw1">def</span> count_major_mergers<span class="br0">(</span>subtree<span class="sy0">,</span> major_merger_ratio<span class="br0">)</span>:
+    num_major_mergers <span class="sy0">=</span> <span class="nu0">0</span>
+    root_sub_rownum <span class="sy0">=</span> <span class="nu0">0</span>
+    root_sub_id <span class="sy0">=</span> subtree.<span class="me1">SubhaloID</span><span class="br0">[</span>root_sub_rownum<span class="br0">]</span>
+&nbsp;
+    <span class="co1"># Iterate over "first progenitor" links (along main branch)</span>
+    first_prog_id <span class="sy0">=</span> subtree.<span class="me1">FirstProgenitorID</span><span class="br0">[</span>root_sub_rownum<span class="br0">]</span>
+    <span class="kw1">while</span> first_prog_id <span class="sy0">!=</span> -<span class="nu0">1</span>:
+        first_prog_rownum <span class="sy0">=</span> root_sub_rownum + <span class="br0">(</span>first_prog_id - root_sub_id<span class="br0">)</span>
+        first_prog_maxmass <span class="sy0">=</span> get_maximum_past_mass<span class="br0">(</span>subtree<span class="sy0">,</span> first_prog_rownum<span class="br0">)</span>
+&nbsp;
+        <span class="co1"># Iterate over "next progenitor" links</span>
+        next_prog_id <span class="sy0">=</span> subtree.<span class="me1">NextProgenitorID</span><span class="br0">[</span>first_prog_rownum<span class="br0">]</span>
+        <span class="kw1">while</span> next_prog_id <span class="sy0">!=</span> -<span class="nu0">1</span>:
+            next_prog_rownum <span class="sy0">=</span> root_sub_rownum + <span class="br0">(</span>next_prog_id - root_sub_id<span class="br0">)</span>
+            next_prog_maxmass <span class="sy0">=</span> get_maximum_past_mass<span class="br0">(</span>subtree<span class="sy0">,</span> next_prog_rownum<span class="br0">)</span>
+            <span class="co1"># Only if both masses are non-zero</span>
+            <span class="kw1">if</span> first_prog_maxmass <span class="sy0">&gt;</span> <span class="nu0">0</span> <span class="kw1">and</span> next_prog_maxmass <span class="sy0">&gt;</span> <span class="nu0">0</span>:
+                <span class="co1"># Check if major meger (mass ratio determined by maximum past mass)</span>
+                <span class="kw1">if</span> <span class="br0">(</span>next_prog_maxmass / first_prog_maxmass <span class="sy0">&gt;=</span> major_merger_ratio <span class="kw1">and</span>
+                    next_prog_maxmass / first_prog_maxmass <span class="sy0">&lt;=</span> <span class="nu0">1.0</span>/major_merger_ratio<span class="br0">)</span>:
+                    num_major_mergers +<span class="sy0">=</span> <span class="nu0">1</span>
+&nbsp;
+            <span class="co1"># Next iteration</span>
+            next_prog_id <span class="sy0">=</span> subtree.<span class="me1">NextProgenitorID</span><span class="br0">[</span>next_prog_rownum<span class="br0">]</span>
+&nbsp;
+        <span class="co1"># Next iteration</span>
+        first_prog_id <span class="sy0">=</span> subtree.<span class="me1">FirstProgenitorID</span><span class="br0">[</span>first_prog_rownum<span class="br0">]</span>
+&nbsp;
+    <span class="kw1">return</span> num_major_mergers
+&nbsp;
+<span class="co1"># -------------------------------- MAIN --------------------------------------</span>
+&nbsp;
+major_merger_ratio <span class="sy0">=</span> <span class="nu0">1.0</span>/<span class="nu0">3.0</span>
+snapnum <span class="sy0">=</span> <span class="nu0">135</span>
+simulation <span class="sy0">=</span> <span class="st0">'L75n1820FP'</span>
+tracking <span class="sy0">=</span> <span class="st0">'Galaxies'</span>  <span class="co1"># Subhalos (DM) or Galaxies (baryons)</span>
+treedir <span class="sy0">=</span> <span class="st0">'/n/ghernquist/vrodrigu/MergerTrees/output/%s/Illustris/%s'</span>&nbsp;% <span class="br0">(</span>tracking<span class="sy0">,</span> simulation<span class="br0">)</span>
+basedir <span class="sy0">=</span> <span class="st0">'/n/ghernquist/Illustris/Runs/%s/output'</span>&nbsp;% <span class="br0">(</span>simulation<span class="br0">)</span>
+&nbsp;
+<span class="co1"># Look at the first few central subhalos</span>
+nsubs <span class="sy0">=</span> <span class="nu0">20</span>
+<span class="kw1">print</span> <span class="st0">'Loading SUBFIND catalog...'</span>
+cat <span class="sy0">=</span> readsubfHDF5.<span class="me1">subfind_catalog</span><span class="br0">(</span>basedir<span class="sy0">,</span> snapnum<span class="sy0">,</span> long_ids<span class="sy0">=</span><span class="kw2">True</span><span class="sy0">,</span> keysel<span class="sy0">=</span><span class="br0">[</span><span class="st0">'GroupFirstSub'</span><span class="br0">]</span><span class="br0">)</span>
+subfind_ids <span class="sy0">=</span> <span class="br0">[</span>cat.<span class="me1">GroupFirstSub</span><span class="br0">[</span>i<span class="br0">]</span> <span class="kw1">for</span> i <span class="kw1">in</span> <span class="kw2">range</span><span class="br0">(</span>nsubs<span class="br0">)</span><span class="br0">]</span>
+&nbsp;
+<span class="kw1">print</span> <span class="st0">'Creating tree instance...'</span>
+tree <span class="sy0">=</span> readtreeHDF5.<span class="me1">TreeDB</span><span class="br0">(</span>treedir<span class="br0">)</span>
+&nbsp;
+<span class="kw1">for</span> i <span class="kw1">in</span> <span class="kw2">range</span><span class="br0">(</span>nsubs<span class="br0">)</span>:
+    subtree <span class="sy0">=</span> tree.<span class="me1">get_all_progenitors</span><span class="br0">(</span>snapnum<span class="sy0">,</span> subfind_ids<span class="br0">[</span>i<span class="br0">]</span><span class="sy0">,</span>
+            keysel<span class="sy0">=</span><span class="br0">[</span><span class="st0">'SubhaloID'</span><span class="sy0">,</span> <span class="st0">'MainLeafProgenitorID'</span><span class="sy0">,</span> <span class="st0">'FirstProgenitorID'</span><span class="sy0">,</span>
+            <span class="st0">'NextProgenitorID'</span><span class="sy0">,</span> <span class="st0">'DescendantID'</span><span class="sy0">,</span> <span class="st0">'FirstSubhaloInFOFGroupID'</span><span class="sy0">,</span>
+            <span class="st0">'SubhaloMassType'</span><span class="br0">]</span><span class="br0">)</span>
+    num_major_mergers <span class="sy0">=</span> count_major_mergers<span class="br0">(</span>subtree<span class="sy0">,</span> major_merger_ratio<span class="br0">)</span>
+    <span class="kw1">print</span> <span class="st0">'Subhalo&nbsp;%d had&nbsp;%d major mergers.'</span>&nbsp;% <span class="br0">(</span>subfind_ids<span class="br0">[</span>i<span class="br0">]</span><span class="sy0">,</span> num_major_mergers<span class="br0">)</span></pre></div></div>
+<p>Output:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="python source-python"><pre class="de1">Loading SUBFIND catalog...
+<span class="me1">Creating</span> tree instance...
+<span class="me1">Subhalo</span> <span class="nu0">0</span> had <span class="nu0">2</span> major mergers.
+<span class="me1">Subhalo</span> <span class="nu0">16937</span> had <span class="nu0">2</span> major mergers.
+<span class="me1">Subhalo</span> <span class="nu0">30430</span> had <span class="nu0">2</span> major mergers.
+<span class="me1">Subhalo</span> <span class="nu0">41088</span> had <span class="nu0">2</span> major mergers.
+<span class="me1">Subhalo</span> <span class="nu0">51811</span> had <span class="nu0">1</span> major mergers.
+<span class="me1">Subhalo</span> <span class="nu0">59384</span> had <span class="nu0">1</span> major mergers.
+<span class="me1">Subhalo</span> <span class="nu0">66080</span> had <span class="nu0">4</span> major mergers.
+<span class="me1">Subhalo</span> <span class="nu0">73663</span> had <span class="nu0">6</span> major mergers.
+<span class="me1">Subhalo</span> <span class="nu0">80734</span> had <span class="nu0">3</span> major mergers.
+<span class="me1">Subhalo</span> <span class="nu0">86186</span> had <span class="nu0">2</span> major mergers.
+<span class="me1">Subhalo</span> <span class="nu0">93165</span> had <span class="nu0">3</span> major mergers.
+<span class="me1">Subhalo</span> <span class="nu0">99148</span> had <span class="nu0">4</span> major mergers.
+<span class="me1">Subhalo</span> <span class="nu0">104798</span> had <span class="nu0">0</span> major mergers.
+<span class="me1">Subhalo</span> <span class="nu0">110566</span> had <span class="nu0">2</span> major mergers.
+<span class="me1">Subhalo</span> <span class="nu0">114300</span> had <span class="nu0">1</span> major mergers.
+<span class="me1">Subhalo</span> <span class="nu0">117343</span> had <span class="nu0">2</span> major mergers.
+<span class="me1">Subhalo</span> <span class="nu0">120615</span> had <span class="nu0">2</span> major mergers.
+<span class="me1">Subhalo</span> <span class="nu0">123773</span> had <span class="nu0">1</span> major mergers.
+<span class="me1">Subhalo</span> <span class="nu0">127228</span> had <span class="nu0">5</span> major mergers.
+<span class="me1">Subhalo</span> <span class="nu0">129770</span> had <span class="nu0">2</span> major mergers.</pre></div></div>
+<p><br>
+</p>
+<h2><span class="editsection">[<a href="http://www.illustris-project.org/w/index.php?title=Data_Access_Examples&action=edit&section=27" title="Edit section: Rockstar Merger Trees">edit</a>]</span> <span class="mw-headline" id="Rockstar_Merger_Trees"> Rockstar Merger Trees </span></h2>
+<p><b>Note: Rockstar groups/trees currently made for: 455 FP+DM, 910 FP+DM, 1820 DM only (no ETA for 1820FP).</b>
+</p><p>To read the Rockstar catalogues and merger trees you will need to import the following modules.
+</p>
+<pre>/n/home01/bgriffen/modules/readhalos/RSDataReaderv3.py
+/n/home01/bgriffen/modules/mergertree/MTCatalogy.py
+</pre>
+<p><span style="color:red;">TODO: Add usage script example. (Brendan)</span>
+</p>
+<h1><span class="editsection">[<a href="http://www.illustris-project.org/w/index.php?title=Data_Access_Examples&action=edit&section=28" title="Edit section: Matlab">edit</a>]</span> <span class="mw-headline" id="Matlab"> Matlab </span></h1>
+<p><span style="color:red;">TODO (would be great, Shy/Annalisa)</span>
+</p>
+<h1><span class="editsection">[<a href="http://www.illustris-project.org/w/index.php?title=Data_Access_Examples&action=edit&section=29" title="Edit section: IDL">edit</a>]</span> <span class="mw-headline" id="IDL"> IDL </span></h1>
+<h2><span class="editsection">[<a href="http://www.illustris-project.org/w/index.php?title=Data_Access_Examples&action=edit&section=30" title="Edit section: Dylan&#39;s cosmoLoad">edit</a>]</span> <span class="mw-headline" id="Dylan.27s_cosmoLoad"> Dylan's cosmoLoad </span></h2>
+<p>See <a href="http://www.illustris-project.org/w/index.php/Analysis_Tools#idl_repo" title="Analysis Tools">Analysis_Tools#idl_repo</a> for more information.
+</p><p>On Odyssey you can run (and/or change your .bashrc to include):
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="bash source-bash"><pre class="de1">  module load math<span class="sy0">/</span>IDL-<span class="nu0">8.1</span>
+  <span class="kw3">export</span> <span class="re2">IDL_PATH</span>=<span class="re1">$IDL_PATH</span>:+~dnelson<span class="sy0">/</span>idl<span class="sy0">/</span>
+  idl</pre></div></div>
+<h3><span class="editsection">[<a href="http://www.illustris-project.org/w/index.php?title=Data_Access_Examples&action=edit&section=31" title="Edit section: Snapshot Data">edit</a>]</span> <span class="mw-headline" id="Snapshot_Data_3"> Snapshot Data </span></h3>
+<p>Then for loading the a particular field/partType from a snapshot:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="idl source-idl"><pre class="de1">IDL&gt; sP <span class="sy0">=</span> simParams<span class="br0">(</span>run<span class="sy0">=</span><span class="st0">'illustris'</span>,res<span class="sy0">=</span><span class="nu0">1820</span>,redshift<span class="sy0">=</span><span class="nu0">2.0</span><span class="br0">)</span>
+&nbsp;
+IDL&gt; gas_masses <span class="sy0">=</span> loadSnapshotSubset<span class="br0">(</span>sP<span class="sy0">=</span>sP,partType<span class="sy0">=</span><span class="st0">'gas'</span>,field<span class="sy0">=</span><span class="st0">'mass'</span><span class="br0">)</span></pre></div></div>
+<p>If you want the field only for a particular group, then given its offset index and length:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="idl source-idl"><pre class="de1">IDL&gt; sP <span class="sy0">=</span> simParams<span class="br0">(</span>run<span class="sy0">=</span><span class="st0">'illustris'</span>,res<span class="sy0">=</span><span class="nu0">1820</span>,redshift<span class="sy0">=</span><span class="nu0">2.0</span><span class="br0">)</span>
+&nbsp;
+IDL&gt; indRange <span class="sy0">=</span> <span class="br0">[</span>offset_index, offset_index <span class="sy0">+</span> length<span class="br0">]</span>
+IDL&gt; gas_masses <span class="sy0">=</span> loadSnapshotSubset<span class="br0">(</span>sP<span class="sy0">=</span>sP,partType<span class="sy0">=</span><span class="st0">'gas'</span>,field<span class="sy0">=</span><span class="st0">'mass'</span>,indRange<span class="sy0">=</span>indRange<span class="br0">)</span></pre></div></div>
+<h3><span class="editsection">[<a href="http://www.illustris-project.org/w/index.php?title=Data_Access_Examples&action=edit&section=32" title="Edit section: Group Catalogs">edit</a>]</span> <span class="mw-headline" id="Group_Catalogs_3"> Group Catalogs </span></h3>
+<p>Then for loading the complete group+subgroup catalog:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="idl source-idl"><pre class="de1">IDL&gt; sP <span class="sy0">=</span> simParams<span class="br0">(</span>run<span class="sy0">=</span><span class="st0">'illustris'</span>,res<span class="sy0">=</span><span class="nu0">910</span>,redshift<span class="sy0">=</span><span class="nu0">2.0</span><span class="br0">)</span>
+&nbsp;
+IDL&gt; gc <span class="sy0">=</span> loadGroupCat<span class="br0">(</span>sP<span class="sy0">=</span>sP,<span class="sy0">/</span>skipIDs,<span class="sy0">/</span>skipOffsets<span class="br0">)</span>
+IDL&gt; print, <span class="st0">'Total number of groups and subgroups: '</span>, gc.nGroupsTot, gc.nSubgroupsTot</pre></div></div>
+<h3><span class="editsection">[<a href="http://www.illustris-project.org/w/index.php?title=Data_Access_Examples&action=edit&section=33" title="Edit section: Merger Trees">edit</a>]</span> <span class="mw-headline" id="Merger_Trees"> Merger Trees </span></h3>
+<p>Currently no code to deal with LHaloTree, SubLink, or Rockstar.
+</p>
+<h2><span class="editsection">[<a href="http://www.illustris-project.org/w/index.php?title=Data_Access_Examples&action=edit&section=34" title="Edit section: Paul&#39;s idl-cosmo">edit</a>]</span> <span class="mw-headline" id="Paul.27s_idl-cosmo"> Paul's idl-cosmo </span></h2>
+<p>See <a href="http://www.illustris-project.org/w/index.php/Analysis_Tools#idl-cosmo" title="Analysis Tools">Analysis_Tools#idl-cosmo</a> for more information.
+</p><p>On Odyssey you can run:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="bash source-bash"><pre class="de1">  module load math<span class="sy0">/</span>IDL-<span class="nu0">8.0</span>
+  module load devel<span class="sy0">/</span>mercurial-1.8.3
+  mdkir ~<span class="sy0">/</span>pro; <span class="kw3">cd</span> ~<span class="sy0">/</span>pro;
+  hg clone https:<span class="sy0">//</span>bitbucket.org<span class="sy0">/</span>ptorrey<span class="sy0">/</span>cosmo-idl
+  <span class="kw3">export</span> <span class="re2">IDL_PATH</span>=<span class="re1">$IDL_PATH</span>:+~<span class="sy0">/</span>pro<span class="sy0">/</span>cosmo-idl
+  idl</pre></div></div>
+<h3><span class="editsection">[<a href="http://www.illustris-project.org/w/index.php?title=Data_Access_Examples&action=edit&section=35" title="Edit section: Snapshot Data">edit</a>]</span> <span class="mw-headline" id="Snapshot_Data_4"> Snapshot Data </span></h3>
+<p><span style="color:red;">Description needed.</span>
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="idl source-idl"><pre class="de1">IDL&gt; Base <span class="sy0">=</span> <span class="st0">"/n/ghernquist/Illustris/Runs/Illustris-1/"</span>
+IDL&gt; Num <span class="sy0">=</span> <span class="nu0">100</span>
+IDL&gt; ok <span class="sy0">=</span> fload_subhalo_all<span class="br0">(</span>Base, Num<span class="br0">)</span>
+IDL&gt; Mstar <span class="sy0">=</span> fload_subhalo_stellar_mass<span class="br0">(</span><span class="nu0">1</span><span class="br0">)</span>
+IDL&gt; Mgas <span class="sy0">=</span> fload_subhalo_disk_gas_mass<span class="br0">(</span><span class="nu0">1</span><span class="br0">)</span>
+IDL&gt; print, <span class="st0">" Gas Mass Mas"</span>, max<span class="br0">(</span>Mgas<span class="br0">)</span>
+IDL&gt; print, <span class="st0">"Stellar Mass max"</span>, max<span class="br0">(</span>Mstar<span class="br0">)</span></pre></div></div>
+<h3><span class="editsection">[<a href="http://www.illustris-project.org/w/index.php?title=Data_Access_Examples&action=edit&section=36" title="Edit section: Group Catalogs">edit</a>]</span> <span class="mw-headline" id="Group_Catalogs_4"> Group Catalogs </span></h3>
+<p><span style="color:red;">TODO</span>
+</p>
+<h3><span class="editsection">[<a href="http://www.illustris-project.org/w/index.php?title=Data_Access_Examples&action=edit&section=37" title="Edit section: Merger Trees">edit</a>]</span> <span class="mw-headline" id="Merger_Trees_2"> Merger Trees </span></h3>
+<p><span style="color:red;">TODO</span>
+</p>
+<!-- 
+NewPP limit report
+Preprocessor visited node count: 505/1000000
+Preprocessor generated node count: 946/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key illustris_wiki:pcache:idhash:40-0!6!0!!en!*!* and timestamp 20140917173053 -->
+</div>				<!-- /bodycontent -->
+								<!-- printfooter -->
+				<div class="printfooter">
+				Retrieved from "<a href="http://www.illustris-project.org/w/index.php?title=Data_Access_Examples&oldid=662">http://www.illustris-project.org/w/index.php?title=Data_Access_Examples&amp;oldid=662</a>"				</div>
+				<!-- /printfooter -->
+												<!-- catlinks -->
+				<div id="catlinks" class="catlinks catlinks-allhidden"></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+				<!-- debughtml -->
+								<!-- /debughtml -->
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<div id="mw-navigation">
+			<h2>Navigation menu</h2>
+			<!-- header -->
+			<div id="mw-head">
+				
+<!-- 0 -->
+<div id="p-personal" role="navigation" class="">
+	<h3>Personal tools</h3>
+	<ul>
+<li id="pt-userpage"><a href="http://www.illustris-project.org/w/index.php/User:Ciro" class="new" title="Your user page [ctrl-option-.]" accesskey=".">Ciro</a></li><li id="pt-mytalk"><a href="http://www.illustris-project.org/w/index.php/User_talk:Ciro" class="new" title="Your talk page [ctrl-option-n]" accesskey="n">Talk</a></li><li id="pt-preferences"><a href="http://www.illustris-project.org/w/index.php/Special:Preferences" title="Your preferences">Preferences</a></li><li id="pt-watchlist"><a href="http://www.illustris-project.org/w/index.php/Special:Watchlist" title="A list of pages you are monitoring for changes [ctrl-option-l]" accesskey="l">Watchlist</a></li><li id="pt-mycontris"><a href="http://www.illustris-project.org/w/index.php/Special:Contributions/Ciro" title="A list of your contributions [ctrl-option-y]" accesskey="y">Contributions</a></li><li id="pt-logout"><a href="http://www.illustris-project.org/w/index.php?title=Special:UserLogout&returnto=Data+Access+Examples" title="Log out">Log out</a></li>	</ul>
+</div>
+
+<!-- /0 -->
+				<div id="left-navigation">
+					
+<!-- 0 -->
+<div id="p-namespaces" role="navigation" class="vectorTabs">
+	<h3>Namespaces</h3>
+	<ul>
+					<li id="ca-nstab-main" class="selected"><span><a href="./Data Access Examples - IllustrisWiki_files/Data Access Examples - IllustrisWiki.html" title="View the content page [ctrl-option-c]" accesskey="c">Page</a></span></li>
+					<li id="ca-talk" class="new"><span><a href="http://www.illustris-project.org/w/index.php?title=Talk:Data_Access_Examples&action=edit&redlink=1" title="Discussion about the content page [ctrl-option-t]" accesskey="t">Discussion</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet">
+	<h3 id="mw-vector-current-variant">
+		</h3>
+	<h3><span>Variants</span><a href="http://www.illustris-project.org/w/index.php/Data_Access_Examples#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+				</div>
+				<div id="right-navigation">
+					
+<!-- 0 -->
+<div id="p-views" role="navigation" class="vectorTabs">
+	<h3>Views</h3>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="./Data Access Examples - IllustrisWiki_files/Data Access Examples - IllustrisWiki.html">Read</a></span></li>
+					<li id="ca-edit"><span><a href="http://www.illustris-project.org/w/index.php?title=Data_Access_Examples&action=edit" title="You can edit this page. Please use the preview button before saving [ctrl-option-e]" accesskey="e">Edit</a></span></li>
+					<li id="ca-history" class="collapsible"><span><a href="http://www.illustris-project.org/w/index.php?title=Data_Access_Examples&action=history" title="Past revisions of this page [ctrl-option-h]" accesskey="h">View history</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" role="navigation" class="vectorMenu">
+	<h3><span>Actions</span><a href="http://www.illustris-project.org/w/index.php/Data_Access_Examples#"></a></h3>
+	<div class="menu">
+		<ul>
+							<li id="ca-move"><a href="http://www.illustris-project.org/w/index.php/Special:MovePage/Data_Access_Examples" title="Move this page [ctrl-option-m]" accesskey="m">Move</a></li>
+							<li id="ca-watch"><a href="http://www.illustris-project.org/w/index.php?title=Data_Access_Examples&action=watch&token=eba6cda851d14c1cd60fc4571fd9e275%2B%5C" title="Add this page to your watchlist [ctrl-option-w]" accesskey="w">Watch</a></li>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search" role="search">
+	<h3><label for="searchInput">Search</label></h3>
+	<form action="http://www.illustris-project.org/w/index.php" id="searchform">
+				<div id="simpleSearch">
+						<input name="search" title="Search IllustrisWiki [ctrl-option-f]" accesskey="f" id="searchInput" tabindex="1" autocomplete="off" placeholder="Search">						<button type="submit" name="button" title="Search the pages for this text" id="searchButton"><img src="./Data Access Examples - IllustrisWiki_files/search-ltr.png" alt="Search" width="12" height="13"></button>								<input type="hidden" name="title" value="Special:Search">
+		</div>
+	</form>
+</div>
+
+<!-- /2 -->
+				</div>
+			</div>
+			<!-- /header -->
+			<!-- panel -->
+			<div id="mw-panel" class="collapsible-nav">
+				<!-- logo -->
+					<div id="p-logo" role="banner"><a style="background-image: url(/w/logo3.png);" href="http://www.illustris-project.org/w/index.php/Main_Page" title="Visit the main page"></a></div>
+				<!-- /logo -->
+				
+<!-- first -->
+<div class="portal first persistent" role="navigation" id="p-first">
+	<h3>first</h3>
+	<div class="body">
+		<ul>
+		</ul>
+	</div>
+</div>
+
+<!-- /first -->
+
+<!-- general -->
+<div class="portal persistent" role="navigation" id="p-general">
+	<h3>general</h3>
+	<div class="body">
+		<ul>
+			<li id="n-Main-Page"><a href="http://www.illustris-project.org/w/index.php/Main_Page">Main Page</a></li>
+			<li id="n-People"><a href="http://www.illustris-project.org/w/index.php/List_of_People">People</a></li>
+			<li id="n-Papers"><a href="http://www.illustris-project.org/w/index.php/Arepo_Related_Papers">Papers</a></li>
+			<li id="n-Policies"><a href="http://www.illustris-project.org/w/index.php/Policies">Policies</a></li>
+		</ul>
+	</div>
+</div>
+
+<!-- /general -->
+
+<!-- projects -->
+<div class="portal persistent" role="navigation" id="p-projects">
+	<h3>projects</h3>
+	<div class="body">
+		<ul>
+			<li id="n-Idea-List"><a href="http://www.illustris-project.org/w/index.php/Science_Ideas_and_Topics">Idea List</a></li>
+			<li id="n-Projects-by-Person"><a href="http://www.illustris-project.org/w/index.php/Project_Claims_and_Interest_by_Person">Projects by Person</a></li>
+		</ul>
+	</div>
+</div>
+
+<!-- /projects -->
+
+<!-- illustris data -->
+<div class="portal expanded" role="navigation" id="p-illustris_data">
+	<h3 tabindex="2"><a href="http://www.illustris-project.org/w/index.php/Data_Access_Examples#">illustris data</a></h3>
+	<div class="body" style="display: block;">
+		<ul>
+			<li id="n-Simulations-Overview"><a href="http://www.illustris-project.org/w/index.php/The_Simulations">Simulations Overview</a></li>
+			<li id="n-Data-Overview"><a href="http://www.illustris-project.org/w/index.php/Data_Details">Data Overview</a></li>
+			<li id="n-Halo-Catalogs"><a href="http://www.illustris-project.org/w/index.php/Halo_Catalogs">Halo Catalogs</a></li>
+			<li id="n-Merger-Trees"><a href="http://www.illustris-project.org/w/index.php/Merger_Trees">Merger Trees</a></li>
+			<li id="n-Post-Processed-Catalogs"><a href="http://www.illustris-project.org/w/index.php/Post-Processed_Catalogs">Post-Processed Catalogs</a></li>
+		</ul>
+	</div>
+</div>
+
+<!-- /illustris data -->
+
+<!-- illustris analysis -->
+<div class="portal collapsed" role="navigation" id="p-illustris_analysis">
+	<h3 tabindex="3"><a href="http://www.illustris-project.org/w/index.php/Data_Access_Examples#">illustris analysis</a></h3>
+	<div class="body">
+		<ul>
+			<li id="n-Analysis-Tools"><a href="http://www.illustris-project.org/w/index.php/Analysis_Tools">Analysis Tools</a></li>
+			<li id="n-Data-Access-Examples"><a href="./Data Access Examples - IllustrisWiki_files/Data Access Examples - IllustrisWiki.html">Data Access Examples</a></li>
+		</ul>
+	</div>
+</div>
+
+<!-- /illustris analysis -->
+
+<!-- results -->
+<div class="portal persistent" role="navigation" id="p-results">
+	<h3>results</h3>
+	<div class="body">
+		<ul>
+			<li id="n-Images"><a href="http://www.illustris-project.org/w/index.php/Images">Images</a></li>
+			<li id="n-Movies-.28Illustris.29"><a href="http://www.illustris-project.org/w/index.php/Movies">Movies (Illustris)</a></li>
+			<li id="n-Movies-.28non-GFM.29"><a href="http://www.illustris-project.org/w/index.php/Movies_(non-GFM)">Movies (non-GFM)</a></li>
+			<li id="n-Talk-Slides"><a href="http://www.illustris-project.org/w/index.php/Talk_Slides">Talk Slides</a></li>
+		</ul>
+	</div>
+</div>
+
+<!-- /results -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal collapsed" role="navigation" id="p-tb">
+	<h3 tabindex="4"><a href="http://www.illustris-project.org/w/index.php/Data_Access_Examples#">Toolbox</a></h3>
+	<div class="body">
+		<ul>
+			<li id="t-whatlinkshere"><a href="http://www.illustris-project.org/w/index.php/Special:WhatLinksHere/Data_Access_Examples" title="A list of all wiki pages that link here [ctrl-option-j]" accesskey="j">What links here</a></li>
+			<li id="t-recentchangeslinked"><a href="http://www.illustris-project.org/w/index.php/Special:RecentChangesLinked/Data_Access_Examples" title="Recent changes in pages linked from this page [ctrl-option-k]" accesskey="k">Related changes</a></li>
+			<li id="t-upload"><a href="http://www.illustris-project.org/w/index.php/Special:Upload" title="Upload files [ctrl-option-u]" accesskey="u">Upload file</a></li>
+			<li id="t-specialpages"><a href="http://www.illustris-project.org/w/index.php/Special:SpecialPages" title="A list of all special pages [ctrl-option-q]" accesskey="q">Special pages</a></li>
+			<li id="t-print"><a href="http://www.illustris-project.org/w/index.php?title=Data_Access_Examples&printable=yes" rel="alternate" title="Printable version of this page [ctrl-option-p]" accesskey="p">Printable version</a></li>
+			<li id="t-permalink"><a href="http://www.illustris-project.org/w/index.php?title=Data_Access_Examples&oldid=662" title="Permanent link to this revision of the page">Permanent link</a></li>
+			<li id="t-info"><a href="http://www.illustris-project.org/w/index.php?title=Data_Access_Examples&action=info">Page information</a></li>
+		</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+			<!-- /panel -->
+		</div>
+		<!-- footer -->
+		<div id="footer" role="contentinfo">
+							<ul id="footer-info">
+											<li id="footer-info-lastmod"> This page was last modified on 10 June 2014, at 21:19.</li>
+											<li id="footer-info-viewcount">This page has been accessed 385 times.</li>
+									</ul>
+										<ul id="footer-icons" class="noprint">
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="./Data Access Examples - IllustrisWiki_files/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31"></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		<script>if(window.mw){
+mw.loader.state({"site":"loading","user":"missing","user.groups":"loading"});
+}</script>
+<script>if(window.mw){
+mw.loader.load(["ext.math.mathjax.enabler","mediawiki.action.view.postEdit","mediawiki.user","mediawiki.page.ready","mediawiki.page.watch.ajax","mediawiki.searchSuggest","mediawiki.hidpi","ext.vector.collapsibleNav","ext.vector.collapsibleTabs","skins.vector.js"], null, true);
+}</script>
+<script src="./Data Access Examples - IllustrisWiki_files/load(6).php"></script>
+<script>if(window.mw){
+mw.loader.state({"user.groups":"ready"});
+}</script>
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script src="./Data Access Examples - IllustrisWiki_files/ga.js" type="text/javascript"></script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-25177588-5");
+pageTracker._trackPageview();
+</script><!-- Served in 0.082 secs. -->
+	
+
+<div class="suggestions" style="display: none; font-size: 13px;"><div class="suggestions-results"></div><div class="suggestions-special"></div></div><div id="MathJax_Font_Test" style="position: absolute; visibility: hidden; top: 0px; left: 0px; width: auto; padding: 0px; border: 0px; margin: 0px; white-space: nowrap; text-align: left; text-indent: 0px; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; font-size: 40px; font-weight: normal; font-style: italic; font-family: MathJax_Math, sans-serif;"></div></body></html>

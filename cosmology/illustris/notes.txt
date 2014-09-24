@@ -1,0 +1,17 @@
+
+dark matter and gas softening ~ 1 kpc
+
+
+subfind algorithm searches for structure in galaxies. looks for radius in
+structures above which the integrated density corresponds to a virialized body.
+
+1 merger tree - tracks the mergers of virialized objects
+
+data can be found at
+/d/sierra3/astro735/Illustris-3/
+
+
+
+
+
+

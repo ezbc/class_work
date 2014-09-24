@@ -1,0 +1,259 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 9.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       157,          7]
+NotebookDataLength[      8753,        250]
+NotebookOptionsPosition[      8106,        226]
+NotebookOutlinePosition[      8660,        246]
+CellTagsIndexPosition[      8617,        243]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"omega", "[", 
+   RowBox[{"kx_", ",", " ", "ky_", ",", "kz_"}], "]"}], " ", ":=", " ", 
+  RowBox[{"N", " ", "*", 
+   RowBox[{
+    SuperscriptBox[
+     RowBox[{"(", 
+      RowBox[{
+       SuperscriptBox["kx", "2"], "+", 
+       SuperscriptBox["ky", "2"]}], ")"}], "0.5"], "/", " ", 
+    SuperscriptBox[
+     RowBox[{"(", 
+      RowBox[{
+       SuperscriptBox["kx", "2"], "+", 
+       SuperscriptBox["ky", "2"], "+", 
+       SuperscriptBox["kz", "2"]}], ")"}], 
+     "0.5"]}]}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   SubscriptBox["c", "gr"], ":=", 
+   RowBox[{"Grad", "[", 
+    RowBox[{
+     RowBox[{"omega", "[", 
+      RowBox[{"kx", ",", "ky", ",", "kz"}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"kx", ",", "ky", ",", "kz"}], "}"}]}], "]"}]}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]"}], "Input",
+ CellChangeTimes->{{3.6081237498784637`*^9, 3.6081237545590267`*^9}, {
+   3.60830860051191*^9, 3.608308629116106*^9}, {3.608308670140828*^9, 
+   3.608308683516758*^9}, {3.608308791220615*^9, 3.608308797495551*^9}, {
+   3.60830883100329*^9, 3.608308833097884*^9}, {3.608308933828615*^9, 
+   3.608308984864012*^9}, 3.608309096952821*^9, {3.608309173922587*^9, 
+   3.6083091797991877`*^9}, {3.608309230412657*^9, 3.6083092689736357`*^9}, {
+   3.608309598689701*^9, 3.60830967017203*^9}, {3.6083099107212048`*^9, 
+   3.608309938410862*^9}, {3.608310338375371*^9, 3.608310390218028*^9}, 
+   3.608311601796445*^9, {3.60831269623636*^9, 3.6083127046459227`*^9}, {
+   3.608312736820547*^9, 3.6083127449661713`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  SubscriptBox["c", "ph"], " ", ":=", " ", 
+  RowBox[{"N", "*", 
+   RowBox[{
+    SuperscriptBox[
+     RowBox[{"(", 
+      RowBox[{
+       SuperscriptBox["kx", "2"], "+", 
+       SuperscriptBox["ky", "2"]}], ")"}], "0.5"], " ", "/", " ", 
+    SuperscriptBox[
+     RowBox[{"(", 
+      RowBox[{
+       SuperscriptBox["kx", "2"], "+", 
+       SuperscriptBox["ky", "2"], "+", 
+       SuperscriptBox["kz", "2"]}], ")"}], 
+     RowBox[{"3", "/", "2"}]]}], " ", "*", 
+   RowBox[{"{", 
+    RowBox[{"kx", ",", "ky", ",", "kz"}], "}"}]}]}], "\[IndentingNewLine]", 
+ RowBox[{"Text", "[", 
+  "\"\<To test the orthoganality of the phase and group velocities, we dot \
+the velocities, resulting in:\>\"", "]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  SubscriptBox["c", "ph"], ".", 
+  SubscriptBox["c", "gr"]}], "\[IndentingNewLine]", 
+ RowBox[{"Text", "[", "\"\<Suggesting that they are not orthoganal\>\"", 
+  "]"}]}], "Input",
+ CellChangeTimes->{{3.608123763329596*^9, 3.6081238863671293`*^9}, {
+   3.6081239698086042`*^9, 3.6081240517792797`*^9}, {3.608124113732025*^9, 
+   3.608124143628683*^9}, {3.6081241745882473`*^9, 3.608124371763091*^9}, {
+   3.608124765145544*^9, 3.6081247890743217`*^9}, {3.6083077188493958`*^9, 
+   3.60830788036327*^9}, {3.608307957961128*^9, 3.6083081634356194`*^9}, {
+   3.608308208290226*^9, 3.608308209430153*^9}, {3.608308248417913*^9, 
+   3.608308279475741*^9}, {3.608308418636001*^9, 3.608308505291597*^9}, {
+   3.608308540640984*^9, 3.6083085409807587`*^9}, {3.608309990596382*^9, 
+   3.6083099977325783`*^9}, {3.608310061021215*^9, 3.6083100847578773`*^9}, {
+   3.6083101694742603`*^9, 3.6083101757953*^9}, {3.608310239444295*^9, 
+   3.608310266254051*^9}, {3.608310529260069*^9, 3.608310548707892*^9}, {
+   3.60831159464205*^9, 3.6083116999475193`*^9}, 3.608311733250741*^9, 
+   3.6083118363868837`*^9, {3.6083128105796328`*^9, 3.6083128324525433`*^9}}],
+
+Cell[BoxData[
+ InterpretationBox[Cell[BoxData[
+   FormBox["\<\"To test the orthoganality of the phase and group velocities, \
+we dot the velocities, resulting in:\"\>", TextForm]], "InlineText"],
+  Text["To test the orthoganality of the phase and group velocities, we dot \
+the velocities, resulting in:"]]], "Output",
+ CellChangeTimes->{{3.608312821832099*^9, 3.608312847359717*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"-", 
+   FractionBox[
+    RowBox[{"1.`", " ", 
+     SuperscriptBox[
+      RowBox[{"(", 
+       RowBox[{
+        SuperscriptBox["kx", "2"], "+", 
+        SuperscriptBox["ky", "2"]}], ")"}], "1.`"], " ", 
+     SuperscriptBox["kz", "2"], " ", 
+     SuperscriptBox["N", "2"]}], 
+    SuperscriptBox[
+     RowBox[{"(", 
+      RowBox[{
+       SuperscriptBox["kx", "2"], "+", 
+       SuperscriptBox["ky", "2"], "+", 
+       SuperscriptBox["kz", "2"]}], ")"}], "3.`"]]}], "+", 
+  FractionBox[
+   RowBox[{"kx", " ", 
+    SuperscriptBox[
+     RowBox[{"(", 
+      RowBox[{
+       SuperscriptBox["kx", "2"], "+", 
+       SuperscriptBox["ky", "2"]}], ")"}], "0.5`"], " ", "N", " ", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"-", 
+       FractionBox[
+        RowBox[{"1.`", " ", "kx", " ", 
+         SuperscriptBox[
+          RowBox[{"(", 
+           RowBox[{
+            SuperscriptBox["kx", "2"], "+", 
+            SuperscriptBox["ky", "2"]}], ")"}], "0.5`"], " ", "N"}], 
+        SuperscriptBox[
+         RowBox[{"(", 
+          RowBox[{
+           SuperscriptBox["kx", "2"], "+", 
+           SuperscriptBox["ky", "2"], "+", 
+           SuperscriptBox["kz", "2"]}], ")"}], "1.5`"]]}], "+", 
+      FractionBox[
+       RowBox[{"1.`", " ", "kx", " ", "N"}], 
+       RowBox[{
+        SuperscriptBox[
+         RowBox[{"(", 
+          RowBox[{
+           SuperscriptBox["kx", "2"], "+", 
+           SuperscriptBox["ky", "2"]}], ")"}], "0.5`"], " ", 
+        SuperscriptBox[
+         RowBox[{"(", 
+          RowBox[{
+           SuperscriptBox["kx", "2"], "+", 
+           SuperscriptBox["ky", "2"], "+", 
+           SuperscriptBox["kz", "2"]}], ")"}], "0.5`"]}]]}], ")"}]}], 
+   SuperscriptBox[
+    RowBox[{"(", 
+     RowBox[{
+      SuperscriptBox["kx", "2"], "+", 
+      SuperscriptBox["ky", "2"], "+", 
+      SuperscriptBox["kz", "2"]}], ")"}], 
+    RowBox[{"3", "/", "2"}]]], "+", 
+  FractionBox[
+   RowBox[{"ky", " ", 
+    SuperscriptBox[
+     RowBox[{"(", 
+      RowBox[{
+       SuperscriptBox["kx", "2"], "+", 
+       SuperscriptBox["ky", "2"]}], ")"}], "0.5`"], " ", "N", " ", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"-", 
+       FractionBox[
+        RowBox[{"1.`", " ", "ky", " ", 
+         SuperscriptBox[
+          RowBox[{"(", 
+           RowBox[{
+            SuperscriptBox["kx", "2"], "+", 
+            SuperscriptBox["ky", "2"]}], ")"}], "0.5`"], " ", "N"}], 
+        SuperscriptBox[
+         RowBox[{"(", 
+          RowBox[{
+           SuperscriptBox["kx", "2"], "+", 
+           SuperscriptBox["ky", "2"], "+", 
+           SuperscriptBox["kz", "2"]}], ")"}], "1.5`"]]}], "+", 
+      FractionBox[
+       RowBox[{"1.`", " ", "ky", " ", "N"}], 
+       RowBox[{
+        SuperscriptBox[
+         RowBox[{"(", 
+          RowBox[{
+           SuperscriptBox["kx", "2"], "+", 
+           SuperscriptBox["ky", "2"]}], ")"}], "0.5`"], " ", 
+        SuperscriptBox[
+         RowBox[{"(", 
+          RowBox[{
+           SuperscriptBox["kx", "2"], "+", 
+           SuperscriptBox["ky", "2"], "+", 
+           SuperscriptBox["kz", "2"]}], ")"}], "0.5`"]}]]}], ")"}]}], 
+   SuperscriptBox[
+    RowBox[{"(", 
+     RowBox[{
+      SuperscriptBox["kx", "2"], "+", 
+      SuperscriptBox["ky", "2"], "+", 
+      SuperscriptBox["kz", "2"]}], ")"}], 
+    RowBox[{"3", "/", "2"}]]]}]], "Output",
+ CellChangeTimes->{{3.608312821832099*^9, 3.608312847363961*^9}}],
+
+Cell[BoxData[
+ InterpretationBox[Cell[BoxData[
+   FormBox["\<\"Suggesting that they are not orthoganal\"\>", TextForm]], 
+   "InlineText"],
+  Text["Suggesting that they are not orthoganal"]]], "Output",
+ CellChangeTimes->{{3.608312821832099*^9, 3.608312847369446*^9}}]
+}, Open  ]]
+},
+WindowSize->{1177, 642},
+WindowMargins->{{22, Automatic}, {Automatic, -5}},
+PrintingCopies->1,
+PrintingPageRange->{Automatic, Automatic},
+PrintingOptions->{"PaperOrientation"->"Portrait",
+"PaperSize"->{Automatic, Automatic},
+"PostScriptOutputFile"->"/home/ezbc/classes/fluids/hw4/print.pdf"},
+FrontEndVersion->"9.0 for Linux x86 (64-bit) (February 7, 2013)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[557, 20, 1567, 37, 104, "Input"],
+Cell[CellGroupData[{
+Cell[2149, 61, 1901, 39, 104, "Input"],
+Cell[4053, 102, 384, 6, 36, "Output"],
+Cell[4440, 110, 3379, 106, 155, "Output"],
+Cell[7822, 218, 268, 5, 69, "Output"]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)

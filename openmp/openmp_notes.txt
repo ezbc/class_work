@@ -1,0 +1,25 @@
+Overview
+    
+    - Open source code for using multiple processors
+
+    - Takes compiler directives
+
+        - Tells compilers to use multiple processors
+
+    - Symmetric multiprocessor system includes
+
+        1) a pool of shared memory
+        
+        2) accessible by 2 or more identical processors
+
+        3) running under a single OS
+
+    - Directives
+        
+        - Enclose block of code which should use multiple processors
+
+
+
+
+
+

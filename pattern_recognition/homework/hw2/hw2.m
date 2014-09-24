@@ -44,11 +44,13 @@ end
 shape = size(noisey);
 denoised_image = reshape(denoised_image, shape(1), shape(2));
 
-figure(1);clf;
+fig = figure(1);clf;
 subplot(141);imagesc(original, [0,256]);axis image; colormap gray
 subplot(142);imagesc(noisey, [0,256]);axis image; colormap gray
 subplot(143);imagesc(xavg, [0,256]);axis image; colormap gray
 subplot(144);imagesc(denoised_image, [0,256]);axis image; colormap gray
 linkaxes
+
+saveas(fig, 'noisey_images', 'png')
 
 
