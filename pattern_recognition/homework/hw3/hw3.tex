@@ -70,14 +70,15 @@
         
         See Figure~\ref{fig:1b} for a sketch of the problem.
 
-        \begin{centering}
         \begin{figure}[!ht]
-            \includegraphics[scale=0.08]{problem1b_fig.jpg}
+            \begin{centering}
+
+            \includegraphics[scale=0.08]{problem1b_fig.png}
 
             \caption{\label{fig:1b} Sketch of $\bm{A}$ and $\bm{b}$.}
 
+            \end{centering}
         \end{figure}
-        \end{centering}
 
     \end{homeworkSection}
 
@@ -98,9 +99,33 @@
 
     \end{homeworkSection}
 
-    \begin{homeworkSection}{2b}
+    \begin{homeworkSection}{2c}
 
-        
+                See Figure~\ref{fig:2c}.
+
+        \begin{figure}[!ht]
+            \begin{centering}
+            \includegraphics[scale=1]{problem2c_fig.png}
+
+            \caption{\label{fig:2c} $\bm{A}$ and $\bm{b}$.}
+            
+            \end{centering}
+        \end{figure}
+
+    \end{homeworkSection}
+
+    \begin{homeworkSection}{2d}
+
+                See Figure~\ref{fig:2d}.
+
+        \begin{figure}[!ht]
+        \begin{centering}
+            \includegraphics[scale=1]{problem2d_fig.png}
+
+            \caption{\label{fig:2d} $\bm{A}$ and $\bm{b}$.}
+
+        \end{centering}
+        \end{figure}
 
     \end{homeworkSection}
 
@@ -113,15 +138,46 @@
 %-------------------------------------------------------------------------------
 \begin{homeworkProblem}
 
-    Given 
-    
-    \begin{equation}
-        \cos(\bm{x},\bm{y}) = \frac{\bm{x}^T\bm{y}}{\|\bm{x}\|_2 \|\bm{y}\|_2}
-    \end{equation}
+    \begin{homeworkSection}{3a}
 
-    \noindent and that $|\cos(\bm{x},\bm{y})| \leq 1$, the absolute value of
-    the numerator cannot be larger than the denominator, thus $|\bm{x}^T\bm{y}|
-    \leq \|\bm{x}\|_2 \|\bm{y}\|_2$.
+        To find min$_{\bm{x}} \|\tilde{\bm{A}}\bm{x} - \tilde{\bm{b}}\|_2$ we
+        know that the expression will be smallest when the difference inside
+        the norm is equal to 0. Thus our problem becomes solving the linear
+        equation
+
+        \begin{equation*}
+            \tilde{\bm{A}}\bm{x} = \tilde{\bm{b}}
+        \end{equation*}
+
+        \noindent for $\bm{x}$ for which there is the well-known solution
+
+        \begin{equation*} 
+            (\tilde{\bm{A}}^T \tilde{\bm{A}})^{-1}
+            \tilde{\bm{A}}^T \tilde{\bm{b}} = \bm{x}
+        \end{equation*}
+
+    \end{homeworkSection}
+
+    \begin{homeworkSection}{3b}
+       
+        See Figure~\ref{fig:3b} and the following code
+        \pythonexternal{hw3.m}
+
+        \begin{figure}[!ht]
+        \begin{centering}
+            \includegraphics[scale=1]{problem3c_fig.png}
+
+            \caption{\label{fig:3b} Plot of data with fitted 9th degree
+            polynomial with varying values of $\epsilon$.}
+
+        \end{centering}
+        \end{figure}
+
+    \end{homeworkSection}
+
+    \begin{homeworkSection}{3c}
+        See Figure~\ref{fig:3b}.
+    \end{homeworkSection}
 
 \end{homeworkProblem}
 %===============================================================================
@@ -134,107 +190,90 @@
 
     \begin{homeworkSection}{4a}
 
-        Given $\bm{y} = \bm{Ax}$ we can write $\bm{x}$ as
-        
-        \begin{equation}
-            \bm{x = A}^{-1}\bm{y}
-        \end{equation}
+        By solving the linear equation
+
+        \begin{equation*}
+            \bm{A x} = \bm{b}
+        \end{equation*}
+
+        \noindent we obtain a set of weights $\bm{x}$ where
+
+        \begin{equation*}
+            \bm{x} = \left(\begin{matrix}
+                             0.943 \\
+                             0.213 \\
+                             0.266 \\
+                            -0.392 \\
+                            -0.005 \\
+                            -0.017 \\
+                            -0.166 \\
+                            -0.082 \\
+                            -0.166 \\
+          \end{matrix}\right)       
+        \end{equation*}
 
     \end{homeworkSection}
 
     \begin{homeworkSection}{4b}
 
-        To bound the 2-norm of $\bm{x}$ with a function of $\bm{A}$ and $\bm{y}$
-        we first take $\|\bm{x}\| = \|\bm{A}^{-1}\bm{y}\|$ which can be
-        expressed as
-
-        \begin{equation}
-            \frac{\|\bm{A}^{-1}\bm{y}\|}{\|\bm{y}\|}\|\bm{y}\|
-        \end{equation}
-        
-        \noindent where
-
-        \begin{equation}\label{eq:matrix_norm}
-            \frac{\|\bm{A}^{-1}\bm{y}\|}{\|\bm{y}\|}
-        \end{equation}
-
-        \noindent is the matrix norm. Eq.~\ref{eq:matrix_norm} will always be
-        less than $\|\bm{A}^{-1}\|$, thus
-        
-        \begin{equation}
-            \|\bm{x}\| \leq \|\bm{A}^{-1}\|\|\bm{y}\|
-        \end{equation}
-
+        To classify a new face as happy or mad we would multiply the new data
+        matrix $\bm{a}_i$ by the weights. If the product is greater than 0,
+        then the face is happy, if the product is less than 0, the face is
+        mad.
 
     \end{homeworkSection}
 
-\end{homeworkProblem}
-%===============================================================================
+    \begin{homeworkSection}{4c}
 
-%===============================================================================
-%-------------------------------------------------------------------------------
-%	PROBLEM 5
-%-------------------------------------------------------------------------------
-\begin{homeworkProblem}
-
-    \begin{homeworkSection}{5a}
-
-        The rank of $\bm{A}$ is 3.
+        Feature 1 best determines a happy face because it has the largest
+        positive weight, while feature 4 best determines a mad face because it
+        has the smallest negative weight. 
 
     \end{homeworkSection}
 
-    \begin{homeworkSection}{5b}
-
-        $\bm{x}$ can be expressed as 
-
-        \begin{equation}
-            \bm{x} = \left(\begin{matrix}
-                         0 &   0 &  1 \\
-                         0 &   1 & -1 \\
-                         1 &  -1 &  0
-            \end{matrix} \right) \bm{y}
-        \end{equation}
-
-    \end{homeworkSection}
-
-\end{homeworkProblem}
-%===============================================================================
-
-%===============================================================================
-%-------------------------------------------------------------------------------
-%	PROBLEM 6
-%-------------------------------------------------------------------------------
-\begin{homeworkProblem}
-
-    \begin{homeworkSection}{6a}
-
-        The rank of $\bm{X}$ is 3. 
-
-    \end{homeworkSection}
+    \begin{homeworkSection}{4d}
         
+        To build a classifier out of just three features we will use the
+        features with the largest absolute value weight, at least one feature
+        for happy and mad (positive and negative weights) and attempt to
+        minimize the difference between the sum of the absolute values of
+        weights for happy and mad features. The final criterion allows us to
+        compromise our accuracy for determining a happy face or a mad face. \\
 
-    \begin{homeworkSection}{6b}
-        
-        The rank of $\frac{\bm{XX^T}}{n}$ is 3. 
+        These criteria lead us to choose features 1, 4, and 9 as the three most
+        important features for determining a happy or a mad face. We would
+        build a classifier in the same way as in Problem \S 4b, except using
+        only features 1, 4, and 9.
 
     \end{homeworkSection}
     
-    \begin{homeworkSection}{6c}
+    \begin{homeworkSection}{4e}
+        
+        Please see the code under the function 4e at the end of the homework.
 
-        A set of linearly independent columns of $\bm{X}$ are
+    \end{homeworkSection}
+    
+    \begin{homeworkSection}{4f}
 
-        \begin{math}
-             \left(\begin{matrix} 1\\0\\0\\0\\ \end{matrix}\right) 
-             \left(\begin{matrix} 0\\1\\0\\0\\ \end{matrix}\right) 
-             \left(\begin{matrix} 1\\0\\0\\1\\ \end{matrix}\right) 
-        \end{math}
+        Errors with 9 features: \\
+            False positives = 0.507 \\
+            False negatives = 0.492 \\ \\
+
+        Errors with 3 features: \\
+            False positives = 0.507 \\
+            False negatives = 0.492 \\ \\
+
+        We can see that using three features works just as well as using the
+        nine features.
 
     \end{homeworkSection}
 
 \end{homeworkProblem}
 %===============================================================================
 
-
+\begin{homeworkProblem}
+    \pythonexternal{hw3.py}
+\end{homeworkProblem}
 
 \end{document}
 

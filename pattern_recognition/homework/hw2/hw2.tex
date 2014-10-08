@@ -59,7 +59,7 @@
         \noindent as the following sum of rank-1 matrices
 
         \begin{equation}
-            {\bm C} = \sum_{i = 1}^{\infty} \frac{\bm{x}_i \bm{x}_i^T}{n}
+            {\bm C} = \sum_{i = 1}^{n} \frac{\bm{x}_i \bm{x}_i^T}{n}
         \end{equation}
 
     \end{homeworkSection}
@@ -91,7 +91,7 @@
 
         \noindent we first recognize that $\Phi(\bm{x})$ is simply a sum over
         an instance of the $p$-norm where $p = 2$ because $i \in G_j$ will
-        include all elements in the sent $\{1, 2, \dots, n\}$. The sum over the
+        include all elements in the set $\{1, 2, \dots, n\}$. The sum over the
         $p$-norm is also a 1-norm. The norm of a norm, is in fact a norm, thus
         $\Phi(\bm{x})$ is a norm.
         
@@ -230,6 +230,40 @@
         \end{math}
 
     \end{homeworkSection}
+
+\end{homeworkProblem}
+%===============================================================================
+
+
+%===============================================================================
+%-------------------------------------------------------------------------------
+%	PROBLEM 7
+%-------------------------------------------------------------------------------
+\begin{homeworkProblem}
+
+    We have adopted a non-local method of denoising an image based on matching
+    intensities throughout the image. Our algorithm cycles through each pixel
+    in the noisey image and chooses 25\% of the total pixels which are closest
+    in intensity to the pixel in the cycle. See Figure~\ref{fig:images} for an
+    example of the local vs. non-local denoising algorithms. We can see that
+    the non-local intensity averaging does not retain the original contrast
+    levels in the image, but does successfully decrease the noise.
+
+    \begin{figure}[!ht]
+        
+        \includegraphics{noisey_images.png}
+
+        \caption{\label{fig:images} {\it Left:} Original image. {\it Left
+            middle:} Original image with added Gaussian noise. {\it Right
+            middle:} Denoised image with a local kernel filter. {\it Right:}
+        Denoised image with intensity matching.}
+
+    \end{figure}
+
+    \clearpage
+    %\pythonexternal{hw2.m}
+    Below is the code used to perform the intensity matching denoising.
+    \lstinputlisting{hw2.m}
 
 \end{homeworkProblem}
 %===============================================================================
