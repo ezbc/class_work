@@ -1,0 +1,122 @@
+%-------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%-------------------------------------------------------------------------------
+
+\documentclass[11pt]{article}
+
+% Packages
+\input{my_packages.tex}
+
+% formatting
+\input{my_format.tex}
+
+%-------------------------------------------------------------------------------
+%	NAME AND CLASS SECTION
+%-------------------------------------------------------------------------------
+
+\newcommand{\hmwkTitle}{HW 7} % Assignment title
+\newcommand{\hmwkDueDate}{Thursday, Oct. 9} % Due date
+\newcommand{\hmwkClass}{Stat 860} % Course/class
+\newcommand{\hmwkClassTime}{4:00 PM} % Class/lecture time
+\newcommand{\hmwkClassInstructor}{Grace Wahba} % Teacher/lecturer
+\newcommand{\hmwkAuthorName}{Elijah Bernstein-Cooper} % Your name
+
+%-------------------------------------------------------------------------------
+%	TITLE PAGE
+%-------------------------------------------------------------------------------
+
+\title{\vspace{0in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}
+    \vspace{0.2in}}
+
+\author{\textbf{Elijah Bernstein-Cooper}}
+\date{\today} % Insert date here if you want it to appear below your name
+
+%-------------------------------------------------------------------------------
+
+\begin{document}
+
+\maketitle
+%\newpage
+
+%===============================================================================
+%-------------------------------------------------------------------------------
+%	PROBLEM 1
+%-------------------------------------------------------------------------------
+\begin{homeworkProblem}
+
+    We fit a thin plate spline model of noisy data with varying degrees of
+    noise. We fit the spline model with generalized cross-validation
+    minimization, and with too large of a smoothing parameter and too small of
+    a smoothing parameter. With decreasing noise, the derived the minimizer of
+    the Hilbert space, $\mathcal{H}$, will be determined with greater
+    confidence. $\Lambda$ will increase with larger variation in the data, the
+    residual sum of squares will increase, the degrees of freedom of the noise
+    will increase, and the estimate of $\sigma$ will increase. Figures 1
+    through 5 show resulting fits to data with different degrees of noise. For
+    smaller noise in the data, the oversmoothed and undersmoothed fits to the
+    data are more accurate than for larger noise in the data. This is due to
+    the smaller smoothing required to reproduce the true function in less noisy
+    data, and the code only scales the GCV estimate of the smoothing factor,
+    thus the oversmoothed and undersmoothed fits will not be as extreme for
+    noisier data.
+    
+        \begin{figure}[!ht]
+            
+            \begin{centering}
+                \includegraphics[scale=0.8]{result_0001.png}
+
+            \caption{Results from $\sigma = 0.001m$.}
+
+            \end{centering}
+        \end{figure}
+
+        \begin{figure}[!ht]
+            
+            \begin{centering}
+                \includegraphics[scale=0.8]{result_006325.png}
+
+            \caption{Results from $\sigma = 0.006235m$.}
+
+            \end{centering}
+        \end{figure}
+        \begin{figure}[!ht]
+            
+            \begin{centering}
+                \includegraphics[scale=0.8]{result_01255.png}
+
+            \caption{Results from $\sigma = 0.01255m$.}
+
+            \end{centering}
+        \end{figure}
+
+        \begin{figure}[!ht]
+            
+            \begin{centering}
+                \includegraphics[scale=0.8]{result_018775.png}
+
+            \caption{Results from $\sigma = 0.018775m$.}
+
+            \end{centering}
+        \end{figure}
+
+        \begin{figure}[!ht]
+            
+            \begin{centering}
+                \includegraphics[scale=0.8]{result_025.png}
+
+            \caption{Results from $\sigma = 0.025m$.}
+
+            \end{centering}
+        \end{figure}
+
+
+
+\end{homeworkProblem}
+%===============================================================================
+
+
+\end{document}
+
