@@ -1,0 +1,123 @@
+%-------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%-------------------------------------------------------------------------------
+
+\documentclass[11pt]{article}
+
+% Packages
+\input{my_packages.tex}
+
+% formatting
+\input{my_format.tex}
+
+\bibliographystyle{apj}
+\usepackage{float} % for figure placement
+\usepackage{natbib} % for bibtex referencing
+\usepackage{cite} % cite with bibtex
+\usepackage{aas_macros} % for journal referencing
+\usepackage{hyperref} % for including urls
+
+%-------------------------------------------------------------------------------
+%	NAME AND CLASS SECTION
+%-------------------------------------------------------------------------------
+
+\newcommand{\hmwkTitle}{HW 11} % Assignment title
+\newcommand{\hmwkDueDate}{Tuesday, Oct. 28} % Due date
+\newcommand{\hmwkClass}{Stat 860} % Course/class
+\newcommand{\hmwkClassTime}{4:00 PM} % Class/lecture time
+\newcommand{\hmwkClassInstructor}{Grace Wahba} % Teacher/lecturer
+\newcommand{\hmwkAuthorName}{Elijah Bernstein-Cooper} % Your name
+
+%-------------------------------------------------------------------------------
+%	TITLE PAGE
+%-------------------------------------------------------------------------------
+
+\title{\vspace{0in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}
+    \vspace{0.2in}}
+
+\author{\textbf{Elijah Bernstein-Cooper}}
+\date{\today} % Insert date here if you want it to appear below your name
+
+%-------------------------------------------------------------------------------
+
+\begin{document}
+
+\maketitle
+%\newpage
+
+%===============================================================================
+%-------------------------------------------------------------------------------
+%	PROBLEM 1
+%-------------------------------------------------------------------------------
+\begin{homeworkProblem}
+
+    Abstract for \citet{lindner:vera-ciro:murray:stanimirovic:2014}:
+
+    \begin{quote}
+
+        We present a new algorithm, named Autonomous Gaussian Decomposition
+        (AGD), for automatically decomposing spectra into Gaussian components.
+        AGD uses derivative spectroscopy and machine learning to provide
+        optimized guesses for the number of Gaussian components in the data,
+        and also their locations, widths, and amplitudes. We test AGD and find
+        that it produces results comparable to human-derived solutions on 21cm
+        absorption spectra from the 21cm SPectral line Observations of Neutral
+        Gas with the EVLA (21-SPONGE) survey. We use AGD with Monte Carlo
+        methods to derive the HI line completeness as a function of peak
+        optical depth and velocity width for the 21-SPONGE data, and also show
+        that the results of AGD are stable against varying observational noise
+        intensity. The autonomy and computational efficiency of the method over
+        traditional manual Gaussian fits allow for truly unbiased comparisons
+        between observations and simulations, and for the ability to scale up
+        and interpret the very large data volumes from the upcoming Square
+        Kilometer Array and pathfinder telescopes.
+        
+    \end{quote}
+
+    URL: \url{http://arxiv.org/abs/1409.2840} \\
+
+    \clearpage
+    Abstract for \citet{yeow:azali:ow:wong:2005}:
+    
+    \begin{quote}
+        
+        The problem of differentiating spectral data to yield the third and
+        fourth derivatives is converted into one of solving an integral
+        equation of the first kind. This equation is solved by Tikhonov
+        regularization. The method of General Cross Validation is used to guide
+        the choice of the regularization parameter that keeps noise
+        amplification under control. The performance of this route to third and
+        fourth derivative spectra is demonstrated by applying it to a number of
+        published spectra. A computational problem associated with General
+        Cross Validation has been identified.
+
+    \end{quote}
+
+    URL: \url{http://www.hindawi.com/journals/isrn/2011/164564/abs/} \\
+
+    Abstract for \citet{chartrand:2011}:
+
+    \begin{quote}
+
+        We consider the problem of differentiating a function specified by
+        noisy data. Regularizing the differentiation process avoids the noise
+        amplification of finite-difference methods. We use total-variation
+        regularization, which allows for discontinuous solutions. The resulting
+        simple algorithm accurately differentiates noisy functions, including
+        those which have a discontinuous derivative.
+
+    \end{quote}
+
+    URL:
+    \url{http://www.sciencedirect.com/science/article/pii/S0039914005003267} \\
+
+\end{homeworkProblem}
+%===============================================================================
+
+    \bibliography{refs}
+
+\end{document}
+

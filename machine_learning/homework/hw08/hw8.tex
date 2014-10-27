@@ -1,0 +1,176 @@
+%-------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%-------------------------------------------------------------------------------
+
+\documentclass[11pt]{article}
+
+% Packages
+\input{my_packages.tex}
+
+% formatting
+\input{my_format.tex}
+
+%-------------------------------------------------------------------------------
+%	NAME AND CLASS SECTION
+%-------------------------------------------------------------------------------
+
+\newcommand{\hmwkTitle}{HW 8} % Assignment title
+\newcommand{\hmwkDueDate}{Thursday, Oct. 16} % Due date
+\newcommand{\hmwkClass}{Stat 860} % Course/class
+\newcommand{\hmwkClassTime}{4:00 PM} % Class/lecture time
+\newcommand{\hmwkClassInstructor}{Grace Wahba} % Teacher/lecturer
+\newcommand{\hmwkAuthorName}{Elijah Bernstein-Cooper} % Your name
+
+%-------------------------------------------------------------------------------
+%	TITLE PAGE
+%-------------------------------------------------------------------------------
+
+\title{\vspace{0in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}
+    \vspace{0.2in}}
+
+\author{\textbf{Elijah Bernstein-Cooper}}
+\date{\today} % Insert date here if you want it to appear below your name
+
+%-------------------------------------------------------------------------------
+
+\begin{document}
+
+\maketitle
+%\newpage
+
+%===============================================================================
+%-------------------------------------------------------------------------------
+%	PROBLEM 1
+%-------------------------------------------------------------------------------
+\begin{homeworkProblem}
+
+    \begin{homeworkSection}{1a}
+        See Figure 1 for a plot of $f(x)$ and the smoothing spline. $f(x)$
+        consists of three Gaussians superimposed on one another across $x =
+        1$ to $x = 100$, with varying means, heights, and widths. We then
+        added normal random error to $f(x)$ to be equal to 1\% the maximum
+        of $f(x)$. We found that the residual, $R(\lambda) = 2 \times
+        10^{-5}$, and the inefficiency, $I = R(\lambda)/R(\lambda_*) =
+        2.16$. The optimal $\lambda_*$ was determined empirically, simply by
+        testing a range of $\lambda$ values to smooth the spline fit, until the
+        residual was minimized.\\
+
+        \begin{figure}[!ht]
+           
+            \begin{centering}
+                \includegraphics[scale=0.8]{hw8_1a_f_vs_x.png}
+
+                \caption{Plot of noisy function $f(x)$ and the fitted spline
+                using generalized cross validation, $f_{\hat{\lambda}}(x)$.}
+
+            \end{centering}
+        \end{figure}
+
+        \pythonexternal{hw8_1a.r}
+
+    \end{homeworkSection}
+
+    \begin{homeworkSection}{1b}
+
+        We ran a monte carlo simulation of fitting splines to $f(x)$ 20 times
+        for different sets of random noise of the same standard deviation in
+        the same way as in problem 1b. We performed this simulation with two
+        standard deviations of noise, one at 10\% and one at 1\% the peak of
+        $f(x)$. Additionally we performed the experiment for varying number of
+        samples of $f(x)$, for $n$ = 32, 64, 128, 256, and 512. For each
+        simulation run, we derived the residual $R(\lambda)$, the optimal
+        residual $R(\lambda_*)$, and the inefficiency $I$. Figure 2 shows the
+        distribution of residuals for different simulations. Figure 3 shows the
+        mean residual of a simulation as a function of the sampling number $n$.
+        We can see from Figure 3 that for a smaller noise, the spline fit
+        more quickly converges than for a larger noise, seeing as the change in
+        residual values is small as a function of $n$ in the case of the lower
+        noise.
+
+        \begin{figure}[!ht]
+            \begin{centering}
+                \includegraphics[scale=1]{hw8_1b_Rdist.png}
+
+                \caption{Box plot representations of the distributions of the
+                residuals for various sampling numbers, $n$, and noise
+            strengths, $\sigma$}
+
+            \end{centering}
+        \end{figure}
+
+        \begin{figure}[!ht]
+            
+            \begin{centering}
+                \includegraphics[scale=0.6]{hw8_1b_logR_vs_logn.png}
+
+                \caption{The mean residual of a simulation as a function of the
+                    sampling number $n$.  We can see that for a smaller noise,
+                    the spline fit more quickly converges than for a larger
+                    noise, seeing as the change in residual values is small as
+                a function of $n$ in the case of the lower noise. The residuals
+            do show a power-like slope as a function of the sampling size,
+        where log$R \sim$ constant $-p$\,log$n$.}
+
+            \end{centering}
+        \end{figure}
+
+        \pythonexternal{hw8_2.r}
+
+    \end{homeworkSection}
+
+\end{homeworkProblem}
+%===============================================================================
+
+\clearpage
+
+%===============================================================================
+%-------------------------------------------------------------------------------
+%	PROBLEM 2
+%-------------------------------------------------------------------------------
+\begin{homeworkProblem}
+    
+    We performed similar monte carlo simulations as in problem 1b for the same
+    sampling numbers, and only for one value of the added noise standard
+    deviation equal to 50\% of the peak function value. Figure 4 shows the
+    distribution of residuals for the different simulations. Figure 5 shows the
+    mean residual of a simulation as a function of the sampling number $n$. We
+    can see from comparing Figure 3 with Figure 5 that the larger noise
+    provides a much steeper slope in $R(n)$
+
+        \begin{figure}[!ht]
+            \begin{centering}
+                \includegraphics[scale=1]{hw8_2_Rdist.png}
+
+                \caption{Box plot representations of the distributions of the
+                    residuals for various sampling numbers, $n$, $\sigma =
+                    50\%$max($f$).}
+
+            \end{centering}
+        \end{figure}
+
+        \begin{figure}[!ht]
+            
+            \begin{centering}
+                \includegraphics[scale=0.6]{hw8_2_logR_vs_logn.png}
+
+                \caption{The mean residual of a simulation as a function of the
+                    sampling number $n$. We can see that for a smaller noise,
+                    the spline fit more quickly converges than for a larger
+                    noise, seeing as the change in residual values is small as
+                a function of $n$ in the case of the lower noise, as compared
+            with Figure 3. The residuals do show a power-like slope as a
+        function of the sampling size, where log$R \sim$ constant $-p$\,log$n$.}
+
+            \end{centering}
+        \end{figure}
+
+        \pythonexternal{hw8_2.r}
+
+\end{homeworkProblem}
+%===============================================================================
+
+\end{document}
+
