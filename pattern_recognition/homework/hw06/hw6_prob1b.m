@@ -28,10 +28,10 @@ for ii = 1:npar
 end
 
 % Grab unique set indices for partitions
-indices = zeros(56, 2);
+indices = zeros(npar * (npar - 1), 2);
 count = 1;
-for test_index = 1:8
-    for tune_index = 1:8
+for test_index = 1:npar
+    for tune_index = 1:npar
         if test_index ~= tune_index
             indices(count, :) = [test_index tune_index];
             count = count + 1;

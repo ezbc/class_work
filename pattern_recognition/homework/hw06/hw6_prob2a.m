@@ -72,7 +72,7 @@ for i = 1:size(indices, 1)
     x_hats = cell(rank(s), 1);
     for k = 1:rank(s)
         s_trunc = [s(:, 1:k) zeros(size(s, 1), rank(s) - k)];
-        x_hats{k} = v * pinv(s) * u.' * b_train;
+        x_hats{k} = v * pinv(s_trunc) * u.' * b_train;
     end
 
     % Tune the regularization parameter
@@ -149,32 +149,32 @@ x_hat_rls = x_hats{min_index};
 % Comparison and plotting
 % ==============================================================================
 
-diff_ls = norm(x - x_hat_ls);
-diff_svd = norm(x - x_hat_svd);
-diff_rls = norm(x - x_hat_rls);
+norm_ls = norm(x - x_hat_ls)
+norm_svd = norm(x - x_hat_svd)
+norm_rls = norm(x - x_hat_rls)
 
 % plot
-limits = [0 250 -3 3]
+limits = [0 250 -3 3];
 figure(1)
 subplot(411)
-plot(x)
+plot(x);
 t=title('signal');
-axis([limits])
+axis([limits]);
 set(gca,'Fontsize',16)
 set(t,'Fontsize',16)
 
 subplot(412)
-plot(x_hat_ls)
-axis('tight')
-t=title('LS solution')
-axis([limits])
+plot(x_hat_ls);
+axis('tight');
+t=title('LS solution');
+axis([limits]);
 set(t,'Fontsize',16)
 set(gca,'Fontsize',16)
 
 subplot(413)
 plot(x_hat_rls)
 axis('tight')
-t=title('RLS solution')
+t=title('RLS solution');
 axis([limits])
 set(t,'Fontsize',16)
 set(gca,'Fontsize',16)
@@ -182,7 +182,7 @@ set(gca,'Fontsize',16)
 subplot(414)
 plot(x_hat_svd)
 axis('tight')
-t=title('Truncated SVD solution')
+t=title('Truncated SVD solution');
 axis([limits])
 set(t,'Fontsize',16)
 set(gca,'Fontsize',16)

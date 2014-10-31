@@ -28,10 +28,10 @@ for ii = 1:npar
 end
 
 % Grab unique set indices for partitions
-indices = zeros(56, 2);
+indices = zeros(npar * (npar - 1), 2);
 count = 1;
-for test_index = 1:8
-    for tune_index = 1:8
+for test_index = 1:npar
+    for tune_index = 1:npar
         if test_index ~= tune_index
             indices(count, :) = [test_index tune_index];
             count = count + 1;
@@ -61,10 +61,10 @@ for i = 1:size(indices, 1)
     [u, s, v] = svd(A_train, 'econ');
 
     % Calculate least squares solution for each regularization
-    x_hats = cell(K, 1);
-    for k = 1:K
-        s_trunc = [s(:, 1:k) zeros(size(s, 1), K - k)];
-        x_hats{k} = v * pinv(s) * u.' * b_train;
+    x_hats = cell(rank(s), 1);
+    for k = 1:rank(s)
+        s_trunc = [s(:, 1:k) zeros(size(s, 1), rank(s) - k)];
+        x_hats{k} = v * pinv(s_trunc) * u.' * b_train;
     end
 
     % Tune the regularization parameter
@@ -84,10 +84,8 @@ for i = 1:size(indices, 1)
 end
 
 % calculate mean of errors
-k_mins
-mean(errs)
-
-
+disp('Mean of errors')
+disp(mean(errs))
 
 
 

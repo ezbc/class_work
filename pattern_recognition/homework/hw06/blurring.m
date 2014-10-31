@@ -3,7 +3,7 @@ clear
 close all
 n = 250;
 k = 30;
-sigma = 0.01;
+sigma = 1;
 
 % generate random piecewise constant signal
 x = zeros(n,1);
