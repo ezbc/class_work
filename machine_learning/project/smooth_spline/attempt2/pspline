@@ -1,0 +1,2366 @@
+#!/bin/sh
+# This is Pspline, a shell archive (produced by GNU sharutils 4.2)
+# To extract the files from this archive, save it to some FILE, remove
+# everything before the `!/bin/sh' line above, then type `sh FILE'.
+#
+# Made on 1996-11-28 04:24 EST by <ramsay@ramsay2>.
+# Source directory was `/usr/export/home/ramsay2/ramsay/u1/Psmooth.dir'.
+#
+# Existing files will *not* be overwritten unless `-c' is specified.
+#
+# This shar contains:
+# length mode       name
+# ------ ---------- ------------------------------------------
+#   7092 -rw-r--r-- README.TXT
+#   2582 -rw-r--r-- INSTALL.TXT
+#   5278 -rw-r--r-- Pspline.q
+#  48224 -rw-r--r-- Pspline.f
+#   4641 -rw-r--r-- smooth.Pspline.d
+#   1734 -rw-r--r-- predict.smooth.Pspline.d
+#
+save_IFS="${IFS}"
+IFS="${IFS}:"
+gettext_dir=FAILED
+locale_dir=FAILED
+first_param="$1"
+for dir in $PATH
+do
+  if test "$gettext_dir" = FAILED && test -f $dir/gettext \
+     && ($dir/gettext --version >/dev/null 2>&1)
+  then
+    set `$dir/gettext --version 2>&1`
+    if test "$3" = GNU
+    then
+      gettext_dir=$dir
+    fi
+  fi
+  if test "$locale_dir" = FAILED && test -f $dir/shar \
+     && ($dir/shar --print-text-domain-dir >/dev/null 2>&1)
+  then
+    locale_dir=`$dir/shar --print-text-domain-dir`
+  fi
+done
+IFS="$save_IFS"
+if test "$locale_dir" = FAILED || test "$gettext_dir" = FAILED
+then
+  echo=echo
+else
+  TEXTDOMAINDIR=$locale_dir
+  export TEXTDOMAINDIR
+  TEXTDOMAIN=sharutils
+  export TEXTDOMAIN
+  echo="$gettext_dir/gettext -s"
+fi
+touch -am 1231235999 $$.touch >/dev/null 2>&1
+if test ! -f 1231235999 && test -f $$.touch; then
+  shar_touch=touch
+else
+  shar_touch=:
+  echo
+  $echo 'WARNING: not restoring timestamps.  Consider getting and'
+  $echo "installing GNU \`touch', distributed in GNU File Utilities..."
+  echo
+fi
+rm -f 1231235999 $$.touch
+#
+if mkdir _sh00901; then
+  $echo 'x -' 'creating lock directory'
+else
+  $echo 'failed to create lock directory'
+  exit 1
+fi
+# ============= README.TXT ==============
+if test -f 'README.TXT' && test "$first_param" != -c; then
+  $echo 'x -' SKIPPING 'README.TXT' '(file already exists)'
+else
+  $echo 'x -' extracting 'README.TXT' '(text)'
+  sed 's/^X//' << 'SHAR_EOF' > 'README.TXT' &&
+A. Overview of the Pspline Module
+X
+Functions  smooth.Pspline and  predict.smooth.Pspline  are intended to be
+similar in functionality and use to standard Splus functions  smooth.spline
+and  predict.smooth.spline.  The main difference is that the use can specify
+the order m of the derivative that is penalized in the penalized least
+squares criterion (using Latex notation)
+X
+n^{-1} \sum_i^n [y_i - h(t_i)]^2 + \lambda \int [D^m h(t)]^2 dt
+X
+In smooth.spline the order  m  is 2.  
+X
+The main motivation for this extension is that one may want to estimate
+a derivative of the fitted function  h .  For example, in the 
+principal differential analysis technique described in Ramsay (1996) 
+a decomposition of curves is developed that estimates a linear differential
+operator of order m, and requires derivative estimates through order m.
+X
+If derivatives are required, one is generally advised
+to let order  m  be two higher than the highest order derivative that is
+required, so that the curvature of the derivative is controlled by the 
+penalty parameter  \lambda.  For example, if one wanted the second derivative
+or acceleration function, one might well let  m = 4.  See the discussion
+of Silverman (1985) for many comments on derivative estimation by smoothing
+splines.
+X
+A derivative of specified order nderiv of h is computed by function 
+predict.smooth.Pspline.  The function is called with an argument array that
+may not be the same as that used to smooth the original data.  
+X
+X
+B. The O(n) Spline Smoothing Algorithm
+X
+The algorithm used by smooth.Pspline is an O(n) algorithm, meaning that
+the number of operations is proportional to the number of sampled values.
+The algorithm was originally defined by Anselone and Laurent (1967)
+and later applied to the cubic spline case (m = 2) by Reinsch (1967,1970),
+with subsequent refinements by Hutchison and de Hoog (1985).  
+X
+The extension to arbitrary m poses a technical problem of computing the 
+integral of the product of two basis splines.  While this can be worked out 
+analytically, the expressions become horribly complicated very rapidly as 
+m increases, and are also inefficient and inaccurate numerically.  
+Instead, in this version these integrals are computed using Gaussian 
+quadrature, which, since the product of two splines is piecewise a polynomial, 
+is exact except for rounding error.  The algorithm also checks for equally 
+spaced arguments, in which case the integral needs calculating only once 
+instead of n times.
+X
+Other applications of the Anselone-Laurent algorithm are described in
+a preprint by Heckman and Ramsay (1996).  
+X
+There are a few minor differences between smooth.Pspline and smooth.spline
+even when  m = 2   that the user should be aware of:
+X
+--  smooth.Pspline computes a natural spline while smooth.spline computes
+X    a B-spline.  The difference between the two will only be apparent at
+X    the leading and trailing intervals and will generally be small.
+X
+--  while smooth.spline permits duplicate argument values,  smooth.Pspline
+X    does not.  If the data do contain duplicate values for t_i, these
+X    should be eliminated, the corresponding y_i values averaged,
+X    and the corresponding weight array w set equal to the number of duplicate
+X    values.  
+X
+--  the method for choosing the smoothing parameter value, called  spar  in
+X    the argument list, has more options, and is controlled by the  method
+X    parameter.  Options are:
+X    method = 1 (default) use the value of spar supplied in the call
+X    method = 2 adjust  spar  so that the effective degrees of freedom are
+X       approximately equal to the value of the  df  parameter in the call  
+X    method = 3 choose  spar  so as to minimize the generalized cross-validation
+X       criterion (GCV)
+X    method = 4 choose  spar  so as to minimize the ordinary cross-validation
+X       criterion (CV)
+X  
+--  minimizing either the GCV or the CV criterion can potentially be a tricky
+X    business because there are often multiple local minima as well as a global
+X    minimum.  Functions smooth.spline and smooth.Pspline both use a well-known
+X    safe-guarded minimization technique referred to as Brent's method
+X    in Press, et al (1992).  They differ, however, in that smooth.spline
+X    starts this minimization technique off with an internally generated value,
+X    whereas smooth.Pspline starts the technique off with the value of the spar
+X    parameter if this is positive, or with the internal value used in
+X    smooth.spline otherwise.  This means that the user can conduct a crude
+X    preliminary grid search to identify the region of the global minimum
+X    using method=1 before refining this estimate with method=3 or 4.
+X        
+The argument list for smooth.Pspline is very similar to that for smooth.spline,
+except that the order of the derivative to be penalized is optionally
+specified, and that the type of smoothing parameter estimate is determined
+by the method argument as indicated above.  The function heading is as follows:
+X
+X  smooth.Pspline <- function(x, y, w=rep(1, length(x)), norder=2, 
+X                           df=norder+2, spar=0, method=1) 
+X
+Similarly, the function heading for  predict.smooth.Pspline is
+X
+X  predict.smooth.Pspline <- function(splobj, xarg, nderiv = 0) 
+X  
+X
+C.  Installation:
+X
+Consult the file INSTALL.TXT.
+X
+D. Acknowledgements
+X
+Preparation of this module was greatly aided by Trevor Hastie, who made available
+the code for smooth.spline.  The decision of keep the profile of smooth.Pspline
+as close to that of smooth.spline reflects in part my admiration for the
+quality of his software.  Nancy Heckman and Bernard Silverman also provided
+valuable assistance and advice.
+X
+Needless to say, the deficiencies of this software are entirely my own
+responsibility.  Problems and comments should be directed to:
+X
+Jim Ramsay
+Dept. of Psychology
+1205 Dr. Penfield Ave.
+Montreal, Quebec, Canada
+H3A 1B1
+X
+email:  ramsay@psych.mcgill.ca
+tel:    (514) 398-6123
+fax:    (514) 398-4896
+X
+X
+References:
+X
+Anselone, P. M. and Laurent, P. J. (1967) A general method for the 
+X    construction of interpolating or smoothing spline-functions.
+X    Numerische Mathematik, 12, 66-82.
+X
+Heckman, N. and Ramsay, J. O. (1996) Some general theory for spline Smoothing,
+X    McGill University, Unpublished manuscript.
+X
+Hutchison, M. F. and de Hoog, F. R. (1985) Smoothing noisy data with 
+X    spline functions. Numerische Mathematik, 47, 99-106.
+X
+Press, W. H., Teukolsky, S. A., Vertling, W. and Flannery, B. P. (1962)
+X    Numerical Recipes in Fortran: The Art of Scientific Computing,
+X    Second Edition.  Cambridge: Cambridge University Press.
+X
+Reinsch, C. (1967) Smoothing by spline functions. Numerische Mathematik, 10, 
+X    177-183.
+X
+Reinsch, C. (1970) Smoothing by spline functions II. Numerische Mathematik, 16, 
+X    451-454.
+X
+Statistical Sciences, S-PLUS Programmer's Manual, Version 3.2, Seattle:
+X    StatSci, a division of MathSoft, Inc.
+X
+Silverman, B. W. (1985) Some aspects of the spline smoothing approach
+X    to non-parametric regression curve fitting, Journal of the Royal
+X    Statistical Society, Series B, 47, 1-52.
+SHAR_EOF
+  $shar_touch -am 0716151196 'README.TXT' &&
+  chmod 0644 'README.TXT' ||
+  $echo 'restore of' 'README.TXT' 'failed'
+  if ( md5sum --help 2>&1 | grep 'sage: md5sum \[' ) >/dev/null 2>&1 \
+  && ( md5sum --version 2>&1 | grep -v 'textutils 1.12' ) >/dev/null; then
+    md5sum -c << SHAR_EOF >/dev/null 2>&1 \
+    || $echo 'README.TXT:' 'MD5 check failed'
+d6ae93d795b8855ee512ed5101bd8085  README.TXT
+SHAR_EOF
+  else
+    shar_count="`LC_ALL= LC_CTYPE= LANG= wc -c < 'README.TXT'`"
+    test 7092 -eq "$shar_count" ||
+    $echo 'README.TXT:' 'original size' '7092,' 'current size' "$shar_count!"
+  fi
+fi
+# ============= INSTALL.TXT ==============
+if test -f 'INSTALL.TXT' && test "$first_param" != -c; then
+  $echo 'x -' SKIPPING 'INSTALL.TXT' '(file already exists)'
+else
+  $echo 'x -' extracting 'INSTALL.TXT' '(text)'
+  sed 's/^X//' << 'SHAR_EOF' > 'INSTALL.TXT' &&
+Here are some notes on the installation process.  But read Makefile before
+installation since it contains detailed installation notes.   
+X
+1.  The procedure described in Chapter 11 of the Programmers Manual
+distributed with Splus (see Statistical Sciences, 1993) were followed to 
+set up the  following files:
+X
+README.TXT    ...  this file contains an overview of the Pspline
+X                   module and descriptions of each of the functions
+INSTALL.TXT    ...  this is what you are reading now
+Pspline.a     ...  the Splus code that calls the Fortran Version
+Pspline.f     ...  the Fortran code called by the Splus function Pspline
+smooth.Pspline.d  ...  a troff file to set up the help display for 
+X                   function smooth.Pspline
+predict.smooth.Pspline.d  ...  a troff file to set up the help display for
+X                   function predict.smooth.Pspline
+X
+These were bundled together with the shar utility by the statement
+X
+shar -o Pspline -n Pspline -a -c README.TXT INSTALL.TXT Pspline.q  
+X        Pspline.f smooth.Pspline.d predict.smooth.Pspline.d 
+X
+2.  The above files can be extracted by
+X
+sh Pspline.01
+X 
+3.  A Makefile can then be created by the command
+X
+Splus CHAPTER Pspline.q Pspline.f smooth.Pspline.d predict.smooth.Pspline.d
+X
+or
+X
+Splus CHAPTER *.q *.f *.d
+X
+followed by  
+X
+make install
+X
+and
+X
+make
+X
+Note that the Makefile can be altered for dynamic loading prior to invoking 
+make install.  
+X
+4.  Note that the Splus functions smooth.Pspline and predict.smooth.Pspline
+currently call the .Fortran interface to Fortran.  If a C version of
+Pspline.f is produced by, for example, using the f2c conversion utility, 
+these calls should be replaced to the .C versions.
+Then the Makefile should be reconstructed by using the command
+X
+Splus CHAPTER Pspline.q Pspline.c smooth.Pspline.d predict.smooth.Pspline.d
+X
+5.  A little something that they never tell you ... don't use a period
+or other special character in the name of the directory where you install
+Pspline.  If you call Splus CHAPTER filenames to reconstruct Makefile, 
+it will bomb.
+X
+6.  Makefile is currently set up to have Pspline dynamically loaded by
+calling dyn.load or dyn.load2.  There is a counterpart statement 
+WHICH_LOAD=static.load at the top of the file that can be used to make a 
+statically loaded local version.  Remove # from this statement and place it 
+in front of WHICH_LOAD=dyn.load if this is what you desire.  
+X
+X
+Jim Ramsay
+Dept. of Psychology
+1205 Dr. Penfield Ave.
+Montreal, Quebec, Canada
+H3A 1B1
+X
+email:  ramsay@psych.mcgill.ca
+tel:    (514) 398-6123
+fax:    (514) 398-4896
+X
+SHAR_EOF
+  $shar_touch -am 1128042196 'INSTALL.TXT' &&
+  chmod 0644 'INSTALL.TXT' ||
+  $echo 'restore of' 'INSTALL.TXT' 'failed'
+  if ( md5sum --help 2>&1 | grep 'sage: md5sum \[' ) >/dev/null 2>&1 \
+  && ( md5sum --version 2>&1 | grep -v 'textutils 1.12' ) >/dev/null; then
+    md5sum -c << SHAR_EOF >/dev/null 2>&1 \
+    || $echo 'INSTALL.TXT:' 'MD5 check failed'
+c8985352fcce8b2d806fc9f54b121955  INSTALL.TXT
+SHAR_EOF
+  else
+    shar_count="`LC_ALL= LC_CTYPE= LANG= wc -c < 'INSTALL.TXT'`"
+    test 2582 -eq "$shar_count" ||
+    $echo 'INSTALL.TXT:' 'original size' '2582,' 'current size' "$shar_count!"
+  fi
+fi
+# ============= Pspline.q ==============
+if test -f 'Pspline.q' && test "$first_param" != -c; then
+  $echo 'x -' SKIPPING 'Pspline.q' '(file already exists)'
+else
+  $echo 'x -' extracting 'Pspline.q' '(text)'
+  sed 's/^X//' << 'SHAR_EOF' > 'Pspline.q' &&
+smooth.Pspline <- function(x, y, w=rep(1, length(x)), norder=2, 
+X                           df=norder+2, spar=0, method=1) 
+{
+X
+X  #  Computes order NORDER polynomial smoothing spline:  the spline
+X  #    is piecewise of degree 2*NORDER - 1 and the norm of the
+X  #    derivative of order is penalized
+X
+X  #  calls Fortran function spl
+X
+X  #  Arguments:
+X  #  X       ...  argument values
+X  #  Y       ...  N by NVAR matrix of function values to be smoothed
+X  #  W       ...  weights (default all one's)
+X  #  NORDER  ...  order of smoothing spline (default 2)
+X  #  SPAR    ...  penalty parameter (default 0)
+X  #  DF      ...  effective degrees of freedom (trace(hatmatrix))
+X  #  METHOD  ...  smoothing method:  1  ...  fixed value of SPAR (default)
+X  #                                  2  ...  fixed value of DF
+X  #                                  3  ...  SPAR optimizes GCV criterion
+X  #                                  4  ...  SPAR optimizes  CV criterion
+X
+X  #  Returns:  An object of class "smooth.Pspline" containing:
+X  #  NORDER  ...  order of smoothing spline
+X  #  X       ...  argument values
+X  #  YSMTH   ...  N by NVAR matrix of values of the smoothed functions
+X  #  LEV     ...  array of N leverage values
+X  #  GCV     ...  generalized cross-validation coefficient
+X  #  CV      ...  cross-validation coefficient
+X  #  DF      ...  final effective degrees of freedom
+X  #  SPAR    ...  final smoothing parameter value
+X  #  MY.CALL ...  calling statement
+X
+X  my.call <- match.call()
+X
+X  n <- length(x)
+X  if (is.matrix(y)) nvar <- ncol(y) else {
+X    nvar <- 1
+X    y <- as.matrix(y)
+X  }
+X  if (length(w) == 1) w <- rep(w,n)
+X  if (nrow(y) != n | length(w) != n) stop("Argument arrays of wrong length")
+X  if (method != 1 & method != 2 & method != 3 & method != 4) stop(
+X         "Wrong value for METHOD")
+X  if (norder <= 1 | norder >= 19) stop("Wrong value for NORDER")
+X
+X  yhat     <- matrix(0,n,nvar)
+X  nworksiz <- (n-norder)*(4*norder + 3) + n 
+X  work     <- rep(0,nworksiz)
+X  lev      <- rep(0,n)
+X  gcv      <- 0
+X  cv       <- 0
+X  dfmax    <- n
+X  ier      <- 0
+X  irerun   <- 0
+X
+X  result <- .Fortran("pspline", 
+X              as.integer(n),      as.integer(nvar),  as.integer(norder), 
+X              as.double(x),       as.double(w), 
+X              as.double(y),       as.double(yhat),   as.double(lev),
+X              as.double(gcv),     as.double(cv),     as.double(df), 
+X              as.double(spar),    as.double(dfmax), 
+X              as.double(work),    as.integer(method), 
+X              as.integer(irerun), as.integer(ier) )
+X
+X  ier <- result[[17]]
+X  if (ier == 1) stop ("N < 2*NORDER + 1")
+X  if (ier == 2) stop ("NORDER < 2 or NORDER > 10")
+X  if (ier == 3) stop ("NVAR < 1")
+X  if (ier == 4) stop ("SPAR < 0")
+X  if (ier == 5) stop ("X not strictly increasing")
+X  if (ier == 6) stop ("W contains nonpositive values")
+X  if (ier < 0 ) stop ("Singularity error in solving equations")
+X
+X  ysmth  <- matrix(result[[7]],n,nvar)
+X  lev    <- result[[8]]
+X  gcv    <- result[[9]]
+X  cv     <- result[[10]]
+X  df     <- result[[11]]
+X  spar   <- result[[12]]
+X  object <- list(norder = norder, x = x, ysmth = ysmth,  lev = lev, 
+X	         gcv = gcv, cv = cv,  df = df, 
+X		 spar = spar, call = my.call)
+X  class(object) <- "smooth.Pspline"
+X  object
+X
+}
+X
+X     
+X  
+X  
+predict.smooth.Pspline <- function(splobj, xarg, nderiv = 0) {
+X	
+X  if(missing(xarg)) return(splobj[c("x", "ysmth")])
+X
+X  x      <- splobj$x
+X  ysmth  <- splobj$ysmth
+X  norder <- 2*splobj$norder
+X  n    <- length(x)
+X  nvar <- ncol(ysmth)
+X  narg <- length(xarg)
+X
+X  if (nderiv < 0 | nderiv >= norder) stop("Violation of NDERIV >= NORDER.")
+X 
+X  dy    <- matrix(0,narg,nvar)
+X  work  <- rep(0,(2*norder+2)*n + norder)
+X  ier   <- 0
+X
+X  result <- .Fortran("splifit", 
+X                     as.integer(n),    as.integer(narg),   
+X                     as.integer(nvar), as.integer(norder), as.integer(nderiv),
+X                     as.double(x),     as.double(ysmth),    
+X                     as.double(xarg),  as.double(dy),
+X                     as.double(work),  as.integer(ier) )
+X
+X
+X  ier <- result[[11]]
+X  if (ier == 1) stop (paste("N = ",n," not valid."))
+X  if (ier == 2) stop ("A problem with knots detected.")
+X  if (ier == 3) stop ("Singular coefficient matrix detected.")
+X  if (ier == 4) stop (paste("NDERIV = ",nderiv," not valid."))
+X  if (ier == 5) stop (paste("NORDER = ",norder," not valid."))
+X  if (ier == 6) stop ("X values not strictly increasing.")
+X
+X  dy  <- matrix(result[[9]],narg,nvar)
+X  return(dy)
+}
+X
+X  
+plot.smooth.Pspline <- function(splobj, ...) {
+X  if (is.vector(splobj$ysmth) | dim(splobj$ysmth)[[2]] == 1)  
+X        plot (splobj$x, splobj$ysmth, ...) else
+X     matplot (splobj$x, splobj$ysmth, ...)
+}
+X
+lines.smooth.Pspline <- function(splobj, ...) {
+X  if (is.vector(splobj$ysmth) | dim(splobj$ysmth)[[2]] == 1)  
+X        lines (splobj$x, splobj$ysmth, ...) else
+X     matlines (splobj$x, splobj$ysmth, ...)
+}
+X
+print.smooth.Pspline <- function(x, ...)
+{
+X        if(!is.null(cl <- x$call)) {
+X                cat("Call:\n")
+X                dput(cl)
+X        }
+X        cat("\nSmoothing Parameter (Spar):", format(x$spar), "\n")
+X        cat("Equivalent Degrees of Freedom (Df):", format(x$df), "\n")
+X        cat("GCV Criterion:", format(x$gcv), "\n")
+X        cat("CV  Criterion:", format(x$cv),  "\n")
+X        invisible(x)
+}
+X
+X
+SHAR_EOF
+  $shar_touch -am 1126060396 'Pspline.q' &&
+  chmod 0644 'Pspline.q' ||
+  $echo 'restore of' 'Pspline.q' 'failed'
+  if ( md5sum --help 2>&1 | grep 'sage: md5sum \[' ) >/dev/null 2>&1 \
+  && ( md5sum --version 2>&1 | grep -v 'textutils 1.12' ) >/dev/null; then
+    md5sum -c << SHAR_EOF >/dev/null 2>&1 \
+    || $echo 'Pspline.q:' 'MD5 check failed'
+a9a64b1ecf5e1e56624c2977ee2bd7fb  Pspline.q
+SHAR_EOF
+  else
+    shar_count="`LC_ALL= LC_CTYPE= LANG= wc -c < 'Pspline.q'`"
+    test 5278 -eq "$shar_count" ||
+    $echo 'Pspline.q:' 'original size' '5278,' 'current size' "$shar_count!"
+  fi
+fi
+# ============= Pspline.f ==============
+if test -f 'Pspline.f' && test "$first_param" != -c; then
+  $echo 'x -' SKIPPING 'Pspline.f' '(file already exists)'
+else
+  $echo 'x -' extracting 'Pspline.f' '(text)'
+  sed 's/^X//' << 'SHAR_EOF' > 'Pspline.f' &&
+c   ------------------------------------------------------------------------
+c  PSPLINE ...  an O(n) spline smoother with penalty on D^m
+c     This version can save intermediate results for reruns with new
+c     values of smoothing parameter LAMBDA and can compute the 
+c     GCV, CV, and DF criteria
+c
+c  This program sets up the necessary two band-structured matrices,
+c    and then either proceeds to a smooth calling SPLCAL
+c    if the criterion value is fixed,
+c    or calls FMM to optimize the smoothing criterion.  In the latter case
+c
+c  N        ...  number of data points
+c  NVAR     ...  number of sets of function values to be smoothed
+c  NORDER   ...  order of derivative to be penalized (max. value = 19)
+c  X        ...  array of strictly increasing values of length N
+c  W        ...  array of positive weights of length N
+c  Y        ...  matrix of values to be smoothed of dimension N by NVAR
+c  YHAT     ...  matrix of values of    smooths  of dimension N by NVAR
+c  LEV      ...  array of N leverage values
+c  GCV      ...  output value of the GCV criterion  
+c  CV       ...  output value of the CV  criterion  
+c  DF       ...  output value of the  DF criterion  
+c  LAMBDA   ...  penalty parameter
+c  DFMAX    ...  largest tolerated degrees of freedom
+c  WORK     ...  working storage array of length at least 
+c                  (N-NORDER)*(3*NORDER+2)+N
+c
+c            NB:  if the data are to be re-smoothed with a different
+c            value of LAMBDA, the returned contents of WORK must be
+c            left untouched between the first and subsequent calls
+c
+C  METHOD  ... method for computing the smoothing parameter:
+c            1  ...  fixed value of LAMBDA
+c            2  ...  fixed value of DF
+c            3  ...  LAMBDA optimizes GCV criterion
+c            4  ...  LAMBDA optimizes  CV criterion
+c  IRERUN  ... if nonzero, assume that a previous call has already 
+c             computed arrays H and GtWG
+c  IER     ...  error return:
+c            0 ... no error
+c            1 ... N < 2*NORDER + 1
+c            2 ... NORDER out of permissible range: [1,10] 
+c            3 ... NVAR < 1
+c            4 ... LAMBDA negative
+c            5 ... X not strictly increasing
+c            6 ... W contains nonpositive elements
+c            -j ... failure in the rational Choleski decomposition routine
+c                   LDLTBD because of nonpositive value of diagonal element
+c                   at index J in the main loop
+c
+c  See also subroutine SPLIFIT below that evaluates a spline smoothing
+c  function or one of its derivatives at user-specified argument values.
+c
+X      subroutine pspline (n, nvar, norder, 
+X     1                x, w, y, yhat, lev, gcv, cv, df,
+X     2                lambda, dfmax, work, method, irerun, ier)
+X      implicit real*8(a-h,o-z)
+X      parameter (NORDLIM = 10)
+X      dimension x(n), w(n), y(n,nvar), yhat(n,nvar), work(1), 
+X     1          wk1(121), wk2(121)
+X      real*8 lambda, lev(n)
+X      logical spcwrd
+X      data eps /1e-7/, tol/1e-3/
+c
+c  check arguments
+c
+X      if (n .le. 2*norder + 1) then
+X        ier = 1
+X        return
+X      endif
+X      if (norder .le. 1 .or. norder .gt. NORDLIM) then
+X        ier = 2
+X        return
+X      endif
+X      if (nvar .lt. 1) then
+X        ier = 3
+X        return
+X      endif
+X      if (lambda .lt. 0.0) then
+X        ier = 4
+X        return
+X      endif
+c
+c  Check for x strictly increasing, and also for x being equally spaced.
+c  It might save time if this were done prior to calling SPLGCV.
+c
+X      range = x(n) - x(1)
+X      delta = range/float(n-1)
+X      spcwrd = .true.
+X      critrn = range*eps
+X      do i=1,n
+X        if (w(i) .le. 0.0) then
+X          ier = 6
+X        endif
+X        xi = x(i)
+X        if (spcwrd .and. i .gt. 1 .and. 
+X     1      dabs(xi - xim1 - delta) .gt. critrn) spcwrd = .false.
+X        if (i .ge. norder .and. xi .le. x(i-norder+1)) then
+X          ier = 5
+X        endif
+X        xim1 = xi
+X      end do
+X      if (ier .ne. 0) return
+c
+X      nmnorder = n - norder
+c
+c  if this is a re-run with a new lambda value, skip computation of H and
+c   GtWG
+c
+X      if (irerun .ne. 0) go to 10
+c
+c  ********************  call HMAT  **************************
+c    This step computes band-structured matrix of inner products of
+c    B-spline functions of order NORDER
+c
+X      call hmatfn (n, nmnorder, norder, x, work, wk1, spcwrd)
+c
+c  ********************  call GTWGMAT  **************************
+c    This step computes the cross-product
+c    of the N by N-NORDER matrix containing the divided difference
+c    coefficients, the cross-product having array W as the metric
+c
+X      call gtwgfn (n, norder, x, w, work, wk1, wk2, spcwrd)
+c
+c  take action depending on METHOD
+c
+X   10 if (method .eq. 1) then
+c
+c  ********************  call SPLCAL  **************************
+c
+X        call splcal (n, nvar, norder, x, w, y, yhat, lev, 
+X     1               gcv, cv, df, lambda, work, ier)
+X      else
+c
+c  ********************  call FMM  **************************
+c
+X	call fmm   (n, nvar, norder, x, w, y, yhat, lev, gcv, cv, df,
+X     1              lambda, method, work, tol, ier)
+X        if (ier .ne. 0) return
+X	if (method .gt. 2 .and. df .gt. dfmax) then
+X          df = dfmax
+X          call fmm (n, nvar, norder, x, w, y, yhat, lev, gcv, cv, df,
+X     1              lambda, 2,      work, tol, ier)
+X	endif
+X      endif
+c
+X      return
+X      end     
+c   ------------------------------------------------------------------------
+c  SPLCAL ...  an O(n) spline smoother with penalty on D^m
+c         called by a driver routine that has already set up the two
+c         band-structured matrices required in array WORK
+c
+c  N       ...  number of data points
+c  NVAR    ...  number of sets of values to be smoothed
+c  NORDER  ...  order of derivative to be penalized (max. value = 19)
+c  X       ...  array of strictly increasing values of length N
+c  W       ...  array of positive weights of length N
+c  Y       ...  N by NVAR matrix of values to be smoothed 
+c  YHAT    ...  N by NVAR matrix of values of smooth 
+c  LEV     ...  array of N leverage values
+c  GCV     ...  output value of the GCV criterion  
+c  CV      ...  output value of the CV criterion
+c  DF      ...  output value of the DF criterion  
+c  LAMBDA  ...  penalty parameter
+c  WORK    ...  working storage array of length at least 
+c                  3*N*(NORDER+1)
+c
+c            NB:  if the data are to be re-smoothed with a different
+c            value of LAMBDA, the returned contents of WORK must be
+c            left untouched between the first and subsequent calls
+c
+c  IER     ...  error return:
+c            0 ... no error
+c            1 ... N < 2
+c            2 ... NORDER out of permissible range
+c            3 ... X not strictly increasing
+c            4 ... LAMBDA negative
+c            -j ... failure in the rational Choleski decomposition routine
+c                   LDLTBD because of nonpositive value of diagonal element
+c                   at index J in the main loop
+c
+X      subroutine splcal (n, nvar, norder, x, w, y, yhat, lev,
+X     1                   gcv, cv, df, lambda, work, ier)
+X      implicit real*8(a-h,o-z)
+X      dimension x(n), w(n), y(n,nvar), yhat(n,nvar), work(1), 
+X     1          wk1(400), wk2(400)
+X      real*8 lambda, lev(n)
+c
+c  set up offset values for storing information in array WORK
+c
+X      nmnorder = n - norder
+X      nband    = norder + 1
+X      nsize    = nmnorder*nband
+X      igoffset = nmnorder*norder
+X      iboffset = igoffset + nsize
+X      iqoffset = iboffset + nsize
+X      iyoffset = iqoffset + nsize
+X      nworksiz = nmnorder*(4*norder + 3) + n
+c
+c    The next result is a band-structured matrix of order N - NORDER
+c    and bandwidth  NORDER + 1 of the form  B = H + LAMDA * G^t Wd G
+c    where Wd = diag(W) and G contains the divided difference coeffs.
+c
+X      m = 0
+X      do j=1,norder
+X        do i=1,nmnorder
+X          m = m + 1
+X           work(iboffset+m) = work(m) + lambda*work(igoffset+m)
+X        end do
+X      end do
+X      do i=1,nmnorder
+X        m = m + 1
+X        work(iboffset+m) = lambda*work(igoffset+m)
+X      end do
+c
+c  ********************  call LBANDMAT  **************************
+c    This step computes the rational Choleski decomposition of 
+c    the above band-structured matrix B
+c
+X      call ldltbdspl (nmnorder, nband, work(iboffset+1), ier)
+X      if (ier .ne. 0) return
+c
+c  ++++++++++++++  loop through values to be smoothed  +++++++++++
+c
+X      do ivar=1,nvar
+c
+c  ********************  call GDIFFFUN  **************************
+c    This step computes the divided difference values GtY of Y  
+c
+X        do i=1,n
+X          work(iyoffset+i) = y(i,ivar)
+X        end do
+X        call gdifffn (n, norder, x, work(iyoffset+1), wk1, wk2)
+c
+c  ********************  call SOLVBD  **************************
+c    This step solves the equation  BC = GtY.  C replaces GtY
+c
+X        call solvbdspl (nmnorder, nband, 1, work(iboffset+1), 
+X     1                  work(iyoffset+1), ier)
+X        if (ier .ne. 0) return
+c
+c  ********************  call GCVEC  **************************
+c    This step updates original vector Y to Y - LAMBDA * G X
+c
+X        do i=1,n
+X          yhat(i,ivar) = y(i,ivar)
+X        end do
+X        call gcfn (n, norder, x, w, work(iyoffset+1), yhat(1,ivar), 
+X     1             lambda, wk1, wk2)
+X      end do
+c
+c  +++++++++++++++++  end of loop through functions to be smoothed  ++++++
+c
+c  Compute band-structured portion of inverse of matrix B
+c  This replaces B
+c
+X      call bdinvspl (nmnorder, norder, work(iboffset+1), ier)
+c     write (*,'(a)') ' B:'
+c     do i=1,nmnorder
+c       write (*,'(i3,5e12.4)') i, 
+c    1        (work((j-1)*nmnorder+i+iboffset),j=1,nband)
+c     end do
+c
+c  compute trace of hat matrix, SSE, CV, and GCV criteria
+c
+X      xn    = n
+X      trace = 0.0 
+X      sse   = 0.0
+X      cv    = 0.0
+X      do i=1,n
+X        sum = 0.0
+X        ldn = max(0, i-nmnorder)
+X        lup = min(norder, i-1)
+X        ml  = nmnorder*ldn
+X        do l=ldn,lup
+X          sum = sum + work(ml+i-l+iqoffset)**2*work(i-l+iboffset)
+X          ml = ml + nmnorder
+X        end do
+X        ml1 = nmnorder*ldn 
+X        do l1=ldn,lup-1
+X          fac = work(ml1+i-l1+iqoffset)
+X          ml2 = nmnorder*(l1+1) 
+X          do l2=l1+1,lup
+X            sum = sum + 
+X     1        2.0*fac*work(ml2+i-l2+iqoffset)*
+X     2        work((l2-l1)*nmnorder+i-l1+iboffset)
+X            ml2 = ml2 + nmnorder
+X          end do
+X          ml1 = ml1 + nmnorder
+X        end do
+X        sum = sum*lambda*w(i)
+X        lev(i) = 1.0 - sum
+X        trace = trace + sum
+X        do ivar=1,nvar
+X          res = (y(i,ivar) - yhat(i,ivar))/w(i)
+X          sse = sse + res*res
+X          cv  = cv  + (res/sum)**2
+X        end do
+X      end do
+c
+X      gcv = (sse/xn)/(float(nvar)*trace/xn)**2
+X      cv  = cv/xn
+X      df  = xn - trace
+c
+X      return
+X      end     
+c  ----------------------------------------------------------------------
+c  HMATFN ... computes matrix of inner products of Bspline functions
+c
+c  X      ...  strictly ascending sequence of values
+c  N      ...  length of the sequence
+c  NMO    ...  number of rows of band-structured matrix containing inner 
+c               products:  NMO = N - NORDER.  Number of columns = NORDER
+c  NORDER ... order of differential operator in spline penalty term
+c             permissible values:  3  ...  4
+c  H      ...  band structured matrix with NORDER columns containing nonzero 
+c             inner products
+c  OUTIP  ...  scratch array of length NORDER*(NORDER+1)/2
+c  SPCWRD ...  logical flag indicating that X values are equally spaced
+c
+X      subroutine hmatfn (n, nmo, norder, x, h, outip, spcwrd)
+X      implicit real*8(a-h,o-z)
+X      dimension x(1), h(nmo,1), outip(1)
+X      logical spcwrd
+c
+c  clear array
+c
+X      do i=1,nmo
+X        do j=1,norder
+X          h(i,j) = 0.0
+X        end do
+X      end do
+c
+c  ----------------------------  order 1  --------------------------------
+c
+X      if (norder .eq. 1) then
+X        if (spcwrd) then
+X          delta = x(2)-x(1)
+X          do i=1,n-1
+X            h(i,1) = delta
+X          end do
+X        else
+X          do i=1,n-1
+X            h(i,1) = x(i+1)-x(i)
+X          end do
+X        endif
+X        return
+X      endif
+c
+c  ----------------------------  order 2  --------------------------------
+c
+X      if (norder .eq. 2) then
+X        if (spcwrd) then
+X          hi1 = (x(3) - x(1))/3.0d0
+X          hi2 = (x(2) - x(1))/6.0d0
+X          do i=1,n-2
+X            h(i,1) = hi1
+X            if (i .eq. 1) then
+X              h(i,2) = 0.0d0
+X            else
+X              h(i,2) = hi2
+X            endif
+X          end do
+X        else
+X          do i=1,n-2
+X            h(i,1) = (x(i+2)-x(i))/3.0d0
+X            if (i .eq. 1) then
+X              h(i,2) = 0.0d0
+X            else
+X              h(i,2) = (x(i+1) - x(i))/6.0d0
+X            endif
+X          end do
+X        endif
+X        return
+X      endif
+c
+c  ----------------------------  order 3 or up  ---------------------------
+c
+X      if (norder .gt. 2) then
+X        nmnorder = n - norder
+X        if (spcwrd) then
+X          call splipfn (n, x, norder+1, norder, outip, ier)
+X          if (ier .ne. 0) then
+X            ier = ier + 10
+X            return
+X          endif 
+X          do i=1,n-1
+X            m = 0
+X            do j=1,norder
+X              imjp1 = i - j + 1
+X              nmnorderpj = nmnorder + j
+X              do k=j,norder
+X                m = m + 1
+X                kmjp1 = k - j + 1
+X                if (i .gt. k-1 .and. i .lt. nmnorderpj) then
+X                  h(imjp1,kmjp1) = h(imjp1,kmjp1) + outip(m)
+X                endif
+X              end do
+X            end do
+X          end do
+X        else 
+X          do i=1,n-1
+X            call splipfn (n, x, i, norder, outip, ier)
+X            if (ier .ne. 0) then
+X              ier = ier + 10
+X              return
+X            endif
+X            m = 0
+X            do j=1,norder
+X              imjp1 = i - j + 1
+X              nmnorderpj = nmnorder + j
+X              do k=j,norder
+X                m = m + 1
+X                kmjp1 = k - j + 1
+X                if (i .gt. k-1 .and. i .lt. nmnorderpj) then
+X                  h(imjp1,kmjp1) = h(imjp1,kmjp1) + outip(m)
+X                endif
+X              end do
+X            end do
+X          end do
+X        endif
+X      endif
+c
+X      return
+X      end
+c  ----------------------------------------------------------------------
+c  GTWGFN ... computes cross-product of divided difference coefficients
+c               with respect to x and weights w
+c               That is, computes G'WG where G is N by N-NORDER differencing 
+c               matrix and W is a diagonal weight matrix
+c
+c  N  ...  length of the sequence
+c  NORDER ... order of differential operator in spline penalty term
+c             permissible values:  1  ...  4
+c  M ...   N - NORDER
+c  X  ...  strictly ascending sequence of N values
+c  W  ...  N positive weights
+c  GTWG  ...  resulting N - NORDER by NORDER + 1 matrix in band structured mode
+c  WK    ...  working array of length NORDER
+c  C     ...  working array of length NORDER*NORDER
+c  SPCWRD ..  logical flag indicating equal spacing of the X values
+c
+X      subroutine gtwgfn (n, norder, x, w, work, wk, c, spcwrd)
+X      implicit real*8(a-h,o-z)
+X      dimension x(1), w(1), work(1), c(20,1), wk(1)
+X      logical spcwrd
+c
+X      nordp1 = norder + 1
+X      nmnorder = n - norder
+X      nsize    = nmnorder*nordp1
+X      igoffset = nmnorder*norder
+X      iboffset = igoffset + nsize
+X      iqoffset = iboffset + nsize
+c
+X      if (spcwrd) then
+X        call divdifffn (nordp1, x(1), c(1,1), wk)
+X        do i=1,nmnorder
+X          mj = i
+X          do j=1,nordp1
+X            work(iqoffset+mj) = c(j,1)
+X            mj = mj + nmnorder
+X          end do
+X          mj = i
+X          do j=1,min(i,nordp1)
+X            sum = 0.0d0
+X            do l=1,norder+2-j
+X              sum = sum + c(l,1)*c(l+j-1,1)*w(i+l-1)
+X            end do
+X            work(igoffset+mj) = sum
+X            mj = mj + nmnorder
+X          end do
+X        end do
+X      else
+X        do i=1,nmnorder
+X          call divdifffn (nordp1, x(i), c(1,1), wk)
+X          mj = i
+X          do j=1,nordp1
+X            work(iqoffset+mj) = c(j,1)
+X            mj = mj + nmnorder
+X          end do
+X          mj = i
+X          do j=1,min(i,nordp1)
+X            sum = 0.0d0
+X            do l=1,norder+2-j
+X              sum = sum + c(l,1)*c(l+j-1,j)*w(i+l-1)
+X            end do
+X            work(igoffset+mj) = sum
+X            mj = mj + nmnorder
+X          end do
+X          do l=1,nordp1
+X            do j=1,norder
+X               c(l,norder+2-j) = c(l,nordp1-j)
+X            end do
+X          end do
+X        end do
+X      endif
+c
+c  clear upper right triangle
+c
+X      mj = nmnorder
+X      do j=1,norder
+X        do i=1,j
+X          work(mj+i+igoffset) = 0.0
+X        end do
+X        mj = mj + nmnorder
+X      end do
+c
+c     write (*,'(a)') ' H:'
+c     do i=1,nmnorder
+c       write (*,'(i3,5f12.4)') i, 
+c    1        (work((j-1)*nmnorder+i),j=1,norder)
+c     end do
+c     write (*,'(a)') ' GtG:'
+c     do i=1,nmnorder
+c       write (*,'(i3,5e12.4)') i, 
+c    1        (work((j-1)*nmnorder+i+igoffset),j=1,nordp1)
+c     end do
+c     write (*,'(a)') ' Q:'
+c     do i=1,nmnorder
+c       write (*,'(i3,5f12.4)') i, 
+c    1        (work((j-1)*nmnorder+i+iqoffset),j=1,nordp1)
+c     end do
+c
+X      return
+X      end
+c  ---------------------------------------------------------------------------
+c  SPLIP ...  Computes the inner product of order M bspline functions that
+c              are nonzero over an interval. 
+c              For example, if the lower bound is the 
+c              knot with index 0, and the order is 4,
+c              the active spline functions are:
+c              B_{i4}, B_{i-1,4}, B_{i-2,4}, and B_{i-3,4}
+c              The inner products are turned in array OUTIP in the order
+c              (B_{i4},   B_{i4}),      (B_{i4},   B_{i-1,4}),    
+c              (B_{i4},   B_{i-2,4}),   (B_{i4},   B_{i-3,4}),    
+c              (B_{i-1,4},B_{i-1,4}),   (B_{i-1,4},B_{i-2,4}), 
+c              (B_{i-1,4},B_{i-3,4}),   (B_{i-2,3},B_{i-2,3}),
+c              (B_{i-2,4},B_{i-3,4}),   (B_{i-3,4},B_{i-3,4})  
+c
+c  N  ...  length of knot sequence
+c  X  ...  strictly increasing sequence of N knot values
+c  INDEX ... index of lower bound of interval, must be < N
+c  NORDER ...  order of spline < 20
+c  OUTIP ...  array of length NORDER*(NORDER+1)/2 for returning inner products
+c  IER ... error return
+c
+X      subroutine splipfn (n, x, index, norder, outip, ier)
+X      implicit real*8 (a-h,o-z)
+X      dimension x(1), outip(1), quadpt(20), quadwt(20), biatx(20)
+X      real*8 knot(40)
+c
+X      ier = 0
+X      if (index .lt. 1 .or. index .ge. n) then
+X        ier = 1
+X        return
+X      endif
+c  
+c  generate quadrature points and weights for Gauss-Legendre quadrature
+c
+X      call gaulegfn (norder, x(index), x(index+1), quadpt, quadwt)
+c
+X      do m=1,norder*(norder+1)/2
+X        outip(m) = 0.0
+X      end do
+c
+c  first compute local knot sequence from X
+c
+X      knot(norder)   = x(index)
+X      knot(norder+1) = x(index+1)
+X      do i=1,norder-1
+X        if (index-i .ge. 1) then
+X          knot(norder-i) = x(index-i)
+X        else
+X          knot(norder-i) = x(1)
+X        endif     
+X        if (index+i+1 .le. n) then
+X          knot(norder+i+1) = x(index+i+1)
+X        else
+X          knot(norder+i+1) = x(n)
+X        endif
+X      end do
+c
+c  now compute the spline values at the quadrature points
+c
+X      do i=1,norder
+X        call bsplvbfn (knot, norder, quadpt(i), norder, biatx)
+X        m = 0
+X        wi = quadwt(i)
+X        do j=1,norder
+X          do k=j,norder
+X            m = m + 1
+X            outip(m) = outip(m) 
+X     1               + wi*biatx(norder-j+1)*biatx(norder-k+1)
+X          end do
+X        end do
+X      end do
+c
+X      return
+X      end
+c ---------------------------------------------------------------------------
+c  GAULEG  ...  computes Gauss-Legendre quadrature points and weights
+c    for definite integral with unit kernel
+c    Adapted from Numerical Recipes in Fortran, p. 145
+c
+c  Arguments:
+c  N     ...  number of points
+c  A     ...  lower limit of integration
+c  B     ...  upper limit of integration
+c  QUADPT ...  quadrature points or abscissas
+c  QUADWT ...  quadrature weights
+c
+X      subroutine gaulegfn (n, a, b, quadpt, quadwt)
+X      implicit real*8 (a-h,o-z)
+X      parameter (EPS=3.0D-14, PI=3.141592654D0)
+X      dimension quadpt(n), quadwt(n)
+c
+X      dn = n
+X      m  = (n + 1)/2
+X      xm = (a + b)/2.0d0
+X      x1 = (b - a)/2.0d0
+X      do i=1,m
+X        z = dcos(PI*(dble(i) - 0.25d0)/(dn + 0.5d0))
+X   10   p1 = 1.0d0
+X        p2 = 0.0d0
+X        do j=1,n
+X          dj = j
+X          p3 = p2
+X          p2 = p1
+X          p1 = ((2.0d0*dj-1.0d0)*z*p2 - (dj-1.0d0)*p3)/dj
+X        end do
+X        pp = dn*(z*p1-p2)/(z*z-1.0d0)
+X        z1 = z
+X        z  = z1 - p1/pp
+X        if (dabs(z - z1) .gt. EPS) go to 10
+X        quadpt(    i) = xm - x1*z
+X        quadpt(n+1-i) = xm + x1*z
+X        quadwt(    i) = 2.0d0*x1/((1.0d0-z*z)*pp*pp)
+X        quadwt(n+1-i) = quadwt(i)
+X      end do
+c
+X      return
+X      end
+c  --------------------------------------------------------------------------
+X      subroutine bsplvbfn (t, norder, x, left, biatx)
+X      implicit real*8(a-h, o-z)
+X      dimension biatx(1), t(1), deltal(20), deltar(20)
+c
+X      j = 1
+X      biatx(1) = 1.
+X      if (j .ge. norder) return
+c
+X   10 jp1 = j + 1
+X      deltar(j) = t(left+j) - x
+X      deltal(j) = x - t(left+1-j)
+X      saved = 0.
+X      do i=1,j
+X         term = biatx(i)/(deltar(i) + deltal(jp1-i))
+X         biatx(i) = saved + deltar(i)*term
+X         saved = deltal(jp1-i)*term
+X      end do
+X      biatx(jp1) = saved
+X      j = jp1
+X      if (j .lt. norder) go to 10
+c
+X      end 
+c  -------------------------------------------------------------------
+c  LDLTBD ...  computes rational Choleski factorization 
+c            A = LDL' for a banded matrix A
+c
+c  N  ... order of matrix
+c  K  ... number of off-diagonal bands + 1
+c  ABAND  ... N by K matrix ... diagonal in 1st column, and  
+c         column j contains the N - j + 1 nonzero elements 
+c         of off-diagonal band j starting in row j
+c         On exit, the first column contains the values of D, and 
+c         remaining columns contain the off-diagonal values of L
+c  IER  ...  error return:  0 means no error, 
+c                           1 means N < 1
+c                           2 means K < 1
+c                           3 means K > N
+c                          -J means zero or negative element for D found on
+c                             loop J
+c
+X      subroutine ldltbdspl (n, k, aband, ier)
+X      real*8 aband(n,k), vj, sum
+c
+X      do j=1,n
+X        ist = max (1, j - k + 1)
+X        do i=ist,j-1
+X          jmi = j - i 
+X          aband(jmi,k) = aband(j,jmi+1)*aband(i,1)
+X        end do
+X        sum = aband(j,1)
+X        do i=ist,j-1
+X          jmi = j - i 
+X          sum = sum - aband(j,jmi+1)*aband(jmi,k)
+X        end do
+X        vj = sum
+X        if (vj .le. 0.0d0) then
+X          ier = -j
+X          return
+X        endif
+X        aband(j,1) = sum
+X        iend = min(n,j + k - 1)
+X        do i=j+1,iend
+X          sum = aband(i,i-j+1)
+X          lst = max(1, i - k + 1)
+X          do l=lst,j-1
+X            sum = sum - aband(i,i-l+1)*aband(j-l,k)
+X          end do
+X          aband(i,i-j+1) = sum/vj
+X        end do
+X      end do
+c
+c  clean up working storage
+c
+X      do i=1,k-1
+X        aband(i,k) = 0
+X      end do
+c
+X      return
+X      end
+c  ----------------------------------------------------------------------
+c  GDIFFFN ... computes differences for a vector y with respect to x
+c               That is, computes G'y where G is N by N-NORDER differencing 
+c               matrix.
+c
+c  N  ...  length of the sequence
+c  NORDER ... order of differential operator in spline penalty term
+c             permissible values:  3  ...  4
+c  X  ...  strictly ascending sequence of values
+c  Y  ...  sequence to be differenced
+c
+X      subroutine gdifffn (n, norder, x, y, wk, c)
+X      implicit real*8(a-h,o-z)
+X      dimension x(1), y(1), wk(1), c(1) 
+c
+X      nordp1 = norder + 1
+X      do i=1,n-norder
+X        call divdifffn(nordp1, x(i), c, wk)
+X        sum = 0
+X          do j=1,nordp1
+X            sum = sum + y(i+j-1)*c(j)
+X          end do
+X        y(i) = sum
+X      end do
+c
+X      return
+X      end
+c  -------------------------------------------------------------------------
+c  DIVDIFFFN  ...  computes divided difference coefficients up to order N 
+c          for argument value array of length N, N >= 2
+c
+X      subroutine divdifffn (n, x, c, wk)
+X      implicit real*8 (a-h, o-z)
+X      dimension x(n), c(n), wk(n,n)
+c
+X      if (n .eq. 1) then
+X        c(1) = 1.0
+X      endif
+c
+c  set up coefficients for order 2
+c
+X      nm1 = n - 1
+X      do i=1,n
+X        do j=1,nm1
+X          wk(i,j) = 0.0
+X        end do
+X      end do
+X      do j=1,nm1
+X        dj1 = x(j+1) - x(j)
+X        wk(j,j)   = -1.0/dj1
+X        wk(j+1,j) =  1.0/dj1
+X      end do       
+c
+c  recurse up to order n - 2
+c
+X      do k=1,n-2
+X        do j=1,nm1-k
+X          djk = x(j+k+1) - x(j)
+X          do i=j,j+k+1
+X            wk(i,j)  = (wk(i,j+1) - wk(i,j))/djk
+X          end do
+X        end do
+X      end do
+c        
+c  return divided difference coefficients times final difference
+c
+X      do i=1,n
+X        c(i) = wk(i,1)*djk
+X      end do
+c
+X      return
+X      end
+c  -------------------------------------------------------------------
+c  SOLVBD ...  computes the solution to the equation
+c                Ax = y for a symmetric banded matrix A
+c            given the rational Choleski factorization  A = LDL'  
+c
+c  N  ... order of matrix
+c  K  ... number of off-diagonal bands + 1
+c  M  ... number of columns of right side array Y
+c  LBAND  ... N by K matrix ... D in 1st column, and  
+c         column j contains the N - j + 1 nonzero elements of lower triangular
+c         Choleski factor L
+c         off-diagonal band j starting in row j
+c  Y  ... N by M array containing right side.  On return it contains
+c         the solutions
+c  IER  ...  error return:  0 means no error, 
+c                           1 means N < 1
+c                           2 means K < 1
+c                           3 means K > N
+c                           J + 10 means zero or negative element for D found on
+c                             loop J
+c
+X      subroutine solvbdspl (n, k, m, lband, y, ier)
+X      real*8 lband(n,k), y(n,m), sum
+c
+c  check arguments
+c
+X      if (n .lt. 1) then
+X        ier = 1
+X        return
+X      endif
+X      if (k .lt. 1) then
+X        ier = 2
+X        return
+X      endif
+X      if (k .gt. n) then
+X        ier = 3
+X        return
+X      endif
+X      if (m .lt. 1) then
+X        ier = 4
+X        return
+X      endif
+X      do j=1,n
+X        if (lband(j,1) .le. 0.0d0) then
+X          ier = j + 10
+X          return
+X        endif
+X      end do 
+c
+c  Solve  Lu = y
+c
+X      do j=1,n
+X        ist = max (1, j - k + 1)
+X        do jrs=1,m
+X          sum = y(j,jrs)
+X          do i=ist,j-1
+X            sum = sum - lband(j,j-i+1)*y(i,jrs)
+X          end do
+X          y(j,jrs) = sum
+X        end do
+X      end do
+c
+c  Solve Dv = u
+c
+X      do j=1,n
+X        do jrs=1,m
+X          y(j,jrs) = y(j,jrs)/lband(j,1)
+X        end do
+X      end do
+c
+c  Solve  L'x = v
+c
+X      do j=1,n
+X        jcomp = n - j + 1
+X        ist = max (1, j - k + 1)
+X        do jrs=1,m
+X          sum = y(jcomp,jrs)
+X          do i=ist,j-1
+X            icomp = n - i + 1
+X            sum = sum - lband(icomp,j-i+1)*y(icomp,jrs)
+X          end do
+X          y(jcomp,jrs) = sum
+X        end do
+X      end do
+c    
+X      return
+X      end
+c  ----------------------------------------------------------------------
+c  GCFN ... computes  GC where G is N by N-NORDER differencing 
+c               matrix and C is a vector of length N-NORDER
+c
+c  N      ...  length of the sequence
+c  NORDER ...  order of differential operator in spline penalty term
+c              permissible values:  1  ...  4
+c  X      ...  strictly ascending sequence of N values
+c  W      ...  sequence of N positive weights
+c  CVEC   ...  N - NORDER vector
+c  y      ...  vector of length N containing values to be smoothed:
+c          resulting N vector is Y - lambda*G W C
+c
+X      subroutine gcfn (n, norder, x, w, cvec, y, lambda, wk, c)
+X      implicit real*8(a-h,o-z)
+X      dimension x(1), w(1), cvec(1), y(1), c(1), wk(1)
+X      real*8 lambda
+c
+X      nordp1 = norder + 1
+X      do i=1,n-norder
+X        factr = lambda*cvec(i)
+X        call divdifffn (nordp1, x(i), c, wk)
+X        do l=1,nordp1
+X          iplm1 = i + l - 1
+X          y(iplm1) = y(iplm1) - factr*c(l)*w(iplm1)
+X        end do
+X      end do
+c
+X      return
+X      end
+!f
+c  ---------------------------------------------------------------------
+c  BDINV  ...  invert a band-structured matrix of order N and bandwidth
+c              M that has been replaced by its rational Choleksi decomp.
+c              On completion the inverse overwrites the input matrix X
+c
+c  N  ...  order of the matrix
+c  M  ... number of off-diagonal bands ... M+1 = number of cols of X
+c  X  ...  band-structured matrix containing Choleski factors
+c  IER  ...  error return
+c
+X      subroutine bdinvspl (n, m, x, ier)
+X      implicit real*8 (a-h,o-z)
+X      dimension x(n,1)
+c
+c  check for zero diagonal entries
+c
+X      do i=1,n
+X         if (x(i,1) .le. 0.0d0) then
+X           ier = 10 + i
+X           return
+X         endif
+X      end do
+c
+X      mp1  = m + 1
+X      ilim = 1
+X      x(n,1) = 1.0d0/x(n,1)
+X      do i=n-1,1,-1
+X        do l=1,ilim
+X          sum = 0.0d0
+X          lp1 = l + 1
+X          ipl = i + l
+X          do k=1,ilim
+X            kp1 = k + 1
+X            ipk = i + k
+X            if     (k .eq. l) then
+X              sum = sum - x(ipk,kp1)*x(ipl,1)
+X            elseif (k .gt. l) then
+X              sum = sum - x(ipk,kp1)*x(ipk,k-l+1)
+X            else
+X              sum = sum - x(ipk,kp1)*x(ipl,l-k+1)
+X            endif
+X          end do
+X          x(l,mp1) = sum
+X        end do
+X        sum = 1.0d0/x(i,1)
+X        do l=1,ilim
+X          sum = sum - x(i+l,l+1)*x(l,mp1)
+X        end do
+X        x(i,1) = sum
+X        do l=1,ilim
+X          x(i+l,l+1) = x(l,mp1)
+X        end do
+X        if (ilim .lt. m) ilim = ilim + 1
+X      end do
+c
+c  clear upper triangle
+c
+X      do l=1,m
+X        x(l,mp1) = 0.0d0
+X      end do
+c
+X      return
+X      end
+c  ---------------------------------------------------------------------------
+X      subroutine fmm (n, nvar, norder, xvec, wvec, yvec, yhat, lev,
+X     1                gcv, cv, df, lambda, method, work, tol, ier)
+X      parameter (XDN = 1d-10, XUP = 3)
+X      implicit real*8(a-h,o-z)
+X      dimension xvec(1), wvec(1), yvec(n,nvar), yhat(n,nvar), work(1) 
+X      real*8 lambda, lev(1)
+c
+X      targdf   = df
+X      nmnorder = n - norder
+X      igoffset = nmnorder*norder
+X      t1 = 0.0
+X      t2 = 0.0
+X      do i=1,nmnorder
+X        t1 = t1 + work(i)
+X        t2 = t2 + work(igoffset+i)
+X      end do
+X      ratio = t1/t2
+c
+X      eps = 1d0
+X   10 eps = eps/2d0
+X      tol1 = 1d0 + eps
+X      if (tol1 .gt. 1d0) go to 10
+X      eps = dsqrt(eps)
+c
+c  ----------------  initialization of lambda  -------------------------
+c
+X      a = XDN
+X      b = XUP
+c     v = a + 0.382*(b - a)
+c     write (*, '(a,e10.3)') ' LAMBDA =', lambda
+X      if (lambda .le. 0.0) then
+X        v = .75
+X      else
+X        v = (2.0 + dlog(lambda/ratio)/2.772589)/6.0
+X      endif
+X      w = v
+X      x = v
+X      e = 0.0
+X      lambda = ratio*dexp(2.772589*(6.0*x - 2.0))
+c     write (*, '(a,e10.3)') ' LAMBDA =', lambda
+c
+c  Call 1 to SPLCAL
+c
+X      call splcal (n, nvar, norder, xvec, wvec, yvec, yhat, lev, 
+X     1             gcv, cv, df, lambda, work, ier)
+X      if (ier .ne. 0) return
+c     write (*,'(a, f10.5,e10.3,4f12.4)')  
+c    1                   ' Call 1:', x, lambda, df, gcv, cv, fu
+c
+X      if (method .eq. 2) fx = (targdf-df)**2
+X      if (method .eq. 3) fx = gcv
+X      if (method .eq. 4) fx = cv
+X      fv = fx
+X      fw = fx
+c
+c  --------------------  main loop starts here -------------------------
+c
+X   20 xm   = 0.5*(a + b)
+X      tol1 = eps*dabs(x) + tol/3d0
+X      tol2 = 2d0*tol1
+c
+c  check stopping criterion
+c
+X      if (dabs(x - xm) .le. (tol2 - 0.5*(b - a))) go to 90
+c
+c is golden-section necessary?
+c
+X      if (dabs(e) .le. tol1) go to 40
+c
+c  fit parabola
+c
+X      r = (x - w)*(fx - fv)
+X      q = (x - v)*(fx - fw)
+X      p = (x - v)*q - (x - w)*r
+X      q = 2.0*(q - r)
+X      if (q .gt. 0.0) p = -p
+X      q =  dabs(q)
+X      r = e
+X      e = d
+c
+c  is parabola acceptable?
+c
+X   30 if (dabs(p) .ge. dabs(0.5*q*r)) go to 40
+X      if (p .le. q*(a - x))           go to 40
+X      if (p .ge. q*(b - x))           go to 40
+c
+c  a parabolic interpolation step
+c
+X      d = p/q
+X      u = x + d
+c
+c  f must not be evaluated too close to a or b 
+c
+X      if ((u - a) .lt. tol2 .or. b - u .lt. tol2) then
+X        if (xm - x .ge. 0.0) then
+X          d =  tol1 
+X        else
+X          d = -tol1
+X        endif
+X      endif
+X      go to 50
+c
+c  a golden-section step
+c
+X   40 if (x .ge. xm) e = a - x
+X      if (x .lt. xm) e = b - x
+X      d = 0.382*e
+c
+c  f must not be evaluated too close to x
+c
+X   50 if (dabs(d) .ge. tol1) then
+X        u = x + d
+X      else
+X        if (d .ge. 0.0) then
+X          u = x + tol1 
+X        else
+X          u = x - tol1 
+X        endif
+X      endif
+X      lambda = ratio*dexp(2.772589*(6.0*u - 2.0))
+c
+c  Call 2 to SPLCAL
+c
+X      call splcal (n, nvar, norder, xvec, wvec, yvec, yhat, lev, 
+X     1             gcv, cv, df, lambda, work, ier)
+X      if (ier .ne. 0) return
+X      if (method .eq. 2) fu = (targdf-df)**2
+X      if (method .eq. 3) fu = gcv
+X      if (method .eq. 4) fu = cv
+c     write (*,'(a, f10.5,e10.3,4f12.4)')  
+c    1                   ' Call 2:', u, lambda, df, gcv, cv, fu
+c
+c  update  a, b, v, w, and x
+c
+X      if (fu .gt. fx) go to 60
+X      if (u  .ge. x)  a = x
+X      if (u  .lt. x)  b = x
+X      v  = w
+X      fv = fw
+X      w  = x
+X      fw = fx
+X      x  = u
+X      fx = fu
+X      go to 20
+c
+X   60 if (u  .lt. x)  a = u
+X      if (u  .ge. x)  b = u
+X      if (fu .le. fw) go to 70
+X      if (w  .eq. x)  go to 70
+X      if (fu .le. fv) go to 80
+X      if (v  .eq. x)  go to 80
+X      if (v  .eq. w)  go to 80
+X      go to 20
+c
+X   70 v  = w
+X      fv = fw
+X      w  = u
+X      fw = fu
+X      go to 20
+c 
+X   80 v  = u
+X      fv = fu
+X      go to 20
+c
+c  -------------------  end of main loop  ------------------------------
+c
+X   90 continue 
+c
+X      return 
+X      end
+X 
+c  -------------------------------------------------------------------------
+c  SPLIFIT ...  this subroutine inputs a strictly increasing sequence of
+c       arguments X, along with NVAR sets of function values Y, and
+c       computes the values of NDERIV derivative values at the NARG argument
+c       values in XARG.  The points are interpolated by bsplines of degree  NDEG
+c       using the "not-a-knot" condition of de Boor's book, page 55
+c
+c  Arguments:
+c
+c  N      ... length of arrays TAU and GTAU
+c  NARG   ... number of argument values at which the derivatives are required
+c  NVAR   ... number of sets of function values
+c  NORDER ... order of B-spline (degree + 1) (minimum value 1)
+c  NDERIV ... order of derivative (0 min, NORDER - 2 max)
+c  X      ... array of strictly increasing argument values
+c  Y      ... matrix of degree N by NVAR of function values at argument values X
+c  XARG   ... array length NARG of argument values at which the derivative 
+c             values are to be computed
+c  DY     ... matrix of degree NARG by NVAR of returned derivative values
+c  WORK   ... working storage of length (2*NORDER-1)*N + NORDER
+c  IER    ...  error return: 
+c               0 ... no error
+c               1 ... inappropriate value of N
+c               2 ... problem with knots detected in SPLINT
+c               3 ... singularity of coefficient matrix detected in BANFAC
+c               4 ... inappropriate value of NDERIV
+c               5 ... inappropriate value of NDEG
+c               6 ... X not strictly increasing
+c
+X      subroutine splifit (n, narg, nvar, norder, nderiv, x, y, xarg, dy,  
+X     1                    work, ier)
+X      implicit real*8 (a-h,o-z)
+X      dimension x(n), y(n,1), xarg(narg), dy(narg,1), work(1)
+c
+X      ier    = 0
+c
+c  check arguments
+c
+X      if (n .le. norder) then
+X        ier = 1
+X        return
+X      endif
+X      if (nderiv .lt. 0 .or. nderiv .ge. norder) then
+X        ier = 4
+X        return
+X      endif
+X      if (norder .lt. 1) then
+X        ier = 5
+X        return
+X      endif
+X      do i=2,n
+X        if (x(i) .le. x(i-1)) then
+X          ier = 6
+X          return
+X        endif
+X      end do
+c
+c  compute offsets for arrays
+c
+X      n2    = 2*n
+X      iboff = 1
+X      itoff = n+1
+X      iqoff = n2+norder+1
+c
+c  construct knot sequence
+c
+X      do k=1,norder
+X        work(n+k)  = x(1)
+X        work(n2+k) = x(n)
+X      end do
+X      nhalf = norder/2
+X      do k=norder+1,n
+X        work(n+k) = x(k-nhalf)
+X      end do
+c
+c  -----------  loop through sets of function values
+c
+X      do ivar=1,nvar
+c
+c  call SPLINT to get the coefficients for the interpolating bspline
+c
+X        call splint ( x, y(1,ivar), work(itoff), n, norder, 
+X     1                work(iqoff), work(iboff), iflag )
+X        ier = iflag - 1
+X        if (ier .ne. 0) return
+c
+c  go through data computing value of derivative nderiv
+c
+X        do iarg=1,narg
+X          call dpbvalue(work(itoff), work(iboff), n, norder, 
+X     1                  xarg(iarg), nderiv, dy(iarg,ivar))
+X        end do
+X      end do
+c
+X      return
+X      end
+c  --------------------------------------------------------------------------
+X      subroutine splint ( x, y, t, n, k, q, bcoef, iflag )
+c
+X      real*8 bcoef(n), y(n), q(1), t(1), x(n), xi 
+c
+X      np1   = n + 1
+X      km1   = k - 1
+X      kpkm1 = 2*k - 1
+X      kpkm2 = 2*km1
+X      left  = k
+X      lenq  = n*(k+km1)
+X      do  i=1,lenq
+X         q(i) = 0.
+X      end do
+c
+c  ***   loop over i to construct the  n  interpolation equations
+c
+X      do i=1,n
+X         xi   = x(i)
+X         ilp1mx = min0(i+k,np1)
+c        *** find  left  in the closed interval (i,i+k-1) such that
+c                t(left) .le. x(i) .lt. t(left+1)
+c        matrix is singular if this is not possible
+X         left = max0(left,i)
+X         if (xi .lt. t(left)) then
+X            iflag = 2
+X            return
+X         endif
+X   10    if (xi .lt. t(left+1))    go to 20
+X         left = left + 1
+X         if (left .lt. ilp1mx)       go to 10
+X         left = left - 1
+X         if (xi .gt. t(left+1)) then
+X            iflag = 2
+X            return
+X         endif
+c
+X   20    call dpbsplvb ( t, k, 1, xi, left, bcoef )
+c
+X         jj = i-left+1 + (left-k)*(k+km1)
+X         do j=1,k
+X            jj = jj+kpkm2
+X            q(jj) = bcoef(j)
+X         end do
+X      end do
+c
+c     ***obtain factorization of  a  , stored again in  q.
+c
+X      call banfac ( q, kpkm1, n, km1, km1, iflag )
+c
+X      if (iflag .ne. 1) then
+X         iflag = 3
+X         return
+X      endif
+c
+c     *** solve  a*bcoef = y  by backsubstitution
+c
+X      do i=1,n
+X         bcoef(i) = y(i)
+X      end do
+c
+X      call banslv ( q, kpkm1, n, km1, km1, bcoef )
+c
+X      return
+X      end
+c  ---------------------------------------------------------------------
+X      subroutine banfac ( w, nroww, nrow, nbandl, nbandu, iflag )
+c
+X      integer iflag,nbandl,nbandu,nrow,nroww,   i,ipk,j,jmax,k,kmax
+X     *                                        ,middle,midmk,nrowm1
+X      real*8 w(nroww,nrow), factor, pivot
+c
+X      iflag = 1
+X      middle = nbandu + 1
+c                         w(middle,.) contains the main diagonal of  a .
+X      nrowm1 = nrow - 1
+X      if (nrowm1)                       999,900,1
+X    1 if (nbandl .gt. 0)                go to 10
+c                a is upper triangular. check that diagonal is nonzero .
+X      do i=1,nrowm1
+X         if (w(middle,i) .eq. 0.)       go to 999
+X      end do
+X                                        go to 900
+X   10 if (nbandu .le. 0) then
+c              a is lower triangular. check that diagonal is nonzero and
+c                 divide each column by its diagonal .
+X        do i=1,nrowm1
+X           pivot = w(middle,i)
+X           if(pivot .eq. 0.)              go to 999
+X           jmax = min0(nbandl, nrow - i)
+X           do j=1,jmax
+X              w(middle+j,i) = w(middle+j,i)/pivot
+X           end do
+X        end do
+X        return
+X      endif
+c
+c        a  is not just a triangular matrix. construct lu factorization
+X      do i=1,nrowm1
+c                                  w(middle,i)  is pivot for i-th step .
+X         pivot = w(middle,i)
+X         if (pivot .eq. 0.)             go to 999
+c                 jmax  is the number of (nonzero) entries in column  i
+c                     below the diagonal .
+X         jmax = min0(nbandl,nrow - i)
+c              divide each entry in column  i  below diagonal by pivot .
+X         do j=1,jmax
+X            w(middle+j,i) = w(middle+j,i)/pivot
+X         end do
+c                 kmax  is the number of (nonzero) entries in row  i  to
+c                     the right of the diagonal .
+X         kmax = min0(nbandu,nrow - i)
+c                  subtract  a(i,i+k)*(i-th column) from (i+k)-th column
+c                  (below row  i ) .
+X         do k=1,kmax
+X            ipk = i + k
+X            midmk = middle - k
+X            factor = w(midmk,ipk)
+X            do j=1,jmax
+X               w(midmk+j,ipk) = w(midmk+j,ipk) - w(middle+j,i)*factor
+X            end do
+X         end do
+X      end do
+c                                       check the last diagonal entry .
+X  900 if (w(middle,nrow) .ne. 0.)       return
+X  999 iflag = 2
+X                                        return
+X      end
+c  ---------------------------------------------------------------------
+X      subroutine banslv ( w, nroww, nrow, nbandl, nbandu, b )
+c
+X      integer nbandl,nbandu,nrow,nroww,   i,j,jmax,middle,nrowm1
+X      real*8 w(nroww,nrow),b(nrow)
+c
+X      middle = nbandu + 1
+X      if (nrow .eq. 1)                  go to 20
+X      nrowm1 = nrow - 1
+X      if (nbandl .ne. 0) then
+c                                 forward pass
+c            for i=1,2,...,nrow-1, subtract  right side(i)*(i-th column
+c            of  l )  from right side  (below i-th row) .
+X        do i=1,nrowm1
+X           jmax = min0(nbandl, nrow-i)
+X           do j=1,jmax
+X              b(i+j) = b(i+j) - b(i)*w(middle+j,i)
+X           end do
+X        end do
+X      endif
+c                                 backward pass
+c            for i=nrow,nrow-1,...,1, divide right side(i) by i-th diag-
+c            onal entry of  u, then subtract  right side(i)*(i-th column
+c            of  u)  from right side  (above i-th row).
+X      if (nbandu .le. 0) then
+c                                a  is lower triangular .
+X        do i=1,nrow
+X           b(i) = b(i)/w(1,i)
+X        end do
+X        return
+X      endif
+X      i = nrow    
+X   10    b(i) = b(i)/w(middle,i)
+X         jmax = min0(nbandu,i-1)
+X         do j=1,jmax
+X            b(i-j) = b(i-j) - b(i)*w(middle-j,i)
+X         end do
+X         i = i - 1
+X         if (i .gt. 1)                  go to 10
+X   20 b(1) = b(1)/w(middle,1)
+c
+X      return
+X      end
+c  -------------------------------------------------------------------------
+X      subroutine dpbsplvb ( t, jhigh, index, x, left, biatx)
+c
+X      parameter (jmax = 20)
+X      integer index,jhigh,left,   i,j,jp1
+X      real*8 biatx(jhigh), t(1), x, deltal(jmax), deltar(jmax), 
+X     1       saved, term
+c
+X      data j/1/
+X      save j,deltal,deltar 
+c
+X                                        go to (10,20), index
+X   10 j = 1
+X      biatx(1) = 1.
+X      if (j .ge. jhigh)                 go to 99
+c
+X   20    jp1 = j + 1
+X         deltar(j) = t(left+j) - x
+X         deltal(j) = x - t(left+1-j)
+X         saved = 0.
+X         do i=1,j
+X            term = biatx(i)/(deltar(i) + deltal(jp1-i))
+X            biatx(i) = saved + deltar(i)*term
+X            saved = deltal(jp1-i)*term
+X         end do
+X         biatx(jp1) = saved
+X         j = jp1
+X         if (j .lt. jhigh)              go to 20
+c
+X   99                                   return
+X      end
+c  --------------------------------------------------------------------------
+X      subroutine dpbvalue ( t, bcoef, n, k, x, jderiv, fofx )
+c
+X      parameter (kmax = 20)
+X      real*8 bcoef(n), t(1), x,  aj(20), dl(20), dr(20), fkmj, fofx
+c
+X      fofx = 0.
+X      if (jderiv .ge. k) return
+c
+X      call dpinterv ( t, n+k, x, i, mflag )
+c     if (mflag .ne. 0) return
+c  *** if k = 1 (and jderiv = 0), fofx = bcoef(i).
+X      km1 = k - 1
+X      if (km1 .eq. 0) then
+X        fofx = bcoef(i)
+X        return
+X      endif
+c
+c  *** store the k b-spline coefficients relevant for the knot dpinterval
+c     (t(i),t(i+1)) in aj(1),...,aj(k) and compute dl(j) = x - t(i+1-j),
+c     dr(j) = t(i+j) - x, j=1,...,k-1 . set any of the aj not obtainable
+c     from input to zero. set any t.s not obtainable equal to t(1) or
+c     to t(n+k) appropriately.
+X      jcmin = 1
+X      imk   = i - k
+X      ip1   = i + 1
+X      if (imk .lt. 0) then
+X        jcmin = 1 - imk
+X        do j=1,i
+X           dl(j) = x - t(ip1-j)
+X        end do
+X        do j=i,km1
+X           aj(k-j) = 0.
+X           dl(j)   = dl(i)
+X        end do
+X      else    
+X        do j=1,km1
+X           dl(j) = x - t(ip1-j)
+X        end do
+X      endif
+c
+X      jcmax = k
+X      nmi   = n - i
+X      if (nmi .lt. 0) then
+X        jcmax = k + nmi
+X        do j=1,jcmax
+X           dr(j) = t(i+j) - x
+X        end do
+X        do j=jcmax,km1
+X           aj(j+1) = 0.
+X           dr(j)   = dr(jcmax)
+X        end do
+X      else
+X        do j=1,km1
+X           dr(j) = t(i+j) - x
+X        end do
+X      endif
+c
+X      do jc=jcmin,jcmax
+X         aj(jc) = bcoef(imk + jc)
+X      end do
+c
+c               *** difference the coefficients  jderiv  times.
+X      if (jderiv .gt. 0) then
+X        do j=1,jderiv
+X           kmj  = k-j
+X           fkmj = float(kmj)
+X           ilo  = kmj
+X           do jj=1,kmj
+X             aj(jj) = ((aj(jj+1) - aj(jj))/(dl(ilo) + dr(jj)))*fkmj
+X             ilo = ilo - 1
+X           end do
+X        end do
+X      endif
+c
+c  *** compute value at  x  in (t(i),t(i+1)) of jderiv-th derivative,
+c     given its relevant b-spline coeffs in aj(1),...,aj(k-jderiv).
+X      if (jderiv .lt. km1) then
+X        jdrvp1 = jderiv + 1  
+X        do j=jdrvp1,km1
+X           kmj = k-j
+X           ilo = kmj
+X           do jj=1,kmj
+X              aj(jj) = (aj(jj+1)*dl(ilo) + aj(jj)*dr(jj))
+X     1                 /(dl(ilo)+dr(jj))
+X              ilo = ilo - 1
+X           end do
+X        end do
+X      endif
+c
+X      fofx = aj(1)
+c
+X      return
+X      end
+c  --------------------------------------------------------------------------
+X      subroutine dpinterv ( xt, lxt, x, left, mflag )
+c
+X      integer left,lxt,mflag,   ihi,ilo,istep,middle
+X      real*8 x,xt(lxt)
+c
+X      data ilo /1/
+X      save ilo  
+c
+X      ihi = ilo + 1
+X      if (ihi .lt. lxt)                 go to 20
+X         if (x .ge. xt(lxt))            go to 110
+X         if (lxt .le. 1)                go to 90
+X         ilo = lxt - 1
+X         ihi = lxt
+c
+X   20 if (x .ge. xt(ihi))               go to 40
+X      if (x .ge. xt(ilo))               go to 100
+c
+c              **** now x .lt. xt(ilo) . decrease  ilo  to capture  x .
+X      istep = 1
+X   31    ihi = ilo
+X         ilo = ihi - istep
+X         if (ilo .le. 1)                go to 35
+X         if (x .ge. xt(ilo))            go to 50
+X         istep = istep*2
+X                                        go to 31
+X   35 ilo = 1
+X      if (x .lt. xt(1))                 go to 90
+X                                        go to 50
+c              **** now x .ge. xt(ihi) . increase  ihi  to capture  x .
+X   40 istep = 1
+X   41    ilo = ihi
+X         ihi = ilo + istep
+X         if (ihi .ge. lxt)              go to 45
+X         if (x .lt. xt(ihi))            go to 50
+X         istep = istep*2
+X                                        go to 41
+X   45 if (x .ge. xt(lxt))               go to 110
+X      ihi = lxt
+c
+c           **** now xt(ilo) .le. x .lt. xt(ihi) . narrow the dpinterval.
+X   50 middle = (ilo + ihi)/2
+X      if (middle .eq. ilo)              go to 100
+c     note. it is assumed that middle = ilo in case ihi = ilo+1 .
+X      if (x .lt. xt(middle))            go to 53
+X         ilo = middle
+X                                        go to 50
+X   53    ihi = middle
+X                                        go to 50
+c**** set output and return.
+X   90 mflag = -1
+X      left = 1
+X                                        return
+X  100 mflag = 0
+X      left = ilo
+X                                        return
+X  110 mflag = 1
+X	  if (x .eq. xt(lxt)) mflag = 0
+X      left = lxt
+X  111 if (left .eq. 1)                  return
+X	  left = left - 1
+X	  if (xt(left) .lt. xt(lxt))        return 			
+X                                            go to 111
+X      end
+SHAR_EOF
+  $shar_touch -am 0716164896 'Pspline.f' &&
+  chmod 0644 'Pspline.f' ||
+  $echo 'restore of' 'Pspline.f' 'failed'
+  if ( md5sum --help 2>&1 | grep 'sage: md5sum \[' ) >/dev/null 2>&1 \
+  && ( md5sum --version 2>&1 | grep -v 'textutils 1.12' ) >/dev/null; then
+    md5sum -c << SHAR_EOF >/dev/null 2>&1 \
+    || $echo 'Pspline.f:' 'MD5 check failed'
+dee5ed11cdc14bbc9fbea8c857a9b463  Pspline.f
+SHAR_EOF
+  else
+    shar_count="`LC_ALL= LC_CTYPE= LANG= wc -c < 'Pspline.f'`"
+    test 48224 -eq "$shar_count" ||
+    $echo 'Pspline.f:' 'original size' '48224,' 'current size' "$shar_count!"
+  fi
+fi
+# ============= smooth.Pspline.d ==============
+if test -f 'smooth.Pspline.d' && test "$first_param" != -c; then
+  $echo 'x -' SKIPPING 'smooth.Pspline.d' '(file already exists)'
+else
+  $echo 'x -' extracting 'smooth.Pspline.d' '(text)'
+  sed 's/^X//' << 'SHAR_EOF' > 'smooth.Pspline.d' &&
+X.BG
+X.FN smooth.Pspline
+X.TL
+Fit a Polynomial Smoothing Spline of Arbitrary Order
+X.DN
+Returns an object of class `smooth.Pspline' which is a natural 
+polynomial smooth of the input data of order fixed by the user.
+X.CS
+smooth.Pspline(x, y, 
+X.OA
+w=rep(1, length(x)), 
+X.OA
+norder=2, 
+X.OA
+df=norder + 2, 
+X.OA
+spar=0, 
+X.OA
+method=1)
+X.RA
+X.AG x
+values of the predictor variable.  These must be strictly increasing, and
+there must be at least `2*norder + 1' of them.
+X.AG y
+one or more sets of response variable values.  If there is one response
+variable, `y' is an array of the same length as `x'; if more than one, then
+`y' is a matrix with `length(x)' rows and number of columns equal to the number
+of variables.
+X.AG w
+vector of positive weights for smoothing of the same length as `x'.  
+If measurements at different values of x have different variances, 
+`w' should be 
+inversely proportional to the variances.  The default is that all weights
+are one.
+X.AG norder
+the order of the spline.  `norder = 2' gives the cubic smoothing spline, 
+and more generally the smoothing function is a piecewise polynomial of 
+degree `2*norder - 1'.  If derivatives are to be computed from the smoothing
+using `predict.smooth.Pspline', the order should be one or two more than the
+highest order of derivative.
+X.AG df
+a number which specifies the degrees of freedom = trace(S).  
+Here S is the implicit smoothing matrix.  `df' controls the amount of smoothing
+if `method = 2'.
+X.AG spar
+the usual smoothing parameter for smoothing splines,
+which is the coefficient of the integrated squared derivative of order `norder'.
+`spar' controls the amount of smoothing if `method = 1'.  
+X.AG method
+the method for controlling the amount of smoothing.  `method = 1' uses the
+value supplied for spar.  `method = 2' adjusts `spar' so that the degrees of
+freedom is equal to `df'.  `method = 3' adjusts `spar' so that the 
+generalized cross-validation criterion is minimized.  `method = 4' adjusts
+`spar' so that the ordinary cross-validation criterion is minimized.
+If 'method=3' or 'method=4', 'spar' defines the initial value for the 
+minimization algorithm if positive; otherwise an internally generated value 
+is used.
+X.RT
+an object of class `smooth.Pspline' is returned, consisting of the fitted
+smoothing spline evaluated at the supplied data, some fitting criteria
+and constants.  This object contains the information necessary to evaluate
+the smoothing spline or one of its derivatives at arbitrary argument
+values using `predict.smooth.Pspline'.  The components of the returned
+list are
+X.AG norder
+the order of the spline  
+X.AG x
+values of the predictor variable
+X.AG ysmth
+a matrix with `length(x)' rows, each column of which contains
+the smoothed response variable values for the corresponding column of `y'.  
+X.AG lev
+leverage values, which are the diagonal elements of the smoother matrix S.
+X.AG gcv
+generalized cross-validation criterion value
+X.AG cv
+ordinary cross-validation criterion value
+X.AG df
+a number which supplies the degrees of freedom = trace(S) rather than
+a smoothing parameter.
+X.AG spar
+the final smoothing parameter for smoothing splines.  This
+is unchanged if `method = 1', but adjusted otherwise.
+X.AG call
+the call that produced the fit
+X.DT
+The method produces results similar to function `smooth.spline', but
+the smoothing function is a natural smoothing spline rather than a B-spline
+smooth, and as a consequence will differ slightly for `norder = 2' over the
+initial and final intervals.  
+X
+The main extension is the possibility of 
+setting the order of derivative to be penalized, so that derivatives
+of any order can be computed using the companion function
+`predict.smooth.Pspline'.  The algorithm is of order N, meaning that the 
+number of floating point operations is proportional to the number of values
+being smoothed.  Note that the argument values must be strictly increasing,
+a condition that is not required by `smooth.spline'.  
+X
+Note that the appropriate or minimized value of the smoothing parameter
+`spar' will depend heavily on the order; the larger the order, the smaller
+this parameter will tend to be.
+X.SH REFERENCES
+Heckman, N. and Ramsay, J. O. (1996) Spline smoothing with model based
+penalties.  McGill University, unpublished manuscript.
+X.SA
+`predict.smooth.Pspline, plot.smooth.Pspline, smooth.spline'
+X.EX
+# order 2 smooth with fixed smoothing parameter:
+X
+fit <- smooth.Pspline(x, y, spar=1e-4)
+X
+# order 4 smooth by minimizing the gcv criterion:
+X
+fit <- smooth.Pspline(x, y, norder=4, method=3)
+X
+# order 3 smooth fixing degrees of freedom to 10
+X
+fit <- smooth.Pspline(x, y, norder=3, df= 10, method=2)
+X
+X.KW smooth
+X.WR
+SHAR_EOF
+  $shar_touch -am 0620113996 'smooth.Pspline.d' &&
+  chmod 0644 'smooth.Pspline.d' ||
+  $echo 'restore of' 'smooth.Pspline.d' 'failed'
+  if ( md5sum --help 2>&1 | grep 'sage: md5sum \[' ) >/dev/null 2>&1 \
+  && ( md5sum --version 2>&1 | grep -v 'textutils 1.12' ) >/dev/null; then
+    md5sum -c << SHAR_EOF >/dev/null 2>&1 \
+    || $echo 'smooth.Pspline.d:' 'MD5 check failed'
+a6f8a9db108d65f2ccab6861ee0f6bbc  smooth.Pspline.d
+SHAR_EOF
+  else
+    shar_count="`LC_ALL= LC_CTYPE= LANG= wc -c < 'smooth.Pspline.d'`"
+    test 4641 -eq "$shar_count" ||
+    $echo 'smooth.Pspline.d:' 'original size' '4641,' 'current size' "$shar_count!"
+  fi
+fi
+# ============= predict.smooth.Pspline.d ==============
+if test -f 'predict.smooth.Pspline.d' && test "$first_param" != -c; then
+  $echo 'x -' SKIPPING 'predict.smooth.Pspline.d' '(file already exists)'
+else
+  $echo 'x -' extracting 'predict.smooth.Pspline.d' '(text)'
+  sed 's/^X//' << 'SHAR_EOF' > 'predict.smooth.Pspline.d' &&
+X.BG
+X.FN predict.smooth.Pspline
+X.TL
+Smoothing Spline of Arbitrary Order at New Data
+X.DN
+Uses an object of class `smooth.Pspline' to evaluate a polynomial smoothing
+spline of arbitrary order or one of its derivatives at new argument values.
+X.CS
+predict.smooth.Pspline(splobj, xarg, 
+X.OA
+nderiv=0)
+X.RA
+X.AG splobj
+a fitted 'smooth.Pspline' object.
+X.AG xarg
+the argument values at which the spline or its derivative is to be evaluated.
+X.AG deriv
+the order of the derivative required -- default is 0, the function itself.
+X.RT
+a list with components 'xarg' and 'dy'; the 'xarg' component is identical
+to the input 'xarg' sequence, the 'dy' component is the evaluated derivative
+of order 'deriv'. 
+X.DT
+The method produces results similar to function `predict.smooth.spline', but
+the smoothing function is a natural smoothing spline rather than a B-spline
+smooth, and the order of the spline can be chosen freely, where order
+in this case means the order of the derivative that is penalized.  
+'smooth.spline' penalizes the second derivative, and consequently only
+derivatives or order 0 or 1 are useful, but because 'smooth.Pspline'
+penalizes a derivative of order m, derivatives up to order m-1 are useful.
+The general recommendation is to penalize the derivative two beyond the
+highest order derivative to be evaluated.
+X
+X.SH REFERENCES
+Heckman, N. and Ramsay, J. O. (1996) Spline smoothing with model based
+penalties.  McGill University, unpublished manuscript.
+X.SA
+`predict.smooth.Pspline, plot.smooth.Pspline, smooth.spline'
+X.EX
+# order 4 smooth by minimizing the gcv criterion:
+X
+fit <- smooth.Pspline(x, y, norder=4, method=3)
+X
+# evaluate the second derivative or acceleration
+X
+D2fit <- predict.smooth.Pspline(fit, x, 2)
+X
+X.KW smooth
+X.WR
+SHAR_EOF
+  $shar_touch -am 0610173596 'predict.smooth.Pspline.d' &&
+  chmod 0644 'predict.smooth.Pspline.d' ||
+  $echo 'restore of' 'predict.smooth.Pspline.d' 'failed'
+  if ( md5sum --help 2>&1 | grep 'sage: md5sum \[' ) >/dev/null 2>&1 \
+  && ( md5sum --version 2>&1 | grep -v 'textutils 1.12' ) >/dev/null; then
+    md5sum -c << SHAR_EOF >/dev/null 2>&1 \
+    || $echo 'predict.smooth.Pspline.d:' 'MD5 check failed'
+86c0dcb9cc2b81cde8c5e5bbd46c562d  predict.smooth.Pspline.d
+SHAR_EOF
+  else
+    shar_count="`LC_ALL= LC_CTYPE= LANG= wc -c < 'predict.smooth.Pspline.d'`"
+    test 1734 -eq "$shar_count" ||
+    $echo 'predict.smooth.Pspline.d:' 'original size' '1734,' 'current size' "$shar_count!"
+  fi
+fi
+rm -fr _sh00901
+exit 0
