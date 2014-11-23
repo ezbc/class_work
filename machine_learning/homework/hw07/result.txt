@@ -1,0 +1,4 @@
+lambda = 0.013939486
+estimated sigma2 = 0.069420385
+true sigma2 = 0.005190313
+sd-ratio = 3.657183367

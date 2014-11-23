@@ -1,0 +1,237 @@
+<HTML>
+<HEAD>
+<TITLE>Stat 840</TITLE>
+</HEAD>
+<BODY BGCOLOR = "#FFFFFF">
+<BODY>
+
+<H1>R Help</H1><hr>
+<H2> Table of Contents </H2>
+ <UL>
+<li><a href="#1">Get Started</a>
+<li><a href="#2">Use R Function smooth.Pspline to fit a Smoothing Spline
+<li><a href="#3">An example</a>
+<li><a href="#4">Data for experiment</a>
+</ul>
+<hr>
+<a name="1">
+<H2>Get Started</H2>
+R is a powerful and freely available statistics software, available
+at Union South, in the Statistics Dept, and in any operating system.
+<Br>
+After you log into your account, type R (It may be different on your own computer)<Br>
+<BR>
+<PRE WIDTH=90>
+R version 2.11.1 (2010-05-31)
+Copyright (C) 2010 The R Foundation for Statistical Computing
+ISBN 3-900051-07-0
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+[Previously saved workspace restored]
+
+>
+</PRE>
+You will see the prompt of R. The R project home page is  
+<a href="http://www.r-project.org">here</A> <br>
+<a name="2"> Under documentation click on Manuals 
+amd you will find "An Introduction to R". However, 
+you should, with any luck, be able to follow the instructions below,
+without getting more deeply into R.
+<H2>Use R Function smooth.Pspline to fit a Smoothing Spline</H2>
+In our course, we will mainly use it to do experiment about
+fitting smooth curves. We will use function smooth.Pspline in R.
+You will find some help and examples about how to use this function
+below. There are also some useful examples and R programs related
+to our course.<br>
+
+<PRE WIDTH=90>
+smooth.Pspline            package:pspline            R Documentation
+
+Fit a Polynomial Smoothing Spline of Arbitrary Order
+
+Description:
+
+     Returns an object of class `"smooth.Pspline"' which is a natural 
+     polynomial smooth of the input data of order fixed by the user.
+
+Usage:
+
+     smooth.Pspline(x, y, w=rep(1, length(x)), norder=2, df=norder + 2, 
+                    spar=0, method=1)
+     sm.spline(x, y, w, cv=FALSE, ...)
+
+Arguments:
+
+       x: values of the predictor variable.  These must be strictly
+          increasing, and there must be at least `2*norder + 1' of
+          them.
+
+          `sm.spline' provides a simplified interface, in which the `x'
+          values can be unsorted, or a list with components `"x"' and
+          `"y"' or a two-column matrix or a complex vector. 
+
+       y: one or more sets of response variable values.  If there is
+          one response variable, `y' is an array of the same length as
+          `x'; if more than one, then `y' is a matrix with `length(x)'
+          rows and number of columns equal to the number of variables. 
+
+       w: vector of positive weights for smoothing of the same length
+          as `x'. If measurements at different values of `x' have
+          different variances, `w' should be inversely proportional to
+          the variances.  The default is that all weights are one. 
+
+  norder: the order of the spline.  `norder = 2' gives the cubic
+          smoothing spline, and more generally the smoothing function
+          is a piecewise polynomial of degree `2*norder - 1'.  If
+          derivatives are to be computed from the smoothing using
+          `predict.smooth.Pspline', the order should be one or two more
+          than the highest order of derivative. 
+
+      df: a number which specifies the degrees of freedom = trace(S). 
+          Here S is the implicit smoothing matrix.  `df' controls the
+          amount of smoothing if `method = 2'. 
+
+    spar: the usual smoothing parameter for smoothing splines, which is
+          the coefficient of the integrated squared derivative of order
+          `norder'. `spar' controls the amount of smoothing if `method
+          = 1'. 
+
+      cv: logical: should ordinary cross-validation be used (true) or
+          generalized cross-validation.
+
+  method: the method for controlling the amount of smoothing.  `method
+          = 1' uses the value supplied for `spar'.  `method = 2'
+          adjusts `spar' so that the degrees of freedom is equal to
+          `df'.  `method = 3' adjusts `spar' so that the generalized
+          cross-validation criterion is minimized.  `method = 4'
+          adjusts `spar' so that the ordinary cross-validation
+          criterion is minimized.  If `method = 3' or `method = 4',
+          `spar' defines the initial value for the minimization
+          algorithm if positive; otherwise an internally generated
+          value is used.
+
+          `sm.spline' chooses this automatically based on the supplied
+          values and that of `cv'. 
+
+     ...: additional arguments to be passed to `smooth.Pspline'. 
+
+Details:
+
+     The method produces results similar to function `smooth.spline',
+     but the smoothing function is a natural smoothing spline rather
+     than a B-spline smooth, and as a consequence will differ slightly
+     for `norder = 2' over the initial and final intervals.  
+
+     The main extension is the possibility of setting the order of
+     derivative to be penalized, so that derivatives of any order can
+     be computed using the companion function `predict.smooth.Pspline'.
+      The algorithm is of order N, meaning that the number of floating
+     point operations is proportional to the number of values being
+     smoothed. Note that the argument values must be strictly
+     increasing, a condition that is not required by `smooth.spline'.
+
+     Note that the appropriate or minimized value of the smoothing
+     parameter `spar' will depend heavily on the order; the larger the
+     order, the smaller this parameter will tend to be.
+
+Value:
+
+     an object of class `"smooth.Pspline"' is returned, consisting of
+     the fitted smoothing spline evaluated at the supplied data, some
+     fitting criteria and constants.  This object contains the
+     information necessary to evaluate the smoothing spline or one of
+     its derivatives at arbitrary argument values using
+     `predict.smooth.Pspline'.  The components of the returned list are
+
+References:
+
+     Heckman, N. and Ramsay, J. O. (1996) Spline smoothing with model
+     based penalties.  McGill University, unpublished manuscript.
+
+See Also:
+
+     `predict.smooth.Pspline', `smooth.spline'
+
+Examples:
+
+     data(cars)
+     attach(cars)
+     plot(speed, dist, main = "data(cars)  &  smoothing splines")
+     cars.spl <- sm.spline(speed, dist)
+     cars.spl
+     lines(cars.spl, col = "blue")
+     lines(sm.spline(speed, dist, df=10), lty=2, col = "red")
+
+</PRE>
+<a name="3">
+<H2>An example</H2>
+
+Here is a complete example on how to generate random data, fitting
+the curve and plotting the result. 
+(note the sentences after the pound key (#) are R comments, you don't have
+to type those.)
+
+<PRE WIDTH=90>
+set.seed(100) #set initial seed for random number generator
+
+n <- 100
+x <- (1:n)/n  #we will use 100 equally spaced design point from 0 to 1
+
+true <- ((exp(1.2*x)+1.5*sin(7*x))-1)/3 #true function in this simulation
+
+noise <- rnorm(n, 0, 0.15)
+#generate n independent normal random number with 0 mean and variance 0.15
+
+y <- true + noise #y is observed values (true value + noise)
+
+#or you can read data from a file:
+#dat <- read.table("hw1.dat", header=T)
+#attach(dat)
+
+library(pspline) #load the package containing the smooth.Pspline function
+fit <- smooth.Pspline(x, y, method=3)
+#fit smoothing spline on noisy data using GCV score (method=3). use method=1
+#with a user specified smoothing parameter (spar) if you want to try different
+#degree of smoothing.
+
+postscript("result.ps", height=4, width=5, horizo=F)
+#initialize graphic output 
+#(PS file for print, you can use Ghostview or gv command to view it)
+#alternatively, you can use motif() to view it on screen
+
+plot(x, y, xlab="x", ylab="y", cex=0.5) #plot data point
+lines(x, true, lty=2) #plot true function
+lines(fit$x, fit$y) #plot smooth spline fit
+
+graphics.off()
+#output to PS file
+#if you use motif(), you can shut down motif window by using dev.off()
+</PRE>
+<a name="4">
+<h2>Data for experiment</h2>
+You can download data <a href="hw1.dat"> HERE </A>. There
+are 100 data points in this file. X is equally
+spaced between 0 and 1. Y is response variable.<br><br>
+<HR>
+Thanks to Fangyu Gao for the original version of the help file (about
+S-Plus), later updated by Xianhong Xie and the newest version from Xiwen Ma. If you have any questions, send your email to
+<ADDRESS>
+  <A href="mailto:dai@stat.wisc.edu">dai@stat.wisc.edu</A>
+</ADDRESS>
+</BODY>
+</HTML>
+
+

@@ -1,0 +1,274 @@
+%-------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%-------------------------------------------------------------------------------
+
+\documentclass{article}
+
+% Packages
+\input{my_packages.tex}
+
+% formatting
+\input{my_format.tex}
+
+%----------------------------------------------------------------------------------------
+%	NAME AND CLASS SECTION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\hmwkTitle}{Homework 1} % Assignment title
+\newcommand{\hmwkDueDate}{Tuesday, Sept. 9} % Due date
+\newcommand{\hmwkClass}{ECE 532} % Course/class
+\newcommand{\hmwkClassTime}{11:00 am} % Class/lecture time
+\newcommand{\hmwkClassInstructor}{Robert Nowak} % Teacher/lecturer
+\newcommand{\hmwkAuthorName}{Elijah Bernstein-Cooper} % Your name
+
+%-------------------------------------------------------------------------------
+%	TITLE PAGE
+%-------------------------------------------------------------------------------
+
+\title{\vspace{0in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}
+    \vspace{0.5in}}
+
+\author{\textbf{Elijah Bernstein-Cooper}}
+\date{\today} % Insert date here if you want it to appear below your name
+
+%-------------------------------------------------------------------------------
+
+\begin{document}
+
+\maketitle
+%\newpage
+
+%===============================================================================
+%-------------------------------------------------------------------------------
+%	PROBLEM 1
+%-------------------------------------------------------------------------------
+\begin{homeworkProblem}
+
+    \begin{homeworkSection}{1a}
+
+        Given $\bm{X} = [{\bm x}_1 {\bm x}_2 \dots {\bm x}_n] \in
+        \mathbb{R}^p$, we can express the matrix $\bm{C}$ where
+
+        \begin{equation}  
+            {\bm C = XX}^T
+        \end{equation}
+
+        \noindent as the following sum of rank-1 matrices
+
+        \begin{equation}
+            {\bm C} = \sum_{i = 1}^{n} \frac{\bm{x}_i \bm{x}_i^T}{n}
+        \end{equation}
+
+    \end{homeworkSection}
+
+    \begin{homeworkSection}{1b}
+        
+        The rank of $\bm{C}$ will be $n$.
+
+    \end{homeworkSection}
+
+\end{homeworkProblem}
+%\clearpage
+%===============================================================================
+
+%===============================================================================
+%-------------------------------------------------------------------------------
+%	PROBLEM 2 
+%-------------------------------------------------------------------------------
+\begin{homeworkProblem}
+
+    \begin{homeworkSection}{2a}
+
+        To determine if $\Phi(\bm{x})$ is a norm where 
+
+        \begin{equation}
+            \Phi(\bm{x}) = \sum_{j=1}^m \left(\sum_{i\in G_j} x_i^2
+            \right)^{1/2}
+        \end{equation}
+
+        \noindent we first recognize that $\Phi(\bm{x})$ is simply a sum over
+        an instance of the $p$-norm where $p = 2$ because $i \in G_j$ will
+        include all elements in the set $\{1, 2, \dots, n\}$. The sum over the
+        $p$-norm is also a 1-norm. The norm of a norm, is in fact a norm, thus
+        $\Phi(\bm{x})$ is a norm.
+        
+    \end{homeworkSection}
+
+    \begin{homeworkSection}{2b}
+
+        When $m = 1$, $\Phi(\bm{x})$ is the Euclidean norm.
+        When $m = n$, $\Phi(\bm{x})$ is the 1-norm.
+
+    \end{homeworkSection}
+
+\end{homeworkProblem}
+%===============================================================================
+
+%===============================================================================
+%-------------------------------------------------------------------------------
+%	PROBLEM 3
+%-------------------------------------------------------------------------------
+\begin{homeworkProblem}
+
+    Given 
+    
+    \begin{equation}
+        \cos(\bm{x},\bm{y}) = \frac{\bm{x}^T\bm{y}}{\|\bm{x}\|_2 \|\bm{y}\|_2}
+    \end{equation}
+
+    \noindent and that $|\cos(\bm{x},\bm{y})| \leq 1$, the absolute value of
+    the numerator cannot be larger than the denominator, thus $|\bm{x}^T\bm{y}|
+    \leq \|\bm{x}\|_2 \|\bm{y}\|_2$.
+
+\end{homeworkProblem}
+%===============================================================================
+
+%===============================================================================
+%-------------------------------------------------------------------------------
+%	PROBLEM 4
+%-------------------------------------------------------------------------------
+\begin{homeworkProblem}
+
+    \begin{homeworkSection}{4a}
+
+        Given $\bm{y} = \bm{Ax}$ we can write $\bm{x}$ as
+        
+        \begin{equation}
+            \bm{x = A}^{-1}\bm{y}
+        \end{equation}
+
+    \end{homeworkSection}
+
+    \begin{homeworkSection}{4b}
+
+        To bound the 2-norm of $\bm{x}$ with a function of $\bm{A}$ and $\bm{y}$
+        we first take $\|\bm{x}\| = \|\bm{A}^{-1}\bm{y}\|$ which can be
+        expressed as
+
+        \begin{equation}
+            \frac{\|\bm{A}^{-1}\bm{y}\|}{\|\bm{y}\|}\|\bm{y}\|
+        \end{equation}
+        
+        \noindent where
+
+        \begin{equation}\label{eq:matrix_norm}
+            \frac{\|\bm{A}^{-1}\bm{y}\|}{\|\bm{y}\|}
+        \end{equation}
+
+        \noindent is the matrix norm. Eq.~\ref{eq:matrix_norm} will always be
+        less than $\|\bm{A}^{-1}\|$, thus
+        
+        \begin{equation}
+            \|\bm{x}\| \leq \|\bm{A}^{-1}\|\|\bm{y}\|
+        \end{equation}
+
+
+    \end{homeworkSection}
+
+\end{homeworkProblem}
+%===============================================================================
+
+%===============================================================================
+%-------------------------------------------------------------------------------
+%	PROBLEM 5
+%-------------------------------------------------------------------------------
+\begin{homeworkProblem}
+
+    \begin{homeworkSection}{5a}
+
+        The rank of $\bm{A}$ is 3.
+
+    \end{homeworkSection}
+
+    \begin{homeworkSection}{5b}
+
+        $\bm{x}$ can be expressed as 
+
+        \begin{equation}
+            \bm{x} = \left(\begin{matrix}
+                         0 &   0 &  1 \\
+                         0 &   1 & -1 \\
+                         1 &  -1 &  0
+            \end{matrix} \right) \bm{y}
+        \end{equation}
+
+    \end{homeworkSection}
+
+\end{homeworkProblem}
+%===============================================================================
+
+%===============================================================================
+%-------------------------------------------------------------------------------
+%	PROBLEM 6
+%-------------------------------------------------------------------------------
+\begin{homeworkProblem}
+
+    \begin{homeworkSection}{6a}
+
+        The rank of $\bm{X}$ is 3. 
+
+    \end{homeworkSection}
+        
+
+    \begin{homeworkSection}{6b}
+        
+        The rank of $\frac{\bm{XX^T}}{n}$ is 3. 
+
+    \end{homeworkSection}
+    
+    \begin{homeworkSection}{6c}
+
+        A set of linearly independent columns of $\bm{X}$ are
+
+        \begin{math}
+             \left(\begin{matrix} 1\\0\\0\\0\\ \end{matrix}\right) 
+             \left(\begin{matrix} 0\\1\\0\\0\\ \end{matrix}\right) 
+             \left(\begin{matrix} 1\\0\\0\\1\\ \end{matrix}\right) 
+        \end{math}
+
+    \end{homeworkSection}
+
+\end{homeworkProblem}
+%===============================================================================
+
+
+%===============================================================================
+%-------------------------------------------------------------------------------
+%	PROBLEM 7
+%-------------------------------------------------------------------------------
+\begin{homeworkProblem}
+
+    We have adopted a non-local method of denoising an image based on matching
+    intensities throughout the image. Our algorithm cycles through each pixel
+    in the noisey image and chooses 25\% of the total pixels which are closest
+    in intensity to the pixel in the cycle. See Figure~\ref{fig:images} for an
+    example of the local vs. non-local denoising algorithms. We can see that
+    the non-local intensity averaging does not retain the original contrast
+    levels in the image, but does successfully decrease the noise.
+
+    \begin{figure}[!ht]
+        
+        \includegraphics{noisey_images.png}
+
+        \caption{\label{fig:images} {\it Left:} Original image. {\it Left
+            middle:} Original image with added Gaussian noise. {\it Right
+            middle:} Denoised image with a local kernel filter. {\it Right:}
+        Denoised image with intensity matching.}
+
+    \end{figure}
+
+    \clearpage
+    %\pythonexternal{hw2.m}
+    Below is the code used to perform the intensity matching denoising.
+    \lstinputlisting{hw2.m}
+
+\end{homeworkProblem}
+%===============================================================================
+
+
+
+\end{document}
+

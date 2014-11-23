@@ -1,0 +1,8 @@
+what does it mean for a reduction to be sufficient?
+
+how does the convergence of the consistency estimator compare with other
+methods for dimension reduction?
+
+what advantages will this method have over SVD or PCA?
+
+

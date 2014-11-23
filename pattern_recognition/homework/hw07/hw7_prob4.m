@@ -11,17 +11,6 @@ m_list = [10, 100, 1000];
 b_list = {};
 A_list = {};
 n = 2;
-for j = 1:size(m_list,2)
-    m = m_list(j);
-    b = zeros(m,1);
-    for i=1:m
-        a = 2*rand(2,1)-1;
-        A(i,:)=a';
-        b(i) = sign(a(1)^2+a(2)^2-.5);
-    end
-    b_list{j} = b;
-    A_list{j} = A;
-end
 
 % perform polynomial kernel estimation of b
 lambda = 10^-5;
@@ -44,8 +33,8 @@ for i = 1:size(m_list, 2)
         % LS
         % --
         xLS = A' * inv(A*A' + lambda*eye(size(A,1))) * b;
-        b_hat = sign(A*xLS);
-        err = sum(b_hat ~= b)/m;
+        b_hat_ls = sign(A*xLS);
+        err = sum(b_hat_ls ~= b)/m;
         err_array(j, 1) = err;
 
         % Polynomial kernel
@@ -58,8 +47,8 @@ for i = 1:size(m_list, 2)
         end
         alpha = (K + lambda * eye(m)) \ b;
         x_hat = A' * alpha;
-        b_hat = sign(K*alpha);
-        err = sum(b_hat ~= b)/m;
+        b_hat_poly = sign(K*alpha);
+        err = sum(b_hat_poly ~= b)/m;
         err_array(j, 2) = err;
 
         % Gaussian kernel
@@ -73,16 +62,28 @@ for i = 1:size(m_list, 2)
 
         alpha = (K + lambda * eye(m)) \ b;
         x_hat = A' * alpha;
-        b_hat = sign(K*alpha);
-        err = sum(b_hat ~= b)/m;
+        b_hat_gauss = sign(K*alpha);
+        err = sum(b_hat_gauss ~= b)/m;
         err_array(j, 3) = err;
     end
     err_list{i} = err_array;
 end
 
+save('err_list', err_list);
+
+text = {'LS', 'Poly', 'Gauss'};
+for i=1:size(m_list,2)
+    for j=1:3
+        disp(m_list(i))
+        disp(text{j})
+        s = sum(err_list{i});
+        disp(s(j))
+    end
+end
+
 % Plot data
 figure(1); 
-subplot(121); hold on;
+subplot(141); hold on;
 for i=1:m
     a = A(i, :);
     if b(i)==1
@@ -95,10 +96,10 @@ axis('square')
 title('training data')
 
 % Plot solution
-subplot(122); hold on;
+subplot(142); hold on;
 for i=1:m
     a = A(i,:);
-    if b_hat(i)==1
+    if b_hat_poly(i)==1
         plot(a(1),a(2),'b.');
     else
         plot(a(1),a(2),'r.');
@@ -106,6 +107,30 @@ for i=1:m
 end
 axis('square')
 title('Polynomial Kernel')
+
+subplot(143); hold on;
+for i=1:m
+    a = A(i,:);
+    if b_hat_ls(i)==1
+        plot(a(1),a(2),'b.');
+    else
+        plot(a(1),a(2),'r.');
+    end
+end
+axis('square')
+title('Least Squares')
+
+subplot(144); hold on;
+for i=1:m
+    a = A(i,:);
+    if b_hat_gauss(i)==1
+        plot(a(1),a(2),'b.');
+    else
+        plot(a(1),a(2),'r.');
+    end
+end
+axis('square')
+title('Gaussian Kernel')
 
 
 

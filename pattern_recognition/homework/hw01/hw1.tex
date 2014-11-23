@@ -1,0 +1,127 @@
+%-------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%-------------------------------------------------------------------------------
+
+\documentclass{article}
+
+% Packages
+\input{my_packages.tex}
+
+% formatting
+\input{my_format.tex}
+
+%----------------------------------------------------------------------------------------
+%	NAME AND CLASS SECTION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\hmwkTitle}{Homework 1} % Assignment title
+\newcommand{\hmwkDueDate}{Tuesday, Sept. 9} % Due date
+\newcommand{\hmwkClass}{ECE 532} % Course/class
+\newcommand{\hmwkClassTime}{11:00 am} % Class/lecture time
+\newcommand{\hmwkClassInstructor}{Robert Nowak} % Teacher/lecturer
+\newcommand{\hmwkAuthorName}{Elijah Bernstein-Cooper} % Your name
+
+%-------------------------------------------------------------------------------
+%	TITLE PAGE
+%-------------------------------------------------------------------------------
+
+\title{\vspace{0in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}
+    \vspace{0.5in}}
+
+\author{\textbf{Elijah Bernstein-Cooper}}
+\date{\today} % Insert date here if you want it to appear below your name
+
+%-------------------------------------------------------------------------------
+
+\begin{document}
+
+\maketitle
+%\newpage
+
+%===============================================================================
+%-------------------------------------------------------------------------------
+%	PROBLEM 1
+%-------------------------------------------------------------------------------
+\begin{homeworkProblem}
+
+    \textbf{Design an algorithm to find the genes that are most predictive of a
+        disease or phenotype. DNA microarrays can be used to measure the amount
+        of protein produced by each gene (the so-called "gene expression
+        level").  Suppose we measure the gene expression levels of a number of
+    people with and without a particular disease.  Assume m genes are
+measured.  What is your data matrix A?  How would you decide which genes are
+most important to or involved in the disease process?} \\
+    
+    Our data matrix, $A$, will be a $k \times m$ matrix, with $k$ people and
+    $m$ genes. To determine which genes are most likely to cause disease we
+    first assign a label matrix $L$, a column vector of length $k$ where the
+    $i^{\rm th}$ element corresponds to the label for the $i^{\rm th}$ person
+    in our matrix $A$. Diseased people will be labeled 1, healthy people will
+    be labeled 0. \\
+
+    Our problem will then be reduced to solving the linear equation
+
+    \begin{equation}
+        A x = L
+    \end{equation}
+
+    \noindent where $x$ will be a column vector of length $m$. We then solve
+    for $x$. $x$ will describe the relative contributions of genes to
+    disease or health.
+
+\end{homeworkProblem}
+%\clearpage
+%===============================================================================
+
+%===============================================================================
+%-------------------------------------------------------------------------------
+%	PROBLEM 2 
+%-------------------------------------------------------------------------------
+\begin{homeworkProblem}
+    
+    \textbf{Now suppose we have gene expression data for n different strains of
+        yeast.  We also measure phenotypic similarities between the different
+        strains (e.g., similarity measures based on the observable
+        characteristics or traits of the strains like shaper or color).  In
+        other words, we have an n x n matrix of similarity values, say ranging
+        continuously between 0 (dissimilar) to 1 (identical).  How would you
+        determine which genes are most important for predicting phenotypic
+    similarities?} \\
+
+    We have an $n \times n$ matrix $S$ with similarity values between the
+    $i^{\rm th}$ yeast strain and the $j^{\rm th}$ yeast strain. The matrix
+    will be symmetric about the diagonal. We can compute a singular value
+    decomposition of $S$, whereby we can rank the singular values to rank the
+    phenotypical similarities.
+    
+    
+    \begin{comment}
+    We also have an $n \times m$ matrix
+    $G$ corresponding to the genotype data for each yeast strain. To determine
+    which genes are most important for predicting phenotype similarities, we
+    have the following
+
+    \begin{equation}
+        G x = S
+    \end{equation}
+
+    \noindent where $x$ will be an $m \times n$ matrix where each $i^{\rm th}$
+    value corresponds to the gene and the $j^{\rm th}$ yeast strain with the
+    given phenotypes.
+
+    \end{comment}
+
+
+
+    %\begin{homeworkSection}{i)}
+   
+
+    %\end{homeworkSection}
+
+\end{homeworkProblem}
+
+\end{document}
+

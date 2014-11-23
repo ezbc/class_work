@@ -1,0 +1,167 @@
+%-------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%-------------------------------------------------------------------------------
+
+\documentclass{article}
+
+% Packages
+\input{my_packages.tex}
+
+% formatting
+\input{my_format.tex}
+
+%----------------------------------------------------------------------------------------
+%	NAME AND CLASS SECTION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\hmwkTitle}{Homework 3} % Assignment title
+\newcommand{\hmwkDueDate}{Thursday, Oct 2} % Due date
+\newcommand{\hmwkClass}{ECE 532} % Course/class
+\newcommand{\hmwkClassTime}{11:00 am} % Class/lecture time
+\newcommand{\hmwkClassInstructor}{Robert Nowak} % Teacher/lecturer
+\newcommand{\hmwkAuthorName}{Elijah Bernstein-Cooper} % Your name
+
+%-------------------------------------------------------------------------------
+%	TITLE PAGE
+%-------------------------------------------------------------------------------
+
+\title{\vspace{0in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}
+    \vspace{0.5in}}
+
+\author{\textbf{Elijah Bernstein-Cooper}}
+\date{\today} % Insert date here if you want it to appear below your name
+
+%-------------------------------------------------------------------------------
+
+\begin{document}
+
+\maketitle
+%\newpage
+
+%===============================================================================
+%-------------------------------------------------------------------------------
+%	PROBLEM 1
+%-------------------------------------------------------------------------------
+\begin{homeworkProblem}
+
+    \begin{homeworkSection}{1a}
+
+        Our basis vectors, $\bm{x_1}$ and $\bm{x_2}$ will be
+
+        \begin{equation*}
+            \bm{q_1} = \bm{a}_1 \qquad \bm{q_2} =
+            \frac{\bm{a}_2^\prime}{\|\bm{a}_2^\prime\|}, \qquad
+            \bm{a}_2^\prime = \bm{a}_2 - (\bm{q}_1^T \bm{a}_2)\bm{q}_1
+        \end{equation*}
+
+        \noindent which gives us
+
+        \begin{equation*}
+            \bm{q}_1 = \begin{matrix} 1\\0\\0\\ \end{matrix}
+        \end{equation*}
+
+        \begin{equation*}
+        \bm{q}_2 = \frac{ \left(\begin{matrix} 1\\3\\4\\ \end{matrix}\right) -
+            \left(\left(\begin{matrix} 1&0&0 \end{matrix}\right)
+                       \left(\begin{matrix} 1\\3\\4\\ \end{matrix}\right)\right)
+               \left(\begin{matrix} 1\\0\\0\\\end{matrix}\right)}
+                   {\|\bm{a}_2^\prime\|}
+        \end{equation*}
+
+        \begin{equation*}
+            \bm{q}_2 = \left(\begin{matrix} 0\\0.6\\0.8\\\end{matrix}\right)
+        \end{equation*}
+
+    \end{homeworkSection}
+
+    \begin{homeworkSection}{1b}
+
+        See Figure~\ref{fig:1}
+
+        \begin{figure}[!ht]
+        \begin{centering}
+            \includegraphics[scale=0.07]{problem1b_fig.png}
+
+            \caption{\label{fig:1} Sketch of spans of $\bm{Q}$ and $\bm{A}$.}
+
+        \end{centering}
+        \end{figure}
+
+    \end{homeworkSection}
+
+    \begin{homeworkSection}{1c}
+
+        \begin{equation*}
+        \hat{\bm{b}} = \left(\begin{matrix} 1\\1.5\\2.1\\\end{matrix}\right)
+        \end{equation*}
+
+        \pythonexternal{hw4_prob1.m}
+
+    \end{homeworkSection}
+
+\end{homeworkProblem}
+%\clearpage
+%===============================================================================
+
+%===============================================================================
+%-------------------------------------------------------------------------------
+%	PROBLEM 2 
+%-------------------------------------------------------------------------------
+\begin{homeworkProblem}
+
+    \pythonexternal{gs_ortho.m}
+
+\end{homeworkProblem}
+%===============================================================================
+
+%===============================================================================
+%-------------------------------------------------------------------------------
+%	PROBLEM 3
+%-------------------------------------------------------------------------------
+\begin{homeworkProblem}
+
+    The code below produces the same number of linearly independent basis
+    vectors as the rank of each matrix.
+
+    \pythonexternal{hw4_prob3.m}
+
+\end{homeworkProblem}
+%===============================================================================
+
+%===============================================================================
+%-------------------------------------------------------------------------------
+%	PROBLEM 4
+%-------------------------------------------------------------------------------
+\begin{homeworkProblem}
+
+    \begin{homeworkSection}{4a}
+        
+        $\hat{\bm{b}}$ can be estimated with the orthonormal vectors by
+
+        \begin{equation*}
+            \hat{\bm{b}} = \bm{Q}\bm{Q}^T\bm{b}
+        \end{equation*}
+
+        \noindent which compared with the least squares solution of
+        $\hat{\bm{b}}$ with the Pearson's correlation coefficient we get a
+        correlation of 1. 
+    
+    \end{homeworkSection}
+
+    \begin{homeworkSection}{4b}
+
+        The orthonormal vectors are the same for the Gram-Schmidt code and the
+        orth algorithm. The pearson correlation coefficients between the
+        resulting basis vectors is 1.
+
+    \end{homeworkSection}
+
+    \pythonexternal{hw4_prob4.m}
+\end{homeworkProblem}
+%===============================================================================
+
+\end{document}
+

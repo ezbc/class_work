@@ -16,9 +16,12 @@ lambda = 10^-5;
 xLS = A' * inv(A*A' + lambda*eye(size(A,1))) * b;
 bLS = sign(A*xLS);
 
+disp('Error with dual solution')
+err = sum(b ~= bLS)/m
+
 % Plot data
 figure(1); 
-subplot(121); hold on;
+subplot(131); hold on;
 for i=1:m
     a = A(i, :);
     if b(i)==1
@@ -31,7 +34,7 @@ axis('square')
 title('training data')
 
 % Plot least squares
-subplot(122); hold on;
+subplot(132); hold on;
 for i=1:m
     a = A(i,:);
     if bLS(i)==1
@@ -41,7 +44,29 @@ for i=1:m
     end
 end
 axis('square')
-title('least squares')
+title('least squares duel')
+
+% Now for primal solution
+xLS_primal = linsolve(A, b)
+bLS_primal = sign(A*xLS_primal);
+
+disp('Error with dual solution')
+err = sum(b ~= bLS_primal)/m
+
+% Plot least squares primal
+subplot(133); hold on;
+for i=1:m
+    a = A(i,:);
+    if bLS_primal(i)==1
+        plot(a(1),a(2),'b.');
+    else
+        plot(a(1),a(2),'r.');
+    end
+end
+axis('square')
+title('least squares primal')
+
+
 
 
 

@@ -1,0 +1,41 @@
+
+Please consider the following challenge problem.  Write up a short description (1-2 pages at most) of your ideas for solving it.
+
+
+Design an algorithm to find the genes that are most predictive of a disease or phenotype
+
+	DNA microarrays can be used to measure the amount of protein produced by
+	each gene (the so-called "gene expression level").  
+
+	Suppose we measure the gene expression levels of a number of people with and without 
+	a particular disease.  Assume m genes are measured.
+
+	What is your data matrix A?
+
+        - k x m matrix, k people, m genes
+
+	How would you decide which genes are most important to or involved in
+	the disease process?
+
+	    - Ax = L where L is our label matrix
+          p1 = (0.5*g1 + 0.1*g2) = well
+          p2 = (2*g1 + 0.4*g2) = sick
+
+          (0.5 0.1  (g1 = (1
+           2   0.4)  g2) = 0)
+
+    Now suppose we have gene expression data for n different strains of yeast.
+    We also measure phenotypic similarities between the different strains
+    (e.g., similarity measures based on the observable characteristics or
+    traits of the strains like shaper or color).
+
+    In other words, we have an n x n matrix of similarity values, say ranging
+    continuously between 0 (disimilar) to 1 (identical).
+
+    How would you determine which genes are most important for predicting
+    phenotypic similarities?
+
+        - 
+
+
+

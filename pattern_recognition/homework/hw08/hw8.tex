@@ -1,0 +1,177 @@
+%-------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%-------------------------------------------------------------------------------
+
+\documentclass{article}
+
+% Packages
+\input{my_packages.tex}
+
+% formatting
+\input{my_format.tex}
+
+%-------------------------------------------------------------------------------
+%	NAME AND CLASS SECTION
+%-------------------------------------------------------------------------------
+
+\newcommand{\hmwkTitle}{Homework 8} % Assignment title
+\newcommand{\hmwkDueDate}{Friday, Nov 14} % Due date
+\newcommand{\hmwkClass}{ECE 532} % Course/class
+\newcommand{\hmwkClassTime}{11:00 am} % Class/lecture time
+\newcommand{\hmwkClassInstructor}{Robert Nowak} % Teacher/lecturer
+\newcommand{\hmwkAuthorName}{Elijah Bernstein-Cooper} % Your name
+
+%-------------------------------------------------------------------------------
+%	TITLE PAGE
+%-------------------------------------------------------------------------------
+
+\title{\vspace{0in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}
+    \vspace{0.5in}}
+
+\author{\textbf{Elijah Bernstein-Cooper}}
+\date{\today} % Insert date here if you want it to appear below your name
+
+%-------------------------------------------------------------------------------
+
+\begin{document}
+
+\maketitle
+%\newpage
+
+%===============================================================================
+%-------------------------------------------------------------------------------
+%	PROBLEM 1
+%-------------------------------------------------------------------------------
+\begin{homeworkProblem}
+   
+    We performed a brute force estimate of the dual optimization parameter
+    $\alpha$ for hinge loss to classify the four people as basketball players
+    or not basketball players. We optimized the following
+
+    \begin{equation}
+        {\rm min_{\alpha}} \sum_{i=1}^m \left(1 - b_i\sum_{j=1}^m\alpha_j 
+        \bm{a_i}^T \bm{a}_j \right) + \lambda \sum_{i=1}^m \sum_{j=1}^m \alpha_i
+        \alpha_j \bm{a}_i^T \bm{a}_j
+    \end{equation}
+
+    \noindent where $\alpha$ will be a 4$\times$1 vector of weights, or rather
+    the support vector. We derived
+  
+    \begin{equation}
+    \bm{a} = \left(\begin{matrix} -0.8 \\ -0.1 \\ 0 \\ 0.8 \\ 
+    \end{matrix} \right)
+    \end{equation}
+
+    We wish to derive a best estimate for the weight vector $\bm{x}$ where
+    $\bm{b} = \bm{Ax}$, with $\bm{b}$ being a binary vector, 1 for basketball
+    player, -1 for not a basketball player, and $\bm{A}$ will be the heights of
+    the people. In the dual hinge loss scenario
+
+    \begin{equation}
+        \bm{\hat{x}} = \sum_{j=1}^m \alpha_j \bm{a}_j
+    \end{equation}
+
+    Our hinge loss optimization produced an optimal classification rule of
+    $\bm{\hat{x}} = 0.21$. Using least squares we find an $\bm{\hat{x}}$ of
+    0.0076. The least squares classification predicts that all people will be
+    basketball players, while the dual hinge loss SVM classification predicts
+    the two tallest will be basketball players. See the code at the end of the
+    homework.
+
+\end{homeworkProblem}
+\clearpage
+%===============================================================================
+
+%===============================================================================
+%-------------------------------------------------------------------------------
+%	PROBLEM 2 
+%-------------------------------------------------------------------------------
+\begin{homeworkProblem}
+  
+    We found that the 3rd value of $\bm{\alpha}$ is zero. The support vectors
+    are the 1st, 2nd, and 4th values of $\alpha$. We used the dual solution in
+    Problem 1, see the same code at the end of the homework.
+
+\end{homeworkProblem}
+%===============================================================================
+
+%===============================================================================
+%-------------------------------------------------------------------------------
+%	PROBLEM 3
+%-------------------------------------------------------------------------------
+\begin{homeworkProblem}
+
+    We find that changing $t_0 = 0$ changes the classification $\bm{\hat{x}} =
+    0$, but we still classify the people 100\% correctly. This likely means
+    that the classification is robust to the particular hinge loss chosen.
+
+\end{homeworkProblem}
+%===============================================================================
+
+%===============================================================================
+%-------------------------------------------------------------------------------
+%	PROBLEM 4
+%-------------------------------------------------------------------------------
+\begin{homeworkProblem}
+
+    We performed a simulation of generating datasets of sizes 10$\times$10,
+    100$\times$100, 1000$\times$1000. For each dataset size, we ran 100
+    iterations of regenerating the data, and classified the generated data with
+    the least squares, Gaussian kernel SVMs, and polynomial kernel SVMs. We
+    calculated the percent total of mistakes made by each of the three methods,
+    see Table~\ref{table:prob4} for the results. See Figure~\ref{fig:prob4} for
+    an example of classifications for a 1000$\times$1000 dataset. See the code
+    at the end of the homework.
+
+    \begin{table}[!ht]
+
+        \caption{\label{table:prob4} Resulting \% total classification mistakes
+        for different methods and dataset sizes.}
+
+        \begin{center}
+            \begin{tabular}{lccc}
+                
+                & 10$\times$10 & 100$\times$100 & 1000$\times$1000 \\
+                \hline \hline
+                Least Squares     & 33 & 45 & 48.4 \\
+                Gaussian Kernel   & 2  & 2 & 1.3 \\
+                Polynomial Kernel & 8  & 3 & 3.9 \\
+
+            \end{tabular}
+        \end{center}
+    \end{table}
+    \begin{figure}[!ht]
+        
+        \begin{centering}
+        
+        \includegraphics[width=\linewidth]{fig_prob4.png}
+
+        \caption{\label{fig:prob4} Results from classifications of the training
+    data. The Gaussian kernel outperforms the least squares and polynomial
+    kernel classification.} \end{centering}
+
+    \end{figure} 
+
+\end{homeworkProblem}
+%===============================================================================
+
+\clearpage
+{\huge Code:}
+
+{\large \bf Problem 1 \& 2} \\
+\lstinputlisting{hw8_prob1.m} 
+\hrule \hrule
+
+{\large \bf Problem 3} \\
+\lstinputlisting{hw8_prob3.m} 
+\hrule \hrule
+
+{\large \bf Problem 4} \\
+\lstinputlisting{hw8_prob4.m} 
+\hrule \hrule
+
+\end{document}
+
