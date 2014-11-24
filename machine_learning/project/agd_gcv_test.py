@@ -109,30 +109,81 @@ def test_B():
     import pspline
     import numpy as np
     import matplotlib.pyplot as plt
-    from scipy.integrate import simps
 
-    Delta = 2
+    lam_M = np.matrix((0, 2, 4))
+    lam_C = np.matrix((0, 1, 2, 3, 4))
+    A_M = 1/120.0 * np.power(lam_M, 5)
+    A_M_4d = np.power(lam_C, 1)
 
-    #B_calc = pspline.construct_B(4, 4, Delta)
+    N_k = lam_C.shape[1]
+    N_D = lam_M.shape[1]
 
-    #print B_calc.T
+    # Prep arrays to be of correct shape
+    A_M, lam_M, lam_C, N_k = pspline.prep_spectrum(lam_M, A_M, N_k=N_k)
 
-    B_true = np.array((
-                       (0, 0.5*Delta, 0.5*Delta, 0.5*Delta),
-                       (0, 0.5*Delta, Delta,     Delta,),
-                       (0, 0,         0.5*Delta, Delta),
-                       ))
+    lam_0 = lam_M[0, 0]
+    Delta = lam_M[1, 0] - lam_M[0, 0]
 
-    #assert np.array_equal(B_calc, B_true)
+    B = pspline.construct_B(lam_C, lam_M)
+
+    B_true = Delta / 12.0 * np.array((
+                                      (0, 0, 0, 0, 0),
+                                      (0, 8, 0, 0, 0),
+                                      (0, 16, 64, 0, 0),
+                                      ))
+
+    print 'B calculated'
+    print B / Delta * 12.0
+    print 'B True'
+    print B_true / Delta * 12.0
+
+    #assert np.array_equal(B, B_true)
+
+    # Integrate to original function
+    A_C = B* A_M_4d.T
+
+    A_M = np.squeeze(np.asarray(A_M))
+    A_M_4d = np.squeeze(np.asarray(A_M_4d))
+    A_C = np.squeeze(np.asarray(A_C))
+
+    print 'A_C = '
+    print A_C
+    print ''
+    print 'A_M = '
+    print A_M
+    print ''
+    print 'A_C / A_M = '
+    print A_C / A_M
+    print ''
+
+    # Plot
+    plt.clf(); plt.close()
+    plt.plot(lam_M, A_M, label='f(x)',)
+    plt.plot(lam_C, A_M_4d, label="f''''(x)")
+    plt.plot(lam_M, A_C, label="Integrated f''''(x)")
+    #plt.plot(lam_M, A_C - A_M, label="Integrated f''''(x) - f(x)")
+    #plt.xlim(-30, 30)
+    #plt.ylim(-15, max(As)*1.1)
+    plt.legend(loc='best')
+    plt.savefig('figures/linear_integration_test.png')
+
+
+
+def test_gauss_integration():
+
+    import pspline
+    import numpy as np
+    import matplotlib.pyplot as plt
 
     # Test integration of fourth derivative of gaussians
     ngauss = 1
+    Delta = 0.5
     x0s = (0, 10)
     sigmas = (5, 10)
-    As = (10, 5)
+    As = (20, 5)
 
     x = np.linspace(-30, 30, 100)
-    x = np.arange(-30, 30, 0.5)
+    x = np.arange(-30, 30, Delta)
     if ngauss == 2:
         y = gauss(x, sigmas[0], x0s[0], As[0]) \
             + gauss(x, sigmas[1], x0s[1], As[1])
@@ -176,9 +227,9 @@ def test_B():
     plt.plot(x, y_calc, label="Integrated f''''(x)")
     plt.plot(x, y_calc - y, label="Integrated f''''(x) - f(x)")
     plt.xlim(-30, 30)
-    plt.ylim(-15, 15)
+    plt.ylim(-15, max(As)*1.1)
     plt.legend(loc='best')
-    plt.savefig('integration_test.png')
+    plt.savefig('figures/integration_test.png')
 
 def test_beta():
 
@@ -201,6 +252,7 @@ def main():
 
     #test_prep_spectrum()
     test_B()
+    test_gauss_integration()
     #test_beta()
     #test_fit_spline()
 

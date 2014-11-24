@@ -160,7 +160,7 @@ def calc_V(x, y, chi, N_k=None):
 
     return A_C, h_hat, coeffs, lam_C, V[0,0]
 
-def construct_B(N_D, N_k, Delta, lam_C, lam_0):
+def construct_B(lam_C, lam_M):
 
     ''' Constructs an integral operator matrix.
 
@@ -170,27 +170,23 @@ def construct_B(N_D, N_k, Delta, lam_C, lam_0):
 
     import numpy as np
 
+    N_D = lam_M.size
+    N_k = lam_C.size
+    lam_M = np.reshape(lam_M, (N_D, 1))
+    lam_C = np.reshape(lam_C, (N_k, 1))
+    Delta = lam_M[1, 0] - lam_M[0, 0]
+    lam_0 = lam_M[0, 0]
+
     B = np.matrix(np.zeros((N_D,N_k)))
-    if 1:
-        for i in xrange(1, N_D):
-            B[:, i] += B[:, i-1]
-            B[i-1, i] += 0.5*Delta * (lam_C[i-1] - lam_0)**3 / 6.0
-            B[i, i] += 0.5*Delta * (lam_C[i] - lam_0)**3 / 6.0
-        #B[0, :] = 0.5*Delta
-        #B[1, :-1] *= 2
-        #B[0,0] = 0.5*Delta
-    else:
-        B[0, :] = np.ones((N_k))
-        B[0, 1:-1] *= 2.0
-        B[-1, :] = B[0, :]
 
-        for j in xrange(1, N_D- 1):
-            B[j, :] = 2 * B[0, :]
+    for i in xrange(1, N_D):
+        B[i, :] += B[i-1, :]
+        B[i, i-1] += (lam_M[i - 1, 0] - lam_0)**3
+        B[i, i] += (lam_M[i, 0] - lam_0)**3
+        #B[i, i-1] += (Delta)**3
+        #B[i, i] += (Delta)**3
 
-        indices = np.tril_indices(N_D)
-        B[indices] = 0.0
-
-        B *= Delta
+    B *= 0.5 / 6.0 * Delta
 
     return B
 
