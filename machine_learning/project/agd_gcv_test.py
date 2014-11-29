@@ -113,7 +113,7 @@ def test_B():
     lam_M = np.matrix((0, 2, 4))
     lam_C = np.matrix((0, 1, 2, 3, 4))
     A_M = 1/120.0 * np.power(lam_M, 5)
-    A_M_4d = np.power(lam_C, 1)
+    A_M_4d = np.power(lam_C, 1) #* 1/24.
 
     N_k = lam_C.shape[1]
     N_D = lam_M.shape[1]
@@ -132,8 +132,10 @@ def test_B():
                                       (0, 16, 64, 0, 0),
                                       ))
 
+    from pprint import pprint
+
     print 'B calculated'
-    print B / Delta * 12.0
+    print B / np.min(B[B != 0])
     print 'B True'
     print B_true / Delta * 12.0
 
@@ -167,8 +169,6 @@ def test_B():
     plt.legend(loc='best')
     plt.savefig('figures/linear_integration_test.png')
 
-
-
 def test_gauss_integration():
 
     import pspline
@@ -184,22 +184,28 @@ def test_gauss_integration():
 
     x = np.linspace(-30, 30, 100)
     x = np.arange(-30, 30, Delta)
+
     if ngauss == 2:
         y = gauss(x, sigmas[0], x0s[0], As[0]) \
             + gauss(x, sigmas[1], x0s[1], As[1])
-        y_4d = gauss_4th_deriv(x, sigmas[0], x0s[0], As[0]) \
-               + gauss_4th_deriv(x, sigmas[1], x0s[1], As[1])
-        y_1d = gauss_1st_deriv(x, sigmas[0], x0s[0], As[0]) \
-               + gauss_1st_deriv(x, sigmas[1], x0s[1], As[1])
     elif ngauss == 1:
         y = gauss(x, sigmas[0], x0s[0], As[0])
-        y_4d = gauss_4th_deriv(x, sigmas[0], x0s[0], As[0])
-        y_1d = gauss_1st_deriv(x, sigmas[0], x0s[0], As[0])
-
-    y_4d = np.matrix(y_4d).T
-    y_1d = np.matrix(y_1d).T
 
     A_M, lam_M, lam_C, N_k = pspline.prep_spectrum(x, y)
+
+    x_C = np.squeeze(np.asarray(lam_C))
+
+    if ngauss == 2:
+        y_4d = gauss_4th_deriv(x_C, sigmas[0], x0s[0], As[0]) \
+               + gauss_4th_deriv(x_C, sigmas[1], x0s[1], As[1])
+        #y_1d = gauss_1st_deriv(lam_M, sigmas[0], x0s[0], As[0]) \
+        #       + gauss_1st_deriv(lam_M, sigmas[1], x0s[1], As[1])
+    elif ngauss == 1:
+        y_4d = gauss_4th_deriv(x_C, sigmas[0], x0s[0], As[0])
+        #y_1d = gauss_1st_deriv(lam_M, sigmas[0], x0s[0], As[0])
+
+    y_4d = np.matrix(y_4d).T
+    #y_1d = np.matrix(y_1d).T
 
     lam_0 = lam_M[0, 0]
     Delta = x[1] - x[0]
@@ -207,7 +213,7 @@ def test_gauss_integration():
     print 'lam_0', lam_0
     print 'Delta', Delta
 
-    B = pspline.construct_B(N_D, N_D, Delta, lam_C, lam_0).T
+    B = pspline.construct_B(lam_C, lam_M)
 
     print B.shape, y_4d.shape
     print B
@@ -216,20 +222,24 @@ def test_gauss_integration():
     y_calc = B * y_4d
 
     y = np.squeeze(np.asarray(y))
-    y_1d = np.squeeze(np.asarray(y_1d))
+    #y_1d = np.squeeze(np.asarray(y_1d))
     y_calc = np.squeeze(np.asarray(y_calc))
+
+    print y_calc.shape
+    print y_4d.shape
 
     # Plot
     scale = np.max(y) / np.max(y_4d)
     plt.clf(); plt.close()
     plt.plot(x, y, label='f(x)',)
-    plt.plot(x, y_4d * scale, label="f''''(x) x " + str(scale))
+    plt.plot(x_C, y_4d * scale, label="f''''(x) x " + str(scale))
     plt.plot(x, y_calc, label="Integrated f''''(x)")
     plt.plot(x, y_calc - y, label="Integrated f''''(x) - f(x)")
     plt.xlim(-30, 30)
     plt.ylim(-15, max(As)*1.1)
     plt.legend(loc='best')
     plt.savefig('figures/integration_test.png')
+    plt.show()
 
 def test_beta():
 

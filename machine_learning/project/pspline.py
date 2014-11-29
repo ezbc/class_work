@@ -175,18 +175,92 @@ def construct_B(lam_C, lam_M):
     lam_M = np.reshape(lam_M, (N_D, 1))
     lam_C = np.reshape(lam_C, (N_k, 1))
     Delta = lam_M[1, 0] - lam_M[0, 0]
+    Delta = lam_C[1, 0] - lam_C[0, 0]
     lam_0 = lam_M[0, 0]
 
-    B = np.matrix(np.zeros((N_D,N_k)))
+    if 0:
+        B = np.matrix(np.zeros((N_D,N_k)))
 
-    for i in xrange(1, N_D):
-        B[i, :] += B[i-1, :]
-        B[i, i-1] += (lam_M[i - 1, 0] - lam_0)**3
-        B[i, i] += (lam_M[i, 0] - lam_0)**3
-        #B[i, i-1] += (Delta)**3
-        #B[i, i] += (Delta)**3
+        for i in xrange(1, N_D):
+            B[i, :] += B[i-1, :]
+            B[i, i-1] += (lam_M[i - 1, 0] - lam_0)**3
+            B[i, i] += (lam_M[i, 0] - lam_0)**3
+            #B[i, i-1] += (Delta)**3
+            #B[i, i] += (Delta)**3
 
-    B *= 0.5 / 6.0 * Delta
+        B *= 0.5 / 6.0 * Delta
+    elif 1:
+
+        # Create Trapezoidal integration matrix
+        trap_integ = np.matrix(np.zeros((N_D, N_k)))
+        scale = (N_k + 1.0) / N_D
+
+        for i in xrange(1, N_D):
+            lam_pos = i * scale
+            trap_integ[i, :lam_pos] = np.ones(lam_pos)
+        trap_integ[:, 1:lam_pos:2] *= 4
+        trap_integ[:, 2:lam_pos:2] *= 2
+        trap_integ *= Delta
+
+        C = np.matrix(np.zeros((N_D,N_k)))
+
+        for i in xrange(0, N_D):
+            for j in xrange(0, N_k):
+                if lam_M[i, 0] >= lam_C[j, 0]:
+                    C[i, j] = (lam_M[i, 0] - lam_C[j, 0])**3 / 6.0 / 3.0
+
+        B = np.multiply(trap_integ, C)
+
+    else:
+        # Make trapezoidal integration vector
+        a = Delta * 2.0 * np.matrix(np.ones(lam_C.shape[0]))
+        a[:, (0,-1)] = 1.0 * Delta
+        #a /= 2.0
+
+        B = np.matrix(np.zeros((N_D, N_k)))
+
+        # For each measured wavelength
+        for i, lam in enumerate(lam_M):
+            # Make Lambda
+            if 0:
+                Delta_lam = (lam - lam_0) / (1.0 * N_k - 1.0)
+                Lambda = lam_0 * np.matrix(np.ones(N_k)).T
+                for j in xrange(1, N_k):
+                    Lambda[j, 0] += j * Delta_lam
+            else:
+                Delta_lam = (lam - lam_0) / (1.0 * N_k - 1.0) * N_D / \
+                (N_k*1.0 - 1)
+                Lambda = np.matrix(np.zeros(N_k)).T
+                if Delta_lam > 0:
+                    lam_pos = np.asarray(lam / Delta)
+                    print 'lam', lam
+                    print 'Delta_lam', Delta_lam
+                    print 'lam_pos', lam_pos
+                    for j in xrange(1, lam_pos):
+                        Lambda[j, 0] += lam_0 + j * Delta
+                else:
+                    lam_pos = 0
+
+            diag = lam - Lambda
+            print diag
+            diag[lam_pos:, 0] = 0.0
+            C_diag = np.asarray(np.power((diag), 3))[:, 0]
+            C = np.matrix(np.diag(C_diag))
+
+            print ''
+            print i, 'lam', lam
+            print 'a', a
+            print 'Delta', Delta
+            print 'Delta_lam', Delta_lam
+            print 'Lambda', Lambda
+            print 'Lambda.shape', Lambda.shape
+            print 'lam - Lambda', lam - Lambda
+            print 'a and c shape = ', a.shape, C.shape
+            print 'C', C
+            print 'lam_C', lam_C
+
+            B[i, :] = a * C
+            B /= 6.0
 
     return B
 
