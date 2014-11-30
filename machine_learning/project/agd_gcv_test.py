@@ -76,7 +76,7 @@ def test_fit_spline():
 
     # Define range of chi values to fit with
     chis = [1e-10, 1e-8, 1e-6, 1e-4, 1e-2, 1, 1e2, 1e4]
-    chis = np.logspace(-10, -1, 10)
+    chis = np.logspace(-10, -1, 5)
     #chis = (1e-4,)
 
     A_C, h, lam_C, Vs = pspline.fit_spline(x, y, chis=chis)
@@ -97,11 +97,13 @@ def test_fit_spline():
     #deriv_1 = B*deriv_2
     #deriv_0 = B*deriv_1
 
-    plt.plot(lam_C, h)
+    plt.plot(lam_C, h, label=r"f''''($\lambda$)")
     #plt.plot(lam_C, deriv_0)
-    plt.plot(x, A_C)
-    plt.plot(x, y)
-    plt.savefig('splines.png')
+    plt.plot(x, A_C, label=r"Integ f''''($\lambda$)")
+    plt.plot(x, y, label=r"f($\lambda$)")
+    plt.xlabel(r'$\lambda$')
+    plt.legend(loc='best')
+    plt.savefig('figures/splines.png')
     #plt.show()
 
 def test_B():
@@ -176,14 +178,14 @@ def test_gauss_integration():
     import matplotlib.pyplot as plt
 
     # Test integration of fourth derivative of gaussians
-    ngauss = 1
+    ngauss = 2
     Delta = 0.5
     x0s = (0, 10)
     sigmas = (5, 10)
     As = (20, 5)
 
-    x = np.linspace(-30, 30, 100)
     x = np.arange(-30, 30, Delta)
+    x = np.linspace(-30, 30, 71)
 
     if ngauss == 2:
         y = gauss(x, sigmas[0], x0s[0], As[0]) \
@@ -210,13 +212,13 @@ def test_gauss_integration():
     lam_0 = lam_M[0, 0]
     Delta = x[1] - x[0]
     N_D = len(x)
-    print 'lam_0', lam_0
-    print 'Delta', Delta
+    #print 'lam_0', lam_0
+    #print 'Delta', Delta
 
     B = pspline.construct_B(lam_C, lam_M)
 
-    print B.shape, y_4d.shape
-    print B
+    #print B.shape, y_4d.shape
+    #print B
 
     # Integrate to original function
     y_calc = B * y_4d
@@ -225,8 +227,8 @@ def test_gauss_integration():
     #y_1d = np.squeeze(np.asarray(y_1d))
     y_calc = np.squeeze(np.asarray(y_calc))
 
-    print y_calc.shape
-    print y_4d.shape
+    #print y_calc.shape
+    #print y_4d.shape
 
     # Plot
     scale = np.max(y) / np.max(y_4d)
@@ -239,7 +241,6 @@ def test_gauss_integration():
     plt.ylim(-15, max(As)*1.1)
     plt.legend(loc='best')
     plt.savefig('figures/integration_test.png')
-    plt.show()
 
 def test_beta():
 
@@ -261,7 +262,7 @@ def test_beta():
 def main():
 
     #test_prep_spectrum()
-    test_B()
+    #test_B()
     test_gauss_integration()
     #test_beta()
     #test_fit_spline()
