@@ -80,6 +80,22 @@ def fit_spline(x, y, N_k=None, chis=None):
 
 def fit_spline(x, y, N_k=None, init_guess=None, verbose=True):
 
+    '''
+    Fits a spline to a one dimensional dataset using Tikhonov regularization of
+    the 4th derivative.
+
+    Parameters
+    ----------
+    x : array-like
+        Spectral axis of spectra.
+    y : array-like, list
+        Amplitude as a function of x. If multiple arrays provided in a list,
+        splines will be fitted to each of the y arrays. This reduces initial
+        setup computation.
+
+    '''
+
+
     import numpy as np
     from scipy.optimize import minimize
     from scipy.integrate import cumtrapz
@@ -89,35 +105,48 @@ def fit_spline(x, y, N_k=None, init_guess=None, verbose=True):
     # Subscript M = measured spectrum, sample length N_k
     # --------------------------------------------------------------
 
-
     if verbose:
         print('\nPrepping matrices...')
 
-    params = {}
-
     N_D = len(x)
-    params['N_D'] = N_D
 
-    # initialize matrices
-    A_M, lam_M, lam_C, N_k = prep_spectrum(x, y, N_k=N_k)
+    # Check if y consists of just one spectrum or multiple spectra
+    # ------------------------------------------------------------
+    y = np.array(y)
+    if y.ndim == 1:
+    	A_M_list = (np.matrix(y).T,)
+    elif y.ndim == 2:
+        A_M_list = []
+        y_list = y.tolist()
+        for y in y_list:
+        	A_M_list.append(np.matrix(y).T)
+    else:
+    	raise ValueError('y must be a one dimensional array or a list of' + \
+    	                 'dimensional arrays of len(x)')
 
-    assert A_M.shape == (N_D, 1)
+    # Initialize model vectors, wavelengths
+    # --------------------------------------------
+    # Define sampling size of model vectors
+    if N_k is None:
+        N_k = 10 * len(x)
+
+    # Convert spectral array data into vectors
+    lam_M = np.matrix(x).T
+
+    # wavelengths
+    lam_C_array = np.linspace(lam_M[0, 0], lam_M[-1, 0], N_k)
+    lam_C = np.matrix(lam_C_array).T
+
+    #assert A_M.shape == (N_D, 1)
     assert lam_M.shape == (N_D, 1)
     assert lam_C.shape == (N_k, 1)
 
-    params['A_M'] = A_M
-    params['lam_M'] = lam_M
-    params['lam_C'] = lam_C
-    params['N_k'] = N_k
-
     # Reference wavelength
     lam_0 = lam_M[0, 0]
-    params['lam_0'] = lam_0
     Delta = abs(lam_C[-1, 0] - lam_C[0, 0]) / (N_k - 1)
-    params['Delta'] = Delta
 
     # Ones is a column vector of ones of shape N_D x 1
-    ones = np.matrix(np.ones(A_M.shape[0])).T
+    ones = np.matrix(np.ones(N_D)).T
     lam_M0 = lam_M - ones * lam_0
     assert ones.shape == lam_M0.shape
 
@@ -147,47 +176,75 @@ def fit_spline(x, y, N_k=None, init_guess=None, verbose=True):
                          np.power(lam_M0, 3) / 6.0))
     assert B_prime.shape == (N_D, N_k + 4)
 
-    params['B_prime'] = B_prime
-
     # Construct beta
     beta = construct_beta(lam_C)
     assert beta.shape[1] == N_k + 4
 
-    # Begin minimization of V(chi)
-    # ----------------------------
-    if verbose:
-        print('\nPerforming spline fit')
+    # Fit each spectrum provided
+    # --------------------------
+    A_C_hat_list = []
+    h_hat_list = []
+    derivs_list = []
+    chi_hat = None
 
-    if init_guess is None:
-        init_guess = 1
+    for i, A_M in enumerate(A_M_list):
 
-    args = (N_D, A_M, lam_M, lam_C, N_k, B_prime, beta, lam_0, Delta)
+        # Begin minimization of V(chi)
+        # ----------------------------
+        if verbose:
+            if len(A_M_list) > 1:
+                print('\nPerforming spline fit of spectrum {0:.0f}'.format(i))
+            else:
+                print('\nPerforming spline fit')
 
-    result = minimize(calc_V, x0=init_guess, args=args, method='Nelder-Mead')
-    chi_hat = result.x[0]
+        if init_guess is None:
+            init_guess = 1
 
-    verbose = True
-    if verbose:
-        print('Chi minimum =', str(chi_hat))
+        # Change initial guess to best guess of previous spectrum
+        if chi_hat is not None:
+        	init_guess = chi_hat
 
-    # Get best-fit model 4th deriv and spectrum
-    A_C_hat, h_hat, coeffs = calc_4th_deriv(chi_hat, B_prime, Delta, beta, A_M, N_k)
+        args = (N_D, A_M, lam_M, lam_C, N_k, B_prime, beta, lam_0, Delta)
 
-    # Integrate up to original function
-    x_C = np.squeeze(np.array(lam_C))
-    h_hat = np.squeeze(np.array(h_hat))
-    y_3d = cumtrapz(h_hat, x_C, initial=coeffs[0])
-    y_2d = cumtrapz(y_3d, x_C, initial=coeffs[-2])
-    y_1d = cumtrapz(y_2d, x_C, initial=coeffs[-3])
-    y_0d = cumtrapz(y_1d, x_C, initial=coeffs[-4])
-    derivatives = (y_3d, y_2d, y_1d, y_0d)
+        result = minimize(calc_V, x0=init_guess, args=args,
+                          method='Nelder-Mead')
+        chi_hat = result.x[0]
 
-    # Convert matrices to arrays, since matrices are annoying
-    A_C_hat = np.squeeze(np.array(A_C_hat))
-    h_hat = np.squeeze(np.array(h_hat))
-    lam_C = np.squeeze(np.array(lam_C))
+        verbose = True
+        if verbose:
+            print('Chi minimum =', str(chi_hat))
 
-    return A_C_hat, h_hat, derivatives, lam_C
+        # Get best-fit model 4th deriv and spectrum
+        A_C_hat, h_hat, coeffs = calc_4th_deriv(chi_hat,
+                                                B_prime,
+                                                Delta,
+                                                beta,
+                                                A_M,
+                                                N_k)
+
+        # Integrate up to original function
+        x_C = np.squeeze(np.array(lam_C))
+        h_hat = np.squeeze(np.array(h_hat))
+        y_3d = cumtrapz(h_hat, x_C, initial=coeffs[0])
+        y_2d = cumtrapz(y_3d, x_C, initial=coeffs[-2])
+        y_1d = cumtrapz(y_2d, x_C, initial=coeffs[-3])
+        y_0d = cumtrapz(y_1d, x_C, initial=coeffs[-4])
+        derivs = (y_3d, y_2d, y_1d, y_0d)
+
+        # Convert matrices to arrays, since matrices are annoying
+        A_C_hat = np.squeeze(np.array(A_C_hat))
+        h_hat = np.squeeze(np.array(h_hat))
+        lam_C = np.squeeze(np.array(lam_C))
+
+        A_C_hat_list.append(A_C_hat)
+        h_hat_list.append(h_hat)
+        derivs_list.append(derivs)
+
+    if len(A_M_list) == 1:
+        return A_C_hat_list[0], h_hat_list[0], derivs_list[0], lam_C
+    else:
+        return A_C_hat_list, h_hat_list, derivs_list, lam_C
+
 
 def calc_V(chi, N_D=None, A_M=None, lam_M=None, lam_C=None, N_k=None,
         B_prime=None, beta=None, lam_0=None, Delta=None):
@@ -206,17 +263,6 @@ def calc_V(chi, N_D=None, A_M=None, lam_M=None, lam_C=None, N_k=None,
     import numpy
     import scipy
     from scipy import linalg
-
-    params = {}
-    params['N_D'] = N_D
-    params['N_k'] = N_k
-    params['A_M'] = A_M
-    params['lam_M'] = lam_M
-    params['lam_C'] = lam_C
-    params['B_prime'] = B_prime
-    params['beta'] = beta
-    params['Delta'] = Delta
-    params['lam_0'] = lam_0
 
     assert B_prime.shape == (N_D, N_k + 4)
     assert beta.shape[1] == N_k + 4

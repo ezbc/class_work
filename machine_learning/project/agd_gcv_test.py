@@ -368,15 +368,28 @@ def main():
 
     import pickle
     import pspline
+    import numpy as np
 
-    test_data = pickle.load(open('HT2003_data_test100.pickle'))
+    test_data = pickle.load(open('data/HT2003_data_test100.pickle'))
     #for key in test_data: print key
 
     # Grab the first spectrum from the data
     x = test_data['x_values'][0]
-    y = test_data['data_list'][0]
+    #for i in xrange(len(test_data['x_values'])):
+    #	print np.sum(test_data['x_values'][0] - test_data['x_values'][i])
+    y = test_data['data_list'][0:2]
 
-    A_C, h, derivs, lam_C = pspline.fit_spline(x, y, N_k=len(x),init_guess=100)
+    A_C, h, derivs, lam_C = pspline.fit_spline(x, y, N_k=len(x),
+            init_guess=0.005)
+
+    results = {}
+    results['A_C_list'] = A_C
+    results['h'] = h
+    results['derivs'] = derivs
+    results['lam_C'] = lam_C
+
+    with open('spline_fits.pickle', 'w') as f:
+        pickle.dump(results, f)
 
     plot_spline(x, y, A_C, lam_C, h)
 
