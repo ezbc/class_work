@@ -78,7 +78,7 @@ def fit_spline(x, y, N_k=None, chis=None):
 
     return A_C_hat, h_hat, lam_C, V_list, derivatives
 
-def fit_spline(x, y, N_k=None, init_guess=None):
+def fit_spline(x, y, N_k=None, init_guess=None, verbose=True):
 
     import numpy as np
     from scipy.optimize import minimize
@@ -88,6 +88,10 @@ def fit_spline(x, y, N_k=None, init_guess=None):
     # Subscript C = computed spectrum, sample length N_D
     # Subscript M = measured spectrum, sample length N_k
     # --------------------------------------------------------------
+
+
+    if verbose:
+        print('\nPrepping matrices...')
 
     params = {}
 
@@ -151,6 +155,9 @@ def fit_spline(x, y, N_k=None, init_guess=None):
 
     # Begin minimization of V(chi)
     # ----------------------------
+    if verbose:
+        print('\nPerforming spline fit')
+
     if init_guess is None:
         init_guess = 1
 

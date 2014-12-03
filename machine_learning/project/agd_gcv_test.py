@@ -344,6 +344,7 @@ def test_beta():
 def plot_spline(x, y, A_C, lam_C, h):
 
     import matplotlib.pyplot as plt
+    import numpy as np
 
     plt.clf(); plt.close()
     scale = np.max(y) / np.max(h)
@@ -375,7 +376,7 @@ def main():
     x = test_data['x_values'][0]
     y = test_data['data_list'][0]
 
-    A_C, h, derivs, lam_C = pspline.fit_spline(x, y, init_guess=100)
+    A_C, h, derivs, lam_C = pspline.fit_spline(x, y, N_k=len(x),init_guess=100)
 
     plot_spline(x, y, A_C, lam_C, h)
 
