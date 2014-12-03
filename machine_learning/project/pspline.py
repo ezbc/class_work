@@ -26,7 +26,6 @@ def prep_spectrum(x, y, N_k=None):
     # Define sampling size of model vectors
     if N_k is None:
         N_k = 10 * len(x)
-        N_k = 401
 
     # wavelengths
     lam_C_array = np.linspace(lam_M[0, 0], lam_M[-1, 0], N_k)
@@ -41,13 +40,14 @@ def fit_spline(x, y, N_k=None, chis=None):
     V_list = []
     h_list = []
     A_C_list = []
+    coeffs_list = []
     for chi in chis:
         A_C, h, coeffs, lam_C, V = calc_V(x, y, chi, N_k=N_k)
 
         V_list.append(V)
         h_list.append(h)
         A_C_list.append(A_C)
-
+        coeffs_list.append(coeffs)
 
     import matplotlib.pyplot as plt
     plt.clf(); plt.close()
@@ -58,14 +58,72 @@ def fit_spline(x, y, N_k=None, chis=None):
         h_hat = np.squeeze(np.asarray(h_list[i]))
         ax = fig.add_subplot(5, 5, i+1)
         ax.plot(lam_C, h_hat)
-
     plt.tight_layout()
     fig.savefig('figures/4th_derivs.png')
 
+    # Get best-fit 4th deriv and associated spline
     h_hat = h_list[np.where(V_list == min(V_list))[0]]
     A_C_hat = A_C_list[np.where(V_list == min(V_list))[0]]
+    coeffs_hat = coeffs_list[np.where(V_list == min(V_list))[0]]
 
-    return A_C_hat, h_hat, lam_C, V_list
+    # Integrate up to original function
+    from scipy.integrate import cumtrapz
+    x_C = np.squeeze(np.array(lam_C))
+    h_hat = np.squeeze(np.array(h_hat))
+    y_3d = cumtrapz(h_hat, x_C, initial=coeffs_hat[0])
+    y_2d = cumtrapz(y_3d, x_C, initial=coeffs_hat[-2])
+    y_1d = cumtrapz(y_2d, x_C, initial=coeffs_hat[-3])
+    y_0d = cumtrapz(y_1d, x_C, initial=coeffs_hat[-4])
+    derivatives = (y_3d, y_2d, y_1d, y_0d)
+
+    return A_C_hat, h_hat, lam_C, V_list, derivatives
+
+'''
+def fit_spline(x, y, N_k=None):
+
+    import numpy as np
+
+    V_list = []
+    h_list = []
+    A_C_list = []
+    coeffs_list = []
+    for chi in chis:
+        A_C, h, coeffs, lam_C, V = calc_V(x, y, chi, N_k=N_k)
+
+        V_list.append(V)
+        h_list.append(h)
+        A_C_list.append(A_C)
+        coeffs_list.append(coeffs)
+
+    import matplotlib.pyplot as plt
+    plt.clf(); plt.close()
+    fig = plt.figure(figsize=(12,8))
+    n = np.ceil(np.sqrt(len(h_list)))
+    lam_C = np.squeeze(np.asarray(lam_C))
+    for i in xrange(0, len(h_list)):
+        h_hat = np.squeeze(np.asarray(h_list[i]))
+        ax = fig.add_subplot(5, 5, i+1)
+        ax.plot(lam_C, h_hat)
+    plt.tight_layout()
+    fig.savefig('figures/4th_derivs.png')
+
+    # Get best-fit 4th deriv and associated spline
+    h_hat = h_list[np.where(V_list == min(V_list))[0]]
+    A_C_hat = A_C_list[np.where(V_list == min(V_list))[0]]
+    coeffs_hat = coeffs_list[np.where(V_list == min(V_list))[0]]
+
+    # Integrate up to original function
+    from scipy.integrate import cumtrapz
+    x_C = np.squeeze(np.array(lam_C))
+    h_hat = np.squeeze(np.array(h_hat))
+    y_3d = cumtrapz(h_hat, x_C, initial=coeffs_hat[0])
+    y_2d = cumtrapz(y_3d, x_C, initial=coeffs_hat[-2])
+    y_1d = cumtrapz(y_2d, x_C, initial=coeffs_hat[-3])
+    y_0d = cumtrapz(y_1d, x_C, initial=coeffs_hat[-4])
+    derivatives = (y_3d, y_2d, y_1d, y_0d)
+
+    return A_C_hat, h_hat, lam_C, V_list, derivatives
+'''
 
 def calc_V(x, y, chi, N_k=None):
 
@@ -162,7 +220,7 @@ def calc_V(x, y, chi, N_k=None):
     V = ((A_M - A_C).T * (A_M - A_C) / N_D) \
         / (1 - np.trace(E) / N_D)**2
 
-    coeffs = h_prime[-4:]
+    coeffs = np.squeeze(np.array(h_prime[-4:])).tolist()
     h_hat = h_prime[0:N_k]
 
     return A_C, h_hat, coeffs, lam_C, V[0,0]
@@ -590,7 +648,7 @@ def construct_B(lam_C, lam_M):
                 if dxu[i] >= xknot[j]:
                     C[i, j] = (dxu[i] - xknot[j])**3 / 6.0
 
-        testing = True
+        testing = False
         if testing:
             assert dxk == 0.0025
             #np.testing.assert_array_almost_equal(dxl,
@@ -675,12 +733,14 @@ def construct_beta(lam_C):
     beta = np.matrix(np.hstack((beta_diag, beta_zeros)))
     bega_diag, beta_zeros = None, None
 
-    if 1:
+    testing = False
+    if testing:
         test_beta(beta.T * beta)
 
     return beta
 
 def test_beta(beta_inprod):
+
 
     import numpy as np
 
@@ -784,4 +844,5 @@ def test_beta(beta_inprod):
         decimal=4)
 
     assert beta_inprod.shape == (405, 405)
+
 
