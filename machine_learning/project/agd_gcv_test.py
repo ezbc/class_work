@@ -65,26 +65,30 @@ def test_fit_spline():
     import matplotlib.pyplot as plt
     from scipy.integrate import simps
 
-    sigma = 0.1
+    sigma = 1
     x = np.linspace(-30, 30, 71)
     y = gauss(x, 5, -10, 10) + gauss(x, 40, 10, 4)
     y = gauss(x, 40, 10, 4) + np.random.normal(0, 0.1, len(y))
     y = gauss(x, 5, -10, 10) \
         + np.random.normal(0, sigma, len(y))
         #+ gauss(x, 110, 10, 4) \
+    y_1d = gauss_1st_deriv(x, 5, -10, 10)
 
     # Define range of chi values to fit with
     chis = [1e-10, 1e-8, 1e-6, 1e-4, 1e-2, 1, 1e2, 1e4]
-    chis = np.logspace(-14, 5, 20)
+    chis = np.logspace(-14, 5, 10)
+    #chis = np.logspace(-4, 0, 10)
+    #chis = np.logspace(-2, -1, 10)
     #chis = (1e-4,)
 
-    A_C, h, lam_C, Vs = pspline.fit_spline(x, y, chis=chis)
+    #A_C, h, lam_C, Vs, derivs = pspline.fit_spline(x, y, chis=chis)
+    A_C, h, derivs, lam_C = pspline.fit_spline(x, y)
 
     #N_k = lam_C.shape[0]
     #Delta = lam_C[1,0] - lam_C[0,0]
     #B = pspline.construct_B(N_k, N_k, Delta)
 
-    if 1:
+    if 0:
         plt.clf(); plt.close()
         plt.plot(chis, Vs)
         plt.xscale('log')
@@ -98,17 +102,26 @@ def test_fit_spline():
     #deriv_1 = B*deriv_2
     #deriv_0 = B*deriv_1
     A_C = np.squeeze(np.asarray(A_C))
-    print 'chi_min', chis[Vs == min(Vs)]
+
+    plt.clf(); plt.close()
+    plt.plot(lam_C, derivs[2], label=r"f'($\lambda$)")
+    plt.plot(x, y_1d, label=r"True f'($\lambda$)")
+    plt.legend(loc='best')
+    plt.savefig('figures/spline_1stderiv.png')
 
     plt.clf(); plt.close()
     scale = np.max(y) / np.max(h)
-    plt.plot(lam_C, h*scale, label=r"f''''($\lambda$) $\times$ " + str(scale))
+    plt.plot(lam_C, h*scale, label=r"f''''($\lambda$)")
+    plt.plot(lam_C, derivs[0], label=r"f'''($\lambda$)")
+    plt.plot(lam_C, derivs[1], label=r"f''($\lambda$)")
+    plt.plot(lam_C, derivs[2], label=r"f'($\lambda$)")
+    plt.plot(lam_C, derivs[3], label=r"f($\lambda$)")
     #plt.plot(lam_C, deriv_0)
     plt.plot(x, A_C, label=r"Integ f''''($\lambda$)")
     plt.plot(x, y, label=r"f($\lambda$)")
     plt.plot(x, y - A_C, label=r"f''''($\lambda$) - Integ f''''($\lambda$)")
     plt.xlabel(r'$\lambda$')
-    plt.legend(loc='best')
+    #plt.legend(loc='best')
     plt.savefig('figures/splines.png')
     #plt.show()
 
@@ -328,6 +341,21 @@ def test_beta():
 
     assert np.array_equal(beta_calc, beta_true)
 
+def plot_spline(x, y, A_C, lam_C, h):
+
+    import matplotlib.pyplot as plt
+
+    plt.clf(); plt.close()
+    scale = np.max(y) / np.max(h)
+    plt.plot(lam_C, h*scale, label=r"f''''($\lambda$)")
+    plt.plot(x, A_C, label=r"Integ f''''($\lambda$)")
+    plt.plot(x, y, label=r"f($\lambda$)")
+    plt.xlabel(r'Velocity (km/s)')
+    plt.ylabel(r'T (K km/s)')
+    plt.legend(loc='best')
+    plt.savefig('figures/ht03_spline.png')
+    #plt.show()
+
 def main():
 
     #test_prep_spectrum()
@@ -335,7 +363,7 @@ def main():
     #test_gauss_integration(ngauss=1)
     #test_gauss_integration(ngauss=2)
     #test_beta()
-    test_fit_spline()
+    #test_fit_spline()
 
     import pickle
     import pspline
@@ -346,6 +374,10 @@ def main():
     # Grab the first spectrum from the data
     x = test_data['x_values'][0]
     y = test_data['data_list'][0]
+
+    A_C, h, derivs, lam_C = pspline.fit_spline(x, y, init_guess=100)
+
+    plot_spline(x, y, A_C, lam_C, h)
 
     import csv
     with open('spectrum0.csv', 'wb') as csvfile:

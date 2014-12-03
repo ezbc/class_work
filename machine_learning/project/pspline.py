@@ -78,73 +78,21 @@ def fit_spline(x, y, N_k=None, chis=None):
 
     return A_C_hat, h_hat, lam_C, V_list, derivatives
 
-'''
-def fit_spline(x, y, N_k=None):
+def fit_spline(x, y, N_k=None, init_guess=None):
 
     import numpy as np
-
-    V_list = []
-    h_list = []
-    A_C_list = []
-    coeffs_list = []
-    for chi in chis:
-        A_C, h, coeffs, lam_C, V = calc_V(x, y, chi, N_k=N_k)
-
-        V_list.append(V)
-        h_list.append(h)
-        A_C_list.append(A_C)
-        coeffs_list.append(coeffs)
-
-    import matplotlib.pyplot as plt
-    plt.clf(); plt.close()
-    fig = plt.figure(figsize=(12,8))
-    n = np.ceil(np.sqrt(len(h_list)))
-    lam_C = np.squeeze(np.asarray(lam_C))
-    for i in xrange(0, len(h_list)):
-        h_hat = np.squeeze(np.asarray(h_list[i]))
-        ax = fig.add_subplot(5, 5, i+1)
-        ax.plot(lam_C, h_hat)
-    plt.tight_layout()
-    fig.savefig('figures/4th_derivs.png')
-
-    # Get best-fit 4th deriv and associated spline
-    h_hat = h_list[np.where(V_list == min(V_list))[0]]
-    A_C_hat = A_C_list[np.where(V_list == min(V_list))[0]]
-    coeffs_hat = coeffs_list[np.where(V_list == min(V_list))[0]]
-
-    # Integrate up to original function
+    from scipy.optimize import minimize
     from scipy.integrate import cumtrapz
-    x_C = np.squeeze(np.array(lam_C))
-    h_hat = np.squeeze(np.array(h_hat))
-    y_3d = cumtrapz(h_hat, x_C, initial=coeffs_hat[0])
-    y_2d = cumtrapz(y_3d, x_C, initial=coeffs_hat[-2])
-    y_1d = cumtrapz(y_2d, x_C, initial=coeffs_hat[-3])
-    y_0d = cumtrapz(y_1d, x_C, initial=coeffs_hat[-4])
-    derivatives = (y_3d, y_2d, y_1d, y_0d)
 
-    return A_C_hat, h_hat, lam_C, V_list, derivatives
-'''
-
-def calc_V(x, y, chi, N_k=None):
-
-    '''
-
-    A_C = computed spectrum [N_D x 1]
-    B = coefficients [N_D x N_k]
-    ones = column vector of ones [N_D x 1]
-    lambda_M = measured wavelengths [N_D x 1]
-    lambda_C = computed wavelengths [N_k x 1]
-
-    '''
-
-    import numpy as np
-    import scipy
-    from scipy import linalg
-
-    N_D = len(x)
-
+    # Construct matrices calculating residual sum of squares, V(chi)
     # Subscript C = computed spectrum, sample length N_D
     # Subscript M = measured spectrum, sample length N_k
+    # --------------------------------------------------------------
+
+    params = {}
+
+    N_D = len(x)
+    params['N_D'] = N_D
 
     # initialize matrices
     A_M, lam_M, lam_C, N_k = prep_spectrum(x, y, N_k=N_k)
@@ -153,9 +101,16 @@ def calc_V(x, y, chi, N_k=None):
     assert lam_M.shape == (N_D, 1)
     assert lam_C.shape == (N_k, 1)
 
+    params['A_M'] = A_M
+    params['lam_M'] = lam_M
+    params['lam_C'] = lam_C
+    params['N_k'] = N_k
+
     # Reference wavelength
     lam_0 = lam_M[0, 0]
+    params['lam_0'] = lam_0
     Delta = abs(lam_C[-1, 0] - lam_C[0, 0]) / (N_k - 1)
+    params['Delta'] = Delta
 
     # Ones is a column vector of ones of shape N_D x 1
     ones = np.matrix(np.ones(A_M.shape[0])).T
@@ -188,30 +143,91 @@ def calc_V(x, y, chi, N_k=None):
                          np.power(lam_M0, 3) / 6.0))
     assert B_prime.shape == (N_D, N_k + 4)
 
+    params['B_prime'] = B_prime
+
     # Construct beta
     beta = construct_beta(lam_C)
-    #assert beta.shape == (N_k - 1, N_k + 4)
+    assert beta.shape[1] == N_k + 4
 
-    #print lam_C.shape
-    #print beta.shape
-    #print beta[-10:-1, -10:-1]
+    # Begin minimization of V(chi)
+    # ----------------------------
+    if init_guess is None:
+        init_guess = 1
 
-    #print (beta.T * beta)[-10:-1, -10:-1]
+    args = (N_D, A_M, lam_M, lam_C, N_k, B_prime, beta, lam_0, Delta)
 
-    # B_prime^T * B_prime --> N_k+4 x N_D * N_D x N_k+4 --> N_k+4 x N_k+4
-    # beta^T * beta --> N_k+4 x N_k-2 * N_k-2 x N_k+4 --> N_k+4 x N_k+4
+    result = minimize(calc_V, x0=init_guess, args=args, method='Nelder-Mead')
+    chi_hat = result.x[0]
 
-    # Write matrix shared by h_prime and E
-    h_E_matrix = linalg.inv(B_prime.T * B_prime + chi / Delta**4 * \
-                            beta.T * beta) * B_prime.T
+    verbose = True
+    if verbose:
+        print('Chi minimum =', str(chi_hat))
 
-    # Solve for h_prime, eq 4
-    h_prime = h_E_matrix * A_M
-    assert h_prime.shape == (N_k+4, 1)
+    # Get best-fit model 4th deriv and spectrum
+    A_C_hat, h_hat, coeffs = calc_4th_deriv(chi_hat, B_prime, Delta, beta, A_M, N_k)
 
-    # Eq 6, N_D x N_k+4 * N_k+4 x 1= 1 x N_D
-    A_C = B_prime * h_prime
-    assert A_C.shape == A_M.shape
+    # Integrate up to original function
+    x_C = np.squeeze(np.array(lam_C))
+    h_hat = np.squeeze(np.array(h_hat))
+    y_3d = cumtrapz(h_hat, x_C, initial=coeffs[0])
+    y_2d = cumtrapz(y_3d, x_C, initial=coeffs[-2])
+    y_1d = cumtrapz(y_2d, x_C, initial=coeffs[-3])
+    y_0d = cumtrapz(y_1d, x_C, initial=coeffs[-4])
+    derivatives = (y_3d, y_2d, y_1d, y_0d)
+
+    # Convert matrices to arrays, since matrices are annoying
+    A_C_hat = np.squeeze(np.array(A_C_hat))
+    h_hat = np.squeeze(np.array(h_hat))
+    lam_C = np.squeeze(np.array(lam_C))
+
+    return A_C_hat, h_hat, derivatives, lam_C
+
+def calc_V(chi, N_D=None, A_M=None, lam_M=None, lam_C=None, N_k=None,
+        B_prime=None, beta=None, lam_0=None, Delta=None):
+
+    '''
+
+    A_C = computed spectrum [N_D x 1]
+    B = coefficients [N_D x N_k]
+    ones = column vector of ones [N_D x 1]
+    lambda_M = measured wavelengths [N_D x 1]
+    lambda_C = computed wavelengths [N_k x 1]
+
+    '''
+
+    import numpy as np
+    import numpy
+    import scipy
+    from scipy import linalg
+
+    params = {}
+    params['N_D'] = N_D
+    params['N_k'] = N_k
+    params['A_M'] = A_M
+    params['lam_M'] = lam_M
+    params['lam_C'] = lam_C
+    params['B_prime'] = B_prime
+    params['beta'] = beta
+    params['Delta'] = Delta
+    params['lam_0'] = lam_0
+
+    assert B_prime.shape == (N_D, N_k + 4)
+    assert beta.shape[1] == N_k + 4
+
+    # Chi is a list from optimize
+    if type(chi) is list or type(chi) is numpy.ndarray:
+        chi = chi[0]
+
+    # Chi cannot be zero, else finite differencing and no need for this at all!
+    if chi == 0:
+        return np.Inf
+
+    # h_E_matrix is computation heavy, calculate for h_prime and E both
+    h_E_matrix = calc_h_E_matrix(chi, B_prime, Delta, beta)
+
+    # Calculate the fourth derivative and coefficients
+    A_C, h, coeffs = calc_4th_deriv(chi, B_prime, Delta, beta, A_M, N_k,
+                                    h_E_matrix=h_E_matrix)
 
     # Eq 8
     E = B_prime * h_E_matrix
@@ -220,10 +236,46 @@ def calc_V(x, y, chi, N_k=None):
     V = ((A_M - A_C).T * (A_M - A_C) / N_D) \
         / (1 - np.trace(E) / N_D)**2
 
+    return V[0,0]
+
+def calc_h_E_matrix(chi, B_prime, Delta, beta):
+
+    from scipy import linalg
+
+    # Write matrix shared by h_prime and E
+    h_E_matrix = linalg.inv(B_prime.T * B_prime + chi / Delta**4 * \
+                            beta.T * beta) * B_prime.T
+
+    return h_E_matrix
+
+def calc_4th_deriv(chi, B_prime, Delta, beta, A_M, N_k, h_E_matrix=None):
+
+    ''' Calculates 4th deriv and estimated function
+
+    If h_E_matrix is provide, used to calculate h_prime
+
+    '''
+
+    import numpy as np
+
+    # B_prime^T * B_prime --> N_k+4 x N_D * N_D x N_k+4 --> N_k+4 x N_k+4
+    # beta^T * beta --> N_k+4 x N_k-2 * N_k-2 x N_k+4 --> N_k+4 x N_k+4
+
+    # Solve for h_prime, eq 4
+    if h_E_matrix is None:
+        h_prime = calc_h_E_matrix(chi, B_prime, Delta, beta) * A_M
+    else:
+        h_prime = h_E_matrix * A_M
+    assert h_prime.shape == (N_k+4, 1)
+
     coeffs = np.squeeze(np.array(h_prime[-4:])).tolist()
     h_hat = h_prime[0:N_k]
 
-    return A_C, h_hat, coeffs, lam_C, V[0,0]
+    # Eq 6, N_D x N_k+4 * N_k+4 x 1= 1 x N_D
+    A_C = B_prime * h_prime
+    assert A_C.shape == A_M.shape
+
+    return A_C, h_hat, coeffs
 
 def construct_trap_integ(lam_C, lam_M):
 
