@@ -377,10 +377,10 @@ def main():
     x = test_data['x_values'][0]
     #for i in xrange(len(test_data['x_values'])):
     #	print np.sum(test_data['x_values'][0] - test_data['x_values'][i])
-    y = test_data['data_list'][0:2]
+    y = test_data['data_list']
 
     A_C, h, derivs, lam_C = pspline.fit_spline(x, y, N_k=len(x),
-            init_guess=0.005)
+            init_guess=0.0052)
 
     results = {}
     results['A_C_list'] = A_C
