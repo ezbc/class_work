@@ -341,21 +341,99 @@ def test_beta():
 
     assert np.array_equal(beta_calc, beta_true)
 
-def plot_spline(x, y, A_C, lam_C, h):
+def plot_splines(results):
 
-    import matplotlib.pyplot as plt
+    # Import external modules
     import numpy as np
+    from mpl_toolkits.axes_grid1 import ImageGrid
+    import matplotlib.pyplot as plt
+    import matplotlib
 
-    plt.clf(); plt.close()
-    scale = np.max(y) / np.max(h)
-    plt.plot(lam_C, h*scale, label=r"f''''($\lambda$)")
-    plt.plot(x, A_C, label=r"Integ f''''($\lambda$)")
-    plt.plot(x, y, label=r"f($\lambda$)")
-    plt.xlabel(r'Velocity (km/s)')
-    plt.ylabel(r'T (K km/s)')
-    plt.legend(loc='best')
-    plt.savefig('figures/ht03_spline.png')
-    #plt.show()
+    # Write data
+    x_data = results['x_data']
+    x_fit = results['x_fit']
+
+    for i in xrange(len(results['y_data_list'])):
+        # Set up plot aesthetics
+        plt.clf()
+        plt.close()
+        plt.rcdefaults()
+        colormap = plt.cm.gist_ncar
+        font_scale = 10
+        params = {#'backend': .pdf',
+                  'axes.labelsize': font_scale,
+                  'axes.titlesize': font_scale,
+                  'text.fontsize': font_scale,
+                  'legend.fontsize': font_scale * 3 / 4.0,
+                  'xtick.labelsize': font_scale,
+                  'ytick.labelsize': font_scale,
+                  'font.weight': 500,
+                  'axes.labelweight': 500,
+                  'text.usetex': False,
+                  #'figure.figsize': (8, 8 * y_scaling),
+                  #'axes.color_cycle': color_cycle # colors of different plots
+                 }
+        plt.rcParams.update(params)
+
+        fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(9,4))
+
+        # Plot spline fit to data
+        # -----------------------
+        # Write data
+        y_data = results['y_data_list'][i]
+        y_fit = results['y_fit_list'][i]
+
+        ax1.plot(x_fit, y_fit,
+                 label=r"Spline Fit",
+                 linestyle='-',
+                 color='k')
+        ax1.plot(x_data, y_data,
+                 label=r"HT03 Data",
+                 linestyle='-',
+                 color='r',
+                 #marker='o',
+                 )
+        ax1.set_xlabel(r'Velocity (km/s)')
+        ax1.set_ylabel(r'T$_{\rm obs}$ (K km/s)')
+        ax1.legend(loc='lower left')
+        ax1.set_xlim(-40, 40)
+
+        # Plot derivatives
+        # -----------------------
+        # Write data
+        y_4d = results['y_4d_list'][i]
+        y_3d = results['y_3d_list'][i]
+        y_2d = results['y_2d_list'][i]
+        y_1d = results['y_1d_list'][i]
+
+        ax2.plot(x_fit, y_4d / y_4d.max(),
+                 label=r"Spline Fit 4th Deriv.",
+                 linestyle='-',
+                 color='r')
+        ax2.plot(x_fit, y_3d / y_3d.max(),
+                 label=r"Spline Fit 3rd Deriv.",
+                 linestyle='-',
+                 color='c')
+        ax2.plot(x_fit, y_2d / y_2d.max(),
+                 label=r"Spline Fit 2nd Deriv.",
+                 linestyle='-',
+                 color='g')
+        ax2.plot(x_fit, y_1d / y_1d.max(),
+                 label=r"Spline Fit 1st Deriv.",
+                 linestyle='-',
+                 color='b')
+        ax2.plot(x_fit, y_fit / y_fit.max(),
+                 label=r"Spline Fit",
+                 linestyle='-',
+                 color='k')
+        ax2.set_xlabel(r'Velocity (km/s)')
+        ax2.set_ylabel(r'T$_{\rm obs}$ / max(T$_{\rm obs}$)')
+        ax2.legend(loc='lower right')
+        ax2.set_xlim(-40, 40)
+        ax2.set_ylim(-2, 1.1)
+
+        plt.savefig('figures/ht03_fits/ht03_spline{0:.0f}'.format(i) + '.png',
+                    bbox_inches='tight')
 
 def main():
 
@@ -371,34 +449,49 @@ def main():
     import numpy as np
 
     test_data = pickle.load(open('data/HT2003_data_test100.pickle'))
-    #for key in test_data: print key
+
+    # load data instead of fitting?
+    load_data = True
 
     # Grab the first spectrum from the data
     x = test_data['x_values'][0]
-    #for i in xrange(len(test_data['x_values'])):
-    #	print np.sum(test_data['x_values'][0] - test_data['x_values'][i])
-    y = test_data['data_list']
+    y_list = test_data['data_list']
 
-    A_C, h, derivs, lam_C = pspline.fit_spline(x, y, N_k=len(x),
-            init_guess=0.0052)
+    if not load_data:
+        A_C_list, h_list, derivs_list, lam_C = \
+                pspline.fit_spline(x, y_list, N_k=len(x), init_guess=0.0052)
 
-    results = {}
-    results['A_C_list'] = A_C
-    results['h'] = h
-    results['derivs'] = derivs
-    results['lam_C'] = lam_C
+        y_3d_list = []
+        y_2d_list = []
+        y_1d_list = []
+        for deriv_list in derivs_list:
+        	y_3d_list.append(deriv_list[0])
+        	y_2d_list.append(deriv_list[1])
+        	y_1d_list.append(deriv_list[2])
 
-    with open('spline_fits.pickle', 'w') as f:
-        pickle.dump(results, f)
+        results = {}
+        results['y_fit_list'] = A_C_list
+        results['y_4d_list'] = h_list
+        results['y_3d_list'] = y_3d_list
+        results['y_2d_list'] = y_2d_list
+        results['y_1d_list'] = y_1d_list
+        results['x_fit'] = lam_C
+        results['y_data_list'] = y_list
+        results['x_data'] = x
 
-    plot_spline(x, y, A_C, lam_C, h)
+        with open('data/spline_fits.pickle', 'w') as f:
+            pickle.dump(results, f)
+    elif load_data:
+        results = pickle.load(open('data/spline_fits.pickle'))
 
-    import csv
-    with open('spectrum0.csv', 'wb') as csvfile:
-        csv_file = csv.writer(csvfile, delimiter=' ',
-                                quotechar='|', quoting=csv.QUOTE_MINIMAL)
-        for i in xrange(0, len(x)):
-            csv_file.writerow((x[i], y[i]))
+    plot_splines(results)
+
+    #import csv
+    #with open('spectrum0.csv', 'wb') as csvfile:
+    #    csv_file = csv.writer(csvfile, delimiter=' ',
+    #                            quotechar='|', quoting=csv.QUOTE_MINIMAL)
+    #    for i in xrange(0, len(x)):
+    #        csv_file.writerow((x[i], y[i]))
 
 if __name__ == '__main__':
     main()
