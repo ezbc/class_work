@@ -182,6 +182,14 @@ def test_B():
         print A_C / A_M
         print ''
 
+    x_C = np.squeeze(np.array(x_C))
+    #y_4d = np.squeeze(np.array(y_4d_calc[:-4]))
+    y_4d = np.squeeze(np.array(y_4d))
+    y_3d = cumtrapz(y_4d, x_C, initial=0)
+    y_2d = cumtrapz(y_3d, x_C, initial=0)
+    y_1d = cumtrapz(y_2d, x_C, initial=0)
+    y_0d = cumtrapz(y_1d, x_C, initial=0)
+
     # Plot
     plt.clf(); plt.close()
     plt.plot(lam_M, A_M, label='f(x)',)
@@ -202,18 +210,23 @@ def test_gauss_integration(ngauss=1):
 
     # Test integration of fourth derivative of gaussians
     Delta = 0.5
-    x0s = (30, 15)
+    x0s = (0, 15)
     sigmas = (5, 10)
     As = (20, 10)
+    x0s = (-5, 0)
+    sigmas = (5, 5)
+    As = (10, 20)
 
     x = np.arange(-30, 30, Delta)
     x = np.linspace(-30, 30, 71)
 
     if ngauss == 2:
         y = gauss(x, sigmas[0], x0s[0], As[0]) \
-            + gauss(x, sigmas[1], x0s[1], As[1])
+            + gauss(x, sigmas[1], x0s[1], As[1]) \
+            + np.random.normal(0,1, len(x))
     elif ngauss == 1:
-        y = gauss(x, sigmas[0], x0s[0], As[0])
+        y = gauss(x, sigmas[0], x0s[0], As[0]) \
+            + np.random.normal(0,0.1, len(x))
 
     A_M, lam_M, lam_C, N_k = pspline.prep_spectrum(x, y)
 
@@ -244,11 +257,6 @@ def test_gauss_integration(ngauss=1):
     # Integrate to original function
     y_calc = B[:-2,:] * y_4d[:, 0]
 
-    y_3d = trap_integ[:,1:-1] * y_4d[1:-1, 0]
-    y_2d = trap_integ[:,1:-1] * y_3d[1:-1, 0]
-    y_1d = trap_integ[:,1:-1] * y_2d[1:-1, 0]
-    y_0d = trap_integ[:,1:-1] * y_1d[1:-1, 0]
-
     y = np.squeeze(np.asarray(y))
     #y_1d = np.squeeze(np.asarray(y_1d))
     y_calc = np.squeeze(np.asarray(y_calc))
@@ -264,7 +272,7 @@ def test_gauss_integration(ngauss=1):
                          np.power(lam_M0, 2) / 2.0,
                          np.power(lam_M0, 3) / 6.0))
     beta = pspline.construct_beta(lam_C)
-    chi = 1
+    chi = 10
     y_4d_calc = linalg.inv(B_prime.T * B_prime + chi / Delta**4 * \
             beta.T*beta) * B_prime.T * A_M
 
@@ -277,12 +285,18 @@ def test_gauss_integration(ngauss=1):
     from scipy.integrate import cumtrapz
 
     x_C = np.squeeze(np.array(x_C))
-    #y_4d = np.squeeze(np.array(y_4d_calc[:-4]))
-    y_4d = np.squeeze(np.array(y_4d))
-    y_3d = cumtrapz(y_4d, x_C, initial=0)
-    y_2d = cumtrapz(y_3d, x_C, initial=0)
-    y_1d = cumtrapz(y_2d, x_C, initial=0)
-    y_0d = cumtrapz(y_1d, x_C, initial=0)
+    y_4d = np.squeeze(np.array(y_4d_calc[:-4]))
+    #y_4d = np.squeeze(np.array(y_4d))
+    if 1:
+        y_3d = cumtrapz(y_4d, x_C, initial=y_4d_calc[-4, 0])
+        y_2d = cumtrapz(y_3d, x_C, initial=y_4d_calc[-3, 0])
+        y_1d = cumtrapz(y_2d, x_C, initial=y_4d_calc[-2, 0])
+        y_0d = cumtrapz(y_1d, x_C, initial=y_4d_calc[-1, 0])
+    else:
+        y_3d = cumtrapz(y_4d, x_C, initial=0)
+        y_2d = cumtrapz(y_3d, x_C, initial=0)
+        y_1d = cumtrapz(y_2d, x_C, initial=0)
+        y_0d = cumtrapz(y_1d, x_C, initial=0)
 
     # Calculate spectrum to compare with computed
     if ngauss == 2:
@@ -294,6 +308,8 @@ def test_gauss_integration(ngauss=1):
     norm = np.sum((y_0d - y_C)**2)
     print('L2 norm of calc y and true y = {0:.2f}'.format(norm))
 
+    print('\ny_0d[0] =', y_0d[0])
+
     # Plot
     scale = np.max(y) / np.max(y_4d)
     plt.clf(); plt.close()
@@ -302,14 +318,14 @@ def test_gauss_integration(ngauss=1):
     plt.plot(x_C, y_3d, label="Calc. f'''(x)")
     plt.plot(x_C, y_2d, label="Calc. f''(x)")
     plt.plot(x_C, y_1d, label="Calc. f'(x)")
-    plt.plot(x_C, y_0d, label="Calc. f(x)", marker='o')
-    plt.plot(x_C[:-2], y_calc, label="Integrated f''''(x)", marker='+')
+    plt.plot(x_C, y_0d, label="Calc. f(x)",)#marker='o')
+    plt.plot(x_C[:-2], y_calc, label="Integrated f''''(x)",) #marker='+')
     #plt.plot(x, y_calc - y, label="Integrated f''''(x) - f(x)")
     plt.xlim(-30, 30)
     #plt.ylim(-15, max(As)*1.1)
     plt.legend(loc='best')
     plt.savefig('figures/integration_test_ngauss' + str(ngauss) + '.png')
-    #plt.show()
+    plt.show()
 
     plt.clf(); plt.close()
     plt.plot(x_C, y_4d, label="f''''(x)")
@@ -341,7 +357,7 @@ def test_beta():
 
     assert np.array_equal(beta_calc, beta_true)
 
-def plot_splines(results):
+def plot_splines(results, show=False):
 
     # Import external modules
     import numpy as np
@@ -429,11 +445,21 @@ def plot_splines(results):
         ax2.set_xlabel(r'Velocity (km/s)')
         ax2.set_ylabel(r'T$_{\rm obs}$ / max(T$_{\rm obs}$)')
         ax2.legend(loc='lower right')
-        ax2.set_xlim(-40, 40)
+        ax2.set_xlim(-100, 100)
         ax2.set_ylim(-2, 1.1)
 
         plt.savefig('figures/ht03_fits/ht03_spline{0:.0f}'.format(i) + '.png',
                     bbox_inches='tight')
+        if 0:
+            plt.clf(); plt.close()
+            plt.plot(x_fit, y_4d / y_4d.max(),
+                     label=r"Spline Fit 4th Deriv.",
+                     linestyle='-',
+                     color='r')
+            plt.show()
+
+        if show:
+            plt.show()
 
 def main():
 
@@ -451,11 +477,11 @@ def main():
     test_data = pickle.load(open('data/HT2003_data_test100.pickle'))
 
     # load data instead of fitting?
-    load_data = True
+    load_data = 0
 
     # Grab the first spectrum from the data
     x = test_data['x_values'][0]
-    y_list = test_data['data_list']
+    y_list = test_data['data_list'][0:2]
 
     if not load_data:
         A_C_list, h_list, derivs_list, lam_C = \
@@ -469,22 +495,33 @@ def main():
         	y_2d_list.append(deriv_list[1])
         	y_1d_list.append(deriv_list[2])
 
-        results = {}
-        results['y_fit_list'] = A_C_list
-        results['y_4d_list'] = h_list
-        results['y_3d_list'] = y_3d_list
-        results['y_2d_list'] = y_2d_list
-        results['y_1d_list'] = y_1d_list
-        results['x_fit'] = lam_C
-        results['y_data_list'] = y_list
-        results['x_data'] = x
+        if len(y_list) > 1:
+            results = {}
+            results['y_fit_list'] = A_C_list
+            results['y_4d_list'] = h_list
+            results['y_3d_list'] = y_3d_list
+            results['y_2d_list'] = y_2d_list
+            results['y_1d_list'] = y_1d_list
+            results['x_fit'] = lam_C
+            results['y_data_list'] = y_list
+            results['x_data'] = x
+        elif len(y_list) == 1:
+            results = {}
+            results['y_fit_list'] = (A_C_list,)
+            results['y_4d_list'] = (h_list,)
+            results['y_3d_list'] = y_3d_list
+            results['y_2d_list'] = y_2d_list
+            results['y_1d_list'] = y_1d_list
+            results['x_fit'] = lam_C
+            results['y_data_list'] = (np.array(y_list[0]),)
+            results['x_data'] = x
 
         with open('data/spline_fits.pickle', 'w') as f:
             pickle.dump(results, f)
     elif load_data:
         results = pickle.load(open('data/spline_fits.pickle'))
 
-    plot_splines(results)
+    plot_splines(results, show=0)
 
     #import csv
     #with open('spectrum0.csv', 'wb') as csvfile:

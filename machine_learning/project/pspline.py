@@ -207,12 +207,13 @@ def fit_spline(x, y, N_k=None, init_guess=None, verbose=True):
         args = (N_D, A_M, lam_M, lam_C, N_k, B_prime, beta, lam_0, Delta)
 
         result = minimize(calc_V, x0=init_guess, args=args,
-                          method='Nelder-Mead')
+                          method='Nelder-Mead', tol=1e-6)
         chi_hat = result.x[0]
+        #chi_hat = 0.005
 
         verbose = True
         if verbose:
-            print('Chi minimum =', str(chi_hat))
+            print('Chi minimum = ' + str(chi_hat))
 
         # Get best-fit model 4th deriv and spectrum
         A_C_hat, h_hat, coeffs = calc_4th_deriv(chi_hat,
@@ -225,10 +226,16 @@ def fit_spline(x, y, N_k=None, init_guess=None, verbose=True):
         # Integrate up to original function
         x_C = np.squeeze(np.array(lam_C))
         h_hat = np.squeeze(np.array(h_hat))
-        y_3d = cumtrapz(h_hat, x_C, initial=coeffs[0])
-        y_2d = cumtrapz(y_3d, x_C, initial=coeffs[-2])
-        y_1d = cumtrapz(y_2d, x_C, initial=coeffs[-3])
-        y_0d = cumtrapz(y_1d, x_C, initial=coeffs[-4])
+        if 1:
+            y_3d = cumtrapz(h_hat, x_C, initial=coeffs[3])
+            y_2d = cumtrapz(y_3d, x_C, initial=coeffs[2])
+            y_1d = cumtrapz(y_2d, x_C, initial=coeffs[1])
+            y_0d = cumtrapz(y_1d, x_C, initial=coeffs[0])
+        if 0:
+            y_3d = cumtrapz(h_hat, x_C, initial=0) + coeffs[3]
+            y_2d = cumtrapz(y_3d, x_C, initial=0) + coeffs[2]
+            y_1d = cumtrapz(y_2d, x_C, initial=0) + coeffs[1]
+            y_0d = cumtrapz(y_1d, x_C, initial=0) + coeffs[0]
         derivs = (y_3d, y_2d, y_1d, y_0d)
 
         # Convert matrices to arrays, since matrices are annoying
@@ -244,7 +251,6 @@ def fit_spline(x, y, N_k=None, init_guess=None, verbose=True):
         return A_C_hat_list[0], h_hat_list[0], derivs_list[0], lam_C
     else:
         return A_C_hat_list, h_hat_list, derivs_list, lam_C
-
 
 def calc_V(chi, N_D=None, A_M=None, lam_M=None, lam_C=None, N_k=None,
         B_prime=None, beta=None, lam_0=None, Delta=None):
@@ -770,55 +776,6 @@ def construct_B(lam_C, lam_M):
                     C[i, j] = (lam_M[i, 0] - lam_C[j, 0])**3 / 6.0 / 3.0
 
         B = np.multiply(trap_integ, C)
-
-    else:
-        # Make trapezon_Dal integration vector
-        a = Delta * 2.0 * np.matrix(np.ones(lam_C.shape[0]))
-        a[:, (0,-1)] = 1.0 * Delta
-        #a /= 2.0
-
-        B = np.matrix(np.zeros((N_D, N_k)))
-
-        # For each measured wavelength
-        for i, lam in enumerate(lam_M):
-            # Make Lambda
-            if 0:
-                Delta_lam = (lam - lam_0) / (1.0 * N_k - 1.0)
-                Lambda = lam_0 * np.matrix(np.ones(N_k)).T
-                for j in xrange(1, N_k):
-                    Lambda[j, 0] += j * Delta_lam
-            else:
-                Delta_lam = (lam - lam_0) / (1.0 * N_k - 1.0) * N_D / \
-                (N_k*1.0 - 1)
-                Lambda = np.matrix(np.zeros(N_k)).T
-                if Delta_lam > 0:
-                    lam_pos = np.asarray(lam / Delta)
-                    for j in xrange(1, lam_pos):
-                        Lambda[j, 0] += lam_0 + j * Delta
-                else:
-                    lam_pos = 0
-
-            diag = lam - Lambda
-            print diag
-            diag[lam_pos:, 0] = 0.0
-            C_diag = np.asarray(np.power((diag), 3))[:, 0]
-            C = np.matrix(np.diag(C_diag))
-
-            if testing:
-                print ''
-                print i, 'lam', lam
-                print 'a', a
-                print 'Delta', Delta
-                print 'Delta_lam', Delta_lam
-                print 'Lambda', Lambda
-                print 'Lambda.shape', Lambda.shape
-                print 'lam - Lambda', lam - Lambda
-                print 'a and c shape = ', a.shape, C.shape
-                print 'C', C
-                print 'lam_C', lam_C
-
-            B[i, :] = a * C
-            B /= 6.0
 
     return B
 
