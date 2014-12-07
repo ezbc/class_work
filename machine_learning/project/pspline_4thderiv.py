@@ -78,7 +78,7 @@ def fit_spline(x, y, N_k=None, chis=None):
 
     return A_C_hat, h_hat, lam_C, V_list, derivatives
 
-def fit_spline(x, y, N_k=None, chi=None, init_guess=None, verbose=True):
+def fit_spline(x, y, N_k=None, init_guess=None, verbose=True):
 
     '''
     Fits a spline to a one dimensional dataset using Tikhonov regularization of
@@ -92,9 +92,6 @@ def fit_spline(x, y, N_k=None, chi=None, init_guess=None, verbose=True):
         Amplitude as a function of x. If multiple arrays provided in a list,
         splines will be fitted to each of the y arrays. This reduces initial
         setup computation.
-    chi : float, optional
-        If chi is None, then a optimal chi will be found through minimization
-        of the sum of squares.
 
     '''
 
@@ -108,6 +105,9 @@ def fit_spline(x, y, N_k=None, chi=None, init_guess=None, verbose=True):
     # Subscript M = measured spectrum, sample length N_k
     # --------------------------------------------------------------
 
+    if verbose:
+        print('\nPrepping matrices...')
+
     N_D = len(x)
 
     # Check if y consists of just one spectrum or multiple spectra
@@ -119,17 +119,10 @@ def fit_spline(x, y, N_k=None, chi=None, init_guess=None, verbose=True):
         A_M_list = []
         y_list = y.tolist()
         for y in y_list:
-            A_M_list.append(np.matrix(y).T)
+        	A_M_list.append(np.matrix(y).T)
     else:
     	raise ValueError('y must be a one dimensional array or a list of' + \
     	                 'dimensional arrays of len(x)')
-
-    print('A_M_list shape', A_M_list[0].shape)
-    if 1:
-        import matplotlib.pyplot as plt
-        plt.plot(x, A_M_list[0])
-        plt.xlim(-40, 40)
-        plt.show()
 
     # Initialize model vectors, wavelengths
     # --------------------------------------------
@@ -150,15 +143,15 @@ def fit_spline(x, y, N_k=None, chi=None, init_guess=None, verbose=True):
 
     # Reference wavelength
     lam_0 = lam_M[0, 0]
-    Delta = abs(lam_M[-1, 0] - lam_M[1, 0]) / (N_k - 1)
-
-    print('Delta in fit_spline =', Delta)
-    print('N_k in fit_spline =', N_k)
+    Delta = abs(lam_C[-1, 0] - lam_C[0, 0]) / (N_k - 1)
 
     # Ones is a column vector of ones of shape N_D x 1
     ones = np.matrix(np.ones(N_D)).T
     lam_M0 = lam_M - ones * lam_0
     assert ones.shape == lam_M0.shape
+
+    B = construct_B(lam_C, lam_M)
+    assert B.shape == (N_D, N_k)
 
     # See Eq 2b of Yeow et al. 2005
 
@@ -175,222 +168,17 @@ def fit_spline(x, y, N_k=None, chi=None, init_guess=None, verbose=True):
     # Tikhonov regularization parameter
     # R = S_1 + chi * S_2
 
-    # Regularize with 1st deriv
-    # -------------------------
-    deriv = 1
-
-    if verbose:
-        print('\nRegularizing {0:.0f} derivative...'.format(deriv))
-        print('\nPrepping matrices...')
-
-    B = construct_B(lam_C, lam_M, deriv=deriv)
-    assert B.shape == (N_D, N_k)
-
-    B_prime = np.hstack((B,
-                         ones,
-                         ))
-    assert B_prime.shape == (N_D, N_k + deriv)
-
-    beta = construct_beta(lam_C, n_deriv=deriv)
-    assert beta.shape[1] == N_k + deriv
-
-    B_prime_prod = B_prime.T * B_prime
-    beta_prod = beta.T * beta
-
-    # Plot V vs. chi
-    if 0:
-        chis = np.logspace(-10,10,20)
-        A_M = A_M_list[0]
-        args = (N_D, A_M, lam_M, lam_C, N_k, B_prime, B_prime_prod, beta_prod,
-                lam_0, Delta, deriv)
-
-        V_list = []
-        for chi in chis:
-            V_list.append(calc_V(chi, *args))
-
-        import matplotlib.pyplot as plt
-        plt.plot(chis, V_list)
-        plt.xscale('log')
-        plt.yscale('log')
-        plt.show()
-
-        chi = 1000
-        chi = None
-    else:
-        #chi = None
-        #chi = 1000
-        pass
-
-    A_C_hat_list, h_hat_list = regularize(A_M_list,
-                                          init_guess=init_guess,
-                                          N_D=N_D,
-                                          N_k=N_k,
-                                          Delta=Delta,
-                                          lam_M=lam_M,
-                                          lam_C=lam_C,
-                                          lam_0=lam_0,
-                                          B_prime=B_prime,
-                                          beta=beta,
-                                          deriv=deriv,
-                                          chi=chi,
-                                          )
-
-    results = {}
-    results['reg 1st deriv'] = {}
-    results['reg 1st deriv']['y_fit_list'] = A_C_hat_list
-    results['reg 1st deriv']['y1d_list'] = h_hat_list
-
-    progress_plots = 1
-    if progress_plots:
-        import matplotlib.pyplot as plt
-        plt.plot(lam_C, h_hat_list[0])
-        plt.show()
-
-    # Regularize with 2nd deriv
-    # -------------------------
-    deriv = 2
-
-    if verbose:
-        print('\nRegularizing {0:.0f} derivative...'.format(deriv))
-        print('\nPrepping matrices...')
-
-    B = construct_B(lam_C, lam_M, deriv=deriv)
-
-    B_prime = np.hstack((B,
-                         ones,
-                         lam_M0,
-                         ))
-
-    assert B_prime.shape == (N_D, N_k + deriv)
-
-    beta = construct_beta(lam_C, n_deriv=deriv)
-    assert beta.shape[1] == N_k + deriv
-
-    A_C_hat_list, h_hat_list = regularize(A_M_list,
-                                          init_guess=init_guess,
-                                          N_D=N_D,
-                                          N_k=N_k,
-                                          Delta=Delta,
-                                          lam_M=lam_M,
-                                          lam_C=lam_C,
-                                          lam_0=lam_0,
-                                          B_prime=B_prime,
-                                          beta=beta,
-                                          deriv=deriv,
-                                          chi=chi,
-                                          )
-
-    results['reg 2nd deriv'] = {}
-    results['reg 2nd deriv']['y_fit_list'] = A_C_hat_list
-    results['reg 2nd deriv']['y2d_list'] = h_hat_list
-
-    if progress_plots:
-        plt.plot(lam_C, h_hat_list[0])
-        plt.show()
-
-    # Regularize with 3rd deriv
-    # -------------------------
-    deriv = 3
-
-    if verbose:
-        print('\nRegularizing {0:.0f} derivative...'.format(deriv))
-        print('\nPrepping matrices...')
-
-    B = construct_B(lam_C, lam_M, deriv=deriv)
-
+    # add columns to B
     B_prime = np.hstack((B,
                          ones,
                          lam_M0,
                          np.power(lam_M0, 2) / 2.0,
-                         ))
-    assert B_prime.shape == (N_D, N_k + deriv)
+                         np.power(lam_M0, 3) / 6.0))
+    assert B_prime.shape == (N_D, N_k + 4)
 
-    beta = construct_beta(lam_C, n_deriv=deriv)
-    assert beta.shape[1] == N_k + deriv
-
-    A_C_hat_list, h_hat_list = regularize(A_M_list,
-                                          init_guess=init_guess,
-                                          N_D=N_D,
-                                          N_k=N_k,
-                                          Delta=Delta,
-                                          lam_M=lam_M,
-                                          lam_C=lam_C,
-                                          lam_0=lam_0,
-                                          B_prime=B_prime,
-                                          beta=beta,
-                                          deriv=deriv,
-                                          chi=chi,
-                                          )
-
-    results['reg 3rd deriv'] = {}
-    results['reg 3rd deriv']['y_fit_list'] = A_C_hat_list
-    results['reg 3rd deriv']['y3d_list'] = h_hat_list
-
-    if progress_plots:
-        plt.plot(lam_C, h_hat_list[0])
-        plt.show()
-
-    # Regularize with 4th deriv
-    # -------------------------
-    deriv = 4
-
-    if verbose:
-        print('\nRegularizing {0:.0f} derivative...'.format(deriv))
-        print('\nPrepping matrices...')
-
-    B = construct_B(lam_C, lam_M, deriv=deriv)
-
-    B_prime = np.hstack((B,
-                         ones,
-                         lam_M0,
-                         np.power(lam_M0, 2) / 2.0,
-                         np.power(lam_M0, 3) / 6.0,
-                         ))
-    assert B_prime.shape == (N_D, N_k + deriv)
-
-    beta = construct_beta(lam_C, n_deriv=deriv)
-    assert beta.shape[1] == N_k + deriv
-
-    A_C_hat_list, h_hat_list = regularize(A_M_list,
-                                          init_guess=init_guess,
-                                          N_D=N_D,
-                                          N_k=N_k,
-                                          Delta=Delta,
-                                          lam_M=lam_M,
-                                          lam_C=lam_C,
-                                          lam_0=lam_0,
-                                          B_prime=B_prime,
-                                          beta=beta,
-                                          deriv=deriv,
-                                          chi=chi,
-                                          verbose=verbose,
-                                          )
-
-    results['reg 4th deriv'] = {}
-    results['reg 4th deriv']['y_fit_list'] = A_C_hat_list
-    results['reg 4th deriv']['y4d_list'] = h_hat_list
-
-    if progress_plots:
-        plt.plot(lam_C, h_hat_list[0])
-        plt.show()
-
-    results['x_data'] = np.squeeze(np.array(lam_M))
-    results['x_fit'] = np.squeeze(np.array(lam_C))
-
-    return results
-
-def regularize(A_M_list, init_guess=None, N_D=None, N_k=None, Delta=None,
-        lam_M=None, lam_C=None, lam_0=None, B_prime=None, beta=None,
-        deriv=4, verbose=True, chi=None):
-
-    ''' If chi is a float, then the spline will be calculated with this value
-    of chi.
-
-    '''
-
-
-    import numpy as np
-    from scipy.optimize import minimize
+    # Construct beta
+    beta = construct_beta(lam_C)
+    assert beta.shape[1] == N_k + 4
 
     # Fit each spectrum provided
     # --------------------------
@@ -399,65 +187,56 @@ def regularize(A_M_list, init_guess=None, N_D=None, N_k=None, Delta=None,
     derivs_list = []
     chi_hat = None
 
-    B_prime_prod = B_prime.T * B_prime
-    beta_prod = beta.T * beta
-
     for i, A_M in enumerate(A_M_list):
 
         # Begin minimization of V(chi)
         # ----------------------------
         if verbose:
-            if chi is None:
-                if len(A_M_list) > 1:
-                    print('\nPerforming spline fit of ' + \
-                          'spectrum {0:.0f}'.format(i))
-                else:
-                    print('\nPerforming spline fit')
+            if len(A_M_list) > 1:
+                print('\nPerforming spline fit of spectrum {0:.0f}'.format(i))
             else:
-                print('Preparing spline with chi = {0:f}'.format(chi))
+                print('\nPerforming spline fit')
 
         if init_guess is None:
             init_guess = 1
 
         # Change initial guess to best guess of previous spectrum
         if chi_hat is not None:
-            init_guess = chi_hat
+        	init_guess = chi_hat
 
-        # If chi is none, then perform minimization to find optimimum chi
-        if chi is None:
-            args = (N_D, A_M, lam_M, lam_C, N_k, B_prime, B_prime_prod,
-                    beta_prod, lam_0, Delta, deriv)
+        args = (N_D, A_M, lam_M, lam_C, N_k, B_prime, beta, lam_0, Delta)
 
-            result = minimize(calc_V,
-                              x0=init_guess,
-                              args=args,
-                              method='Nelder-Mead',
-                              #method='anneal',
-                              #method='L-BFGS-B',
-                              #method='BFGS',
-                              #method='TNC',
-                              #method='SLSQP',
-                              #bounds=((0, None),),
-                              )
-            chi_hat = result.x[0]
-        # If chi is not none, then use the chi value
-        else:
-            chi_hat = chi
+        result = minimize(calc_V, x0=init_guess, args=args,
+                          method='Nelder-Mead', tol=1e-5)
+        chi_hat = result.x[0]
+        #chi_hat = 0.005
 
-        #chi_hat = 1000
-
+        verbose = True
         if verbose:
             print('Chi minimum = ' + str(chi_hat))
 
-        # Get best-fit model deriv and spectrum
-        A_C_hat, h_hat = calc_deriv(chi_hat,
-                                    B_prime,
-                                    B_prime_prod,
-                                    Delta,
-                                    beta_prod,
-                                    A_M,
-                                    N_k,
-                                    deriv=deriv)
+        # Get best-fit model 4th deriv and spectrum
+        A_C_hat, h_hat, coeffs = calc_4th_deriv(chi_hat,
+                                                B_prime,
+                                                Delta,
+                                                beta,
+                                                A_M,
+                                                N_k)
+
+        # Integrate up to original function
+        x_C = np.squeeze(np.array(lam_C))
+        h_hat = np.squeeze(np.array(h_hat))
+        if 1:
+            y_3d = cumtrapz(h_hat, x_C, initial=coeffs[3])
+            y_2d = cumtrapz(y_3d, x_C, initial=coeffs[2])
+            y_1d = cumtrapz(y_2d, x_C, initial=coeffs[1])
+            y_0d = cumtrapz(y_1d, x_C, initial=coeffs[0])
+        if 0:
+            y_3d = cumtrapz(h_hat, x_C, initial=0) + coeffs[3]
+            y_2d = cumtrapz(y_3d, x_C, initial=0) + coeffs[2]
+            y_1d = cumtrapz(y_2d, x_C, initial=0) + coeffs[1]
+            y_0d = cumtrapz(y_1d, x_C, initial=0) + coeffs[0]
+        derivs = (y_3d, y_2d, y_1d, y_0d)
 
         # Convert matrices to arrays, since matrices are annoying
         A_C_hat = np.squeeze(np.array(A_C_hat))
@@ -466,12 +245,15 @@ def regularize(A_M_list, init_guess=None, N_D=None, N_k=None, Delta=None,
 
         A_C_hat_list.append(A_C_hat)
         h_hat_list.append(h_hat)
+        derivs_list.append(derivs)
 
-    return A_C_hat_list, h_hat_list
+    if len(A_M_list) == 1:
+        return A_C_hat_list[0], h_hat_list[0], derivs_list[0], lam_C
+    else:
+        return A_C_hat_list, h_hat_list, derivs_list, lam_C
 
 def calc_V(chi, N_D=None, A_M=None, lam_M=None, lam_C=None, N_k=None,
-        B_prime=None, B_prime_prod=None, beta_prod=None, lam_0=None,
-        Delta=None, deriv=4):
+        B_prime=None, beta=None, lam_0=None, Delta=None):
 
     '''
 
@@ -488,26 +270,23 @@ def calc_V(chi, N_D=None, A_M=None, lam_M=None, lam_C=None, N_k=None,
     import scipy
     from scipy import linalg
 
-    #assert B_prime.shape == (N_D, N_k + deriv)
-    #assert beta.shape[1] == N_k + deriv
+    assert B_prime.shape == (N_D, N_k + 4)
+    assert beta.shape[1] == N_k + 4
 
     # Chi is a list from optimize
     if type(chi) is list or type(chi) is numpy.ndarray:
         chi = chi[0]
 
     # Chi cannot be zero, else finite differencing and no need for this at all!
-    if chi <= 0:
+    if chi == 0:
         return np.Inf
 
-    #print('Deriv in calc_V =', deriv)
-
     # h_E_matrix is computation heavy, calculate for h_prime and E both
-    h_E_matrix = calc_h_E_matrix(chi, B_prime, B_prime_prod, Delta, beta_prod,
-            deriv)
+    h_E_matrix = calc_h_E_matrix(chi, B_prime, Delta, beta)
 
     # Calculate the fourth derivative and coefficients
-    A_C, h = calc_deriv(chi, B_prime, B_prime_prod, Delta, beta_prod, A_M,
-            N_k, h_E_matrix=h_E_matrix, deriv=deriv)
+    A_C, h, coeffs = calc_4th_deriv(chi, B_prime, Delta, beta, A_M, N_k,
+                                    h_E_matrix=h_E_matrix)
 
     # Eq 8
     E = B_prime * h_E_matrix
@@ -518,18 +297,17 @@ def calc_V(chi, N_D=None, A_M=None, lam_M=None, lam_C=None, N_k=None,
 
     return V[0,0]
 
-def calc_h_E_matrix(chi, B_prime, B_prime_prod, Delta, beta_prod, deriv):
+def calc_h_E_matrix(chi, B_prime, Delta, beta):
 
     from scipy import linalg
 
     # Write matrix shared by h_prime and E
-    h_E_matrix = linalg.inv(B_prime_prod + chi / Delta**4 * \
-                            beta_prod) * B_prime.T
+    h_E_matrix = linalg.inv(B_prime.T * B_prime + chi / Delta**4 * \
+                            beta.T * beta) * B_prime.T
 
     return h_E_matrix
 
-def calc_deriv(chi, B_prime, B_prime_prod, Delta, beta_prod, A_M, N_k,
-        h_E_matrix=None, deriv=4):
+def calc_4th_deriv(chi, B_prime, Delta, beta, A_M, N_k, h_E_matrix=None):
 
     ''' Calculates 4th deriv and estimated function
 
@@ -542,25 +320,21 @@ def calc_deriv(chi, B_prime, B_prime_prod, Delta, beta_prod, A_M, N_k,
     # B_prime^T * B_prime --> N_k+4 x N_D * N_D x N_k+4 --> N_k+4 x N_k+4
     # beta^T * beta --> N_k+4 x N_k-2 * N_k-2 x N_k+4 --> N_k+4 x N_k+4
 
-
-    #print('Deriv in calc_deriv =', deriv)
-    #print('chi in calc_deriv =', chi)
-
     # Solve for h_prime, eq 4
     if h_E_matrix is None:
-        h_prime = calc_h_E_matrix(chi, B_prime, B_prime_prod, Delta,
-                beta_prod, deriv) * A_M
+        h_prime = calc_h_E_matrix(chi, B_prime, Delta, beta) * A_M
     else:
         h_prime = h_E_matrix * A_M
-    assert h_prime.shape == (N_k+deriv, 1)
+    assert h_prime.shape == (N_k+4, 1)
 
+    coeffs = np.squeeze(np.array(h_prime[-4:])).tolist()
     h_hat = h_prime[0:N_k]
 
     # Eq 6, N_D x N_k+4 * N_k+4 x 1= 1 x N_D
     A_C = B_prime * h_prime
     assert A_C.shape == A_M.shape
 
-    return A_C, h_hat
+    return A_C, h_hat, coeffs
 
 def construct_trap_integ(lam_C, lam_M):
 
@@ -575,7 +349,7 @@ def construct_trap_integ(lam_C, lam_M):
     N_D = lam_M.size
     N_k = lam_C.size
 
-    Delta = (lam_M[-1] - lam_M[1]) / (N_k - 1.0)
+    Delta = (lam_C[-1] - lam_0) / (N_k - 1.0)
 
     # Prep scalings of axes
     dxk = 1.0 / (N_k - 1.0)
@@ -699,6 +473,7 @@ def construct_trap_integ(lam_C, lam_M):
             # 5
             elif ((n_k % 2 == 1) &
                   (xl[n_D] - xknot[n_k] >= dxk)):
+                print 'yes'
                 a = 0.0
             # 6
             elif ((n_k % 2 == 0) &
@@ -911,7 +686,7 @@ def coeff_3(al):
 
     return - al**2 / 4.0 + al**3 / 6.0
 
-def construct_B(lam_C, lam_M, deriv=4):
+def construct_B(lam_C, lam_M):
 
     ''' Constructs an integral operator matrix.
 
@@ -979,20 +754,18 @@ def construct_B(lam_C, lam_M, deriv=4):
 
         C = np.matrix(np.zeros((N_D,N_k)))
 
-        if deriv == 1:
-            def c(i,j):
-                return 1
-        elif deriv == 2:
-            def c(i,j):
-                return lam_M[i, 0] - lam_C[j, 0]
-        elif deriv == 3:
-            def c(i,j):
-                return 1/2.0/2.0 * (lam_M[i, 0] - lam_C[j, 0])**2
-                #return 1/2.0 * (lam_M[i, 0] - lam_C[j, 0])**2
-        elif deriv == 4:
-            def c(i,j):
-                return 1/6.0/3.0 * (lam_M[i, 0] - lam_C[j, 0])**3
-                #return 1/6.0 * (lam_M[i, 0] - lam_C[j, 0])**3
+        for i in xrange(0, N_D):
+            for j in xrange(0, N_k):
+                if dxu[i] >= xknot[j]:
+                    C[i, j] = (dxu[i] - xknot[j])**3 / 6.0
+
+        testing = False
+        if testing:
+            assert dxk == 0.0025
+            #np.testing.assert_array_almost_equal(dxl,
+            #    np.array(
+            #    )
+            #    decimal=4)
 
         lam_M = np.reshape(lam_M, (N_D, 1))
         lam_C = np.reshape(lam_C, (N_k, 1))
@@ -1000,14 +773,13 @@ def construct_B(lam_C, lam_M, deriv=4):
         for i in xrange(0, N_D):
             for j in xrange(0, N_k):
                 if lam_M[i, 0] >= lam_C[j, 0]:
-                    #C[i, j] = c(i, j) / 3.0
-                    C[i, j] = c(i, j)
+                    C[i, j] = (lam_M[i, 0] - lam_C[j, 0])**3 / 6.0 / 3.0
 
         B = np.multiply(trap_integ, C)
 
     return B
 
-def construct_beta(lam_C, n_deriv=4):
+def construct_beta(lam_C):
 
     import numpy as np
 
@@ -1018,7 +790,7 @@ def construct_beta(lam_C, n_deriv=4):
                 - 2 * np.diag(ones_array[:-1], 1) \
                 + np.diag(ones_array[:-2], 2)
     beta_diag = beta_diag[:lam_C.shape[0] - 2, :-2]
-    beta_zeros = np.zeros((ones_array.shape[0] - offset - 2, n_deriv))
+    beta_zeros = np.zeros((ones_array.shape[0] - offset - 2, 4))
 
     beta = np.matrix(np.hstack((beta_diag, beta_zeros)))
     bega_diag, beta_zeros = None, None

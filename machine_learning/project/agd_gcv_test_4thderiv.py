@@ -213,72 +213,132 @@ def test_gauss_integration(ngauss=1):
     x0s = (0, 15)
     sigmas = (5, 10)
     As = (20, 10)
-    x0s = (3, 14, 16)
-    sigmas = (1.7, 2, 0.4)
-    As = (0.6, 1.055, 0.1)
+    x0s = (-5, 0)
+    sigmas = (5, 5)
+    As = (10, 20)
 
     x = np.arange(-30, 30, Delta)
     x = np.linspace(-30, 30, 71)
-    x = np.arange(-98, 98, 0.20010214)
 
     if ngauss == 2:
         y = gauss(x, sigmas[0], x0s[0], As[0]) \
             + gauss(x, sigmas[1], x0s[1], As[1]) \
-            + gauss(x, sigmas[2], x0s[2], As[2])
+            + np.random.normal(0,1, len(x))
     elif ngauss == 1:
         y = gauss(x, sigmas[0], x0s[0], As[0]) \
-            + np.random.normal(0,1, len(x))
+            + np.random.normal(0,0.1, len(x))
 
-    # Add noise
-    uniform = 0
-    if uniform:
-        y += np.random.normal(0,0.008007, len(x))
+    A_M, lam_M, lam_C, N_k = pspline.prep_spectrum(x, y)
+
+    x_C = np.squeeze(np.asarray(lam_C))
+
+    if ngauss == 2:
+        y_4d = gauss_4th_deriv(x_C, sigmas[0], x0s[0], As[0]) \
+               + gauss_4th_deriv(x_C, sigmas[1], x0s[1], As[1])
+    elif ngauss == 1:
+        y_4d = gauss_4th_deriv(x_C, sigmas[0], x0s[0], As[0])
+
+    y_4d = np.matrix(y_4d).T
+    #y_1d = np.matrix(y_1d).T
+
+    lam_0 = lam_M[0, 0]
+    Delta = x[1] - x[0]
+    N_D = len(x)
+    #print 'lam_0', lam_0
+    #print 'Delta', Delta
+
+    B = pspline.construct_B(lam_C, lam_C)
+
+    trap_integ = pspline.construct_trap_integ(lam_C, lam_C)
+
+    #print B.shape, y_4d.shape
+    #print B
+
+    # Integrate to original function
+    y_calc = B[:-2,:] * y_4d[:, 0]
+
+    y = np.squeeze(np.asarray(y))
+    #y_1d = np.squeeze(np.asarray(y_1d))
+    y_calc = np.squeeze(np.asarray(y_calc))
+
+    lam_0 = lam_M[0, 0]
+    Delta = abs(lam_C[-1, 0] - lam_C[0, 0]) / (N_k - 1)
+    ones = np.matrix(np.ones(A_M.shape[0])).T
+    lam_M0 = lam_M - ones * lam_0
+    B = pspline.construct_B(lam_C, lam_M)
+    B_prime = np.hstack((B,
+                         ones,
+                         lam_M0,
+                         np.power(lam_M0, 2) / 2.0,
+                         np.power(lam_M0, 3) / 6.0))
+    beta = pspline.construct_beta(lam_C)
+    chi = 10
+    y_4d_calc = linalg.inv(B_prime.T * B_prime + chi / Delta**4 * \
+            beta.T*beta) * B_prime.T * A_M
+
+    #print y_calc.shape
+    #print y_4d.shape
+
+    #x_C = x_[1:-1]
+
+    # Integrate 4th derive to 0th deriv
+    from scipy.integrate import cumtrapz
+
+    x_C = np.squeeze(np.array(x_C))
+    y_4d = np.squeeze(np.array(y_4d_calc[:-4]))
+    #y_4d = np.squeeze(np.array(y_4d))
+    if 1:
+        y_3d = cumtrapz(y_4d, x_C, initial=y_4d_calc[-4, 0])
+        y_2d = cumtrapz(y_3d, x_C, initial=y_4d_calc[-3, 0])
+        y_1d = cumtrapz(y_2d, x_C, initial=y_4d_calc[-2, 0])
+        y_0d = cumtrapz(y_1d, x_C, initial=y_4d_calc[-1, 0])
     else:
-        noise = np.random.normal(0,0.008007, len(x))
-        indices = np.where((x > -1) & (x < 17))
-        noise[indices] = np.random.normal(0,0.008007/3.0, len(indices[0]))
-        y += noise
+        y_3d = cumtrapz(y_4d, x_C, initial=0)
+        y_2d = cumtrapz(y_3d, x_C, initial=0)
+        y_1d = cumtrapz(y_2d, x_C, initial=0)
+        y_0d = cumtrapz(y_1d, x_C, initial=0)
 
-    y_list = [y,]
+    # Calculate spectrum to compare with computed
+    if ngauss == 2:
+        y_C = gauss(x_C, sigmas[0], x0s[0], As[0]) \
+            + gauss(x_C, sigmas[1], x0s[1], As[1])
+    elif ngauss == 1:
+        y_C = gauss(x_C, sigmas[0], x0s[0], As[0])
 
-    if 0:
-        import matplotlib.pyplot as plt
-        plt.plot(x, y_list[0])
-        plt.show()
-
-    print('sim ylist length', len(y_list))
-
-    temp_results = pspline.fit_spline(x, y_list, N_k=len(x), init_guess=20)
-
-    y_fit = temp_results['reg 1st deriv']['y_fit_list'][0]
-    y_4d = temp_results['reg 4th deriv']['y4d_list'][0]
-    y_3d = temp_results['reg 3rd deriv']['y3d_list'][0]
-    y_2d = temp_results['reg 2nd deriv']['y2d_list'][0]
-    y_1d = temp_results['reg 1st deriv']['y1d_list'][0]
-    x_fit = temp_results['x_fit']
-    y_calc = temp_results['reg 1st deriv']['y_fit_list'][0]
-    x_data = temp_results['x_data']
-
-    #norm = np.sum(y_calc - y)
-    #print('Sum of diff. of calc y and true y = {0:.2f}'.format(norm))
-    norm = np.sum((y_calc - y)**2)
+    norm = np.sum((y_0d - y_C)**2)
     print('L2 norm of calc y and true y = {0:.2f}'.format(norm))
+
+    print('\ny_0d[0] =', y_0d[0])
 
     # Plot
     scale = np.max(y) / np.max(y_4d)
     plt.clf(); plt.close()
     plt.plot(x, y, label='f(x)',)
-    plt.plot(x_fit, y_4d * scale, label="f''''(x) x " + str(scale))
-    plt.plot(x_fit, y_3d, label="Calc. f'''(x)")
-    plt.plot(x_fit, y_2d, label="Calc. f''(x)")
-    plt.plot(x_fit, y_1d, label="Calc. f'(x)")
-    plt.plot(x_fit, y_calc, label="Calc. f(x)",)#marker='o')
+    plt.plot(x_C, y_4d * scale, label="f''''(x) x " + str(scale))
+    plt.plot(x_C, y_3d, label="Calc. f'''(x)")
+    plt.plot(x_C, y_2d, label="Calc. f''(x)")
+    plt.plot(x_C, y_1d, label="Calc. f'(x)")
+    plt.plot(x_C, y_0d, label="Calc. f(x)",)#marker='o')
+    plt.plot(x_C[:-2], y_calc, label="Integrated f''''(x)",) #marker='+')
     #plt.plot(x, y_calc - y, label="Integrated f''''(x) - f(x)")
     plt.xlim(-30, 30)
     #plt.ylim(-15, max(As)*1.1)
     plt.legend(loc='best')
     plt.savefig('figures/integration_test_ngauss' + str(ngauss) + '.png')
     plt.show()
+
+    plt.clf(); plt.close()
+    plt.plot(x_C, y_4d, label="f''''(x)")
+    plt.plot(x_C, y_4d_calc[:-4], label="f''''(x) Calc")
+    #plt.plot(x_C, y_3d, label="Calc. f'''(x)")
+    #plt.plot(x_C, y_2d, label="Calc. f''(x)")
+    #plt.plot(x_C, y_1d, label="Calc. f'(x)")
+    #plt.plot(x_C, y_0d, label="Calc. f(x)")
+    #plt.plot(x, y_calc - y, label="Integrated f''''(x) - f(x)")
+    plt.xlim(-30, 30)
+    #plt.ylim(-15, max(As)*1.1)
+    plt.legend(loc='best')
+    plt.savefig('figures/integration_test_derivs_ngauss_' + str(ngauss) + '.png')
 
 def test_beta():
 
@@ -331,7 +391,7 @@ def plot_splines(results, show=False):
                  }
         plt.rcParams.update(params)
 
-        fig = plt.figure(figsize=(5,8))
+        fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(9,4))
 
         # Plot spline fit to data
         # -----------------------
@@ -339,7 +399,6 @@ def plot_splines(results, show=False):
         y_data = results['y_data_list'][i]
         y_fit = results['y_fit_list'][i]
 
-        ax1 = fig.add_subplot(211)
         ax1.plot(x_fit, y_fit,
                  label=r"Spline Fit",
                  linestyle='-',
@@ -352,68 +411,42 @@ def plot_splines(results, show=False):
                  )
         ax1.set_xlabel(r'Velocity (km/s)')
         ax1.set_ylabel(r'T$_{\rm obs}$ (K km/s)')
-        ax1.legend(loc='upper left')
+        ax1.legend(loc='lower left')
         ax1.set_xlim(-40, 40)
-
 
         # Plot derivatives
         # -----------------------
-        nrows_ncols=(2,2)
-        ngrids=4
-
-        imagegrid = ImageGrid(fig, (2,1,2),
-                     nrows_ncols=nrows_ncols,
-                     ngrids=ngrids,
-                     axes_pad=0.1,
-                     aspect=False,
-                     label_mode='L',
-                     share_all=True)
-
         # Write data
         y_4d = results['y_4d_list'][i]
         y_3d = results['y_3d_list'][i]
         y_2d = results['y_2d_list'][i]
         y_1d = results['y_1d_list'][i]
 
-        ax2 = imagegrid[0]
         ax2.plot(x_fit, y_4d / y_4d.max(),
                  label=r"Spline Fit 4th Deriv.",
                  linestyle='-',
                  color='r')
-        ax2.legend(loc='lower right')
-
-        ax3 = imagegrid[1]
-        ax3.plot(x_fit, y_3d / y_3d.max(),
+        ax2.plot(x_fit, y_3d / y_3d.max(),
                  label=r"Spline Fit 3rd Deriv.",
                  linestyle='-',
                  color='c')
-        ax3.legend(loc='lower right')
-
-
-        ax4 = imagegrid[2]
-        ax4.plot(x_fit, y_2d / y_2d.max(),
+        ax2.plot(x_fit, y_2d / y_2d.max(),
                  label=r"Spline Fit 2nd Deriv.",
                  linestyle='-',
                  color='g')
-        ax4.legend(loc='lower right')
-
-        ax5 = imagegrid[3]
-        ax5.plot(x_fit, y_1d / y_1d.max(),
+        ax2.plot(x_fit, y_1d / y_1d.max(),
                  label=r"Spline Fit 1st Deriv.",
                  linestyle='-',
                  color='b')
-        ax5.legend(loc='lower right')
-
+        ax2.plot(x_fit, y_fit / y_fit.max(),
+                 label=r"Spline Fit",
+                 linestyle='-',
+                 color='k')
         ax2.set_xlabel(r'Velocity (km/s)')
         ax2.set_ylabel(r'T$_{\rm obs}$ / max(T$_{\rm obs}$)')
-        ax3.set_xlabel(r'Velocity (km/s)')
-        ax3.set_ylabel(r'T$_{\rm obs}$ / max(T$_{\rm obs}$)')
-        ax4.set_xlabel(r'Velocity (km/s)')
-        ax4.set_ylabel(r'T$_{\rm obs}$ / max(T$_{\rm obs}$)')
-        ax5.set_xlabel(r'Velocity (km/s)')
-        ax5.set_ylabel(r'T$_{\rm obs}$ / max(T$_{\rm obs}$)')
-        ax5.set_xlim(-39, 40)
-        ax5.set_ylim(-2, 1.1)
+        ax2.legend(loc='lower right')
+        ax2.set_xlim(-100, 100)
+        ax2.set_ylim(-2, 1.1)
 
         plt.savefig('figures/ht03_fits/ht03_spline{0:.0f}'.format(i) + '.png',
                     bbox_inches='tight')
@@ -444,53 +477,44 @@ def main():
     test_data = pickle.load(open('data/HT2003_data_test100.pickle'))
 
     # load data instead of fitting?
-    load_data = 1
+    load_data = 0
 
     # Grab the first spectrum from the data
     x = test_data['x_values'][0]
-    y_list = test_data['data_list'][0:1]
-
-    x = np.linspace(x[0], x[-1], len(x) / 2)
-
-    smooth = 1
-    if smooth:
-        for i, y in enumerate(y_list):
-            y_new = np.zeros(len(x))
-            for j in xrange(len(x)):
-                y_new[j] = np.average(y[2*j:2*j+1])
-            y_list[i] = y_new
-
-    print('last and first =', x[-1], x[0])
-    print('noise =', np.std(y_list[0][0:50]))
-    print('max = ', np.max(y_list[0]))
-    print('snr = ', np.max(y_list[0])/ np.std(y_list[0][0:50]))
-    print('Delta =', x[1] - x[0])
-
-    if 0:
-        import matplotlib.pyplot as plt
-        plt.plot(x, y_list[0])
-        plt.show()
-
-    print('ht03 ylist length', len(y_list))
+    y_list = test_data['data_list'][0:2]
 
     if not load_data:
+        A_C_list, h_list, derivs_list, lam_C = \
+                pspline.fit_spline(x, y_list, N_k=len(x), init_guess=0.0052)
 
-        temp_results = pspline.fit_spline(x, y_list, N_k=len(x),
-                #init_guess=0.0001525,
-                init_guess=20,
-                #chi=10,
-                )
+        y_3d_list = []
+        y_2d_list = []
+        y_1d_list = []
+        for deriv_list in derivs_list:
+        	y_3d_list.append(deriv_list[0])
+        	y_2d_list.append(deriv_list[1])
+        	y_1d_list.append(deriv_list[2])
 
-        results = {}
-        results['y_fit_list'] = temp_results['reg 4th deriv']['y_fit_list']
-        results['y_4d_list'] = temp_results['reg 4th deriv']['y4d_list']
-        results['y_3d_list'] = temp_results['reg 3rd deriv']['y3d_list']
-        results['y_2d_list'] = temp_results['reg 2nd deriv']['y2d_list']
-        results['y_1d_list'] = temp_results['reg 1st deriv']['y1d_list']
-        results['x_fit'] = temp_results['x_fit']
-        results['y_data_list'] = y_list
-        results['x_data'] = temp_results['x_data']
-
+        if len(y_list) > 1:
+            results = {}
+            results['y_fit_list'] = A_C_list
+            results['y_4d_list'] = h_list
+            results['y_3d_list'] = y_3d_list
+            results['y_2d_list'] = y_2d_list
+            results['y_1d_list'] = y_1d_list
+            results['x_fit'] = lam_C
+            results['y_data_list'] = y_list
+            results['x_data'] = x
+        elif len(y_list) == 1:
+            results = {}
+            results['y_fit_list'] = (A_C_list,)
+            results['y_4d_list'] = (h_list,)
+            results['y_3d_list'] = y_3d_list
+            results['y_2d_list'] = y_2d_list
+            results['y_1d_list'] = y_1d_list
+            results['x_fit'] = lam_C
+            results['y_data_list'] = (np.array(y_list[0]),)
+            results['x_data'] = x
 
         with open('data/spline_fits.pickle', 'w') as f:
             pickle.dump(results, f)
