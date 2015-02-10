@@ -1,0 +1,322 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 10.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     10495,        313]
+NotebookOptionsPosition[      9600,        276]
+NotebookOutlinePosition[      9936,        291]
+CellTagsIndexPosition[      9893,        288]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[TextData[{
+ "Astron 715 - Hw 2\n",
+ StyleBox["Elijah Bernstein-Cooper\n\n1) ", "Chapter"]
+}], "Title",
+ CellChangeTimes->{{3.632337250655241*^9, 3.632337279993023*^9}, {
+   3.632337310736787*^9, 3.6323374070126553`*^9}, {3.632337445760828*^9, 
+   3.632337454340119*^9}, {3.632339410016137*^9, 3.632339471733066*^9}, 
+   3.632339503245401*^9, {3.632339534978751*^9, 3.632339539586381*^9}, {
+   3.6323395758405733`*^9, 3.6323396373057947`*^9}}],
+
+Cell[TextData[{
+ "The grey atmosphere assumes a plane parallel atmosphere in LTE. Using the \
+result from the radiative transfer equation for the intensity at the surface \
+where the optical depth, ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["\[Tau]", "s"], "=", "1"}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ ",\n\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     SubscriptBox["I", "\[Nu]"], "(", 
+     RowBox[{"0", ",", " ", "\[Mu]"}], ")"}], " ", "=", " ", 
+    RowBox[{
+     SubscriptBox["S", "\[Nu]"], "(", 
+     RowBox[{
+      SubscriptBox["\[Tau]", "s"], "=", 
+      RowBox[{
+       RowBox[{
+        SubscriptBox["\[Tau]", "z"], "/", "\[Mu]"}], " ", "=", " ", "1"}]}], 
+     ")"}]}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "\n\nwhere ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["\[Tau]", "z"], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ " is the plane parallel atmosphere optical depth and \[Mu] = cos[\[Theta]]. \
+\n\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["\[Tau]", "s"], "=", "\[Kappa]\[Rho]s"}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "\n\nwhere \[Kappa] is the opacity which is constant, \[Rho] is the mass \
+density, and s is the path length. The path length will remain constant with \
+\[Mu]. For larger \[Mu], lines of sight towards the edges of the star, an \
+optical depth of 1 will proble larger radii, points where the star is cooler. \
+The outer regions of the star will be darker, because the surface is cooler. \
+Limb darkening would not occur if the temperature of a star remained constant \
+with radius."
+}], "Text",
+ CellChangeTimes->{{3.632593971057828*^9, 3.632594352486931*^9}, {
+  3.6325944062835493`*^9, 3.632594408177455*^9}, {3.6325944572500668`*^9, 
+  3.632594554803657*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["2a)", "Chapter",
+ CellChangeTimes->{{3.6325890364836073`*^9, 3.632589047757512*^9}}],
+
+Cell[TextData[{
+ "At above temperatures above ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox["10", "4"], "K"}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "the ionization fraction of hydrogen is high and is nearly constant of \
+temperature. O stars have temperatures > ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox["10", "4"], "K"}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ ". The fraction of ionized H will be similar in each star. Therefore the \
+equivalent width of the Balmer absorption line will be similar between an O5 \
+and an O9 star, and will be much weaker for stars with temperatures < ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox["10", "4"], "K"}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.632593590535933*^9, 3.63259394571137*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["2b)", "Chapter",
+ CellChangeTimes->{{3.632589050367564*^9, 3.632589051094679*^9}}],
+
+Cell[TextData[{
+ "Stark broadening will contribute to the line Balmer line width. The width \
+due to pressure broading, \[CapitalDelta]\[Lambda], is given by\n\n\
+\[CapitalDelta]\[Lambda] = ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    FractionBox[
+     SuperscriptBox["\[Lambda]", "2"], "c"], 
+    FractionBox["n\[Sigma]", "\[Pi]"], 
+    SqrtBox[
+     FractionBox[
+      RowBox[{"2", "kT"}], "m"]]}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "\nwhere c is the speed of light, n is the number density of atoms, \[Sigma] \
+is the collisional cross section, T is the temperature, and m is the particle \
+mass. We can see that for the B0V and B0Ia stars, which have constant T, \
+\[CapitalDelta]\[Lambda] \[Proportional] n. The surface gravity of the two \
+starsmust then differ by about the ratio of their line widths because the \
+surface gravity, g, is given by\n\nP(z) = g \[Integral]\[Rho](z) dz\n\nwhere \
+P(z) is the pressure, which will remain mostly constant in the atmosphere, \
+and so will the density, thus g = ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    FractionBox["P", "\[Rho]"], "\[Proportional]", 
+    RowBox[{
+     FractionBox["1", "n"], "."}]}], TraditionalForm]],
+  FormatType->"TraditionalForm"]
+}], "Text",
+ CellChangeTimes->{{3.632589073701603*^9, 3.6325891789197397`*^9}, {
+  3.632589235388817*^9, 3.632589444303534*^9}, {3.632589557784182*^9, 
+  3.6325895865174503`*^9}, {3.632589618923792*^9, 3.632589737974493*^9}, {
+  3.6325899863849077`*^9, 3.6325900227024803`*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["3)", "Chapter",
+ CellChangeTimes->{{3.632589063052329*^9, 3.632589063594056*^9}}],
+
+Cell[TextData[{
+ "When the temperature of the star is > ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox["10", "4"], " ", "K"}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "the vast majority of H atoms are ionized, thus the opacity of the star is \
+mainly due to free-free collisions. As the radius increases, the temperature \
+decreases in an LBV. At ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     SuperscriptBox["10", "4"], " ", "K", " ", "the", " ", "ionization", " ", 
+     "fractions", " ", "of", " ", "H", " ", "quickly", " ", "drops"}], ","}], 
+   TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ " and the opacity rises due to bound-free absorption. The increase in \
+radiation pressure will drive the luminosity to be greater than the Eddington \
+luminosity. This is an unstable process, whereby the expanding gas will \
+become cooler, and thus more opaque, which will cause the gas to expand \
+further."
+}], "Text",
+ CellChangeTimes->{{3.632590083781294*^9, 3.632590113954379*^9}, {
+  3.6325928399961863`*^9, 3.6325929338278437`*^9}, {3.632593090722546*^9, 
+  3.632593198692885*^9}, {3.632593496442684*^9, 3.632593555029429*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["4)", "Chapter",
+ CellChangeTimes->{{3.632344394987694*^9, 3.632344404194995*^9}}],
+
+Cell[TextData[{
+ "The ratio of SFRs derived using the Kroupa and Salpeter IMF is given by \n\n\
+",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    FractionBox[
+     SubscriptBox["\[Phi]", "salpeter"], 
+     SubscriptBox["\[Phi]", "kroupa"]], "=", 
+    FractionBox[
+     RowBox[{"\[Integral]", 
+      RowBox[{"M", "*", 
+       SuperscriptBox["M", 
+        RowBox[{
+         SubscriptBox["\[CapitalGamma]", "salpeter"], "-", "1"}]], "dM"}]}], 
+     RowBox[{"\[Integral]", 
+      RowBox[{"M", "*", 
+       SuperscriptBox["M", 
+        RowBox[{
+         SubscriptBox["\[CapitalGamma]", "kroupa"], "-", "1"}]], "dM"}]}]]}], 
+   TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ " = 1.48"
+}], "Text",
+ CellChangeTimes->{{3.632593284497183*^9, 3.632593427430861*^9}, {
+  3.63259346252384*^9, 3.6325934689221478`*^9}}],
+
+Cell["", "Text",
+ CellChangeTimes->{{3.632344538266121*^9, 3.632344540348503*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"salpeter", " ", "=", " ", 
+   RowBox[{"Integrate", "[", 
+    RowBox[{
+     RowBox[{"M", "*", 
+      SuperscriptBox["M", 
+       RowBox[{"-", "2.3"}]]}], ",", 
+     RowBox[{"{", 
+      RowBox[{"M", ",", "0.1", ",", "\[Infinity]"}], "}"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"kroupa", " ", "=", " ", 
+   RowBox[{"Integrate", "[", 
+    RowBox[{
+     RowBox[{"Piecewise", "[", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"M", "*", 
+           SuperscriptBox["M", 
+            RowBox[{"-", "1"}]]}], ",", 
+          RowBox[{"M", "<", "0.5"}]}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"M", "*", 
+           SuperscriptBox["M", 
+            RowBox[{"-", "2.3"}]]}], ",", 
+          RowBox[{"M", "\[GreaterEqual]", "0.5"}]}], "}"}]}], "}"}], "]"}], 
+     ",", 
+     RowBox[{"{", 
+      RowBox[{"M", ",", "0.1", ",", "\[Infinity]"}], "}"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"salpeter", " ", "/", " ", 
+  "kroupa"}], "\[IndentingNewLine]"}], "Input",
+ CellChangeTimes->{{3.632344542279086*^9, 3.632344544363102*^9}, {
+  3.632344594873048*^9, 3.6323445975287333`*^9}, {3.632344644019923*^9, 
+  3.632344725755542*^9}, {3.632344781324499*^9, 3.632344794097644*^9}, {
+  3.632344828457753*^9, 3.632344942092031*^9}, {3.632593206588376*^9, 
+  3.6325932366608677`*^9}, {3.632593440141975*^9, 3.632593457969104*^9}}],
+
+Cell[BoxData["1.4767202493398723`"], "Output",
+ CellChangeTimes->{{3.632344663660265*^9, 3.632344673422895*^9}, 
+   3.632344726696423*^9, {3.632344909397468*^9, 3.6323449427405167`*^9}, {
+   3.632593215390809*^9, 3.632593237687229*^9}, {3.632593440918391*^9, 
+   3.6325934585166597`*^9}}]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{808, 716},
+WindowMargins->{{120, Automatic}, {Automatic, -10}},
+FrontEndVersion->"10.0 for Linux x86 (64-bit) (June 27, 2014)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 447, 8, 228, "Title"],
+Cell[1030, 32, 1807, 47, 284, "Text"],
+Cell[CellGroupData[{
+Cell[2862, 83, 90, 1, 66, "Chapter"],
+Cell[2955, 86, 863, 24, 97, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[3855, 115, 88, 1, 66, "Chapter"],
+Cell[3946, 118, 1505, 33, 316, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[5488, 156, 87, 1, 66, "Chapter"],
+Cell[5578, 159, 1178, 26, 136, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[6793, 190, 87, 1, 66, "Chapter"],
+Cell[6883, 193, 808, 25, 99, "Text"],
+Cell[7694, 220, 82, 1, 30, "Text"],
+Cell[CellGroupData[{
+Cell[7801, 225, 1468, 40, 126, "Input"],
+Cell[9272, 267, 288, 4, 31, "Output"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)

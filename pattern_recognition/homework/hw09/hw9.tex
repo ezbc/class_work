@@ -1,0 +1,115 @@
+%-------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%-------------------------------------------------------------------------------
+
+\documentclass{article}
+
+% Packages
+\input{my_packages.tex}
+
+% formatting
+\input{my_format.tex}
+
+%-------------------------------------------------------------------------------
+%	NAME AND CLASS SECTION
+%-------------------------------------------------------------------------------
+
+\newcommand{\hmwkTitle}{Homework 9} % Assignment title
+\newcommand{\hmwkDueDate}{Wednesday, Nov 26} % Due date
+\newcommand{\hmwkClass}{ECE 532} % Course/class
+\newcommand{\hmwkClassTime}{11:00 am} % Class/lecture time
+\newcommand{\hmwkClassInstructor}{Robert Nowak} % Teacher/lecturer
+\newcommand{\hmwkAuthorName}{Elijah Bernstein-Cooper} % Your name
+
+%-------------------------------------------------------------------------------
+%	TITLE PAGE
+%-------------------------------------------------------------------------------
+
+\title{\vspace{0in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}
+    \vspace{0.5in}}
+
+\author{\textbf{Elijah Bernstein-Cooper}}
+\date{\today} % Insert date here if you want it to appear below your name
+
+%-------------------------------------------------------------------------------
+
+\begin{document}
+
+\maketitle
+%\newpage
+
+%===============================================================================
+%-------------------------------------------------------------------------------
+%	PROBLEM 1
+%-------------------------------------------------------------------------------
+\begin{homeworkProblem}
+  
+    We clustered the data in right panel of Figure~\ref{fig:spectral}, using
+    first kmeans++ and kmeans++ spectral clustering. We chose the number of
+    clusters to be 2. In Figure~\ref{fig:kmeans} we show the classification of
+    the data using kmeans++ clustering. We can see that kmeans++ prohibits a
+    correct classification of the structured data, which we expect to be split
+    as two concentric circles. Figure~\ref{fig:spectral} demonstrates that
+    spectral kmeans++ provides the ability to correctly classify the groups in
+    the data. This example result occurs every 1 out of 10 random samples. The
+    spectral kmeans++ clustering is likely to fail on this dataset in correctly
+    classifying the data, but has the potential to correctly classify the
+    observations.
+
+    We believe that this inaccuracy of the spectral kmeans++ clustering is due
+    to the distance measurement we assign between points. Currently our
+    distance is determined with a Gaussian distance
+
+    \begin{equation}
+        W_{ij} = {\rm exp}\left[-\frac{\|A_{i.} - A_{j.}\|^2_2}{2}\right]
+    \end{equation}
+
+    \noindent where $\bm{W}_{ij}$ is the $n \times n$ weight matrix, and
+    $\bm{A}$ contains rows of coordinate pairs of the data. A distance
+    measurement which more closely represented a point's distance from the
+    center of the data would provide a more accurate spectral kmeans++
+    classification. See the code used to complete this homework at the end.
+
+    \begin{figure}[!ht]
+        
+        \begin{centering}
+        
+        \includegraphics[width=\linewidth]{hw9_fig_spectral_kmeans.png}
+
+        \caption{\label{fig:spectral} Left: Original weight matrix. Middle:
+        Spectral kmeans Laplacian matrix of data. Right: Data labeled by
+    categorization of kmeans++ spectral clustering algorithm.} 
+    
+        \end{centering}
+
+    \end{figure} 
+   
+    \begin{figure}[!ht]
+        
+        \begin{centering}
+        
+        \includegraphics[width=\linewidth]{hw9_fig_regular_kmeans.png}
+
+        \caption{\label{fig:kmeans} Data labeled by categorization of kmeans++
+        clustering algorithm. } 
+    
+        \end{centering}
+
+    \end{figure} 
+
+
+\end{homeworkProblem}
+\clearpage
+%===============================================================================
+
+\clearpage
+{\huge Code:}
+
+{\large \bf Problem 1} \\
+\lstinputlisting{hw9.m} 
+
+\end{document}
+

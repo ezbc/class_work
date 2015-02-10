@@ -297,7 +297,7 @@ def test_beta():
 
     assert np.array_equal(beta_calc, beta_true)
 
-def plot_splines(results, show=False):
+def plot_splines(results, show=False, filename=None, wide=False):
 
     # Import external modules
     import numpy as np
@@ -308,6 +308,8 @@ def plot_splines(results, show=False):
     # Write data
     x_data = results['x_data']
     x_fit = results['x_fit']
+    if wide:
+        filename += '_wide'
 
     for i in xrange(len(results['y_data_list'])):
         # Set up plot aesthetics
@@ -331,7 +333,10 @@ def plot_splines(results, show=False):
                  }
         plt.rcParams.update(params)
 
-        fig = plt.figure(figsize=(5,8))
+        if not wide:
+            fig = plt.figure(figsize=(5,8))
+        else:
+            fig = plt.figure(figsize=(10, 5))
 
         # Plot spline fit to data
         # -----------------------
@@ -339,7 +344,11 @@ def plot_splines(results, show=False):
         y_data = results['y_data_list'][i]
         y_fit = results['y_fit_list'][i]
 
-        ax1 = fig.add_subplot(211)
+        if not wide:
+            ax1 = fig.add_subplot(211)
+        else:
+            ax1 = fig.add_subplot(121)
+
         ax1.plot(x_fit, y_fit,
                  label=r"Spline Fit",
                  linestyle='-',
@@ -360,8 +369,12 @@ def plot_splines(results, show=False):
         # -----------------------
         nrows_ncols=(2,2)
         ngrids=4
+        if not wide:
+            subplot = (2,1,2)
+        else:
+            subplot = (1,2,2)
 
-        imagegrid = ImageGrid(fig, (2,1,2),
+        imagegrid = ImageGrid(fig, subplot,
                      nrows_ncols=nrows_ncols,
                      ngrids=ngrids,
                      axes_pad=0.1,
@@ -415,8 +428,18 @@ def plot_splines(results, show=False):
         ax5.set_xlim(-39, 40)
         ax5.set_ylim(-2, 1.1)
 
-        plt.savefig('figures/ht03_fits/ht03_spline{0:.0f}'.format(i) + '.png',
-                    bbox_inches='tight')
+        if filename is not None:
+            if len(results['y_data_list']) > 1:
+
+                plt.savefig(filename + '{:03d}'.format(i) + '.png',
+                            bbox_inches='tight',
+                            dpi=400)
+            else:
+                print('Writing figure ' + filename + '.png')
+                plt.savefig(filename + '.png',
+                            bbox_inches='tight',
+                            dpi=400)
+
         if 0:
             plt.clf(); plt.close()
             plt.plot(x_fit, y_4d / y_4d.max(),
@@ -428,57 +451,147 @@ def plot_splines(results, show=False):
         if show:
             plt.show()
 
-def main():
+def run_ht03_sim(uniform_noise=True, load_data=False):
 
-    #test_prep_spectrum()
-    #test_B()
-    #test_gauss_integration(ngauss=1)
-    #test_gauss_integration(ngauss=2)
-    #test_beta()
-    #test_fit_spline()
+    import pspline
+    import pickle
+    import numpy as np
+    from scipy import linalg
+    import matplotlib.pyplot as plt
+
+    if not load_data:
+        # Test integration of fourth derivative of gaussians
+        x0s = (3, 14, 16)
+        sigmas = (1.7, 2, 0.4)
+        As = (0.6, 1.055, 0.1)
+
+        x = np.arange(-98, 98, 0.20010214)
+
+        print len(x)
+
+        y = gauss(x, sigmas[0], x0s[0], As[0]) \
+            + gauss(x, sigmas[1], x0s[1], As[1]) \
+            + gauss(x, sigmas[2], x0s[2], As[2])
+
+        # Add noise
+        if uniform_noise:
+            y += np.random.normal(0,0.008007, len(x))
+        else:
+            noise = np.random.normal(0,0.008007, len(x))
+            indices = np.where((x > -1) & (x < 5))
+            noise[indices] = np.random.normal(0.01,0.008007/3.0,
+                                              len(indices[0]))
+            indices = np.where((x > 5) & (x < 10))
+            noise[indices] = np.random.normal(-0.01,0.008007/3.0,
+                                              len(indices[0]))
+            indices = np.where((x > 10) & (x < 17))
+            noise[indices] = np.random.normal(0,0.008007/1.0, len(indices[0]))
+            indices = np.where((x > -20) & (x < -4))
+            noise[indices] = np.random.normal(0.01,0.008007, len(indices[0]))
+            indices = np.where((x > -30) & (x < -20))
+            noise[indices] = np.random.normal(-0.01,0.008007/1.3, len(indices[0]))
+            indices = np.where((x > 18) & (x < 25))
+            noise[indices] = np.random.normal(0.01,0.008007*1.3, len(indices[0]))
+            indices = np.where((x > 25) & (x < 40))
+            noise[indices] = np.random.normal(-0.01,0.008007, len(indices[0]))
+            y += noise
+
+        y_list = [y,]
+
+        temp_results = pspline.fit_spline(x, y_list, N_k=len(x),
+                init_guess=1e-1)
+
+        results = {}
+        results['y_fit_list'] = temp_results['reg 4th deriv']['y_fit_list']
+        results['y_4d_list'] = temp_results['reg 4th deriv']['y4d_list']
+        results['y_3d_list'] = temp_results['reg 3rd deriv']['y3d_list']
+        results['y_2d_list'] = temp_results['reg 2nd deriv']['y2d_list']
+        results['y_1d_list'] = temp_results['reg 1st deriv']['y1d_list']
+        results['x_fit'] = temp_results['x_fit']
+        results['y_data_list'] = y_list
+        results['x_data'] = temp_results['x_data']
+
+        if uniform_noise:
+            data_filename = 'ht03_sim_uniform_noise.pickle'
+        else:
+            data_filename = 'ht03_sim_nonuniform_noise.pickle'
+
+        with open('data/' + data_filename, 'w') as f:
+            pickle.dump(results, f)
+    elif load_data:
+        if uniform_noise:
+            data_filename = 'ht03_sim_uniform_noise.pickle'
+        else:
+            data_filename = 'ht03_sim_nonuniform_noise.pickle'
+
+        results = pickle.load(open('data/' + data_filename))
+
+    #norm = np.sum(y_calc - y)
+    #print('Sum of diff. of calc y and true y = {0:.2f}'.format(norm))
+    norm = np.sum((results['y_data_list'][0] - results['y_fit_list'][0])**2)
+    print('L2 norm of calc y and true y = {0:.2f}'.format(norm))
+
+    # filename
+    if uniform_noise:
+        filename = 'ht03_sim_uniform_noise'
+    else:
+        filename = 'ht03_sim_nonuniform_noise'
+
+    plot_splines(results, filename='figures/' + filename)
+
+def run_ht03_fits(chi=None, load_data=False):
 
     import pickle
     import pspline
     import numpy as np
+    import os
 
     test_data = pickle.load(open('data/HT2003_data_test100.pickle'))
 
-    # load data instead of fitting?
-    load_data = 1
-
     # Grab the first spectrum from the data
     x = test_data['x_values'][0]
-    y_list = test_data['data_list'][0:1]
+    y_list = test_data['data_list'][0:]
 
-    x = np.linspace(x[0], x[-1], len(x) / 2)
-
-    smooth = 1
+    smooth = 0
     if smooth:
+        x = np.linspace(x[0], x[-1], len(x) / 2)
         for i, y in enumerate(y_list):
             y_new = np.zeros(len(x))
             for j in xrange(len(x)):
                 y_new[j] = np.average(y[2*j:2*j+1])
             y_list[i] = y_new
 
-    print('last and first =', x[-1], x[0])
-    print('noise =', np.std(y_list[0][0:50]))
-    print('max = ', np.max(y_list[0]))
-    print('snr = ', np.max(y_list[0])/ np.std(y_list[0][0:50]))
-    print('Delta =', x[1] - x[0])
+
+    # Do a fourier transform
+    if 1:
+        import matplotlib.pyplot as plt
+
+        ft = np.fft.fft(y_list[0])
+        freq = np.fft.fftfreq(y_list[0].shape[0])
+        plt.plot(freq, ft)
+        plt.show()
+        return None
+
+
+    if 0:
+        print('last and first =', x[-1], x[0])
+        print('noise =', np.std(y_list[0][0:50]))
+        print('max = ', np.max(y_list[0]))
+        print('snr = ', np.max(y_list[0])/ np.std(y_list[0][0:50]))
+        print('Delta =', x[1] - x[0])
+        print('ht03 ylist length', len(y_list))
 
     if 0:
         import matplotlib.pyplot as plt
         plt.plot(x, y_list[0])
         plt.show()
 
-    print('ht03 ylist length', len(y_list))
-
     if not load_data:
 
         temp_results = pspline.fit_spline(x, y_list, N_k=len(x),
                 #init_guess=0.0001525,
-                init_guess=20,
-                #chi=10,
+                init_guess=1,
+                chi=chi,
                 )
 
         results = {}
@@ -491,20 +604,55 @@ def main():
         results['y_data_list'] = y_list
         results['x_data'] = temp_results['x_data']
 
+        if chi is None:
+            data_filename = 'spline_fits.pickle'
+        else:
+            data_filename = 'spline_fits_chi{0:.2f}.pickle'.format(chi)
 
-        with open('data/spline_fits.pickle', 'w') as f:
+        with open('data/' + data_filename, 'w') as f:
             pickle.dump(results, f)
+
     elif load_data:
         results = pickle.load(open('data/spline_fits.pickle'))
 
-    plot_splines(results, show=0)
+    # Plot
+    if chi is None:
+        filename = 'figures/ht03_fits/ht03_spline_'
+    else:
+        filename = 'figures/ht03_fits/ht03_spline_chi{0:.2f}_'.format(chi)
 
-    #import csv
-    #with open('spectrum0.csv', 'wb') as csvfile:
-    #    csv_file = csv.writer(csvfile, delimiter=' ',
-    #                            quotechar='|', quoting=csv.QUOTE_MINIMAL)
-    #    for i in xrange(0, len(x)):
-    #        csv_file.writerow((x[i], y[i]))
+    plot_splines(results, show=0, filename=filename)
+    plot_splines(results, show=0, filename=filename, wide=True)
+
+    # Make a movie with the plots
+    if chi is None:
+        os.system('avconv -r 2 -i figures/ht03_fits/ht03_spline_%3d.png ' + \
+                  'figures/ht03_fits.mp4')
+    else:
+        os.system('avconv -r 2 -i figures/ht03_fits/' + \
+                  'ht03_spline_chi{0:.2f}_%3d.png '.format(chi) + \
+                  'figures/ht03_fits_chi{0:.2f}.mp4'.format(chi))
+
+def main():
+
+    #test_prep_spectrum()
+    #test_B()
+    #test_gauss_integration(ngauss=1)
+    #test_gauss_integration(ngauss=2)
+    #test_beta()
+    #test_fit_spline()
+
+    # Simulations
+    if 0:
+        load_data = 0
+        run_ht03_sim(uniform_noise=False, load_data=load_data)
+        run_ht03_sim(uniform_noise=True, load_data=load_data)
+
+    # Data fits
+    if 1:
+        load_data = 1
+        run_ht03_fits(load_data=load_data)
+        run_ht03_fits(chi=0.01, load_data=load_data)
 
 if __name__ == '__main__':
     main()

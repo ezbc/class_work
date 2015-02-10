@@ -1,0 +1,107 @@
+\documentclass[12pt]{article}
+% \documentclass[conference]{IEEEtran}
+
+% Packages
+\input{my_packages.tex}
+
+% formatting
+\input{my_format.tex}
+
+\begin{document}
+\title{Predicting Salaries From Job Descriptions}
+
+\author{
+Elijah Bernstein-Cooper, Ben Conrad, Ahmed Saif
+}
+\maketitle
+
+%NB: Double ticks do not work for apostrophes, look at the output before changing all.  They do work for the first quotation mark.
+
+
+    $f(\lambda)$
+
+    \begin{equation}
+        f(\lambda) = \frac{1}{6}\int_{\lambda^\prime=\lambda_0}^\lambda
+                       (\lambda - \lambda^\prime)^3 f^{(4)}(\lambda^\prime){\rm
+                       d}\lambda^\prime + f^{(0)}_0 + 
+                       (\lambda - \lambda^\prime) f^{(1)}_0 + 
+                       \frac{(\lambda - \lambda^\prime)^2}{2} f^{(2)}_0 + 
+                       \frac{(\lambda - \lambda^\prime)^3}{6} f^{(3)}_0
+    \end{equation}
+    
+    \begin{equation}
+        f(\lambda) = \frac{1}{2}\int_{\lambda^\prime=\lambda_0}^\lambda
+                       (\lambda - \lambda^\prime)^2 f^{(3)}(\lambda^\prime){\rm
+                       d}\lambda^\prime + f^{(0)}_0 + 
+                       (\lambda - \lambda^\prime) f^{(1)}_0 + 
+                       \frac{(\lambda - \lambda^\prime)^2}{2} f^{(2)}_0
+    \end{equation}
+    
+    \begin{equation}
+        f(\lambda) = \int_{\lambda^\prime=\lambda_0}^\lambda
+                       (\lambda - \lambda^\prime) f^{(2)}(\lambda^\prime){\rm
+                       d}\lambda^\prime + f^{(0)}_0 + 
+                       (\lambda - \lambda^\prime) f^{(1)}_0 
+    \end{equation}
+    
+    \begin{equation}
+        f(\lambda) = \int_{\lambda^\prime=\lambda_0}^\lambda
+                       f^{(1)}(\lambda^\prime){\rm
+                       d}\lambda^\prime + f^{(0)}_0
+    \end{equation}
+
+    %\begin{equation}
+        \begin{align*}
+            f > \epsilon_0 & \\
+            {\rm d}f^2/{\rm d^2}\lambda & < 0 \\
+            {\rm d}f^3/{\rm d^3}\lambda & = 0 \\
+            {\rm d}f^4/{\rm d^4}\lambda & > 0
+        \end{align*}
+    %\end{equation}
+
+    \begin{equation}
+        R = S_1 + \chi S_2
+    \end{equation}
+
+    \begin{equation}
+        S_1 = \sum^{N_{D}}_{i=1} (f_i - f^\prime_i)^2 \qquad
+        S_2 = \sum^{N_{M} - 1}_{j=2} \left(\frac{{\rm d}^2 f^{\prime (4)}}{{\rm
+        d}\lambda^2}\right)^2_j
+    \end{equation}
+
+    $f(\lambda)$ $N_D$ \\
+    $f^\prime(\lambda^\prime)$ $N_M$ \\
+
+
+    \begin{equation}
+        V(\chi) = \frac{(f - f^\prime)^T (f - f^\prime) / N_D}
+                       {(1 - Tr[E] / N_D)^2}
+    \end{equation}
+
+    $E$
+
+
+    \begin{equation}
+        \bm{f}^\prime(\lambda) = \bm{B} \bm{f}^{\prime(4)} + \bm{1}f^{(0)}_0+
+        (\bm{\lambda} - \bm{1} \lambda_0) f^{\prime(1)}_0 + 
+        \frac{(\bm{\lambda} - \bm{1} \lambda_0)^2}{2} f^{\prime(2)}_0 + 
+        \frac{(\bm{\lambda} - \bm{1} \lambda_0)^3}{6} f^{\prime(3)}_0
+    \end{equation}
+
+
+    \begin{equation}
+        \bm{f^{\prime (4)}_c} = (\bm{B_c}^T \bm{B_c} +
+        \frac{\chi}{\Delta^4}\bm{\beta}^T
+        \bm{\beta})^{-1} \bm{B_c} \bm{f}
+    \end{equation}
+
+    \begin{equation}
+        \bm{f^\prime} = \bm{B}_c  \bm{f^{\prime (4)}_c}
+    \end{equation}
+
+
+\end{document}
+
+
+
+

@@ -124,8 +124,8 @@ def fit_spline(x, y, N_k=None, chi=None, init_guess=None, verbose=True):
     	raise ValueError('y must be a one dimensional array or a list of' + \
     	                 'dimensional arrays of len(x)')
 
-    print('A_M_list shape', A_M_list[0].shape)
-    if 1:
+    if 0:
+        print('A_M_list shape', A_M_list[0].shape)
         import matplotlib.pyplot as plt
         plt.plot(x, A_M_list[0])
         plt.xlim(-40, 40)
@@ -152,8 +152,9 @@ def fit_spline(x, y, N_k=None, chi=None, init_guess=None, verbose=True):
     lam_0 = lam_M[0, 0]
     Delta = abs(lam_M[-1, 0] - lam_M[1, 0]) / (N_k - 1)
 
-    print('Delta in fit_spline =', Delta)
-    print('N_k in fit_spline =', N_k)
+    if 0:
+        print('Delta in fit_spline =', Delta)
+        print('N_k in fit_spline =', N_k)
 
     # Ones is a column vector of ones of shape N_D x 1
     ones = np.matrix(np.ones(N_D)).T
@@ -240,10 +241,13 @@ def fit_spline(x, y, N_k=None, chi=None, init_guess=None, verbose=True):
     results['reg 1st deriv']['y_fit_list'] = A_C_hat_list
     results['reg 1st deriv']['y1d_list'] = h_hat_list
 
-    progress_plots = 1
+    progress_plots = 0
     if progress_plots:
         import matplotlib.pyplot as plt
         plt.plot(lam_C, h_hat_list[0])
+        plt.show()
+        plt.plot(lam_M, A_C_hat_list[0])
+        plt.plot(lam_M, A_M_list[0])
         plt.show()
 
     # Regularize with 2nd deriv
@@ -432,6 +436,7 @@ def regularize(A_M_list, init_guess=None, N_D=None, N_k=None, Delta=None,
                               x0=init_guess,
                               args=args,
                               method='Nelder-Mead',
+                              tol=1e-6,
                               #method='anneal',
                               #method='L-BFGS-B',
                               #method='BFGS',

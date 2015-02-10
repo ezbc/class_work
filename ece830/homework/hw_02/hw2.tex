@@ -1,0 +1,191 @@
+%-------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%-------------------------------------------------------------------------------
+
+\documentclass{article}
+
+% Packages
+\input{my_packages.tex}
+
+% formatting
+\input{my_format.tex}
+
+%-------------------------------------------------------------------------------
+%	NAME AND CLASS SECTION
+%-------------------------------------------------------------------------------
+
+\newcommand{\hmwkTitle}{Homework 2} % Assignment title
+\newcommand{\hmwkDueDate}{Monday, February 9} % Due date
+\newcommand{\hmwkClass}{ECE 830} % Course/class
+\newcommand{\hmwkClassTime}{11:00 am} % Class/lecture time
+\newcommand{\hmwkClassInstructor}{Robert Nowak} % Teacher/lecturer
+\newcommand{\hmwkAuthorName}{Elijah Bernstein-Cooper} % Your name
+
+%-------------------------------------------------------------------------------
+%	TITLE PAGE
+%-------------------------------------------------------------------------------
+
+\title{\vspace{0in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}
+    \vspace{0.5in}}
+
+\author{\textbf{Elijah Bernstein-Cooper}}
+\date{\today} % Insert date here if you want it to appear below your name
+
+%-------------------------------------------------------------------------------
+
+\begin{document}
+
+\maketitle
+%\newpage
+
+%===============================================================================
+%-------------------------------------------------------------------------------
+%	PROBLEM 1
+%-------------------------------------------------------------------------------
+\begin{homeworkProblem}
+
+    \begin{homeworkSection}{1a}
+
+        An unbiased estimator of $\lambda$ is the expectation of $X_i$. The MSE
+        of the expectation is $\frac{\lambda}{n}$.
+    
+    \end{homeworkSection}
+
+    \begin{homeworkSection}{1b}
+        
+
+        
+    \end{homeworkSection}
+
+\end{homeworkProblem}
+%===============================================================================
+
+%===============================================================================
+%-------------------------------------------------------------------------------
+%	PROBLEM 2
+%-------------------------------------------------------------------------------
+\begin{homeworkProblem}
+
+    \begin{homeworkSection}{2a}
+
+        The covariance $\Sigma_{XX}$ of $\bm{X}$ is given by
+
+        \begin{eqnarray*}
+            \Sigma_{XX} & = & \mathbb{E}[(\bm{H\theta} -
+                                          \mathbb{E}[\bm{H\theta}])
+                                         (\bm{H\theta} -
+                                          \mathbb{E}[\bm{H\theta}])^T] \\
+            \Sigma_{XX} & = & \mathbb{E}[(\bm{H\theta} -
+                                  \mathbb{E}[\bm{H}]\mathbb{E}[\bm{\theta}])
+                                         (\bm{H\theta} -
+                               \mathbb{E}[\bm{H}]\mathbb{E}[\bm{\theta}])^T]\\
+        \end{eqnarray*}
+
+        \noindent where $\mathbb{E}[\theta] = 0$ hence
+
+        \begin{eqnarray*}
+            \Sigma_{XX} & = & \mathbb{E}[(\bm{H\theta})(\bm{H\theta})^T] \\
+            \Sigma_{XX} & = & \mathbb{E}[(\bm{\theta H H}^T \bm{\theta})] \\
+            \Sigma_{XX} & = & \sigma_\theta^2 \bm{H H}^T. \\
+        \end{eqnarray*}
+
+        A similar analysis for $\Sigma_{YY}$ yields 
+
+        \begin{eqnarray*}
+            \Sigma_{YY} & = & \sigma_\theta^2 \bm{H H}^T + \sigma_W^2
+            \bm{I}  \\
+        \end{eqnarray*}
+
+    \end{homeworkSection}
+
+    \begin{homeworkSection}{2b}
+
+        The eigenvectors of $\Sigma_{YY}$ are related to $\bm{H}$ by the
+        following
+
+        \begin{equation*}
+            \Sigma_{YY} = \sum_{i=1}^n (\bm{u}_i^T (\sigma_\theta^2 \bm{HH}^T +
+            \sigma_W^2 \bm{I})) \bm{u}_i
+        \end{equation*}
+
+        \noindent where the vectors $\bm{u}_i$ make up the columns of the
+        matrix $\bm{U}$. The eigenvalues of $\Sigma_{YY}$ are then given by
+
+        \begin{equation*}
+            \Sigma_{YY} = \bm{UDU}^*
+        \end{equation*}
+
+        \noindent where $\bm{D}$ is a diagonal matrix whose diagonal entries
+        are eigenvalues.
+
+    \end{homeworkSection}
+
+    \begin{homeworkSection}{2c}
+
+        We perform an eigendecomposition of the covariance matrix for the
+        example convolution of sinusoids using the \texttt{eig} function. We
+        find that the number of eigenvalues above the standard deviation in the
+        data, 0.5, is 5. See the code at the end of the homework.
+
+    \end{homeworkSection}
+
+
+\end{homeworkProblem}
+%===============================================================================
+
+%===============================================================================
+%-------------------------------------------------------------------------------
+%	PROBLEM 3
+%-------------------------------------------------------------------------------
+\begin{homeworkProblem}
+
+    \begin{homeworkSection}{3a}
+
+        \begin{eqnarray*}
+            ||X - X_r|| &=& ||\sum_{i=1}^n (u_i^T X)u_i - 
+                            \sum_{i=1}^r (u_i^T X)u_i|| \\
+            ||X - X_r|| &=& ||\sum_{i=r+1}^n (u_i^T X)u_i|| \\
+                            ||X - X_r|| &=& \sqrt{\sum_{j=1}^n
+                            \left(\sum_{i=r+1}^n (u_{ij}^T
+                        X_j)u_{ij}\right)^2} \\
+        \end{eqnarray*}
+
+        \noindent thus
+
+        \begin{eqnarray*}
+            \mathbb{E}[||X - X_r||^2] &=& \sum_{i=r+1}^n \lambda_i
+        \end{eqnarray*}
+        
+    \end{homeworkSection}
+
+    \begin{homeworkSection}{3b}
+
+        The total variability in the mean vector can be represented as the sum
+        of the eigenvalues. We thus count the number of eigenvalues needed to
+        sum to 0.95\% the variability of the mean vector. We find that the
+        first 97 eigenvectors are needed to account for 95\% of the variability
+        about the mean vector.
+
+    \end{homeworkSection}
+
+\end{homeworkProblem}
+\clearpage
+%===============================================================================
+
+\clearpage
+{\huge Code:\\}
+
+{\large \bf Problem 1} \\
+\lstinputlisting{hw1_prob1.m} 
+
+{\large \bf Problem 2c} \\
+\lstinputlisting{hw1_prob2.m} 
+
+{\large \bf Problem 3a} \\
+\lstinputlisting{hw1_prob3.m} 
+
+\end{document}
+

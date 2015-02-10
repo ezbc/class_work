@@ -44,10 +44,10 @@ L = D-W;
 U = T(:,n-r:n-1);  
 
 % kmeans++ to cluster rows of U
-[L,C] = kmeans(U',k);
+[L_C,C] = kmeans(U',k);
 
 % sort similarities according to clustering
-[p,kq] = sort(L);
+[p,kq] = sort(L_C);
 kS = S(kq,kq);
 
 % display results
