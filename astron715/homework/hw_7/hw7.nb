@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[    192043,       3305]
-NotebookOptionsPosition[    191163,       3270]
-NotebookOutlinePosition[    191497,       3285]
-CellTagsIndexPosition[    191454,       3282]
+NotebookDataLength[    192625,       3303]
+NotebookOptionsPosition[    191742,       3268]
+NotebookOutlinePosition[    192079,       3283]
+CellTagsIndexPosition[    192036,       3280]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -2464,11 +2464,20 @@ Cell[TextData[{
    RowBox[{
     SubscriptBox["log", "10"], "[", 
     FractionBox[
-     SubscriptBox["\[Epsilon]", "F"], "kT"], "]"}], TraditionalForm]],
+     SubscriptBox["\[Epsilon]", "F"], "kT"], "]"}], TraditionalForm]]],
+ " where ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["\[Epsilon]", "F"], TraditionalForm]],
   FormatType->"TraditionalForm"],
- ", remains below 0, i.e. not degenerate, during the main sequence lifetime \
-of each star. Degeneracy as a function of time does not vary much with \
-metallicity. This can be explained by the degeneracy.\n\n",
+ " is the fermi energy, remains below 0, i.e. not degenerate, during the main \
+sequence lifetime of each star. Degeneracy as a function of time does not \
+vary much with metallicity. Because the PP-chain is the dominant fusion \
+process in each of these models during their main sequence, the inert He core \
+will build in mass (and degeneracy) proportional to the amount of PP-chain \
+reactions. The CNO reaction rates are similar for each star once they leave \
+the main sequence (see above figure), thus the central electron degeneracy \
+will follow a similar trend for each metallicity.\n\n",
  Cell[BoxData[
   GraphicsBox[
    TagBox[RasterBox[CompressedData["
@@ -3120,7 +3129,9 @@ CCE6l/8DyosrIg==
  CellChangeTimes->{{3.6374116286538563`*^9, 3.637411752631678*^9}, {
   3.637412504732017*^9, 3.637412509393153*^9}, {3.637412552964581*^9, 
   3.637412692253737*^9}, {3.6374127854361267`*^9, 3.6374128910658493`*^9}, {
-  3.637412954532485*^9, 3.637412962710453*^9}}]
+  3.637412954532485*^9, 3.637412962710453*^9}, {3.637427034484956*^9, 
+  3.6374272415352182`*^9}, {3.63744092788652*^9, 3.637440947598412*^9}, {
+  3.6374409930544987`*^9, 3.6374411043841867`*^9}}]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -3188,73 +3199,58 @@ Cell[TextData[{
    RowBox[{
     RowBox[{"Z", "~", 
      FractionBox["1", "10"]}], 
-    SubscriptBox["Z", "\[CircleDot]"]}], TraditionalForm]],
-  FormatType->"TraditionalForm"],
+    SubscriptBox["Z", "\[CircleDot]"]}], TraditionalForm]]],
  ") with main sequence masses of > 1 ",
  Cell[BoxData[
   FormBox[
-   SubscriptBox["M", "\[CircleDot]"], TraditionalForm]],
-  FormatType->"TraditionalForm"],
+   SubscriptBox["M", "\[CircleDot]"], TraditionalForm]]],
  ". Red clump stars will occupy this stage on order of 100 Myr, thus a \
 significant number of stars may be present in the clump. In this stage of \
 evolution stars undergo He core and H shell burning. Red clump stars have \
 similar mass cores because their progenitors were RGB stars, which all have \
 similar mass He cores when He ignites. Because red clump stars have similar \
 internal structures, they will have similar luminosities and in turn can be \
-used as standard candles.\n\nThe dispersion in the I-band absolute magnitude, \
-",
- Cell[BoxData[
-  FormBox[
-   SubscriptBox["M", "I"], TraditionalForm]],
-  FormatType->"TraditionalForm"],
- ", is about 0.3 mag (Girardi & Salaris 2001). The distance modulus gives\n",
+used as standard candles.\n\nAssuming a constant luminosity of the red clump, \
+we would like to see how much the stars deviate from this assumption. We do \
+this by looking at the dispersion in the derived distance. The uncertainty of \
+the distance modulus is about 0.3 mag (Girardi & Salaris 2001). The distance \
+modulus gives\n",
  Cell[BoxData[
   FormBox[
    RowBox[{
     RowBox[{
      RowBox[{"m", "-", "M"}], "=", 
-     RowBox[{"5", 
-      RowBox[{
-       SubscriptBox["log", "10"], "(", 
-       FractionBox["d", 
-        RowBox[{"10", " ", "pc"}]], ")"}]}]}], ",", "     ", 
+     RowBox[{"\[Mu]", "=", 
+      RowBox[{"5", 
+       RowBox[{
+        SubscriptBox["log", "10"], "(", 
+        FractionBox["d", 
+         RowBox[{"10", " ", "pc"}]], ")"}]}]}]}], ",", "     ", 
     RowBox[{"d", "=", 
      SuperscriptBox["10", 
       RowBox[{
        FractionBox[
         RowBox[{"(", 
          RowBox[{"m", "-", "M"}], ")"}], "5"], "+", "1"}]]}]}], 
-   TraditionalForm]],
+   TraditionalForm]]],
+ "\nwhere the uncertainty in d, \[Delta]d, is given by \n\n\[Delta]d= 0.461 d \
+\[Delta]\[Mu]\n\n thus the dispersion in the distance is given by the \
+difference of the relative errors\n \n",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["\[Sigma]", "d"], TraditionalForm]],
   FormatType->"TraditionalForm"],
- "\n thus the error in the distance is\n ",
+ "= ",
  Cell[BoxData[
   FormBox[
    RowBox[{
-    FractionBox[
-     SubscriptBox["d", "+"], 
-     SubscriptBox["d", "-"]], "=", 
+    FractionBox["\[Delta]d", "d"], "=", 
     RowBox[{
-     FractionBox[
-      SuperscriptBox["10", 
-       RowBox[{
-        FractionBox[
-         RowBox[{"(", 
-          RowBox[{"m", "-", "0.3"}], ")"}], "5"], "+", "1"}]], 
-      SuperscriptBox["10", 
-       RowBox[{
-        FractionBox[
-         RowBox[{"(", 
-          RowBox[{"m", "+", "0.3"}], ")"}], "5"], "+", "1"}]]], "=", 
-     RowBox[{
-      SuperscriptBox["10", 
-       RowBox[{
-        FractionBox[
-         RowBox[{"m", "-", "0.3"}], "5"], "-", 
-        FractionBox[
-         RowBox[{"m", "+", "0.3"}], "5"]}]], "=", 
-      RowBox[{
-       SuperscriptBox["10", 
-        RowBox[{"-", "0.6"}]], "=", "0.25"}]}]}]}], TraditionalForm]]]
+     RowBox[{"0.461", " ", "\[Cross]", " ", "0.3"}], "=", "0.14"}]}], 
+   TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "\n\nThere is a dispersion of about 14% in derived distance using the red \
+clump."
 }], "Text",
  CellChangeTimes->{{3.637420479216544*^9, 3.6374204967381153`*^9}, {
   3.6374205294528933`*^9, 3.6374205315946627`*^9}, {3.6374233160415487`*^9, 
@@ -3264,12 +3260,14 @@ used as standard candles.\n\nThe dispersion in the I-band absolute magnitude, \
   3.637425980783388*^9, 3.637425986127383*^9}, {3.637426040003571*^9, 
   3.637426068925357*^9}, {3.637426100084961*^9, 3.6374261613910933`*^9}, {
   3.6374262185330048`*^9, 3.637426257780251*^9}, {3.637426352475931*^9, 
-  3.637426446468782*^9}, {3.6374265367110577`*^9, 3.6374265386096478`*^9}}]
+  3.637426446468782*^9}, {3.6374265367110577`*^9, 3.6374265386096478`*^9}, {
+  3.637426643043542*^9, 3.6374266475514383`*^9}, {3.637426906057879*^9, 
+  3.637427005046303*^9}, {3.6374411456782227`*^9, 3.637441536649719*^9}}]
 }, Open  ]]
 }, Open  ]]
 },
-WindowSize->{720, 714},
-WindowMargins->{{21, Automatic}, {-8, Automatic}},
+WindowSize->{766, 1028},
+WindowMargins->{{169, Automatic}, {Automatic, -10}},
 FrontEndVersion->"10.0 for Linux x86 (64-bit) (June 27, 2014)",
 StyleDefinitions->"Default.nb"
 ]
@@ -3288,23 +3286,23 @@ Cell[CellGroupData[{
 Cell[580, 22, 137, 4, 111, "Chapter"],
 Cell[CellGroupData[{
 Cell[742, 30, 94, 1, 35, "Subsubsection"],
-Cell[839, 33, 144740, 2418, 2516, "Text"]
+Cell[839, 33, 144740, 2418, 2495, "Text"]
 }, Open  ]],
 Cell[CellGroupData[{
 Cell[145616, 2456, 93, 1, 35, "Subsubsection"],
-Cell[145712, 2459, 39906, 663, 583, "Text"]
+Cell[145712, 2459, 40536, 674, 663, "Text"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[185655, 3127, 97, 1, 35, "Subsubsection"],
-Cell[185755, 3130, 1188, 20, 153, "Text"]
+Cell[186285, 3138, 97, 1, 35, "Subsubsection"],
+Cell[186385, 3141, 1188, 20, 152, "Text"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[186980, 3155, 93, 1, 35, "Subsubsection"],
-Cell[187076, 3158, 794, 17, 92, "Text"]
+Cell[187610, 3166, 93, 1, 35, "Subsubsection"],
+Cell[187706, 3169, 794, 17, 92, "Text"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[187907, 3180, 93, 1, 35, "Subsubsection"],
-Cell[188003, 3183, 3132, 83, 342, "Text"]
+Cell[188537, 3191, 93, 1, 35, "Subsubsection"],
+Cell[188633, 3194, 3081, 70, 492, "Text"]
 }, Open  ]]
 }, Open  ]]
 }
