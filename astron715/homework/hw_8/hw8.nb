@@ -1,0 +1,485 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 10.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     16407,        476]
+NotebookOptionsPosition[     14824,        416]
+NotebookOutlinePosition[     15161,        431]
+CellTagsIndexPosition[     15118,        428]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Hw 8", "Title",
+ CellChangeTimes->{{3.6391475073820753`*^9, 3.63914751424679*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Astron 715
+Elijah Bernstein-Cooper\
+\>", "Chapter",
+ CellChangeTimes->{{3.639147517191423*^9, 3.639147525166497*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["A1", "Subsubsection",
+ CellChangeTimes->{{3.639147528293524*^9, 3.639147528620448*^9}, {
+  3.6391502374087563`*^9, 3.639150238220572*^9}}],
+
+Cell[TextData[{
+ "The Schonberg-Chandrasekhar limit is an upper limit to the core-mass of an \
+isothermal non-fusing core with a surrounding envelope. A star will have an \
+isothermal core if it is massive enough to avoid becoming degenerate, ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"M", " ", ">", " ", 
+    RowBox[{"1.5", " ", 
+     SubscriptBox["M", "\[CircleDot]"]}]}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ ", and not too massive so that fused He is inert (non-fusing), ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"M", "<", 
+    RowBox[{
+     RowBox[{"~", "6"}], 
+     SubscriptBox["M", "\[CircleDot]"]}]}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ ". If the core mass exceeds this upper limit of about 10% the stellar mass, \
+the core will collapse."
+}], "Text",
+ CellChangeTimes->{{3.639147652895072*^9, 3.639147663761134*^9}, {
+  3.63914773919668*^9, 3.6391477816534433`*^9}, {3.639147855229045*^9, 
+  3.639147975016117*^9}, {3.63914806210441*^9, 3.639148094553096*^9}, {
+  3.639148398727878*^9, 3.6391484316519117`*^9}, {3.6391485216368856`*^9, 
+  3.639148542868783*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["A2", "Subsubsection",
+ CellChangeTimes->{{3.639148434745577*^9, 3.6391484350331573`*^9}, {
+  3.639150240500499*^9, 3.639150241573538*^9}}],
+
+Cell[TextData[{
+ "The mass of the outer envelope ditctates the upper limit to the isothermal \
+core mass. The limit is a fraction of the initial stellar mass, ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    FractionBox[
+     SubscriptBox["M", "core"], 
+     SubscriptBox["M", "*"]], "~", "0.1"}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ " . Once the core mass reaches the SC limit, the core begins a thermal \
+collapse. The core will establish a temperature gradient which will cause \
+heat flow out of the core. The core will continue collapsing in near \
+hydrostatic equilibrium. The thermal timescale for the core is very short \
+compared to the other phases of the star\[CloseCurlyQuote]s lifetime, leading \
+to a gap in the HR diagram which is a snapshot of a stellar population at \
+various ages."
+}], "Text",
+ CellChangeTimes->{{3.63914878252664*^9, 3.639148799070224*^9}, {
+  3.639148925349687*^9, 3.639149123849214*^9}, {3.639149209850277*^9, 
+  3.639149288364645*^9}, {3.639149332966223*^9, 3.639149368234212*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["A3", "Subsubsection",
+ CellChangeTimes->{{3.6391495414257174`*^9, 3.639149541761264*^9}, {
+  3.639150244092783*^9, 3.6391502452443447`*^9}}],
+
+Cell["\<\
+High-mass OB stars do not build up isothermal cores. Instead they fuse He \
+immediately when He falls to the core. The nuclear timescales are much longer \
+than the thermal timesscales. The OB stars will populate the HR diagram in a \
+more smooth distribution because they do not undergo a thermal core collapse.\
+\
+\>", "Text",
+ CellChangeTimes->{{3.639149546063476*^9, 3.6391495472898073`*^9}, {
+  3.639150053410996*^9, 3.6391501799984837`*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["B1", "Subsubsection",
+ CellChangeTimes->{{3.639150251279769*^9, 3.639150251721218*^9}}],
+
+Cell["\<\
+Red clump stars are a metal-rich counterpart of a horizontal branch star. A \
+red clump star has a He burning core and an H burning shell and inert H \
+envelope, while a HB star has only an He burning core and inert H envelope. \
+Because RC stars are metal-rich, their opacities will be much dominated by \
+bound-free and bound-bound transitions which will lead the star to balance \
+its envelope at a particular size and temperature. This will correspond to a \
+particular luminosity. These high-metal massive stars will thus clump \
+together on the HR diagram. HB stars however, are much less opaque, and thus \
+are smaller and hotter. The temperature of a HB star will be much more \
+sensitive to the He core mass.\
+\>", "Text",
+ CellChangeTimes->{{3.639150487535033*^9, 3.6391505374579782`*^9}, 
+   3.639150911655398*^9, {3.639151529937366*^9, 3.6391515303927603`*^9}, {
+   3.6391527282772427`*^9, 3.639152753995042*^9}, {3.639265348913352*^9, 
+   3.639265356815926*^9}, {3.6392654511951103`*^9, 3.6392655323871517`*^9}, {
+   3.6392656649358664`*^9, 3.639265737968961*^9}, {3.6392659560153427`*^9, 
+   3.639266098554064*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["B2", "Subsubsection",
+ CellChangeTimes->{{3.639152698175581*^9, 3.6391526995333033`*^9}}],
+
+Cell[TextData[{
+ "The M2 Iab supergiant Betelgeuse is thought to be a Red Super Giant (RSG) \
+with about ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"M", "~"}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "20 ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["M", "\[CircleDot]"], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ " (Dolan et al. 2014). The models used to determine the evolutionary state \
+and mass of Betelgeuse depend heavily on the abundance ratios of C, He, N, Li \
+and Be. Dredge ups will occur for different mass stars at different stages of \
+evolution, leading to a unique surface composition of each stage. We propose \
+to observe Betelgeuse with the WIYN bench spectrograph with \[Lambda] - \
+coverage from 300 - 1000 nm. We will establish abundances of C, He, N, Li, \
+and Be. If ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["", "12"], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "C/",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["", "13"], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "C and C/N ratios are lowered, the star has undergone its first dredge-up on \
+the RGB stage. If over-abundances of He and s-process elements are found, the \
+star has undergone a second dredge-up and is an AGB star. If abundant",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["", "4"], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "He and ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["", "14"], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "N are found, whereas the amount of ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["", "12"], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "C and",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["", "16"], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "O decreases, the star is a 4-8 solar mass star is in the Red Supergiant \
+phase. "
+}], "Text",
+ CellChangeTimes->{{3.639153179820302*^9, 3.639153190883358*^9}, {
+  3.639153252687698*^9, 3.63915329563264*^9}, {3.639153394672297*^9, 
+  3.639153454608674*^9}, {3.6392668691021433`*^9, 3.639266927470983*^9}, {
+  3.639267410775804*^9, 3.639267484856621*^9}, {3.639267538367055*^9, 
+  3.639267661474279*^9}, {3.6392677128121357`*^9, 3.639267831599111*^9}, {
+  3.6392678667528343`*^9, 3.639268066648519*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["B3", "Subsubsection",
+ CellChangeTimes->{{3.6391553722538157`*^9, 3.639155372535804*^9}}],
+
+Cell["\<\
+At the end of high-mass MS lifetime, significant H shell burning and He core \
+burning will cause the star to expand to a red super giant. A red super giant \
+is unstable and will shed its outer layers. The star will then move back to a \
+blue super giant. This process of expansion and contraction between the BSG \
+and RSG will recurr. An observation of L and temperature of a yellow \
+supergiant cannot establish whether the star is going from the BSG to the RSG \
+or the RSG to the BSG. \
+\>", "Text",
+ CellChangeTimes->{{3.6391553816481667`*^9, 3.63915548291706*^9}, {
+  3.639155604226843*^9, 3.639155614454442*^9}, {3.63915574972014*^9, 
+  3.639155839723551*^9}, {3.639155886383583*^9, 3.63915592705715*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["C1", "Subsubsection",
+ CellChangeTimes->{{3.6391559323956947`*^9, 3.639155932762291*^9}}],
+
+Cell[TextData[{
+ "The dust formation\n\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"\[Kappa]", "~", "50"}], 
+    SuperscriptBox["cm", "2"], 
+    SuperscriptBox["g", 
+     RowBox[{"-", "1"}]]}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"\[Sigma]", "~", "50"}], 
+    SuperscriptBox["cm", "2"]}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "\n\nThe Eddington luminosity is given by\n\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["L", "edd"], "=", 
+    FractionBox[
+     RowBox[{"4", "\[Pi]", " ", "G", " ", "M", " ", "c"}], "\[Kappa]"]}], 
+   TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "\n\nand the ratio ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"L", "/", "M"}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ " above which a star is unbound is \n\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    FractionBox[
+     SubscriptBox["L", "edd"], "M"], "=", 
+    RowBox[{
+     FractionBox[
+      RowBox[{"4", "\[Pi]", " ", "G", "  ", "c"}], "\[Kappa]"], "=", 
+     RowBox[{"500", " ", "erg", " ", 
+      SuperscriptBox["s", 
+       RowBox[{"-", "1"}]], 
+      SuperscriptBox["g", 
+       RowBox[{"-", "1"}]]}]}]}], TraditionalForm]]],
+ "\n\n",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["L", "edd"], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ " for a 3 ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["M", "\[CircleDot]"], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ " star is ~ 1,000 ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["L", "\[CircleDot]"], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ ". AGB stars of this mass may reach this luminosity at the end of their \
+lifetime when they are shedding off layers. This implies that AGB stars are \
+unstable."
+}], "Text",
+ CellChangeTimes->{{3.639156033954094*^9, 3.63915603733391*^9}, {
+  3.639160092698331*^9, 3.639160151167779*^9}, {3.639160198636878*^9, 
+  3.639160202207505*^9}, {3.639160244840818*^9, 3.639160284744739*^9}, {
+  3.6391603208154583`*^9, 3.639160355774096*^9}, {3.639160453265723*^9, 
+  3.639160467899089*^9}, {3.639160649575267*^9, 3.639160658451674*^9}, {
+  3.639160723587644*^9, 3.639160748811116*^9}, {3.639160956109023*^9, 
+  3.6391609978508472`*^9}, {3.639161163007922*^9, 3.639161244529654*^9}, {
+  3.639161292424501*^9, 3.639161307222229*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["C2", "Subsubsection",
+ CellChangeTimes->{{3.639161310691114*^9, 3.639161311074975*^9}}],
+
+Cell[TextData[{
+ "A RSG star\[CloseCurlyQuote]s main source of opacity will be ionized H, \
+thus we can use the thompson cross section to calculate ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["L", "edd"], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ ".\n\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["L", "edd"], "=", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       FractionBox[
+        RowBox[{"4", "\[Pi]", " ", "G", " ", 
+         SubscriptBox["m", "p"], "c"}], 
+        SubscriptBox["\[Sigma]", "T"]], "~", "7"}], "\[Cross]", 
+      SuperscriptBox["10", "4"]}], 
+     SubscriptBox["L", "\[CircleDot]"]}]}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "\n\nThis implies that RSG stars will not be as unstable as AGB stars and \
+retain their mass."
+}], "Text",
+ CellChangeTimes->{{3.639161316992831*^9, 3.639161406236803*^9}, {
+  3.639161523727429*^9, 3.639161587580838*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["C3", "Subsubsection",
+ CellChangeTimes->{{3.639161590100912*^9, 3.639161590606106*^9}}],
+
+Cell[TextData[{
+ "The luminous blue variable stage will experience the most mass loss. The \
+star will expand due to He and beyond core fusion. The outer layers will cool \
+off. Once a layer reaches ~10,000 K, ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["e", "-"], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ " will bind with H, leading to a large increase in opacity as bound-free \
+opacity. This suddenly opaque layer will be pushed away from the star."
+}], "Text",
+ CellChangeTimes->{{3.639161900601284*^9, 3.639161924329298*^9}, {
+  3.639161977704632*^9, 3.639162130552393*^9}}],
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.6391603731044817`*^9, 3.639160379360179*^9}}],
+
+Cell[BoxData[{
+ StyleBox[
+  RowBox[{
+   RowBox[{"G", " ", "=", " ", 
+    RowBox[{"6.67", "*", 
+     SuperscriptBox["10", 
+      RowBox[{"-", "8"}]]}]}], ";"}], "Text"], "\[IndentingNewLine]", 
+ StyleBox[
+  RowBox[{
+   RowBox[{"c", "=", 
+    RowBox[{"3", "*", 
+     SuperscriptBox["10", "10"]}]}], ";"}], "Text"], "\[IndentingNewLine]", 
+ StyleBox[
+  RowBox[{
+   RowBox[{"\[Kappa]", "=", "50"}], ";"}], "Text"], "\[IndentingNewLine]", 
+ StyleBox[
+  RowBox[{"LMratio", " ", "=", " ", 
+   RowBox[{"4", "\[Pi]", " ", "*", " ", "G", " ", "*", " ", 
+    RowBox[{"c", " ", "/", " ", "\[Kappa]"}]}]}], 
+  "Text"], "\[IndentingNewLine]", 
+ StyleBox[
+  RowBox[{"L", " ", "=", " ", 
+   RowBox[{"4", "\[Pi]", " ", "*", " ", "G", " ", "*", " ", 
+    RowBox[{"c", " ", "/", " ", "\[Kappa]"}], " ", "*", " ", "3", " ", "*", 
+    " ", "1.9", " ", 
+    SuperscriptBox["10", "33"]}]}], "Text"], "\[IndentingNewLine]"
+ StyleBox[, "Text"]}], "Input",
+ CellChangeTimes->{{3.6391603826667547`*^9, 3.639160447123843*^9}, {
+  3.639161003244232*^9, 3.639161018643276*^9}, {3.639161065327232*^9, 
+  3.639161070472332*^9}, {3.6391614238716516`*^9, 3.639161429772106*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"mp", "=", 
+   RowBox[{"1.9", " ", 
+    SuperscriptBox["10", 
+     RowBox[{"-", "24"}]]}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"\[Sigma]", "=", 
+   RowBox[{"6.65", " ", 
+    SuperscriptBox["10", 
+     RowBox[{"-", "25"}]]}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"L", " ", "=", " ", 
+  RowBox[{"4", "\[Pi]", " ", "*", " ", "G", " ", "*", " ", "c", " ", "*", 
+   RowBox[{"mp", "/", "\[Sigma]"}]}]}]}], "Input",
+ CellChangeTimes->{{3.639161435877594*^9, 3.639161506700989*^9}}],
+
+Cell[BoxData["71843.73599809344`"], "Output",
+ CellChangeTimes->{{3.639160432595009*^9, 3.639160447769136*^9}, 
+   3.639161021277872*^9, 3.639161090125001*^9, {3.639161503156249*^9, 
+   3.6391615089720287`*^9}}]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{847, 1028},
+WindowMargins->{{-10, Automatic}, {Automatic, -10}},
+FrontEndVersion->"10.0 for Linux x86 (64-bit) (June 27, 2014)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 88, 1, 93, "Title"],
+Cell[CellGroupData[{
+Cell[693, 27, 127, 4, 111, "Chapter"],
+Cell[CellGroupData[{
+Cell[845, 35, 144, 2, 35, "Subsubsection"],
+Cell[992, 39, 1104, 25, 93, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[2133, 69, 144, 2, 35, "Subsubsection"],
+Cell[2280, 73, 1035, 20, 148, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[3352, 98, 146, 2, 35, "Subsubsection"],
+Cell[3501, 102, 457, 8, 71, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[3995, 115, 93, 1, 35, "Subsubsection"],
+Cell[4091, 118, 1139, 17, 150, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[5267, 140, 95, 1, 35, "Subsubsection"],
+Cell[5365, 143, 2269, 58, 197, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[7671, 206, 95, 1, 35, "Subsubsection"],
+Cell[7769, 209, 724, 11, 110, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[8530, 225, 95, 1, 35, "Subsubsection"],
+Cell[8628, 228, 2356, 71, 323, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[11021, 304, 93, 1, 35, "Subsubsection"],
+Cell[11117, 307, 913, 26, 146, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[12067, 338, 93, 1, 35, "Subsubsection"],
+Cell[12163, 341, 595, 12, 90, "Text"],
+Cell[12761, 355, 94, 1, 31, "Input"],
+Cell[12858, 358, 1144, 29, 137, "Input"],
+Cell[CellGroupData[{
+Cell[14027, 391, 531, 14, 79, "Input"],
+Cell[14561, 407, 211, 3, 31, "Output"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
