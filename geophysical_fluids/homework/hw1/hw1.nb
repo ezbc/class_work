@@ -1,0 +1,602 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 10.1' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     16955,        593]
+NotebookOptionsPosition[     15509,        536]
+NotebookOutlinePosition[     15846,        551]
+CellTagsIndexPosition[     15803,        548]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[TextData[{
+ "Homework 1\n",
+ StyleBox["Geophysical Fluids", "Subchapter"],
+ "\n",
+ StyleBox["Elijah Bernstein-Cooper", "Subchapter"]
+}], "Chapter",
+ CellChangeTimes->{{3.651597487513385*^9, 3.65159750999025*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["1ai)", "Section",
+ CellChangeTimes->{{3.651597523214405*^9, 3.6515975625295973`*^9}}],
+
+Cell["\<\
+For most cases I saw some turbulent flow. The turbulence was especially \
+prominent when the smoke bomb was near an obstruction.\
+\>", "Text",
+ CellChangeTimes->{{3.6515975645827293`*^9, 3.651597616375204*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["1aii)", "Section",
+ CellChangeTimes->{{3.6515976344351187`*^9, 3.651597638187364*^9}}],
+
+Cell[TextData[{
+ "The Reynold\[CloseCurlyQuote]s number is the speed u, times the scale \
+length, L, divided by the viscosity \[Nu]:\n\nRe = ",
+ Cell[BoxData[
+  FormBox[
+   FractionBox[
+    RowBox[{"u", " ", "L"}], "\[Nu]"], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "\n\nFor smoke near a building\[CloseCurlyQuote]s corner, we estimate the \
+scale length L = 1 m. The speed of the smoke is about u = 0.5 m/s. The \
+viscosity of air is ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"1.4", " ", 
+    SuperscriptBox["10", 
+     RowBox[{"-", "5"}]]}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ " ",
+ Cell[BoxData[
+  FormBox[
+   FractionBox[
+    SuperscriptBox["m", "2"], "s"], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ ". Thus\n\nRe = 35,000\n\nThis is consistent with an extremely turbulent \
+medium, which we see."
+}], "Text",
+ CellChangeTimes->{{3.6515976462908573`*^9, 3.651597882946785*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["1aiii)", "Section",
+ CellChangeTimes->{{3.651597887675469*^9, 3.6515978936517897`*^9}}],
+
+Cell["\<\
+We see evidence of blocked flow. Attached eddies are present in the flow when \
+the smoke source is at the bottom of a building corner.\
+\>", "Text",
+ CellChangeTimes->{{3.651597900465494*^9, 3.651597952830508*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["1b)", "Section",
+ CellChangeTimes->{{3.6515979562118263`*^9, 3.6515979570273943`*^9}}],
+
+Cell[TextData[{
+ "The diffusion of turbulence can be described by\n\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    FractionBox[
+     RowBox[{"\[PartialD]", "n"}], 
+     RowBox[{"\[PartialD]", "t"}]], "=", 
+    RowBox[{"K", 
+     FractionBox[
+      RowBox[{
+       SuperscriptBox["\[PartialD]", "2"], "n"}], 
+      RowBox[{"\[PartialD]", 
+       SuperscriptBox["x", "2"]}]]}]}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "\n\nTo estimate the turblent diffusion coefficient K, we simplify the above \
+equation to\n\n",
+ Cell[BoxData[{
+  FormBox[
+   RowBox[{
+    FractionBox["1", "t"], "~", 
+    FractionBox["K", 
+     SuperscriptBox["x", "2"]]}], TraditionalForm], "\[IndentingNewLine]", 
+  FormBox[
+   RowBox[{"K", "~", " ", 
+    FractionBox[
+     SuperscriptBox["x", "2"], "t"]}], TraditionalForm]}],
+  FormatType->"TraditionalForm"],
+ "\n\nWe estimate ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    FractionBox[
+     SuperscriptBox["x", "2"], "t"], "=", 
+    FractionBox[
+     SuperscriptBox[
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"1", "/", "2"}], " ", "m"}], ")"}], "2"], "s"]}], 
+   TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ ". So ",
+ Cell[BoxData[
+  FormBox[
+   StyleBox[
+    RowBox[{"K", "=", 
+     RowBox[{
+      RowBox[{"1", "/", "4"}], " ", 
+      FractionBox[
+       SuperscriptBox["m", "2"], "s"]}]}],
+    FontWeight->"Plain"], TraditionalForm]], "Input"],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.651597965700597*^9, 3.651597977096842*^9}, {
+  3.651598035056079*^9, 3.651598267716406*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["2a)", "Section",
+ CellChangeTimes->{{3.6515982836324453`*^9, 3.651598288237874*^9}}],
+
+Cell[TextData[{
+ "Given a speed of u = ",
+ Cell[BoxData[
+  FormBox[
+   FractionBox[
+    RowBox[{
+     SubscriptBox["u", "0"], "y"}], "b"], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ " for a Couette flow, we can calculate the following quantities:\nShear \
+strain:  ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    FractionBox[
+     RowBox[{"\[PartialD]", "u"}], 
+     RowBox[{"\[PartialD]", "y"}]], "=", " ", 
+    FractionBox[
+     SubscriptBox["u", "0"], "b"]}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "\nLinear strain:  ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    FractionBox[
+     RowBox[{"\[PartialD]", "u"}], 
+     RowBox[{"\[PartialD]", "x"}]], "=", "0"}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "\nVorticity:  ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["w",
+     FontWeight->"Bold"], " ", "=", " ", 
+    RowBox[{
+     StyleBox[
+      RowBox[{"\[Del]", " ", "\[Cross]", "u"}],
+      FontWeight->"Bold"], 
+     StyleBox[" ",
+      FontWeight->"Bold"], "=", " ", 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{"0", ",", " ", "0", ",", " ", 
+        RowBox[{"0", " ", "-", " ", 
+         FractionBox[
+          RowBox[{"\[PartialD]", 
+           SubscriptBox["u", "x"]}], 
+          RowBox[{"\[PartialD]", "y"}]]}]}], ")"}], "=", 
+      RowBox[{
+       RowBox[{"-", 
+        FractionBox[
+         SubscriptBox["u", "0"], "b"]}], 
+       StyleBox["z",
+        FontWeight->"Bold"]}]}]}]}], TraditionalForm]],
+  FormatType->"TraditionalForm"]
+}], "Text",
+ CellChangeTimes->{{3.651598292428987*^9, 3.651598483557475*^9}, {
+  3.651598566479253*^9, 3.651598567456053*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["2b)", "Section",
+ CellChangeTimes->{{3.651598570315762*^9, 3.651598571816449*^9}}],
+
+Cell[TextData[{
+ "Given the streamfunction definition of \n\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"u", "=", 
+    RowBox[{"-", 
+     FractionBox[
+      RowBox[{"\[PartialD]", "\[Psi]"}], 
+      RowBox[{"\[PartialD]", "y"}]]}]}], TraditionalForm]]],
+ ",  ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"v", "=", 
+    FractionBox[
+     RowBox[{"\[PartialD]", "\[Psi]"}], 
+     RowBox[{"\[PartialD]", "x"}]]}], TraditionalForm]]],
+ "\nwe can express the streamfunction in terms of ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["u", "0"], TraditionalForm]]],
+ " and b by integrating\n\n",
+ Cell[BoxData[{
+  FormBox[
+   RowBox[{
+    RowBox[{"\[PartialD]", "\[Psi]"}], "=", 
+    RowBox[{
+     RowBox[{"-", "u"}], 
+     RowBox[{"\[PartialD]", "y"}]}]}], 
+   TraditionalForm], "\[IndentingNewLine]", 
+  FormBox[
+   RowBox[{
+    RowBox[{"\[PartialD]", "\[Psi]"}], "=", 
+    RowBox[{
+     RowBox[{"-", 
+      FractionBox[
+       RowBox[{
+        SubscriptBox["u", "0"], "y"}], "b"]}], 
+     RowBox[{"\[PartialD]", "y"}]}]}], 
+   TraditionalForm], "\[IndentingNewLine]", 
+  FormBox[
+   RowBox[{
+    RowBox[{"\[Psi]", "(", "y", ")"}], "=", 
+    RowBox[{
+     RowBox[{"-", 
+      FractionBox[
+       RowBox[{
+        SubscriptBox["u", "0"], 
+        SuperscriptBox["y", "2"]}], 
+       RowBox[{"2", "b"}]]}], "+", 
+     SubscriptBox["\[Psi]", "0"]}]}], TraditionalForm]}]],
+ "\n\nand \n\n",
+ Cell[BoxData[{
+  FormBox[
+   RowBox[{
+    RowBox[{"\[PartialD]", "\[Psi]"}], "=", 
+    RowBox[{"v", 
+     RowBox[{"\[PartialD]", "x"}]}]}], 
+   TraditionalForm], "\[IndentingNewLine]", 
+  FormBox[
+   RowBox[{
+    RowBox[{"\[Psi]", "(", "x", ")"}], "=", 
+    SubscriptBox["\[Psi]", "0"]}], TraditionalForm]}]]
+}], "Text",
+ CellChangeTimes->{{3.651598575029172*^9, 3.651598840944241*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["2c)", "Section",
+ CellChangeTimes->{{3.65159884797779*^9, 3.6515988504558887`*^9}}],
+
+Cell["", "Text"],
+
+Cell[BoxData["\[IndentingNewLine]"], "Input",
+ CellChangeTimes->{3.651598200659649*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["3)", "Section",
+ CellChangeTimes->{{3.651832166353334*^9, 3.6518321679755917`*^9}}],
+
+Cell[TextData[{
+ "Since Karman Vortex streets are present, we can be sure that the flow is in \
+the high Reynold\[CloseCurlyQuote]s number regime. This means that the force \
+on the string is proportional to the velocity of the flow squared:\n\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"F", "=", " ", 
+    RowBox[{
+     SubscriptBox["c", "D"], 
+     SuperscriptBox["u", "2"]}]}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "\n\nwhere ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["c", "D"], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ " is the drag coefficient. Fitting for the relationship between F and ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["u", "2"], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ " we find ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["c", "D"], "=", 
+    RowBox[{"3", 
+     SuperscriptBox["m", "2"], " "}]}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ ". If we assume that the drag coefficient is inversely proportional to the \
+Reynold\[CloseCurlyQuote]s number, then an increase in viscosity will lead to \
+a lower Re and thus a lower ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["c", "D"], " "}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "because\n\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["c", "D"], "\[Proportional]", 
+    SuperscriptBox["Re", 
+     RowBox[{"-", "1"}]], " ", "\[Proportional]", "\[Nu]"}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "\n\nthus the drag coefficient with the new fluid will be \n\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["c", 
+     RowBox[{"D", ",", "new"}]], "=", 
+    RowBox[{"5", 
+     SubscriptBox["c", "D"]}]}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "=15 ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["m", "2"], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "\n\nSo we predict the following forces for given velocities with the new \
+fluid:\nU = 0.4 m/s, F = 2.15 N\nU = 1.0 m/s, F =15.0 N\nU = 5.5 m/s, F = 450 \
+N"
+}], "Text",
+ CellChangeTimes->{{3.6518322441343412`*^9, 3.651832329774091*^9}, {
+  3.651832369307735*^9, 3.6518323749803963`*^9}, {3.651832955681817*^9, 
+  3.651833007207363*^9}, {3.651833182501988*^9, 3.651833274626383*^9}, {
+  3.651834524995208*^9, 3.651834551125518*^9}, {3.6518346339668503`*^9, 
+  3.651834762829414*^9}, {3.651834793947661*^9, 3.651834849914761*^9}, {
+  3.6518348819679413`*^9, 3.651834951617796*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["4a)", "Section",
+ CellChangeTimes->{{3.6518349592341557`*^9, 3.651834960391426*^9}}],
+
+Cell[TextData[{
+ "We assume the following about the properties of the cells in the Earth\
+\[CloseCurlyQuote]s mantle:\nspeed: u = ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["10", 
+    RowBox[{"-", "9"}]], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ " m/s\nviscosity: \[Nu] = ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"10", "^", "17"}], 
+    RowBox[{
+     SuperscriptBox["m", "2"], "/", "s"}]}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "\ncoefficient of expansion \[Alpha] = ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["10", 
+    RowBox[{"-", "5"}]], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ " ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["K", 
+    RowBox[{"-", "1"}]], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "\nsize scale: d = ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["10", "6"], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "m\nacceleration due to gravity: g = 9.8 ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"m", "/", 
+    SuperscriptBox["s", "2"]}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "\n\nWe would like to know what the temperature difference between the \
+bottom and top of the mantle will lead to convection. We first assume the \
+Rayleigh number must be greater than 1,700 for convection. However we need to \
+determine the thermal diffusivity, \[Kappa]. If we use thte temperature \
+diffusion equation:\n\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    FractionBox[
+     RowBox[{"\[PartialD]", 
+      RowBox[{"T", "'"}]}], 
+     RowBox[{"\[PartialD]", "t"}]], "+", 
+    RowBox[{"u", 
+     RowBox[{
+      FractionBox[
+       RowBox[{"\[PartialD]", 
+        RowBox[{"T", "'"}]}], 
+       RowBox[{"\[PartialD]", "z"}]], "~", "\[Kappa]"}], 
+     FractionBox[
+      RowBox[{
+       SuperscriptBox["\[PartialD]", "2"], 
+       RowBox[{"T", "'"}]}], 
+      RowBox[{"\[PartialD]", 
+       SuperscriptBox["z", "2"]}]]}]}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "\n\nThen over long periods of time:\n\n",
+ Cell[BoxData[{
+  FormBox[
+   RowBox[{
+    FractionBox[
+     RowBox[{"uT", "'"}], "z"], "~", 
+    FractionBox[
+     RowBox[{"\[Kappa]T", "'"}], 
+     SuperscriptBox["z", "2"]]}], TraditionalForm], "\[IndentingNewLine]", 
+  FormBox[
+   RowBox[{
+    RowBox[{"u", "~", 
+     FractionBox["\[Kappa]", "d"]}], ",", " ", 
+    RowBox[{
+     RowBox[{"\[Kappa]", "~", "u"}], " ", "d"}]}], TraditionalForm]}],
+  FormatType->"TraditionalForm"],
+ "\nWe can now use the Rayleigh number to determine if convection will occur:\
+\n\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"Ra", " ", "=", " ", 
+     RowBox[{
+      FractionBox[
+       RowBox[{
+        RowBox[{"g\[Alpha]T", "'"}], 
+        SuperscriptBox["d", "3"]}], "\[Nu]\[Kappa]"], ">", "1"}]}], ",", 
+    "700"}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     RowBox[{"T", "'"}], " ", ">", 
+     FractionBox[
+      RowBox[{"Ra", " ", "\[Nu]", " ", "\[Kappa]"}], 
+      RowBox[{"g\[Alpha]", " ", 
+       SuperscriptBox["d", "3"]}]]}], "=", 
+    RowBox[{
+     FractionBox[
+      RowBox[{"Ra", " ", "\[Nu]", " ", "u", " ", "d"}], 
+      RowBox[{"g\[Alpha]", " ", 
+       SuperscriptBox["d", "3"]}]], "=", 
+     FractionBox[
+      RowBox[{"Ra", " ", "\[Nu]", " ", "u"}], 
+      RowBox[{"g\[Alpha]", " ", 
+       SuperscriptBox["d", "2"]}]]}]}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "\nthus\n\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     RowBox[{"T", "'"}], ">", "1"}], ",", 
+    RowBox[{"700", " ", "K"}]}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "\n\nfor convection."
+}], "Text",
+ CellChangeTimes->{{3.651834977720639*^9, 3.65183559679762*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["4b)", "Section",
+ CellChangeTimes->{{3.651835598983595*^9, 3.651835599691188*^9}}],
+
+Cell[TextData[{
+ "With the change in thermal diffusivity, the thickness of the boundary layer \
+will be about:\n\nd =",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    FractionBox[
+     RowBox[{" ", "\[Kappa]"}], "u"], "=", 
+    RowBox[{
+     SuperscriptBox["10", "2"], "m"}]}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "\n\nleading to a temperature difference needed for convection of\n\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"T", "'"}], "=", 
+    SuperscriptBox["10", "11"]}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "K\n\nwhich means that convection in Earth\[CloseCurlyQuote]s mantle would \
+never happen."
+}], "Text",
+ CellChangeTimes->{{3.6518356072744703`*^9, 3.651835682487619*^9}}],
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.651835387344977*^9, 3.651835399671068*^9}}]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{808, 716},
+WindowMargins->{{Automatic, 223}, {Automatic, -10}},
+FrontEndVersion->"10.1 for Linux x86 (64-bit) (March 23, 2015)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 217, 6, 142, "Chapter"],
+Cell[CellGroupData[{
+Cell[822, 32, 91, 1, 65, "Section"],
+Cell[916, 35, 220, 4, 50, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[1173, 44, 92, 1, 65, "Section"],
+Cell[1268, 47, 923, 26, 235, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[2228, 78, 93, 1, 65, "Section"],
+Cell[2324, 81, 225, 4, 51, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[2586, 90, 92, 1, 65, "Section"],
+Cell[2681, 93, 1533, 54, 267, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[4251, 152, 90, 1, 65, "Section"],
+Cell[4344, 155, 1621, 56, 145, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[6002, 216, 88, 1, 65, "Section"],
+Cell[6093, 219, 1759, 63, 312, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[7889, 287, 89, 1, 65, "Section"],
+Cell[7981, 290, 16, 0, 30, "Text"],
+Cell[8000, 292, 87, 1, 52, "Input"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[8124, 298, 89, 1, 65, "Section"],
+Cell[8216, 301, 2458, 68, 394, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[10711, 374, 90, 1, 65, "Section"],
+Cell[10804, 377, 3728, 123, 601, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[14569, 505, 88, 1, 65, "Section"],
+Cell[14660, 508, 726, 21, 199, "Text"],
+Cell[15389, 531, 92, 1, 31, "Input"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
