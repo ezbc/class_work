@@ -1,0 +1,70 @@
+
+You will be the "primary" reviewer on one proposal and the "secondary" reviewer
+on another.  The primary and secondary reviewers should read the assigned
+proposal very carefully and be prepared to summarize the science goals of the
+proposal and its strengths and weaknesses in our in-person review.   It is NOT
+your job as a reviewer to read any background references pertaining to the
+proposal.  (You may if you like, but it is definitely not required or
+expected.)  You must turn in your primary and secondary reviews to me in
+writing at our in-person meeting.  The length should be ~2-3 paragraphs.
+(Usually 1 paragraph on science goals and methods, one on strengths, and one on
+weaknesses.)  These reviews will be provided to the proposers, so please keep
+comments and criticisms constructive.
+
+For all other proposals please fill out the attached spreadsheet with your
+notes and grades (The spreadsheet is attached in excel, numbers, and CSV
+formats.)  These forms will NOT be given to the reviewers and you need not use
+complete sentences here.  Think of this a place to jot short notes to yourself
+that will help you to remember the proposal during the review.  I have included
+an example in the spreadsheet so you can get a feel for what I am looking for.
+
+We will use a 1 - 10 grading scheme outlined below to quantitatively evaluate
+the proposals.  I have taken the descriptions of what each grade means directly
+from NOAO TAC.  You may award grades that are non-intergers if you like.
+*Please send your completed spreadsheets with grades to me by 9 PM on Tues May
+13.*
+
+Your final project grade will be based 50\% on your proposal and 50% on your
+reviews of other proposals. Your proposal grade will be determined by me (not
+by the review panel).  I am aware that people are starting from very different
+places - some having never worked on astronomy before, and some having 2 years
+of experience on a project similar to what they are proposing.  I will
+certainly take this into account.
+
+Your review grade will be based 20% on your primary and secondary summaries,
+10% on your spreadsheets, and 20% on your participation in the in-person
+review.  Mainly I'm looking to see that you've thought deeply and critically
+about the other proposals and are prepared to give constructive written and
+verbal feedback.
+
+--------------------------------------------------------------
+Grade Descriptions (from NOAO, adapt as appropriate for MaNGA)
+
+10  Outstanding proposal:  Especially compelling, very high priority observing
+program with extremely well defined scientific goals that address an important
+and timely astrophysical problem. Excellent and feasible methodology; excellent
+and capable proposer(s) with good track record of publishing their
+observational results.
+
+9 Excellent proposal: Addresses an important astrophysical problem with a
+well-defined and feasible approach. Compelling science case and good
+methodology.
+
+8 Good proposal: Has good science content and addresses a problem or object(s)
+of interest, with a good chance of success.
+
+7 Average proposal: This proposal has merit, but does not stand out from the
+group as being particularly strong or weak.
+
+6 Below average proposal:  The science is of some value but the proposal is not
+compelling. The goals or the methodology may be weak (or poorly described), or
+the proposal may simply be of lower priority.
+
+5 Poor proposal: The scientific goals are unclear or the methodology is not
+well thought out. Even if the observations are made, it is not clear how or if
+the science will be advanced.
+
+3 This proposal is seriously flawed. Do not schedule: The science is wrong, or
+the targets are not available, or the observations are technically impossible
+
+

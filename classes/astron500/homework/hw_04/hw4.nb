@@ -1,0 +1,592 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 10.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     17210,        583]
+NotebookOptionsPosition[     15654,        524]
+NotebookOutlinePosition[     15990,        539]
+CellTagsIndexPosition[     15947,        536]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["\<\
+Homework 4
+Astro 500\tElijah Bernstein-Cooper\
+\>", "Title",
+ CellChangeTimes->{{3.6376191021491213`*^9, 3.6376191207772713`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["1", "Subsubsection",
+ CellChangeTimes->{3.6376191249058123`*^9}],
+
+Cell[TextData[{
+ "The magnification factor is given by\n\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["w", 
+     SuperscriptBox["\[Theta]", "'"]], "=", 
+    RowBox[{
+     FractionBox[
+      SubscriptBox["f", "2"], 
+      SubscriptBox["f", "1"]], "w"}]}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "\n\nwhere ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["w", 
+    SuperscriptBox["\[Theta]", "'"]], TraditionalForm]]],
+ " is the reimaged spatial width, and w is the physical slit width. ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["f", "2"], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ " is the detector focal length and ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["f", "1"], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ " is the collimator focal length. The magnifcation factor is then\n\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    FractionBox[
+     SubscriptBox["f", "2"], 
+     SubscriptBox["f", "1"]], "=", 
+    RowBox[{
+     FractionBox[
+      RowBox[{"f", "/", "1.33"}], 
+      RowBox[{"f", "/", "3.32"}]], "=", 
+     RowBox[{
+      RowBox[{"1.33", "/", "3.32"}], "=", "0.4"}]}]}], TraditionalForm]],
+  FormatType->"TraditionalForm"]
+}], "Text",
+ CellChangeTimes->{{3.637619153467877*^9, 3.637619153896902*^9}, {
+  3.637619239827804*^9, 3.637619240395564*^9}, {3.637619343597446*^9, 
+  3.6376195468686037`*^9}, {3.6376248332163067`*^9, 3.6376248410644712`*^9}, {
+  3.637949859016737*^9, 3.637949870898182*^9}, {3.637950237875136*^9, 
+  3.637950254853009*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["2", "Subsubsection",
+ CellChangeTimes->{3.637619552253043*^9}],
+
+Cell[TextData[{
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"w", "=", 
+    RowBox[{"300", " ", "\[Mu]m"}]}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["w", 
+     SuperscriptBox["\[Theta]", "'"]], "=", 
+    RowBox[{
+     RowBox[{
+      SubscriptBox["f", "2"], "/", 
+      SubscriptBox["f", "1"]}], "w"}]}], TraditionalForm]]],
+ "\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["w", 
+     SuperscriptBox["\[Theta]", "'"]], "="}], TraditionalForm]]],
+ " 0.4 \[Cross] 300 \[Mu]m\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["w", 
+     SuperscriptBox["\[Theta]", "'"]], "=", 
+    RowBox[{
+     RowBox[{"120.2", " ", "\[Mu]m"}], " ", "=", " ", 
+     RowBox[{"8", " ", "pix"}]}]}], TraditionalForm]]],
+ " "
+}], "Text",
+ CellChangeTimes->{{3.637619576480062*^9, 3.6376196926889257`*^9}, {
+  3.637933172444916*^9, 3.637933203787487*^9}, {3.637949877476996*^9, 
+  3.637949898860005*^9}, {3.6379502570073977`*^9, 3.6379502754553013`*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["3", "Subsubsection",
+ CellChangeTimes->{3.637619698235598*^9}],
+
+Cell[TextData[{
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    FractionBox[
+     SubscriptBox["f", "1"], 
+     SubscriptBox["D", "1"]], "=", "3.32"}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "\n\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["D", "1"], "=", 
+    RowBox[{"115", " ", "mm"}]}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "\n\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["f", "1"], "=", 
+    RowBox[{
+     RowBox[{"3.32", 
+      SubscriptBox["D", "1"]}], "=", 
+     RowBox[{"381.8", "mm"}]}]}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "\n\nand in Littrow ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["D", "1"], "=", 
+    SubscriptBox["D", "2"]}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "\n\n",
+ Cell[BoxData[
+  FormBox[
+   StyleBox[
+    RowBox[{
+     SubscriptBox["f", 
+      RowBox[{"2", " "}]], "=", 
+     RowBox[{
+      RowBox[{"1.33", 
+       SubscriptBox["D", "2"]}], "=", 
+      RowBox[{"152.5", " ", 
+       StyleBox[
+        RowBox[{"m", "m"}]]}]}]}],
+    FontWeight->"Plain"], TraditionalForm]], "Input"]
+}], "Text",
+ CellChangeTimes->{
+  3.6376248646211367`*^9, {3.637624993324727*^9, 3.6376251463089237`*^9}, {
+   3.637930059426648*^9, 3.63793007622151*^9}, {3.637930301357298*^9, 
+   3.63793034160598*^9}, {3.637930449872181*^9, 3.6379305331510773`*^9}, {
+   3.637930621148992*^9, 3.63793065950033*^9}, {3.637930703963787*^9, 
+   3.6379307092511063`*^9}, {3.637930763930813*^9, 3.637930822898871*^9}, 
+   3.637931011306864*^9, {3.637931091046783*^9, 3.637931114997137*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["4", "Subsubsection",
+ CellChangeTimes->{3.637930971669557*^9}],
+
+Cell[TextData[{
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[Alpha]", "=", 
+    RowBox[{"\[Beta]", "=", 
+     RowBox[{"100", " ", "deg"}]}]}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ " for Littrow. ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["\[Lambda]", "c"], "=", 
+    RowBox[{"653", " ", "nm"}]}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ ". Given ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"m", "=", "1"}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "\n the grating equation gives\n \n ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[Lambda]", "=", 
+    RowBox[{"\[Sigma]", "[", 
+     RowBox[{"sin\[Alpha]", " ", "+", " ", "sin\[Beta]"}], "]"}]}], 
+   TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "\n \n thus the separation \[Sigma] is \n \n  ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    FractionBox[
+     RowBox[{"[", 
+      RowBox[{"sin\[Alpha]", " ", "+", " ", "sin\[Beta]"}], "]"}], 
+     "\[Lambda]"], "=", 
+    FractionBox["1", "\[Sigma]"]}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "\n  ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    FractionBox["1", "\[Sigma]"], "=", 
+    RowBox[{"2", 
+     SuperscriptBox[
+      RowBox[{
+       RowBox[{"sin", "(", 
+        RowBox[{"100", " ", "deg", " ", 
+         FractionBox["\[Pi]", "180"]}], ")"}], "[", 
+       RowBox[{
+        RowBox[{"653", "\[Cross]", 
+         SuperscriptBox["10", 
+          RowBox[{"-", "3"}]]}], "mm"}], "]"}], 
+      RowBox[{"-", "1"}]]}]}], TraditionalForm]]],
+ "\n  ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    FractionBox["1", "\[Sigma]"], "=", 
+    RowBox[{"3016", " ", 
+     SuperscriptBox["mm", 
+      RowBox[{"-", "1"}]]}]}], TraditionalForm]]]
+}], "Text",
+ CellChangeTimes->{{3.637930975120886*^9, 3.637931017711246*^9}, {
+  3.637931190968625*^9, 3.63793122241483*^9}, {3.63793170607088*^9, 
+  3.6379320604170837`*^9}, {3.637932111861051*^9, 3.637932127066777*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["5", "Subsubsection",
+ CellChangeTimes->{3.637932131429446*^9}],
+
+Cell[TextData[{
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[Gamma]", "=", 
+    FractionBox["d\[Beta]", "d\[Lambda]"]}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[Gamma]", " ", "=", " ", 
+    RowBox[{
+     SuperscriptBox[
+      RowBox[{"[", 
+       RowBox[{"\[Sigma]", " ", "cos\[Beta]"}], "]"}], 
+      RowBox[{"-", "1"}]], " ", "[", 
+     SuperscriptBox["mm", 
+      RowBox[{"-", "1"}]]}]}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "]\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[Gamma]", "=", 
+    RowBox[{"0.0019", " ", 
+     SuperscriptBox["mm", 
+      RowBox[{"-", "1"}]]}]}], TraditionalForm]],
+  FormatType->"TraditionalForm"]
+}], "Text",
+ CellChangeTimes->{{3.6379321640148067`*^9, 3.637932216598674*^9}, {
+  3.637932319464466*^9, 3.6379323263565474`*^9}, {3.637932397867528*^9, 
+  3.6379324122487288`*^9}, {3.637932464019848*^9, 3.637932487068303*^9}, {
+  3.637950591027223*^9, 3.637950591027293*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["6", "Subsubsection",
+ CellChangeTimes->{3.637932453755685*^9}],
+
+Cell[TextData[{
+ "linear dispersion in \[CapitalARing]/mm is given by\n\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    FractionBox["d\[Lambda]", "dx"], "=", 
+    RowBox[{
+     FractionBox[
+      RowBox[{"\[Sigma]", " ", "cos\[Beta]"}], 
+      RowBox[{"m", " ", 
+       SubscriptBox["f", "2"]}]], 
+     SubscriptBox["\[Lambda]", "pix"]}]}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "\n\n\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    FractionBox["d\[Lambda]", "dx"], "=", 
+    RowBox[{
+     RowBox[{"[", 
+      RowBox[{
+       FractionBox["1", "3016"], 
+       RowBox[{"mm", " ", "\[Cross]", 
+        SuperscriptBox["10", "7"]}], 
+       FractionBox["\[CapitalARing]", "mm"]}], "]"}], 
+     RowBox[{
+      SuperscriptBox[
+       RowBox[{
+        RowBox[{"cos", "(", 
+         RowBox[{"100", " ", "deg", " ", 
+          FractionBox["\[Pi]", "180"]}], ")"}], "[", 
+        RowBox[{"152.5", " ", "mm"}], "]"}], 
+       RowBox[{"-", "1"}]], "[", 
+      RowBox[{
+       RowBox[{"15", " ", "\[Cross]", 
+        SuperscriptBox["10", 
+         RowBox[{"-", "3"}]]}], 
+       FractionBox["mm", "pix"]}], "]"}], " "}]}], TraditionalForm]]],
+ "\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    FractionBox["d\[Lambda]", "dx"], "=", 
+    RowBox[{
+     RowBox[{"3.77", " ", 
+      FractionBox["\[CapitalARing]", "mm"]}], "=", 
+     RowBox[{
+      RowBox[{"0.057", 
+       FractionBox["\[CapitalARing]", "pix"]}], "=", 
+      RowBox[{"3.77", "\[Cross]", 
+       SuperscriptBox["10", 
+        RowBox[{"-", "7"}]]}]}]}]}], TraditionalForm]]]
+}], "Text",
+ CellChangeTimes->{{3.6379325520188513`*^9, 3.637932713738679*^9}, {
+  3.637932770977751*^9, 3.637932779752383*^9}, {3.637932828830742*^9, 
+  3.637932829523035*^9}, {3.637932942657319*^9, 3.6379330196465893`*^9}, {
+  3.63793309237488*^9, 3.637933123665721*^9}, {3.63793323269273*^9, 
+  3.637933466990981*^9}, {3.6379505697001038`*^9, 3.637950575392387*^9}, {
+  3.637951032486462*^9, 3.637951032486496*^9}, {3.63795107335108*^9, 
+  3.6379510797438383`*^9}, {3.637951298537211*^9, 3.637951298537242*^9}, {
+  3.637951331441972*^9, 3.637951331442017*^9}, {3.637951876810467*^9, 
+  3.637951879199526*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["7", "Subsubsection",
+ CellChangeTimes->{3.6379331286784*^9}],
+
+Cell["The anamorphic magnification is 1 for Littrow spectrographs.", "Text",
+ CellChangeTimes->{{3.637933516741631*^9, 3.6379335261256027`*^9}, {
+  3.637933602721046*^9, 3.637933626796606*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["8", "Subsubsection",
+ CellChangeTimes->{{3.6379336389325*^9, 3.637933639924779*^9}}],
+
+Cell[TextData[{
+ "The spectral resolution, ",
+ Cell[BoxData[
+  FormBox["R", TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ ", of the system is given by\n\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"R", "=", 
+    FractionBox["\[Lambda]", "d\[Lambda]"]}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "\n\nwhich in Littrow is\n\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"R", " ", "=", " ", 
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{
+       SubscriptBox["f", "1"], "/", "w"}], ")"}], "2", " ", "tan\[Alpha]"}]}],
+    TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "\n\nwhere ",
+ Cell[BoxData[
+  FormBox["w", TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ " is the physical slit width and ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["f", "1"], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ " is the collimater focal length.\n\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"R", " ", "=", " ", 
+    RowBox[{
+     RowBox[{"(", 
+      FractionBox[
+       RowBox[{"381.8", 
+        RowBox[{"mm", " ", "\[Cross]", 
+         SuperscriptBox["10", "3"]}], 
+        FractionBox["\[Mu]m", "mm"]}], 
+       RowBox[{"300", "\[Mu]m"}]], ")"}], "2", " ", 
+     RowBox[{"tan", "(", 
+      RowBox[{"100", " ", "deg", " ", 
+       FractionBox["\[Pi]", "180"]}], ")"}]}]}], TraditionalForm]]],
+ "\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"R", "=", " ", "14"}], ",", "435"}], TraditionalForm]],
+  FormatType->"TraditionalForm"]
+}], "Text",
+ CellChangeTimes->{{3.6379336445390053`*^9, 3.637933692260418*^9}, {
+   3.637933723370159*^9, 3.637933840070199*^9}, {3.637933971607932*^9, 
+   3.637934028123625*^9}, {3.637934066065193*^9, 3.637934104540897*^9}, 
+   3.637950309754744*^9, {3.6379505819158707`*^9, 3.637950581915935*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["9a", "Subsubsection",
+ CellChangeTimes->{{3.63793410908037*^9, 3.637934109544526*^9}}],
+
+Cell[TextData[{
+ "A resolution element is the reimaged slit width. We have 8 pixels per \
+reimaged slit width ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox[
+    SubscriptBox["w", "\[Theta]"], "\[Prime]"], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ ".\n\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"d\[Lambda]", "=", 
+    RowBox[{
+     FractionBox[
+      SuperscriptBox[
+       SubscriptBox["w", "\[Theta]"], "\[Prime]"], 
+      RowBox[{"dl", "/", "d\[Lambda]"}]], "=", 
+     RowBox[{
+      FractionBox[
+       RowBox[{"8", "pix"}], 
+       SuperscriptBox[
+        RowBox[{"(", 
+         RowBox[{"0.057", 
+          FractionBox["\[CapitalARing]", "mm"]}], ")"}], 
+        RowBox[{"-", "1"}]]], "=", 
+      RowBox[{"0.0456", "nm"}]}]}]}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "\[LineSeparator]",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"R", "=", 
+     RowBox[{
+      FractionBox["\[Lambda]", "d\[Lambda]"], "=", 
+      RowBox[{
+       FractionBox[
+        RowBox[{"653", "nm"}], 
+        RowBox[{"0.0456", "nm"}]], "=", "14"}]}]}], ",", "320"}], 
+   TraditionalForm]],
+  FormatType->"TraditionalForm"]
+}], "Text",
+ CellChangeTimes->{{3.637934344389943*^9, 3.6379344810179033`*^9}, {
+   3.6379345286582203`*^9, 3.637934584736319*^9}, {3.637934923655086*^9, 
+   3.637934962360045*^9}, {3.6379373501290216`*^9, 3.6379373631843653`*^9}, 
+   3.6379494547221203`*^9, {3.6379499284450417`*^9, 3.637949930335289*^9}, {
+   3.637950186297542*^9, 3.6379501933268337`*^9}, {3.637950290916109*^9, 
+   3.637950389984379*^9}, {3.637950626020821*^9, 3.6379506260208473`*^9}, {
+   3.637950697918193*^9, 3.6379507183889523`*^9}, {3.637951005290345*^9, 
+   3.6379510245943527`*^9}, {3.6379510901579323`*^9, 3.637951107067253*^9}, {
+   3.6379512042815523`*^9, 3.637951229910253*^9}, {3.637951319987297*^9, 
+   3.637951321296212*^9}, {3.637952506390427*^9, 3.637952526444477*^9}, {
+   3.637952901099763*^9, 3.637953038752446*^9}, {3.6379531226310043`*^9, 
+   3.637953152134671*^9}, {3.637953203899085*^9, 3.637953262386319*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["9b", "Subsubsection",
+ CellChangeTimes->{{3.6379494131248493`*^9, 3.637949413597353*^9}}],
+
+Cell["\<\
+The resolution element determines the maximum spectral resolution an \
+instrument can have. With more pixels across the resolution element we could \
+have a higher spectral resolution.\
+\>", "Text",
+ CellChangeTimes->{{3.637954348210747*^9, 3.637954390168007*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["9c", "Subsubsection",
+ CellChangeTimes->{{3.637949417846767*^9, 3.637949418061524*^9}}],
+
+Cell["\<\
+To correctly Nyquist sample the slit, we need two pixels. We can bin by four \
+pixels since our reimaged slit width is 8 pixels.\
+\>", "Text",
+ CellChangeTimes->{{3.6379541083040333`*^9, 3.637954150072811*^9}}]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{662, 740},
+WindowMargins->{{151, Automatic}, {Automatic, -10}},
+FrontEndVersion->"10.0 for Linux x86 (64-bit) (June 27, 2014)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 140, 4, 207, "Title"],
+Cell[CellGroupData[{
+Cell[745, 30, 70, 1, 35, "Subsubsection"],
+Cell[818, 33, 1512, 46, 220, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[2367, 84, 68, 1, 35, "Subsubsection"],
+Cell[2438, 87, 1019, 35, 101, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[3494, 127, 68, 1, 35, "Subsubsection"],
+Cell[3565, 130, 1587, 53, 198, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[5189, 188, 68, 1, 35, "Subsubsection"],
+Cell[5260, 191, 1911, 64, 249, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[7208, 260, 68, 1, 35, "Subsubsection"],
+Cell[7279, 263, 977, 30, 90, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[8293, 298, 68, 1, 35, "Subsubsection"],
+Cell[8364, 301, 2146, 61, 187, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[10547, 367, 66, 1, 35, "Subsubsection"],
+Cell[10616, 370, 193, 2, 31, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[10846, 377, 90, 1, 35, "Subsubsection"],
+Cell[10939, 380, 1752, 55, 279, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[12728, 440, 92, 1, 35, "Subsubsection"],
+Cell[12823, 443, 2041, 52, 147, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[14901, 500, 95, 1, 35, "Subsubsection"],
+Cell[14999, 503, 274, 5, 71, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[15310, 513, 93, 1, 35, "Subsubsection"],
+Cell[15406, 516, 220, 4, 51, "Text"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)

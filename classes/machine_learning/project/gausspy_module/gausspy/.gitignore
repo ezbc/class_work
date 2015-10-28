@@ -1,0 +1,15 @@
+.idea
+/Output
+/Movies
+/calgauss_output.fits
+/Obsolete
+/Plot_scripts
+/Validation
+/carl_movie
+/Data
+/Pickles
+/ParameterSpaceImages
+*.pyc
+*~
+.project
+.pydevproject

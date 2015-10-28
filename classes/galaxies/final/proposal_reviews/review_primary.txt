@@ -1,0 +1,37 @@
+Review for primary proposal, ID #3
+
+Title: Correlating the Detection of Extraplanar Diffuse Ionized Gas in Disk
+Galaxies with Global Galaxy Properties
+
+Proposal overview: Detected extraplanar diffuse ionized gas (DIG) in nearby
+edge-on disk galaxies varies in morphology. The author proposes to use
+spatially-resolved maps of star formation histories, stellar mass and age, and
+gas kinematics to correlate global galaxy properties with the distribution of
+DIG. Several aspects of the origins of extraplanar DIG are unknown. DIG is
+supplied by a supplemental heating source besides young stellar radiation. DIG
+has been seen as filaments, clumps or patches, confusing the origin between HII
+regions, chimneys, and ionization cones. The author plans to use disks inclined
+greater than 80 deg, stellar masses > 10**9 solar masses, and sources in the
+primary sample at lower redshifts. 
+
+Strengths: The author relates the proposed research to a relevant and pressing
+question in astrophysics, how do a galaxy's global properties affect the
+extraplanar DIG? The author provides a careful selection of galaxies likely to
+possess DIG which is detectable by MaNGA, estimating a few hundred disk
+galaxies with i > 80 deg to be present. MaNGA (along with SAMI) will be the
+first survey to provide a uniform sample of spatially-resolved maps of star
+formation rates, stellar masses, star formation histories, and gas kinematics
+for a large number of galaxies. The author's proposed research will be the
+first of its kind.
+
+Weaknesses: AGN may be a source of contamination for detection of the lines
+used to identify DIG. The author should consider using BPT diagrams (e.g.
+Kewley et al.  2001, ApJ, 556, 121 and Kauffmann et al. 2003, MNRAS, 346,
+1055). The author could benefit from combining samples from the MaNGA and the
+SAMI survey as they are quite similar; the SAMI survey includes ~10,000
+galaxies in the sample and all of the spectral lines planned for use in this
+proposal are within their wavelength coverage. The author could potentially
+double their sample size.
+
+Grade: 9.5
+

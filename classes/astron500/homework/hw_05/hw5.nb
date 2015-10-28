@@ -1,0 +1,897 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 10.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     26964,        888]
+NotebookOptionsPosition[     24768,        808]
+NotebookOutlinePosition[     25105,        823]
+CellTagsIndexPosition[     25062,        820]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Homework 5", "Title",
+ CellChangeTimes->{{3.6388740868793173`*^9, 3.638874099888328*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Astro 500
+Elijah Bernstein-Cooper\
+\>", "Chapter",
+ CellChangeTimes->{{3.638874102523327*^9, 3.638874113192481*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["1", "Subsubsection",
+ CellChangeTimes->{{3.638874118049255*^9, 3.638874120025247*^9}}],
+
+Cell[TextData[{
+ "A Littrow grating with a camera-collimater angle, ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[CapitalPhi]", "=", 
+    RowBox[{
+     RowBox[{"\[Alpha]", "+", "\[Beta]"}], "=", 
+     RowBox[{"100", " ", "deg"}]}]}], TraditionalForm]]],
+ " means ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[Alpha]", "=", 
+    RowBox[{"\[Beta]", "=", 
+     RowBox[{"50", " ", "deg"}]}]}], TraditionalForm]]],
+ ". In this case the light is on blaze. For the case of a plane-parallel \
+grating without tilted fringes ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"(", 
+    RowBox[{"\[Phi]", "=", "0"}], ")"}], TraditionalForm]]],
+ " the angle of diffraction \[Beta] is given by equation 29 from Burgh et al. \
+(2007)\n\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     RowBox[{"sin", "[", "\[Beta]", "]"}], " ", "=", " ", 
+     RowBox[{
+      RowBox[{"n", " ", 
+       RowBox[{"sin", "[", 
+        RowBox[{"arcsin", "[", 
+         FractionBox[
+          RowBox[{"sin", "[", "\[Alpha]", "]"}], "n"], "]"}], "]"}]}], " ", 
+      "-", " ", 
+      RowBox[{"2", "\[Phi]"}]}]}], "]"}], TraditionalForm]]],
+ "\t\t (1)\n\nWe now have two equations and two unknowns. Using ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"n", "=", "1.4"}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ ", we relate \[Beta] to \[Alpha] with ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[Beta]", "=", 
+    RowBox[{"\[CapitalPhi]", " ", "-", " ", "\[Alpha]"}]}], TraditionalForm]]],
+ " and plug in to (1)\n\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     RowBox[{"sin", "[", 
+      RowBox[{"\[CapitalPhi]", " ", "-", " ", "\[Alpha]"}], "]"}], " ", "=", 
+     " ", 
+     RowBox[{
+      RowBox[{"sin", "[", 
+       RowBox[{"arcsin", "[", 
+        RowBox[{"sin", "[", "\[Alpha]", "]"}], "]"}], "]"}], " ", "-", " ", 
+      RowBox[{"2", "\[Phi]"}]}]}], "]"}], TraditionalForm]]],
+ "\n\nand solve for ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[Alpha]", "=", 
+    RowBox[{"42.2", " ", "deg"}]}], TraditionalForm]]],
+ ", and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[Beta]", "=", 
+    RowBox[{"57.8", " ", "deg"}]}], TraditionalForm]]],
+ ".\n"
+}], "Text",
+ CellChangeTimes->{{3.6388741242447767`*^9, 3.6388743708330173`*^9}, {
+  3.6388749578267097`*^9, 3.638875083204631*^9}, {3.6388751644068413`*^9, 
+  3.6388752743623323`*^9}, {3.638875684884489*^9, 3.638875696740512*^9}, {
+  3.6388758054988937`*^9, 3.638875826883503*^9}, {3.638875871086459*^9, 
+  3.6388758723719807`*^9}, {3.639157508617371*^9, 3.639157527252721*^9}, {
+  3.639217064647292*^9, 3.63921708210567*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["2", "Subsubsection",
+ CellChangeTimes->{3.638875849211801*^9}],
+
+Cell[TextData[{
+ "The blaze wavelength is given by\n\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[Lambda]", "=", 
+    RowBox[{
+     FractionBox[
+      RowBox[{"2", " ", "\[Sigma]", " ", "n"}], "m"], 
+     RowBox[{"sin", "[", 
+      RowBox[{"\[Alpha]", "-", "\[Phi]"}], "]"}], 
+     RowBox[{"cos", "[", "\[Phi]", "]"}]}]}], TraditionalForm]]],
+ "\n\nwhere ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[Sigma]", "=", 
+    RowBox[{"331", " ", "nm"}]}], TraditionalForm]]],
+ ", the grating spacing. ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["\[Lambda]", "b"], "=", 
+    RowBox[{"558", "nm"}]}], TraditionalForm]]],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.6388758750682364`*^9, 3.638875937010049*^9}, {
+  3.639156838319409*^9, 3.639156871722336*^9}, {3.639156904486343*^9, 
+  3.639156964581381*^9}, {3.6391571099566317`*^9, 3.639157134946829*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["3", "Subsubsection",
+ CellChangeTimes->{3.639157138620224*^9}],
+
+Cell[TextData[{
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[Sigma]", " ", "=", " ", 
+    FractionBox[
+     RowBox[{"\[Lambda]", " ", "m"}], 
+     RowBox[{"2", " ", "n", " ", 
+      RowBox[{"sin", "[", 
+       RowBox[{"\[Alpha]", "-", "\[Phi]"}], "]"}], 
+      RowBox[{"cos", "[", "\[Phi]", "]"}]}]]}], TraditionalForm]]],
+ "\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[Sigma]", " ", "=", " ", 
+    RowBox[{"387", " ", "nm"}]}], TraditionalForm]],
+  FormatType->"TraditionalForm"]
+}], "Text",
+ CellChangeTimes->{{3.6391571619088497`*^9, 3.6391571998519707`*^9}, {
+  3.639157250677722*^9, 3.6391572580269823`*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["4", "Subsubsection",
+ CellChangeTimes->{3.639157261612228*^9}],
+
+Cell[TextData[{
+ "The linear dispersion in \[CapitalARing]/mm is given by\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    FractionBox[
+     RowBox[{"\[IndentingNewLine]", "d\[Lambda]"}], "dx"], "=", 
+    RowBox[{
+     FractionBox[
+      RowBox[{"\[Sigma]", " ", "cos\[Beta]"}], 
+      RowBox[{"m", " ", 
+       SubscriptBox["f", "2"]}]], 
+     SubscriptBox["\[Lambda]", "pix"]}]}], TraditionalForm]]],
+ "\n\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    FractionBox["d\[Lambda]", "dx"], "=", 
+    RowBox[{
+     RowBox[{"[", 
+      RowBox[{"387", 
+       RowBox[{"mm", " ", "\[Cross]", 
+        SuperscriptBox["10", "7"]}], 
+       FractionBox["\[CapitalARing]", "mm"]}], "]"}], 
+     RowBox[{
+      SuperscriptBox[
+       RowBox[{
+        RowBox[{"cos", "(", 
+         RowBox[{"57.8", " ", "deg", " ", 
+          FractionBox["\[Pi]", "180"]}], ")"}], "[", 
+        RowBox[{"152.5", " ", "mm"}], "]"}], 
+       RowBox[{"-", "1"}]], "[", 
+      RowBox[{
+       RowBox[{"15", " ", "\[Cross]", 
+        SuperscriptBox["10", 
+         RowBox[{"-", "3"}]]}], 
+       FractionBox["mm", "pix"]}], "]"}], " "}]}], TraditionalForm]]],
+ "\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    FractionBox["d\[Lambda]", "dx"], "=", 
+    RowBox[{
+     RowBox[{"0.2", 
+      FractionBox["\[CapitalARing]", "pix"]}], "=", 
+     RowBox[{"1.3", " ", 
+      SuperscriptBox["10", 
+       RowBox[{"-", "6"}]]}]}]}], TraditionalForm]]]
+}], "Text",
+ CellChangeTimes->{{3.639157322977459*^9, 3.639157328685231*^9}, {
+  3.639157374612204*^9, 3.639157421684272*^9}, {3.639157659736197*^9, 
+  3.6391577251211033`*^9}, {3.639157860288681*^9, 3.639157876611204*^9}, {
+  3.639158013590598*^9, 3.639158053309246*^9}, {3.639158106737666*^9, 
+  3.639158113346073*^9}, {3.639343468968751*^9, 3.639343476791589*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["5", "Subsubsection",
+ CellChangeTimes->{{3.6391581195133667`*^9, 3.639158131504175*^9}}],
+
+Cell[TextData[{
+ "The anamorphic magnification is given by\n\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"r", " ", "=", " ", 
+    RowBox[{
+     RowBox[{"cos", "[", "\[Alpha]", "]"}], "/", 
+     RowBox[{"cos", "[", "\[Beta]", "]"}]}]}], TraditionalForm]]],
+ "\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"r", " ", "=", " "}], TraditionalForm]]],
+ "1.55"
+}], "Text",
+ CellChangeTimes->{{3.639158250992031*^9, 3.6391582771361523`*^9}, {
+  3.6391583103221407`*^9, 3.639158311325486*^9}, {3.639159381435358*^9, 
+  3.6391593977910347`*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["6", "Subsubsection",
+ CellChangeTimes->{3.6391583719412603`*^9}],
+
+Cell[TextData[{
+ "The unblazed case is where ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[Alpha]", "=", 
+    RowBox[{"\[Beta]", "=", 
+     RowBox[{"100", " ", "deg"}]}]}], TraditionalForm]]],
+ ". \n\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["N", "R"], " ", "=", " ", 
+    RowBox[{
+     FractionBox[
+      RowBox[{"2", " ", 
+       RowBox[{"sin", "[", "\[Delta]", "]"}]}], "r"], 
+     FractionBox[
+      SubscriptBox["f", "coll"], "w"]}]}], TraditionalForm]]],
+ "\n\nwhere ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[Delta]", " ", "=", 
+    RowBox[{"\[Phi]", " ", "=", " ", 
+     RowBox[{"5", "deg"}]}]}], TraditionalForm]]],
+ " is the blaze angle, r is the anamorphic factor, ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["f", "coll"], TraditionalForm]]],
+ " is the collimator focal length, and w is the slit width.\n\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["f", "coll"], "=", 
+    RowBox[{"381.8", "mm"}]}], TraditionalForm]]],
+ "\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["N", 
+     RowBox[{"R", ",", "blazed"}]], " ", "=", " ", 
+    RowBox[{
+     RowBox[{
+      FractionBox[
+       RowBox[{"2", " ", 
+        RowBox[{"sin", "[", "\[Delta]", "]"}]}], "r"], 
+      FractionBox[
+       SubscriptBox["f", "coll"], "w"]}], "=", 
+     RowBox[{
+      RowBox[{
+       FractionBox[
+        RowBox[{"2", " ", 
+         RowBox[{"sin", "[", 
+          FractionBox[
+           RowBox[{"5", " ", "\[Pi]"}], "180"], "]"}]}], 
+        RowBox[{
+         RowBox[{"cos", "[", 
+          RowBox[{"42.2", " ", 
+           RowBox[{"\[Pi]", "/", "180"}]}], "]"}], "/", 
+         RowBox[{"cos", "[", 
+          RowBox[{"57.8", " ", 
+           RowBox[{"\[Pi]", "/", "180"}]}], "]"}]}]], 
+       FractionBox[
+        RowBox[{"381", "mm"}], 
+        RowBox[{"300", " ", "\[Mu]m"}]], 
+       FractionBox[
+        RowBox[{
+         SuperscriptBox["10", 
+          RowBox[{"-", "3"}]], "mm"}], "\[Mu]m"]}], "=", 
+      RowBox[{"159", " ", "elements"}]}]}]}], TraditionalForm]]],
+ "\n\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    FractionBox[
+     SubscriptBox["N", 
+      RowBox[{"R", ",", "unblazed"}]], 
+     SubscriptBox["N", 
+      RowBox[{"R", ",", "blazed"}]]], "=", 
+    RowBox[{
+     RowBox[{
+      FractionBox["1", 
+       SubscriptBox["r", "unblazed"]], "/", 
+      FractionBox["1", 
+       SubscriptBox["r", "blazed"]]}], "=", 
+     RowBox[{
+      FractionBox[
+       SubscriptBox["r", "blazed"], 
+       SubscriptBox["r", "unblazed"]], "=", "1.39"}]}]}], TraditionalForm]]]
+}], "Text",
+ CellChangeTimes->{{3.6391585294940653`*^9, 3.639158552689233*^9}, {
+  3.639159012302791*^9, 3.639159105494713*^9}, {3.639159240349001*^9, 
+  3.63915925731467*^9}, {3.6391594390198603`*^9, 3.6391595496511517`*^9}, {
+  3.639159783322208*^9, 3.639159812978121*^9}, {3.639217349545518*^9, 
+  3.639217358814728*^9}, {3.639217393527231*^9, 3.639217437562807*^9}, {
+  3.63921751946576*^9, 3.639217521264778*^9}, {3.639342305866953*^9, 
+  3.639342313911254*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["7", "Subsubsection",
+ CellChangeTimes->{3.639217577147849*^9}],
+
+Cell[TextData[{
+ "Given ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["f", "coll"], "=", 
+    RowBox[{"381.8", "mm"}]}], TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"w", "=", 
+    RowBox[{"300", "\[Mu]m"}]}], TraditionalForm]]],
+ "\n\n\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{GridBox[{
+      {"R", 
+       RowBox[{"=", 
+        RowBox[{
+         FractionBox["\[Lambda]", "\[CapitalDelta]\[Lambda]"], "=", 
+         RowBox[{
+          FractionBox[
+           SubscriptBox["f", "coll"], "w"], 
+          FractionBox[
+           RowBox[{
+            RowBox[{"sin", "[", 
+             FractionBox[
+              RowBox[{"\[Beta]", " ", "\[Pi]"}], "180"], "]"}], "+", 
+            RowBox[{"sin", "[", 
+             FractionBox[
+              RowBox[{"\[Alpha]", " ", "\[Pi]"}], "180"], "]"}]}], 
+           RowBox[{"cos", "[", 
+            FractionBox[
+             RowBox[{"\[Alpha]", " ", "\[Pi]"}], "180"], "]"}]]}]}]}]}
+     }], "=", "2600"}], TraditionalForm]],
+  FormatType->"TraditionalForm"]
+}], "Text",
+ CellChangeTimes->{{3.639217579614668*^9, 3.639217590337619*^9}, {
+  3.639217626821321*^9, 3.639217779442425*^9}, {3.6392179835682364`*^9, 
+  3.639218003968896*^9}, {3.6393421366940193`*^9, 3.639342149566312*^9}, {
+  3.6393421796014843`*^9, 3.639342187178103*^9}, {3.639342291571432*^9, 
+  3.6393423024569893`*^9}, {3.639342423924109*^9, 3.639342500150711*^9}, {
+  3.639342886597167*^9, 3.639342896640976*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["8", "Subsubsection",
+ CellChangeTimes->{3.639342954801758*^9}],
+
+Cell[TextData[{
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"R", "=", 
+    SuperscriptBox[
+     RowBox[{"\[Lambda]", "(", 
+      FractionBox[
+       SuperscriptBox[
+        SubscriptBox["w", "\[Theta]"], "\[Prime]"], 
+       RowBox[{"dl", "/", "d\[Lambda]"}]], ")"}], 
+     RowBox[{"-", "1"}]]}], TraditionalForm]]],
+ "\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox[
+     SubscriptBox["w", "\[Theta]"], "\[Prime]"], "=", 
+    SuperscriptBox[
+     RowBox[{"\[Lambda]", "(", 
+      FractionBox["R", 
+       RowBox[{"dl", "/", "d\[Lambda]"}]], ")"}], 
+     RowBox[{"-", "1"}]]}], TraditionalForm]]],
+ "\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox[
+     SubscriptBox["w", "\[Theta]"], "\[Prime]"], "=", 
+    RowBox[{
+     RowBox[{"653", " ", 
+      RowBox[{"nm", " ", "/", 
+       RowBox[{"(", 
+        FractionBox["2600", 
+         RowBox[{"1.3", " ", 
+          SuperscriptBox["10", 
+           RowBox[{"-", "6"}]]}]], ")"}]}]}], "=", 
+     RowBox[{"653", " ", 
+      RowBox[{"nm", " ", "/", 
+       RowBox[{"(", 
+        RowBox[{"2600", "  ", "1.3", " ", 
+         SuperscriptBox["10", 
+          RowBox[{"-", "6"}]]}], ")"}]}], 
+      FractionBox[
+       RowBox[{"1", " ", "pix"}], 
+       RowBox[{"15", "\[Mu]m"}]], 
+      FractionBox[
+       RowBox[{
+        SuperscriptBox["10", 
+         RowBox[{"-", "3"}]], "\[Mu]m"}], "nm"]}]}]}], TraditionalForm]]],
+ "\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox[
+     SubscriptBox["w", "\[Theta]"], "\[Prime]"], "=", 
+    RowBox[{"13", " ", "pix"}]}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "\n\nThere are 13 pixels per resolution element.\n"
+}], "Text",
+ CellChangeTimes->{{3.639343569866666*^9, 3.6393435848677063`*^9}, {
+  3.6393436826076717`*^9, 3.639343780495471*^9}, {3.639343914409212*^9, 
+  3.6393441207855873`*^9}, {3.639344173416986*^9, 3.639344175147056*^9}, {
+  3.639344212203475*^9, 3.639344297865152*^9}, {3.639344348195758*^9, 
+  3.639344357762549*^9}, {3.639344694378973*^9, 3.639344760347405*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"\[Beta]", "=", "50"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"\[Alpha]", "=", "50"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"\[Phi]", "=", "5"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"n", "=", "1.4"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"Sin", "[", "\[Beta]", "]"}], " ", "==", " ", 
+   RowBox[{"n", "*", 
+    RowBox[{"Sin", "[", 
+     RowBox[{"ArcSin", "[", 
+      RowBox[{
+       RowBox[{"Sin", "[", "\[Alpha]", "]"}], "/", "n"}], "]"}], "]"}]}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"FindMinimum", "[", 
+   RowBox[{
+    RowBox[{"Abs", "[", 
+     RowBox[{
+      RowBox[{"Sin", "[", 
+       RowBox[{"\[Beta]", "*", 
+        RowBox[{"\[Pi]", "/", "180"}]}], "]"}], " ", "-", 
+      RowBox[{"n", "*", 
+       RowBox[{"Sin", "[", 
+        RowBox[{"ArcSin", "[", 
+         FractionBox[
+          RowBox[{"Sin", "[", 
+           RowBox[{"\[Alpha]", "*", 
+            RowBox[{"\[Pi]", "/", "180"}]}], "]"}], "n"], "]"}], "]"}]}]}], 
+     "]"}], ",", " ", "n"}], "]"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"sol", "=", 
+  RowBox[{"FindMinimum", "[", 
+   RowBox[{
+    RowBox[{"Abs", "[", 
+     RowBox[{
+      RowBox[{"Sin", "[", 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{"100", " ", "-", " ", "\[Alpha]1"}], ")"}], "*", 
+        RowBox[{"\[Pi]", "/", "180"}]}], "]"}], " ", "-", 
+      RowBox[{"1.4", "*", 
+       RowBox[{"Sin", "[", 
+        RowBox[{"ArcSin", "[", 
+         FractionBox[
+          RowBox[{"Sin", "[", 
+           RowBox[{"\[Alpha]1", "*", 
+            RowBox[{"\[Pi]", "/", "180"}]}], "]"}], "1.4"], "]"}], "]"}]}], 
+      "-", 
+      RowBox[{"2", "*", "\[Phi]", "*", 
+       RowBox[{"\[Pi]", "/", "180"}]}]}], "]"}], ",", " ", "\[Alpha]1"}], 
+   "]"}]}]}], "Input",
+ CellChangeTimes->{{3.638874411113082*^9, 3.6388744602434587`*^9}, {
+  3.6388744930506077`*^9, 3.638874507215765*^9}, {3.6388745516248207`*^9, 
+  3.6388746577557783`*^9}, {3.6388748648111887`*^9, 3.6388748847529087`*^9}, {
+  3.638875280142013*^9, 3.6388753001654882`*^9}, {3.638875467121984*^9, 
+  3.638875471366205*^9}, {3.6388755262559423`*^9, 3.638875678970722*^9}, {
+  3.638875721490774*^9, 3.638875772902958*^9}, {3.639156232151223*^9, 
+  3.639156247278507*^9}, {3.639156303455689*^9, 3.6391563102536*^9}, {
+  3.639156403696843*^9, 3.639156416066317*^9}, {3.639156972687705*^9, 
+  3.6391569742011967`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"\[Sigma]", "=", "331"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"n", "=", "1.4"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"\[Alpha]", "=", 
+   RowBox[{"42.2", "*", 
+    RowBox[{"\[Pi]", "/", "180"}]}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"\[Phi]", "=", 
+   RowBox[{"5", "*", 
+    RowBox[{"\[Pi]", "/", "180."}]}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"m", "=", "1"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"\[Lambda]", "=", 
+  FormBox[
+   RowBox[{
+    FractionBox[
+     RowBox[{"2", " ", "\[Sigma]", " ", "n"}], "m"], 
+    RowBox[{"Sin", "[", 
+     RowBox[{"\[Alpha]", "-", "\[Phi]"}], "]"}], 
+    RowBox[{"Cos", "[", "\[Phi]", "]"}]}],
+   TraditionalForm]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"\[Lambda]", "=", "653"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"\[Sigma]", " ", "=", " ", 
+  FractionBox[
+   RowBox[{"\[Lambda]", " ", "m"}], 
+   RowBox[{"2", " ", "n", " ", 
+    RowBox[{"Sin", "[", 
+     RowBox[{"\[Alpha]", "-", "\[Phi]"}], "]"}], 
+    RowBox[{"Cos", "[", "\[Phi]", "]"}]}]]}]}], "Input",
+ CellChangeTimes->{{3.639157003518158*^9, 3.639157103737661*^9}, {
+  3.639157208399871*^9, 3.639157244809471*^9}}],
+
+Cell[BoxData["558.21018742345`"], "Output",
+ CellChangeTimes->{
+  3.639157026038262*^9, {3.639157085901363*^9, 3.6391571043002663`*^9}, {
+   3.639157230342319*^9, 3.639157245286907*^9}}],
+
+Cell[BoxData["387.20719340085617`"], "Output",
+ CellChangeTimes->{
+  3.639157026038262*^9, {3.639157085901363*^9, 3.6391571043002663`*^9}, {
+   3.639157230342319*^9, 3.639157245287915*^9}}]
+}, Open  ]],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   FractionBox["d\[Lambda]", "dx"], "=", 
+   RowBox[{
+    RowBox[{"[", 
+     RowBox[{"387", 
+      RowBox[{"mm", " ", "\[Cross]", 
+       SuperscriptBox["10", "7"]}], 
+      FractionBox["\[CapitalARing]", "mm"]}], "]"}], 
+    RowBox[{
+     SuperscriptBox[
+      RowBox[{
+       RowBox[{"cos", "(", 
+        RowBox[{"57.8", " ", "deg", " ", 
+         FractionBox["\[Pi]", "180"]}], ")"}], "[", 
+       RowBox[{"152.5", " ", "mm"}], "]"}], 
+      RowBox[{"-", "1"}]], "[", 
+     RowBox[{
+      RowBox[{"15", " ", "\[Cross]", 
+       SuperscriptBox["10", 
+        RowBox[{"-", "3"}]]}], 
+      FractionBox["mm", "pix"]}], "]"}]}]}], TraditionalForm]], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"lineardisp", " ", "=", " ", 
+  RowBox[{"387", " ", "*", 
+   SuperscriptBox["10", 
+    RowBox[{"1", " "}]], "*", " ", 
+   RowBox[{
+    RowBox[{"Cos", "[", 
+     RowBox[{"57.8", 
+      RowBox[{"\[Pi]", "/", "180"}]}], "]"}], "/", "152.5"}], "*", "15", "*", 
+   
+   SuperscriptBox["10", 
+    RowBox[{"-", "3"}]]}]}]], "Input",
+ CellChangeTimes->{{3.639157909357924*^9, 3.63915794725182*^9}, {
+  3.639157995354265*^9, 3.639158003318367*^9}}],
+
+Cell[BoxData["0.20284241197315325`"], "Output",
+ CellChangeTimes->{
+  3.639157947775852*^9, {3.639157998279475*^9, 3.639158004103345*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"ScientificForm", "[", "lineardisp", "]"}]], "Input",
+ NumberMarks->False],
+
+Cell[BoxData[
+ TagBox[
+  InterpretationBox[
+   RowBox[{"\<\"2.02842\"\>", "\[Times]", 
+    SuperscriptBox["10", "\<\"-1\"\>"]}],
+   0.20284241197315325`,
+   AutoDelete->True],
+  ScientificForm]], "Output",
+ CellChangeTimes->{3.639182227910549*^9}]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{"r", "=", 
+  RowBox[{
+   RowBox[{"Cos", "[", 
+    RowBox[{"\[Alpha]", "*", 
+     RowBox[{"\[Pi]", "/", "180"}]}], "]"}], "/", 
+   RowBox[{"Cos", "[", 
+    RowBox[{"\[Beta]", "*", 
+     RowBox[{"\[Pi]", "/", "180"}]}], "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.6391582835701303`*^9, 3.6391583049469976`*^9}, {
+  3.639159565701045*^9, 3.639159570079193*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ FractionBox[
+  RowBox[{
+   RowBox[{"Cos", "[", 
+    RowBox[{"42.2", "*", 
+     RowBox[{"\[Pi]", "/", "180"}]}], "]"}], "/", 
+   RowBox[{"Cos", "[", 
+    RowBox[{"57.8", "*", 
+     RowBox[{"\[Pi]", "/", "180"}]}], "]"}]}], 
+  RowBox[{
+   RowBox[{"Cos", "[", 
+    RowBox[{"50", "*", 
+     RowBox[{"\[Pi]", "/", "180"}]}], "]"}], "/", 
+   RowBox[{"Cos", "[", 
+    RowBox[{"50", "*", 
+     RowBox[{"\[Pi]", "/", "180"}]}], "]"}]}]]], "Input",
+ CellChangeTimes->{{3.6391592817968597`*^9, 3.639159286298429*^9}, {
+  3.639159573496084*^9, 3.639159628908677*^9}, {3.639159821229574*^9, 
+  3.6391598485243063`*^9}, {3.639159896224503*^9, 3.639159905395618*^9}, {
+  3.6391599681797657`*^9, 3.6391599819229107`*^9}, {3.639217471732367*^9, 
+  3.639217510467573*^9}}],
+
+Cell[BoxData["1.3901999949204367`"], "Output",
+ CellChangeTimes->{
+  3.639158305745755*^9, {3.639159286913001*^9, 3.639159289356657*^9}, 
+   3.6391596295046463`*^9, {3.6391598330483313`*^9, 3.6391598490098667`*^9}, 
+   3.639159906774267*^9, {3.6391599694504623`*^9, 3.639159982423326*^9}, 
+   3.6392175110217247`*^9}]
+}, Open  ]],
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.639217809500183*^9, 3.639217859717267*^9}, 
+   3.639217902576556*^9}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ FormBox[
+  RowBox[{
+   RowBox[{"\[Alpha]", "=", "42.2"}], ";"}], 
+  TraditionalForm], "\[IndentingNewLine]", 
+ FormBox[
+  RowBox[{
+   RowBox[{"\[Beta]", "=", "57.8"}], ";"}], 
+  TraditionalForm], "\[IndentingNewLine]", 
+ FormBox[
+  RowBox[{
+   RowBox[{
+    SubscriptBox["f", "coll"], "=", 
+    RowBox[{"381", "*", 
+     SuperscriptBox["10", 
+      RowBox[{"-", "3"}]]}]}], ";"}], TraditionalForm], "\[IndentingNewLine]", 
+ FormBox[
+  RowBox[{
+   RowBox[{"w", "=", 
+    RowBox[{"300", "*", 
+     SuperscriptBox["10", 
+      RowBox[{"-", "6"}]]}]}], ";", 
+   RowBox[{
+    FractionBox[
+     RowBox[{"2", " ", 
+      RowBox[{"Sin", "[", 
+       FractionBox[
+        RowBox[{"5", " ", "\[Pi]"}], "180"], "]"}]}], 
+     RowBox[{
+      RowBox[{"Cos", "[", 
+       RowBox[{"\[Alpha]", " ", 
+        RowBox[{"\[Pi]", "/", "180"}]}], "]"}], "/", 
+      RowBox[{"Cos", "[", 
+       RowBox[{"\[Beta]", " ", 
+        RowBox[{"\[Pi]", "/", "180"}]}], "]"}]}]], 
+    FractionBox[
+     SubscriptBox["f", "coll"], "w"]}]}], 
+  TraditionalForm], "\[IndentingNewLine]", 
+ FormBox[
+  RowBox[{"R", "=", 
+   RowBox[{
+    FractionBox[
+     SubscriptBox["f", "coll"], "w"], 
+    FractionBox[
+     RowBox[{
+      RowBox[{"Sin", "[", 
+       FractionBox[
+        RowBox[{"\[Beta]", " ", "\[Pi]"}], "180"], "]"}], "+", 
+      RowBox[{"Sin", "[", 
+       FractionBox[
+        RowBox[{"\[Alpha]", " ", "\[Pi]"}], "180"], "]"}]}], 
+     RowBox[{"Cos", "[", 
+      FractionBox[
+       RowBox[{"\[Alpha]", " ", "\[Pi]"}], "180"], "]"}]]}]}], 
+  TraditionalForm]}], "Input",
+ CellChangeTimes->{{3.639217796730836*^9, 3.639217803002718*^9}, {
+  3.639217872401244*^9, 3.6392179182739573`*^9}, {3.639342859243568*^9, 
+  3.639342877317498*^9}}],
+
+Cell[BoxData["159.24010026465393`"], "Output",
+ CellChangeTimes->{{3.639217884678844*^9, 3.6392179201821136`*^9}, {
+  3.6393428653251667`*^9, 3.639342877791402*^9}}],
+
+Cell[BoxData["2602.2388077570886`"], "Output",
+ CellChangeTimes->{{3.639217884678844*^9, 3.6392179201821136`*^9}, {
+  3.6393428653251667`*^9, 3.639342877792301*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{"653", " ", 
+   RowBox[{"nm", " ", "/", 
+    RowBox[{"(", 
+     RowBox[{"2600", "  ", "1.3", " ", 
+      SuperscriptBox["10", 
+       RowBox[{"-", "6"}]]}], ")"}]}], 
+   FractionBox[
+    RowBox[{"1", " ", "pix"}], 
+    RowBox[{"15", "\[Mu]m"}]], 
+   FractionBox[
+    RowBox[{
+     SuperscriptBox["10", 
+      RowBox[{"-", "3"}]], "\[Mu]m"}], "nm"]}], TraditionalForm]], "Input",
+ CellChangeTimes->{{3.6393443156446457`*^9, 3.639344315903552*^9}, 
+   3.6393443641337757`*^9, 3.639344667821982*^9}],
+
+Cell[BoxData[
+ RowBox[{"12.879684418145958`", " ", "pix"}]], "Output",
+ CellChangeTimes->{3.6393443228989573`*^9, 3.639344365218566*^9, 
+  3.6393446683538322`*^9}]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{808, 1028},
+WindowMargins->{{Automatic, -10}, {Automatic, -10}},
+FrontEndVersion->"10.0 for Linux x86 (64-bit) (June 27, 2014)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 95, 1, 93, "Title"],
+Cell[CellGroupData[{
+Cell[700, 27, 126, 4, 111, "Chapter"],
+Cell[CellGroupData[{
+Cell[851, 35, 92, 1, 35, "Subsubsection"],
+Cell[946, 38, 2543, 75, 282, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[3526, 118, 68, 1, 35, "Subsubsection"],
+Cell[3597, 121, 853, 26, 119, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[4487, 152, 68, 1, 35, "Subsubsection"],
+Cell[4558, 155, 608, 18, 61, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[5203, 178, 68, 1, 35, "Subsubsection"],
+Cell[5274, 181, 1771, 53, 164, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[7082, 239, 94, 1, 35, "Subsubsection"],
+Cell[7179, 242, 528, 16, 88, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[7744, 263, 70, 1, 35, "Subsubsection"],
+Cell[7817, 266, 2977, 95, 280, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[10831, 366, 68, 1, 35, "Subsubsection"],
+Cell[10902, 369, 1453, 42, 123, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[12392, 416, 68, 1, 35, "Subsubsection"],
+Cell[12463, 419, 2014, 63, 191, "Text"],
+Cell[14480, 484, 2429, 63, 289, "Input"],
+Cell[CellGroupData[{
+Cell[16934, 551, 1224, 34, 228, "Input"],
+Cell[18161, 587, 186, 3, 31, "Output"],
+Cell[18350, 592, 189, 3, 31, "Output"]
+}, Open  ]],
+Cell[18554, 598, 692, 22, 70, "Input"],
+Cell[CellGroupData[{
+Cell[19271, 624, 461, 13, 34, "Input"],
+Cell[19735, 639, 138, 2, 31, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[19910, 646, 97, 2, 31, "Input"],
+Cell[20010, 650, 247, 8, 33, "Output"]
+}, Open  ]],
+Cell[20272, 661, 380, 10, 31, "Input"],
+Cell[CellGroupData[{
+Cell[20677, 675, 769, 20, 59, "Input"],
+Cell[21449, 697, 317, 5, 31, "Output"]
+}, Open  ]],
+Cell[21781, 705, 118, 2, 31, "Input"],
+Cell[CellGroupData[{
+Cell[21924, 711, 1723, 57, 244, "Input"],
+Cell[23650, 770, 165, 2, 31, "Output"],
+Cell[23818, 774, 165, 2, 31, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[24020, 781, 530, 16, 71, "Input"],
+Cell[24553, 799, 163, 3, 31, "Output"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)

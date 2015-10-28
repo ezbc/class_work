@@ -1,0 +1,11 @@
+.*.sw?
+*~
+*.pyc
+.nfs*
+*.pdf
+*.out
+*.csv
+*.xlsx
+*.mat
+*.xls
+

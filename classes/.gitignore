@@ -1,0 +1,13 @@
+.*.sw?
+*~
+*.pyc
+.nfs*
+*.aux
+*.bbl
+*.blg
+*.dvi
+*.log
+*.pdf
+*.ps
+*Notes.bib
+

@@ -1,0 +1,25 @@
+# Original Filename:   m05_exp_10.0_z_0.02_krou.model
+# zf:                  6.0
+# SFH:                 Exponential
+# Tau:                 10.0
+# Metallicity (z):     0.02
+# IMF:                 Kroupa
+# Cosmology:           Om=0.2720 Ol=0.7280 h=0.7040 w=-1.0000
+# Magnitude System:    AB
+#
+# Column Descriptions:
+# 1 redshift
+# 2 age (gyrs)
+# 3 mass (solar masses)
+# 4 sloan_g rest-frame absolute magnitude
+# 5 sloan_i rest-frame absolute magnitude
+ 5.00000  0.248143 2.55186e-02   6.0428   6.0939
+ 4.00000  0.624972 5.95632e-02   5.7662   5.6282
+ 3.00000  1.246688 1.09789e-01   5.6271   5.3338
+ 2.00000  2.405315 1.91257e-01   5.5662   5.1335
+ 1.50000  3.414832 2.53150e-01   5.5720   5.0706
+ 1.00000  5.013743 3.37090e-01   5.6259   5.0528
+ 0.75000  6.184780 3.88349e-01   5.6839   5.0714
+ 0.50000  7.743941 4.47163e-01   5.7719   5.1153
+ 0.25000  9.862540 5.12629e-01   5.9051   5.1993
+ 0.00000 12.802156 5.81128e-01   6.1060   5.3422

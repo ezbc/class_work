@@ -1,0 +1,28 @@
+
+hw9 handed out lect 13 (Oct 14) due lect 16 (0ct23)
+
+In the R/conf.int directory you will find 5a.R, 
+an R code which  
+generates noisy data at 100 points on [0,1]  from
+a given curve with specified noise standard deviation
+(ss), replicates this  10 times,
+generates a cubic spline curve fit with the gcv estimate
+of lambda, generates the "bayesian confidence intervals", 
+generates
+a table result.txt with the smoothing parameter, the
+gcvscore, the ratio of the estimated
+to the true standard deviation, counts the
+number of "true" data points inside the
+confidence interval, and averages the
+counts.
+
+Try the code with the given true curve, n = 100 and 
+sigma = 1. Then define two more curves, one a 
+"smooth" curve, and one with a break or spike like 
+feature, and experiment with the code with several 
+different sample sizes and sigma's to see if you 
+identify over what range of sample sizes, and sigmas the 
+results are reasonable. Summarize your results with 
+a few plots and tables.
+
+Please pick your own seed(s). 

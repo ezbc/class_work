@@ -1,0 +1,11 @@
+#!/bin/bash
+
+if [ ! -z $1 ] ; then
+	pdflatex $1.tex
+	bibtex $1
+	pdflatex $1.tex
+	pdflatex $1.tex
+else
+	echo "Usage: texit <tex file>"
+fi
+
