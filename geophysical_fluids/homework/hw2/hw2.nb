@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[     40687,       1409]
-NotebookOptionsPosition[     38957,       1345]
-NotebookOutlinePosition[     39290,       1360]
-CellTagsIndexPosition[     39247,       1357]
+NotebookDataLength[     42184,       1429]
+NotebookOptionsPosition[     40446,       1365]
+NotebookOutlinePosition[     40780,       1380]
+CellTagsIndexPosition[     40737,       1377]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -28,9 +28,10 @@ Cell[CellGroupData[{
 Cell["\<\
 Elijah Bernstein-Cooper
 Geophysical Fluids - AOS 610
-Thursday, 15/10/2015\
+Friday, 2015/10/30\
 \>", "Chapter",
- CellChangeTimes->{{3.653648151007028*^9, 3.653648181278248*^9}}],
+ CellChangeTimes->{{3.653648151007028*^9, 3.653648181278248*^9}, {
+  3.655208594748908*^9, 3.655208608569744*^9}}],
 
 Cell[CellGroupData[{
 
@@ -190,6 +191,7 @@ Cell["1c)", "Subsubsection",
   3.65365310288238*^9, 3.653653103172165*^9}}],
 
 Cell[TextData[{
+ "We predict the normalized pressure in the pipe to be\n",
  Cell[BoxData[
   FormBox[
    RowBox[{
@@ -237,7 +239,9 @@ Cell[TextData[{
          SuperscriptBox["m", "3"]], "*", "100", "m"}]], "=", 
       RowBox[{"5.5", " ", 
        SuperscriptBox["10", "7"]}]}]}]}], TraditionalForm]]],
- "\n",
+ "\nwhich is beyond the scope of the measured pressures in the diagram. We \
+estimate the logarithmic slope of the relationship with finite differencing \
+then  can solve for Re\n\n",
  Cell[BoxData[
   FormBox[
    RowBox[{"Re", "=", 
@@ -250,7 +254,7 @@ Cell[TextData[{
           SuperscriptBox["10", "7"]}], ")"}], "-", "1.5"}], "1.7"]], "=", 
      RowBox[{"4.7", " ", 
       SuperscriptBox["10", "4"]}]}]}], TraditionalForm]]],
- "\n",
+ "\n\nwith an estimated Re we are able to determine the flow speed:\n\n",
  Cell[BoxData[
   FormBox[
    RowBox[{"Re", "=", 
@@ -289,7 +293,7 @@ Cell[TextData[{
   3.653653869848413*^9, 3.653653895115877*^9}, {3.6536539392798023`*^9, 
   3.653653982908996*^9}, {3.653654084276227*^9, 3.653654191594195*^9}, {
   3.65365431634203*^9, 3.653654440304906*^9}, {3.6549598657814407`*^9, 
-  3.654959867357609*^9}}]
+  3.654959867357609*^9}, {3.6551975191328287`*^9, 3.655197630736912*^9}}]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -299,6 +303,7 @@ Cell["2a)", "Subsubsection",
   3.6536547496768017`*^9, 3.65365475052297*^9}}],
 
 Cell[TextData[{
+ "The viscous shear is given by\n\n",
  Cell[BoxData[
   FormBox[
    RowBox[{"\[Tau]", "=", 
@@ -319,12 +324,13 @@ Cell[TextData[{
    RowBox[{
     RowBox[{"v", "~", "300"}], " ", 
     RowBox[{"m", "/", "s"}]}], TraditionalForm]]],
- "\n",
+ "\n\n",
  StyleBox["2b)", "Subsubsection"]
 }], "Text",
  CellChangeTimes->{{3.6536547533206*^9, 3.653654903647272*^9}, {
   3.653654954360057*^9, 3.653654960603253*^9}, {3.65365537693006*^9, 
-  3.653655456962851*^9}, {3.654447925727723*^9, 3.654447926518696*^9}}],
+  3.653655456962851*^9}, {3.654447925727723*^9, 3.654447926518696*^9}, {
+  3.655197635191835*^9, 3.655197651919887*^9}}],
 
 Cell[TextData[{
  "The vorticity is ",
@@ -398,12 +404,12 @@ and ",
    3.654958949818885*^9}],
 
 Cell[TextData[{
+ "The angular frequency is\n\n",
  Cell[BoxData[
   FormBox[
    RowBox[{"\[CapitalOmega]", "=", 
-    FractionBox["v", "r"]}], TraditionalForm]],
-  FormatType->"TraditionalForm"],
- "\nthus\n",
+    FractionBox["v", "r"]}], TraditionalForm]]],
+ "\n\nthus\n\n",
  Cell[BoxData[
   FormBox[
    RowBox[{"\[Phi]", "=", 
@@ -413,20 +419,24 @@ Cell[TextData[{
       SuperscriptBox["10", 
        RowBox[{"-", "3"}]], 
       SuperscriptBox["s", 
-       RowBox[{"-", "1"}]]}]}]}], TraditionalForm]],
-  FormatType->"TraditionalForm"]
+       RowBox[{"-", "1"}]]}]}]}], TraditionalForm]]],
+ "\n"
 }], "Text",
  CellChangeTimes->{{3.6536559404000607`*^9, 3.653655940786365*^9}, {
    3.653656017624803*^9, 3.653656020344475*^9}, 3.653656572251059*^9, {
-   3.654358301198473*^9, 3.654358347653788*^9}}]
+   3.654358301198473*^9, 3.654358347653788*^9}, {3.6551976648117027`*^9, 
+   3.655197687965907*^9}}]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["3a)", "Subsubsection",
- CellChangeTimes->{{3.654358355305131*^9, 3.654358355877743*^9}}],
+ CellChangeTimes->{{3.654358355305131*^9, 3.654358355877743*^9}, {
+  3.655197686007227*^9, 3.6551976866591682`*^9}}],
 
 Cell[TextData[{
+ "We can estimate the scale height by calculating the difference in heights \
+using the energy conservation from sea level to the desired height\n\n",
  Cell[BoxData[
   FormBox[
    RowBox[{
@@ -514,7 +524,7 @@ Cell[TextData[{
        FractionBox["kg", 
         SuperscriptBox["m", "3"]], "*", "6500", 
        FractionBox["K", "m"]}]}]]}], TraditionalForm]]],
- "\n",
+ "\n\nLeading to a scale height of \n\n",
  Cell[BoxData[
   FormBox[
    RowBox[{
@@ -522,15 +532,16 @@ Cell[TextData[{
      SubscriptBox["h", "2"], "-", 
      SubscriptBox["h", "1"]}], "=", 
     RowBox[{"2.9", " ", "km"}]}], TraditionalForm]]],
- "\nAnalyzing\n\
+ "\n\nAnalyzing\n\
 http://weather.unisys.com/upper_air/ua_cont.php?plot=thi&inv=0&t=cur\nwe find \
-the thickness over WI is 5 km."
+the thickness over WI is 5 km. This agrees mildly with our estimated scale \
+height."
 }], "Text",
  CellChangeTimes->{{3.654450511115562*^9, 3.6544506300015163`*^9}, {
   3.6544506808321667`*^9, 3.654450772524723*^9}, {3.654450805937347*^9, 
   3.654451092249098*^9}, {3.65445171036452*^9, 3.654451718903599*^9}, {
   3.6544519200739098`*^9, 3.65445194464929*^9}, {3.6544522592489443`*^9, 
-  3.654452274582481*^9}}]
+  3.654452274582481*^9}, {3.6551976955318613`*^9, 3.6551977841641073`*^9}}]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -539,14 +550,7 @@ Cell["4a)", "Subsubsection",
  CellChangeTimes->{{3.6544530420386543`*^9, 3.6544530425695953`*^9}}],
 
 Cell[TextData[{
- Cell[BoxData[
-  FormBox[
-   RowBox[{"\[CapitalOmega]", "=", 
-    RowBox[{
-     SuperscriptBox["10", 
-      RowBox[{"-", "5"}]], "Hz"}]}], TraditionalForm]],
-  FormatType->"TraditionalForm"],
- "\n",
+ "We estimate the 4km geostropic wind speed over Tateno Japan with\n\n",
  Cell[BoxData[
   FormBox[
    RowBox[{
@@ -556,26 +560,34 @@ Cell[TextData[{
       FractionBox["1", "\[Rho]f"]}], 
      FractionBox[
       RowBox[{"\[PartialD]", "P"}], 
-      RowBox[{"\[PartialD]", "y"}]]}]}], TraditionalForm]],
-  FormatType->"TraditionalForm"],
- "\nwe estimate ",
+      RowBox[{"\[PartialD]", "y"}]]}]}], TraditionalForm]]],
+ "\n\nWe estimate ",
  Cell[BoxData[
   FormBox[
    RowBox[{"\[CapitalDelta]P", "=", 
-    RowBox[{"500", "Pa"}]}], TraditionalForm]],
-  FormatType->"TraditionalForm"],
+    RowBox[{"500", "Pa"}]}], TraditionalForm]]],
  " and ",
  Cell[BoxData[
   FormBox[
    RowBox[{"\[CapitalDelta]y", "=", 
     RowBox[{"5", " ", 
-     SuperscriptBox["10", "5"], "m"}]}], TraditionalForm]],
-  FormatType->"TraditionalForm"],
- "\n",
+     SuperscriptBox["10", "5"], "m"}]}], TraditionalForm]]],
+ " using finite differencing, leading us to an estimate of ",
  Cell[BoxData[
   FormBox[
    SubscriptBox["u", "g"], TraditionalForm]],
   FormatType->"TraditionalForm"],
+ "\n\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[CapitalOmega]", "=", 
+    RowBox[{
+     SuperscriptBox["10", 
+      RowBox[{"-", "5"}]], "Hz"}]}], TraditionalForm]]],
+ "\n",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["u", "g"], TraditionalForm]]],
  "=-",
  Cell[BoxData[
   FormBox[
@@ -597,8 +609,7 @@ Cell[TextData[{
        RowBox[{"kg", " ", 
         SuperscriptBox["m", "2"]}], 
        SuperscriptBox["s", "2"]], 
-      SuperscriptBox["m", "3"]], "m"]}], TraditionalForm]],
-  FormatType->"TraditionalForm"],
+      SuperscriptBox["m", "3"]], "m"]}], TraditionalForm]]],
  "\n",
  Cell[BoxData[
   FormBox[
@@ -606,14 +617,14 @@ Cell[TextData[{
     SubscriptBox["u", "g"], "=", 
     RowBox[{
      RowBox[{"-", "65"}], " ", 
-     RowBox[{"m", "/", "s"}]}]}], TraditionalForm]],
-  FormatType->"TraditionalForm"],
+     RowBox[{"m", "/", "s"}]}]}], TraditionalForm]]],
  "\n\nCompared to the measured observations in winter (20 m/s) we are within \
 approximation errors."
 }], "Text",
  CellChangeTimes->{{3.65445304657205*^9, 3.654453180594117*^9}, {
-  3.654453210836274*^9, 3.65445322138428*^9}, {3.654453437117044*^9, 
-  3.654453522824469*^9}}]
+   3.654453210836274*^9, 3.65445322138428*^9}, {3.654453437117044*^9, 
+   3.654453522824469*^9}, 3.6551977953319473`*^9, {3.655197907163431*^9, 
+   3.655198009853669*^9}}]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -622,27 +633,37 @@ Cell["4b)", "Subsubsection",
  CellChangeTimes->{{3.6544532440234118`*^9, 3.654453246762013*^9}}],
 
 Cell[TextData[{
- " ",
+ "We can estimate the wind speed by relating the vertical acceleration to the \
+temperature gradient\n\n",
  Cell[BoxData[
   FormBox[
    RowBox[{
-    SubscriptBox["u", "1"], "=", 
+    FractionBox[
+     RowBox[{"\[PartialD]", "u"}], 
+     RowBox[{"\[PartialD]", "z"}]], "=", 
     RowBox[{
-     RowBox[{"2", "*", 
-      FractionBox[
-       SubscriptBox["P", "0"], "\[Rho]"]}], "-", 
-     RowBox[{
-      SubscriptBox["c", "V"], 
-      SubscriptBox["m", "T"], 
-      SubscriptBox["h", "1"]}], "-", 
-     RowBox[{"g", " ", 
-      SubscriptBox["h", "1"]}]}]}], TraditionalForm]],
-  FormatType->"TraditionalForm"],
+     FractionBox["g", 
+      RowBox[{"f", " ", "T"}]], 
+     FractionBox[
+      RowBox[{"\[PartialD]", "T"}], 
+      RowBox[{"\[PartialD]", "x"}]]}]}], TraditionalForm]]],
  "\n",
  Cell[BoxData[
   FormBox[
+   RowBox[{"u", "=", 
+    RowBox[{
+     FractionBox["g", 
+      RowBox[{"f", " ", "T"}]], 
+     FractionBox[
+      RowBox[{"\[PartialD]", "T"}], 
+      RowBox[{"\[PartialD]", "x"}]], "z"}]}], TraditionalForm]]],
+ "\n\nwhere ",
+ Cell[BoxData[
+  FormBox[
    RowBox[{
-    SubscriptBox["m", "T"], "=", 
+    FractionBox[
+     RowBox[{"\[PartialD]", "T"}], 
+     RowBox[{"\[PartialD]", "x"}]], "=", 
     RowBox[{
      RowBox[{"lapse", " ", "rate"}], "=", 
      RowBox[{
@@ -652,34 +673,59 @@ Cell[TextData[{
       RowBox[{
        SuperscriptBox["10", 
         RowBox[{"-", "5"}]], 
-       FractionBox["K", "m"]}]}]}]}], TraditionalForm]],
-  FormatType->"TraditionalForm"],
+       FractionBox["K", "m"]}]}]}]}], TraditionalForm]]],
+ ", and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"z", "=", 
+    RowBox[{
+     RowBox[{"5", " ", "km"}], "=", 
+     RowBox[{"5", " ", 
+      SuperscriptBox["10", "3"], "m"}]}]}], TraditionalForm]]],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"f", "=", 
+    RowBox[{"2", " ", "*", " ", 
+     SuperscriptBox["10", 
+      RowBox[{"-", "5"}]], 
+     SuperscriptBox["s", 
+      RowBox[{"-", "1"}]], "*", 
+     RowBox[{"Sin", "[", "0.75", "]"}]}]}], TraditionalForm]]],
+ ",\n\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"u", "=", 
+    RowBox[{
+     FractionBox[
+      RowBox[{"9.8", " ", 
+       RowBox[{"m", "/", 
+        SuperscriptBox["s", "2"]}]}], 
+      RowBox[{"2", " ", "*", " ", 
+       SuperscriptBox["10", 
+        RowBox[{"-", "5"}]], 
+       SuperscriptBox["s", 
+        RowBox[{"-", "1"}]], "*", 
+       RowBox[{"Sin", "[", "0.75", "]"}], " ", "290", " ", "K"}]], 
+     SuperscriptBox["10", 
+      RowBox[{"-", "5"}]], 
+     FractionBox["K", "m"], " ", "5", " ", 
+     SuperscriptBox["10", "3"], "m"}]}], TraditionalForm]]],
  "\n",
  Cell[BoxData[
   FormBox[
-   RowBox[{
-    SubscriptBox["u", "1"], "=", 
-    RowBox[{
-     FractionBox[
-      RowBox[{"2", "*", "101325", " ", "Pa"}], 
-      RowBox[{"1.2", " ", 
-       FractionBox["kg", 
-        SuperscriptBox["m", "3"]]}]], "-", 
-     RowBox[{"700", " ", 
-      FractionBox["J", 
-       RowBox[{"kg", " ", "K"}]], 
-      SuperscriptBox["10", 
-       RowBox[{"-", "5"}]], 
-      FractionBox["K", "m"]}], "-", 
-     RowBox[{"9.8", 
-      FractionBox["m", 
-       SuperscriptBox["s", "2"]], "5", " ", 
-      SuperscriptBox["10", "3"], "m"}]}]}], TraditionalForm]],
-  FormatType->"TraditionalForm"],
- " "
+   RowBox[{"u", "=", 
+    RowBox[{"123", 
+     RowBox[{"m", "/", "s"}]}]}], TraditionalForm]]],
+ "\n"
 }], "Text",
  CellChangeTimes->{
-  3.6544541093882027`*^9, {3.654454212320088*^9, 3.654454408543639*^9}}]
+  3.6544541093882027`*^9, {3.654454212320088*^9, 3.654454408543639*^9}, {
+   3.6551980370000477`*^9, 3.655198044966854*^9}, {3.65519811074059*^9, 
+   3.6551981439862843`*^9}, 3.6551982039027863`*^9, {3.655198739247285*^9, 
+   3.655198745748316*^9}, {3.655207057959073*^9, 3.655207074085297*^9}, {
+   3.655207463654405*^9, 3.655207489913639*^9}, {3.6552075320120583`*^9, 
+   3.655207771943171*^9}, {3.6552083928498774`*^9, 3.655208422753902*^9}}]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -688,7 +734,8 @@ Cell["5a)", "Subsubsection",
  CellChangeTimes->{{3.654603587718972*^9, 3.654603591257955*^9}}],
 
 Cell[TextData[{
- "The coriolis and curvature terms in the horizontal momentum equations are\n",
+ "The coriolis and curvature terms in the horizontal momentum equations are\n\
+\n",
  Cell[BoxData[
   FormBox[
    RowBox[{
@@ -700,8 +747,7 @@ Cell[TextData[{
       RowBox[{"2", "u", " ", "v", " ", 
        RowBox[{"tan", "[", "\[Phi]", "]"}]}], "z"], "+", 
      RowBox[{"2", " ", "\[CapitalOmega]", " ", "v", " ", 
-      RowBox[{"sin", "[", "\[Phi]", "]"}], " "}]}]}], TraditionalForm]],
-  FormatType->"TraditionalForm"],
+      RowBox[{"sin", "[", "\[Phi]", "]"}], " "}]}]}], TraditionalForm]]],
  "\n",
  Cell[BoxData[
   FormBox[
@@ -716,14 +762,12 @@ Cell[TextData[{
         SuperscriptBox["u", "2"], " ", 
         RowBox[{"tan", "[", "\[Phi]", "]"}]}], "z"]}], "-", 
      RowBox[{"2", " ", "\[CapitalOmega]", " ", "u", " ", 
-      RowBox[{"sin", "[", "\[Phi]", "]"}]}]}]}], TraditionalForm]],
-  FormatType->"TraditionalForm"],
- " \n",
+      RowBox[{"sin", "[", "\[Phi]", "]"}]}]}]}], TraditionalForm]]],
+ " \n\ngiven the following known quantities\n\n",
  Cell[BoxData[
   FormBox[
    RowBox[{"\[Phi]", "=", 
-    RowBox[{"43.0667", " ", "deg"}]}], TraditionalForm]],
-  FormatType->"TraditionalForm"],
+    RowBox[{"43.0667", " ", "deg"}]}], TraditionalForm]]],
  "\n",
  Cell[BoxData[
   FormBox[
@@ -731,15 +775,13 @@ Cell[TextData[{
     RowBox[{
      RowBox[{"100", "km"}], "=", 
      RowBox[{
-      SuperscriptBox["10", "5"], "m"}]}]}], TraditionalForm]],
-  FormatType->"TraditionalForm"],
+      SuperscriptBox["10", "5"], "m"}]}]}], TraditionalForm]]],
  "\n",
  Cell[BoxData[
   FormBox[
    RowBox[{"z", "=", 
     RowBox[{"6", " ", 
-     SuperscriptBox["10", "6"], "m"}]}], TraditionalForm]],
-  FormatType->"TraditionalForm"],
+     SuperscriptBox["10", "6"], "m"}]}], TraditionalForm]]],
  "\n",
  Cell[BoxData[
   FormBox[
@@ -748,23 +790,20 @@ Cell[TextData[{
      RowBox[{"-", 
       FractionBox["1000", 
        SqrtBox["2"]]}], 
-     FractionBox["m", "s"]}]}], TraditionalForm]],
-  FormatType->"TraditionalForm"],
+     FractionBox["m", "s"]}]}], TraditionalForm]]],
  "\n",
  Cell[BoxData[
   FormBox[
    RowBox[{"v", "=", 
-    RowBox[{"-", "u"}]}], TraditionalForm]],
-  FormatType->"TraditionalForm"],
+    RowBox[{"-", "u"}]}], TraditionalForm]]],
  "\n",
  Cell[BoxData[
   FormBox[
    RowBox[{"\[CapitalOmega]", "=", 
     RowBox[{"7", " ", 
      SuperscriptBox["10", 
-      RowBox[{"-", "5"}]], "Hz"}]}], TraditionalForm]],
-  FormatType->"TraditionalForm"],
- "\n",
+      RowBox[{"-", "5"}]], "Hz"}]}], TraditionalForm]]],
+ "\n\nwe can calculate the horizontal accelerations\n\n",
  Cell[BoxData[
   FormBox[
    RowBox[{
@@ -796,8 +835,7 @@ Cell[TextData[{
       RowBox[{"Sin", "[", 
        RowBox[{"43.0667", " ", "deg", " ", "*", " ", 
         FractionBox["\[Pi]", 
-         RowBox[{"180", " ", "deg"}]]}], "]"}]}]}]}], TraditionalForm]],
-  FormatType->"TraditionalForm"],
+         RowBox[{"180", " ", "deg"}]]}], "]"}]}]}]}], TraditionalForm]]],
  "\n\n",
  Cell[BoxData[
   FormBox[
@@ -829,8 +867,7 @@ Cell[TextData[{
       RowBox[{"Sin", "[", 
        RowBox[{"43.0667", " ", "deg", " ", "*", " ", 
         FractionBox["\[Pi]", 
-         RowBox[{"180", " ", "deg"}]]}], "]"}]}]}]}], TraditionalForm]],
-  FormatType->"TraditionalForm"],
+         RowBox[{"180", " ", "deg"}]]}], "]"}]}]}]}], TraditionalForm]]],
  "\n\n",
  Cell[BoxData[
   FormBox[
@@ -847,17 +884,15 @@ Cell[TextData[{
     FractionBox["dv", "dt"], "=", 
     FractionBox[
      RowBox[{"0.14095398347613258`", " ", "m"}], 
-     SuperscriptBox["s", "2"]]}], TraditionalForm]],
-  FormatType->"TraditionalForm"],
- "\nTo calculate the time traveled we use the displacement EQ\n",
+     SuperscriptBox["s", "2"]]}], TraditionalForm]]],
+ "\n\nTo calculate the time traveled we use the displacement EQ\n\n",
  Cell[BoxData[
   FormBox[
    RowBox[{"x", " ", "=", " ", 
     RowBox[{
      RowBox[{"u", " ", "t"}], " ", "+", " ", 
      RowBox[{"a", " ", 
-      SuperscriptBox["t", "2"]}]}]}], TraditionalForm]],
-  FormatType->"TraditionalForm"],
+      SuperscriptBox["t", "2"]}]}]}], TraditionalForm]]],
  "\n",
  Cell[BoxData[
   FormBox[
@@ -866,9 +901,8 @@ Cell[TextData[{
     RowBox[{
      SuperscriptBox["x", "'"], "=", 
      FractionBox["d", 
-      SqrtBox["2"]]}]}], TraditionalForm]],
-  FormatType->"TraditionalForm"],
- "\nThus the time without deflection is\n",
+      SqrtBox["2"]]}]}], TraditionalForm]]],
+ "\n\nThus the time without deflection is\n\n",
  Cell[BoxData[
   FormBox[
    RowBox[{"t", "=", 
@@ -878,10 +912,9 @@ Cell[TextData[{
      RowBox[{
       FractionBox["d", "u"], "=", 
       RowBox[{
-       SuperscriptBox["10", "2"], "s"}]}]}]}], TraditionalForm]],
-  FormatType->"TraditionalForm"],
- "\nWith the curvature terms, we need to account for acceleration in the \
-displacement of the missile:\n\[CapitalDelta]",
+       SuperscriptBox["10", "2"], "s"}]}]}]}], TraditionalForm]]],
+ "\n\nWith the curvature terms, we need to account for acceleration in the \
+displacement of the missile:\n\n\[CapitalDelta]",
  Cell[BoxData[
   FormBox[
    RowBox[{"x", " ", "=", 
@@ -917,8 +950,7 @@ displacement of the missile:\n\[CapitalDelta]",
           RowBox[{"(", 
            RowBox[{
             SuperscriptBox["10", "2"], "s"}], ")"}], "2"]}]}], ")"}]}]}]}], 
-   TraditionalForm]],
-  FormatType->"TraditionalForm"],
+   TraditionalForm]]],
  "\n",
  Cell[BoxData[
   FormBox[
@@ -958,15 +990,13 @@ displacement of the missile:\n\[CapitalDelta]",
  Cell[BoxData[
   FormBox[
    RowBox[{"\[CapitalDelta]x", "=", 
-    RowBox[{"800", "m"}]}], TraditionalForm]],
-  FormatType->"TraditionalForm"],
+    RowBox[{"800", "m"}]}], TraditionalForm]]],
  "\n",
  Cell[BoxData[
   FormBox[
    RowBox[{"\[CapitalDelta]y", "=", 
     RowBox[{
-     RowBox[{"-", "1400"}], " ", "m"}]}], TraditionalForm]],
-  FormatType->"TraditionalForm"]
+     RowBox[{"-", "1400"}], " ", "m"}]}], TraditionalForm]]]
 }], "Text",
  CellChangeTimes->{{3.6546038619356403`*^9, 3.654603862730259*^9}, 
    3.654603960712846*^9, {3.654604004524651*^9, 3.6546040828153954`*^9}, {
@@ -981,7 +1011,8 @@ displacement of the missile:\n\[CapitalDelta]",
    3.6546077820552397`*^9, 3.6546078008132763`*^9}, {3.6546078485235357`*^9, 
    3.654607855839919*^9}, {3.654607924761326*^9, 3.654607930137885*^9}, {
    3.654607993072216*^9, 3.6546080721541767`*^9}, {3.6546134357614603`*^9, 
-   3.6546134396569223`*^9}, {3.65461364982304*^9, 3.65461369893217*^9}}]
+   3.6546134396569223`*^9}, {3.65461364982304*^9, 3.65461369893217*^9}, {
+   3.655198423804*^9, 3.655198493026285*^9}}]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -990,7 +1021,7 @@ Cell["6a)", "Subsubsection",
  CellChangeTimes->{{3.654613390700097*^9, 3.6546133913875628`*^9}}],
 
 Cell[TextData[{
- "The evolution of the mixing ration will be determined by the continuity \
+ "The evolution of the mixing ratio will be determined by the continuity \
 equation\n\n",
  Cell[BoxData[
   FormBox[
@@ -1002,16 +1033,13 @@ equation\n\n",
      RowBox[{"u", 
       FractionBox[
        RowBox[{"\[PartialD]", "n"}], 
-       RowBox[{"\[PartialD]", "x"}]]}]}], "=", "S"}], TraditionalForm]],
-  FormatType->"TraditionalForm"],
+       RowBox[{"\[PartialD]", "x"}]]}]}], "=", "S"}], TraditionalForm]]],
  "\n\nwhere ",
  Cell[BoxData[
-  FormBox["S", TraditionalForm]],
-  FormatType->"TraditionalForm"],
+  FormBox["S", TraditionalForm]]],
  " is the source, ",
  Cell[BoxData[
-  FormBox["n", TraditionalForm]],
-  FormatType->"TraditionalForm"],
+  FormBox["n", TraditionalForm]]],
  " is the number density of ozone, and u is the wind speed along the x \
 direction.\n\n",
  Cell[BoxData[
@@ -1023,8 +1051,7 @@ direction.\n\n",
        RowBox[{"2", " ", 
         SuperscriptBox["10", 
          RowBox[{"-", "4"}]]}], ")"}]}], " ", 
-     RowBox[{"ppbv", " ", "/", " ", "s"}]}]}], TraditionalForm]],
-  FormatType->"TraditionalForm"],
+     RowBox[{"ppbv", " ", "/", " ", "s"}]}]}], TraditionalForm]]],
  "\n",
  Cell[BoxData[
   FormBox[
@@ -1034,24 +1061,21 @@ direction.\n\n",
       FractionBox["20", 
        SqrtBox["2"]], "knots"}], " ", "=", " ", 
      RowBox[{"0.03637", " ", 
-      RowBox[{"m", "/", "s"}]}]}]}], TraditionalForm]],
-  FormatType->"TraditionalForm"],
+      RowBox[{"m", "/", "s"}]}]}]}], TraditionalForm]]],
  "\n",
  Cell[BoxData[
   FormBox[
    RowBox[{
     SubscriptBox["n", 
      RowBox[{"madison", ",", "0"}]], "=", 
-    RowBox[{"50", " ", "ppbv"}]}], TraditionalForm]],
-  FormatType->"TraditionalForm"],
+    RowBox[{"50", " ", "ppbv"}]}], TraditionalForm]]],
  "\n",
  Cell[BoxData[
   FormBox[
    RowBox[{
     SubscriptBox["n", 
      RowBox[{"milwaukee", ",", "0"}]], "=", 
-    RowBox[{"100", " ", "ppbv"}]}], TraditionalForm]],
-  FormatType->"TraditionalForm"],
+    RowBox[{"100", " ", "ppbv"}]}], TraditionalForm]]],
  "\n",
  Cell[BoxData[
   FormBox[
@@ -1059,16 +1083,14 @@ direction.\n\n",
     RowBox[{
      RowBox[{"125", " ", "km"}], "=", 
      RowBox[{"1.25", " ", 
-      SuperscriptBox["10", "5"], "m"}]}]}], TraditionalForm]],
-  FormatType->"TraditionalForm"],
+      SuperscriptBox["10", "5"], "m"}]}]}], TraditionalForm]]],
  "\n",
  Cell[BoxData[
   FormBox[
    RowBox[{"\[CapitalDelta]t", "=", 
     RowBox[{
      RowBox[{"6", "hours"}], "=", 
-     RowBox[{"21600", "s"}]}]}], TraditionalForm]],
-  FormatType->"TraditionalForm"],
+     RowBox[{"21600", "s"}]}]}], TraditionalForm]]],
  "\n\nAssuming that the rate at which the number density of ozone changes \
 over time is constant, we can solve for an evolving ozone density:\n\n",
  Cell[BoxData[
@@ -1083,8 +1105,7 @@ over time is constant, we can solve for an evolving ozone density:\n\n",
       RowBox[{"S", "-", 
        RowBox[{"u", 
         FractionBox["\[CapitalDelta]n", "\[CapitalDelta]x"]}]}], ")"}]}]}], 
-   TraditionalForm]],
-  FormatType->"TraditionalForm"],
+   TraditionalForm]]],
  "\n",
  Cell[BoxData[
   FormBox[
@@ -1105,8 +1126,7 @@ over time is constant, we can solve for an evolving ozone density:\n\n",
            RowBox[{"milwaukee", ",", "0"}]], "-", 
           SubscriptBox["n", 
            RowBox[{"madison", ",", "0"}]]}], "d"]}]}], ")"}]}]}], 
-   TraditionalForm]],
-  FormatType->"TraditionalForm"],
+   TraditionalForm]]],
  "\n",
  Cell[BoxData[
   FormBox[
@@ -1115,12 +1135,12 @@ over time is constant, we can solve for an evolving ozone density:\n\n",
      SubscriptBox["n", "madison"], "(", 
      RowBox[{"t", "=", 
       RowBox[{"6", "hours"}]}], ")"}], "=", 
-    RowBox[{"54", " ", "ppbv"}]}], TraditionalForm]],
-  FormatType->"TraditionalForm"]
+    RowBox[{"54", " ", "ppbv"}]}], TraditionalForm]]]
 }], "Text",
  CellChangeTimes->{{3.654958057536158*^9, 3.654958129506873*^9}, {
   3.654958165960004*^9, 3.654958762827847*^9}, {3.654958892525153*^9, 
-  3.654958927780155*^9}, {3.6549597905485897`*^9, 3.6549597912914257`*^9}}]
+  3.654958927780155*^9}, {3.6549597905485897`*^9, 3.6549597912914257`*^9}, {
+  3.6551985122035217`*^9, 3.6551985126909723`*^9}}]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -1188,13 +1208,13 @@ Cell[TextData[{
      RowBox[{
       SuperscriptBox["\[Rho]", "'"], " ", "k", " ", 
       SuperscriptBox["T", "'"]}]}]}], TraditionalForm]]],
- "\nbut ",
+ "\n\nbut ",
  Cell[BoxData[
   FormBox[
    RowBox[{
     SuperscriptBox["\[Rho]", "'"], " ", "k", " ", 
     SuperscriptBox["T", "'"]}], TraditionalForm]]],
- " will be small\n",
+ " will be small\n\n",
  Cell[BoxData[
   FormBox[
    RowBox[{"P", "=", 
@@ -1268,7 +1288,8 @@ Cell[TextData[{
        OverscriptBox["T", "-"]}]]}]}], TraditionalForm]]]
 }], "Text",
  CellChangeTimes->{{3.654621078618289*^9, 3.654621159836424*^9}, {
-  3.654621342849258*^9, 3.6546216858224087`*^9}}]
+  3.654621342849258*^9, 3.6546216858224087`*^9}, {3.6551985429029083`*^9, 
+  3.655198543826272*^9}}]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -1294,8 +1315,7 @@ Cell[TextData[{
   FormBox[
    RowBox[{
     SuperscriptBox["P", "'"], "=", 
-    RowBox[{"25", "hPa"}]}], TraditionalForm]],
-  FormatType->"TraditionalForm"],
+    RowBox[{"25", "hPa"}]}], TraditionalForm]]],
  " and ",
  Cell[BoxData[
   FormBox[
@@ -1307,15 +1327,14 @@ Cell[TextData[{
   FormBox[
    RowBox[{
     SuperscriptBox["T", "'"], "=", 
-    RowBox[{"40", "  ", "deg", " ", "C"}]}], TraditionalForm]],
-  FormatType->"TraditionalForm"],
+    RowBox[{"40", "  ", "deg", " ", "C"}]}], TraditionalForm]]],
  " and ",
  Cell[BoxData[
   FormBox[
    RowBox[{
     OverscriptBox["T", "-"], "=", 
     RowBox[{"20", "deg", " ", "C"}]}], TraditionalForm]]],
- ". So\n",
+ " at 11,000 m. So\n\n",
  Cell[BoxData[
   FormBox[
    RowBox[{
@@ -1332,19 +1351,20 @@ Cell[TextData[{
       RowBox[{" ", 
        OverscriptBox["T", "-"]}]]}]}], TraditionalForm]]],
  "\n\nwhich leads us to believe the Boussineq approximation holds on synoptic \
-scales.\n\n\
+scales.\n\nBelow are the maps I used:\n\
 http://tempest.aos.wisc.edu/wxp_images/gfs104_12UTC/gblav_c250_h000.gif\n\
 http://tempest.aos.wisc.edu/wxp_images/gfs104_12UTC/gblav_c200_h000.gif"
 }], "Text",
  CellChangeTimes->{{3.654621899363196*^9, 3.6546219014565353`*^9}, {
   3.654621939821539*^9, 3.654621956668337*^9}, {3.654959117669714*^9, 
-  3.654959154410029*^9}, {3.654959526104104*^9, 3.6549597596820993`*^9}}]
+  3.654959154410029*^9}, {3.654959526104104*^9, 3.6549597596820993`*^9}, {
+  3.6551985503260307`*^9, 3.655198571603063*^9}}]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]]
 },
 WindowSize->{808, 699},
-WindowMargins->{{Automatic, 0}, {Automatic, 0}},
+WindowMargins->{{39, Automatic}, {Automatic, 0}},
 FrontEndVersion->"10.1 for Linux x86 (64-bit) (March 23, 2015)",
 StyleDefinitions->"Default.nb"
 ]
@@ -1362,52 +1382,52 @@ Notebook[{
 Cell[CellGroupData[{
 Cell[580, 22, 94, 1, 96, "Title"],
 Cell[CellGroupData[{
-Cell[699, 27, 166, 5, 165, "Chapter"],
+Cell[699, 27, 213, 6, 165, "Chapter"],
 Cell[CellGroupData[{
-Cell[890, 36, 94, 1, 37, "Subsubsection"],
-Cell[987, 39, 2010, 69, 252, "Text"]
+Cell[937, 37, 94, 1, 37, "Subsubsection"],
+Cell[1034, 40, 2010, 69, 252, "Text"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[3034, 113, 96, 1, 37, "Subsubsection"],
-Cell[3133, 116, 2168, 66, 198, "Text"]
+Cell[3081, 114, 96, 1, 37, "Subsubsection"],
+Cell[3180, 117, 2168, 66, 198, "Text"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[5338, 187, 142, 2, 37, "Subsubsection"],
-Cell[5483, 191, 3238, 100, 222, "Text"]
+Cell[5385, 188, 142, 2, 37, "Subsubsection"],
+Cell[5530, 192, 3589, 103, 395, "Text"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[8758, 296, 144, 2, 37, "Subsubsection"],
-Cell[8905, 300, 781, 26, 110, "Text"],
-Cell[9689, 328, 2244, 69, 280, "Text"],
-Cell[11936, 399, 681, 21, 83, "Text"]
+Cell[9156, 300, 144, 2, 37, "Subsubsection"],
+Cell[9303, 304, 870, 28, 173, "Text"],
+Cell[10176, 334, 2244, 69, 280, "Text"],
+Cell[12423, 405, 711, 22, 190, "Text"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[12654, 425, 94, 1, 37, "Subsubsection"],
-Cell[12751, 428, 3133, 104, 274, "Text"]
+Cell[13171, 432, 145, 2, 37, "Subsubsection"],
+Cell[13319, 436, 3425, 107, 425, "Text"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[15921, 537, 98, 1, 37, "Subsubsection"],
-Cell[16022, 540, 2110, 75, 236, "Text"]
+Cell[16781, 548, 98, 1, 37, "Subsubsection"],
+Cell[16882, 551, 2200, 75, 345, "Text"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[18169, 620, 96, 1, 37, "Subsubsection"],
-Cell[18268, 623, 1558, 58, 127, "Text"]
+Cell[19119, 631, 96, 1, 37, "Subsubsection"],
+Cell[19218, 634, 2764, 93, 298, "Text"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[19863, 686, 94, 1, 37, "Subsubsection"],
-Cell[19960, 689, 9091, 294, 768, "Text"]
+Cell[22019, 732, 94, 1, 37, "Subsubsection"],
+Cell[22116, 735, 8686, 279, 1054, "Text"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[29088, 988, 96, 1, 37, "Subsubsection"],
-Cell[29187, 991, 3796, 131, 479, "Text"]
+Cell[30839, 1019, 96, 1, 37, "Subsubsection"],
+Cell[30938, 1022, 3452, 120, 479, "Text"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[33020, 1127, 147, 2, 37, "Subsubsection"],
-Cell[33170, 1131, 3768, 139, 315, "Text"]
+Cell[34427, 1147, 147, 2, 37, "Subsubsection"],
+Cell[34577, 1151, 3823, 140, 359, "Text"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[36975, 1275, 96, 1, 37, "Subsubsection"],
-Cell[37074, 1278, 1843, 62, 252, "Text"]
+Cell[38437, 1296, 96, 1, 37, "Subsubsection"],
+Cell[38536, 1299, 1870, 61, 296, "Text"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]]
